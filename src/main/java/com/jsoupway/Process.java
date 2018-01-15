@@ -9,6 +9,7 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class Process {
+
     public static String baseUrl = "http://weather.uwyo.edu/cgi-bin/sounding?";
 
     public static void getData(String pathDirToSave, String stationsPath, String year, String mounth) {
@@ -102,21 +103,13 @@ public class Process {
     }
 
     public static void main(String[] args) {
-        String month = "8";
         Stack<String> years = getYears();
+
         for (int i = 0; i < years.size(); i++)
-            for (int j =1; j <= 12; j++)
-                Process.getData("G:/AMinAbvall/kasridata/iran/year_"+years.get(i)+"/month_" + String.valueOf(j),
+            for (int j = 1; j <= 12; j++)
+                Process.getData("G:/AMinAbvall/kasridata/iran/year_" + years.get(i) + "/month_" + String.valueOf(j),
                         "config/iran-stations.conf", years.get(i), String.valueOf(j));
-       /* try {
-            Process.getStationNumber("config/iran.conf", "config/iran-stations.conf");
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+
     }
-
-
 }
