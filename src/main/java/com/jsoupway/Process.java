@@ -50,7 +50,7 @@ public class Process {
 
     public static String setLasturl(String region, String TYPE, String Year, String Month, String From, String To, String Station) {
         return baseUrl + "region=" + region + "&TYPE=" + TYPE +
-                "&YEAR=" + Year + "&MONTH=" +Month+ "&FROM=" + From + "&To=" + To + "&STNM=" + Station;
+                "&YEAR=" + Year + "&MONTH=" +Month+ "&FROM=" + From + "&TO=" + To + "&STNM=" + Station;
     }
 
     public static void getStationNumber(String pathConfg, String stationConf) throws IOException {
