@@ -24,11 +24,14 @@ public class Process {
         while (scanner.hasNextLine()) {
             String stationOne = scanner.nextLine();
             try {
-                earth = Jsoup.connect(setLasturl("mideast", "TEXT:LIST", year, mounth, "all", "0100", stationOne)).get();
+                earth = Jsoup.connect(setLasturl("mideast",
+                        "TEXT:LIST", year, mounth, "all", "0100", stationOne)).get();
                 String text = earth.body().getElementsByTag("pre").text();
-
+                System.out.println(setLasturl("mideast",
+                        "TEXT:LIST", year, mounth, "all", "0100", stationOne));
                 File fileToSave = new File(pathDirToSave + "/" + stationOne + ".data");
                 fileToSave.createNewFile();
+
                 OutputStreamWriter inputStreamReader = new OutputStreamWriter(new FileOutputStream(fileToSave));
                 inputStreamReader.write(text);
                 inputStreamReader.flush();
@@ -46,7 +49,8 @@ public class Process {
     public static String baseUrl = "http://weather.uwyo.edu/cgi-bin/sounding?";
 
     public static String setLasturl(String region, String TYPE, String Year, String Month, String From, String To, String Station) {
-        return baseUrl + "region=" + region + "&TYPE=" + TYPE + "&Year" + Year + "&Month=" + "&From=" + From + "&To=" + To + "&STNM=" + Station;
+        return baseUrl + "region=" + region + "&TYPE=" + TYPE +
+                "&YEAR=" + Year + "&MONTH=" +Month+ "&FROM=" + From + "&To=" + To + "&STNM=" + Station;
     }
 
     public static void getStationNumber(String pathConfg, String stationConf) throws IOException {
@@ -82,14 +86,18 @@ public class Process {
     }
 
     public static void main(String[] args) {
-//        Process.getData();
-        try {
+        Process.getData("G:/AMinAbvall/kasridata",
+                "config/iran-stations.conf", "2009", "6");
+
+
+
+       /* try {
             Process.getStationNumber("config/iran.conf", "config/iran-stations.conf");
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }
