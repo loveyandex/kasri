@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class Process {
+public class Process implements Runnable {
 
     public static String baseUrl = "http://weather.uwyo.edu/cgi-bin/sounding?";
 
@@ -102,14 +102,23 @@ public class Process {
         return years;
     }
 
-    public static void main(String[] args) {
+    public static void start() {
         Stack<String> years = getYears();
-
+//"G:/AMinAbvall/kasridata
         for (int i = 0; i < years.size(); i++)
             for (int j = 1; j <= 12; j++)
-                Process.getData("G:/AMinAbvall/kasridata/iran/year_" + years.get(i) + "/month_" + String.valueOf(j),
+                Process.getData(Frame.ABSOLUTE_ROOT_PATH + "/iran/year_" + years.get(i) + "/month_" + String.valueOf(j),
                         "config/iran-stations.conf", years.get(i), String.valueOf(j));
 
 
+    }
+
+    public static void main(String[] args) {
+        start();
+    }
+
+    @Override
+    public void run() {
+        start();
     }
 }
