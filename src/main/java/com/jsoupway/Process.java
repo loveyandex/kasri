@@ -9,6 +9,7 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class Process {
+    public static String baseUrl = "http://weather.uwyo.edu/cgi-bin/sounding?";
 
     public static void getData(String pathDirToSave, String stationsPath, String year, String mounth) {
         Elements elements = null;
@@ -29,10 +30,12 @@ public class Process {
                 String text = earth.body().getElementsByTag("pre").text();
                 System.out.println(setLasturl("mideast",
                         "TEXT:LIST", year, mounth, "all", "0100", stationOne));
-                File fileToSave = new File(pathDirToSave + "/" + stationOne + ".data");
-                fileToSave.createNewFile();
+                File dirTOSave = new File(pathDirToSave);
+                dirTOSave.mkdirs();
+                File fileTosave = new File(dirTOSave, "/" + stationOne + ".data");
+                fileTosave.createNewFile();
 
-                OutputStreamWriter inputStreamReader = new OutputStreamWriter(new FileOutputStream(fileToSave));
+                OutputStreamWriter inputStreamReader = new OutputStreamWriter(new FileOutputStream(fileTosave));
                 inputStreamReader.write(text);
                 inputStreamReader.flush();
                 inputStreamReader.close();
@@ -45,12 +48,9 @@ public class Process {
         }
     }
 
-
-    public static String baseUrl = "http://weather.uwyo.edu/cgi-bin/sounding?";
-
     public static String setLasturl(String region, String TYPE, String Year, String Month, String From, String To, String Station) {
         return baseUrl + "region=" + region + "&TYPE=" + TYPE +
-                "&YEAR=" + Year + "&MONTH=" +Month+ "&FROM=" + From + "&TO=" + To + "&STNM=" + Station;
+                "&YEAR=" + Year + "&MONTH=" + Month + "&FROM=" + From + "&TO=" + To + "&STNM=" + Station;
     }
 
     public static void getStationNumber(String pathConfg, String stationConf) throws IOException {
@@ -85,12 +85,29 @@ public class Process {
         return s != null && s.matches("[-+]?\\d*\\.?\\d+");
     }
 
+    public static Stack<String> getYears() {
+        FileReader reader = null;
+        Stack<String> years = new Stack<>();
+        try {
+            reader = new FileReader("config/years.conf");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Scanner scanner = new Scanner(reader);
+        while (scanner.hasNextLine()) {
+            String year = scanner.nextLine();
+            years.push(year);
+        }
+        return years;
+    }
+
     public static void main(String[] args) {
-        Process.getData("G:/AMinAbvall/kasridata",
-                "config/iran-stations.conf", "2009", "6");
-
-
-
+        String month = "8";
+        Stack<String> years = getYears();
+        for (int i = 0; i < years.size(); i++)
+            for (int j =1; j <= 12; j++)
+                Process.getData("G:/AMinAbvall/kasridata/iran/year_"+years.get(i)+"/month_" + String.valueOf(j),
+                        "config/iran-stations.conf", years.get(i), String.valueOf(j));
        /* try {
             Process.getStationNumber("config/iran.conf", "config/iran-stations.conf");
 
@@ -100,4 +117,6 @@ public class Process {
             e.printStackTrace();
         }*/
     }
+
+
 }
