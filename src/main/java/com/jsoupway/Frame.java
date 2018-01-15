@@ -21,7 +21,7 @@ public class Frame extends Application {
 
         myStage.setTitle("weather");
 //        myStage.initStyle(StageStyle.UNDECORATED);
-        myStage.setOnCloseRequest(event ->{
+        myStage.setOnCloseRequest(event -> {
             System.out.println("king amin ");
             System.exit(0);
         });
@@ -61,7 +61,7 @@ public class Frame extends Application {
 
         myStage.show();
     }
-    Thread startProcess=new Thread(new Process());
+    Thread startProcess = new Thread(new Process());
 
     public static void main(String[] args) {
         launch(args);
