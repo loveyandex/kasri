@@ -10,22 +10,35 @@ import java.util.Stack;
 
 public class Process {
 
-    public static void getData() {
+    public static void getData(String pathDirToSave, String stationsPath, String year, String mounth) {
         Elements elements = null;
         Stack<String> urls = new Stack<>();
         Document earth = null;
+        FileReader reader = null;
         try {
-            earth = Jsoup.connect("http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST&YEAR=2015&MONTH=03&FROM=all&TO=3112&STNM=76225").get();
-            String text = earth.body().getElementsByTag("pre").text();
-            File file = new File("e:\\data.dat");
-            file.createNewFile();
-            OutputStreamWriter inputStreamReader = new OutputStreamWriter(new FileOutputStream(file));
-            inputStreamReader.write(text);
-            inputStreamReader.flush();
-            inputStreamReader.close();
-            inputStreamReader.close();
-        } catch (IOException e) {
+            reader = new FileReader(stationsPath);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
+        }
+        Scanner scanner = new Scanner(reader);
+        while (scanner.hasNextLine()) {
+            String stationOne = scanner.nextLine();
+            try {
+                earth = Jsoup.connect(setLasturl("mideast", "TEXT:LIST", year, mounth, "all", "0100", stationOne)).get();
+                String text = earth.body().getElementsByTag("pre").text();
+
+                File fileToSave = new File(pathDirToSave + "/" + stationOne + ".data");
+                fileToSave.createNewFile();
+                OutputStreamWriter inputStreamReader = new OutputStreamWriter(new FileOutputStream(fileToSave));
+                inputStreamReader.write(text);
+                inputStreamReader.flush();
+                inputStreamReader.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
         }
     }
 
@@ -63,6 +76,7 @@ public class Process {
         }
         writer.close();
     }
+
     public static boolean isNumeric(String s) {
         return s != null && s.matches("[-+]?\\d*\\.?\\d+");
     }
