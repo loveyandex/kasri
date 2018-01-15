@@ -6,7 +6,6 @@ import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
  * Created by ABOLFZL on 10/18/2017.
  */
 public class MainApp {
-
     public static void main(String[] args) {
         ApiContextInitializer.init();
         TelegramBotsApi api2 = new TelegramBotsApi();
@@ -16,6 +15,4 @@ public class MainApp {
             e.printStackTrace();
         }
     }
-
-
 }
