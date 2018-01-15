@@ -58,7 +58,6 @@ public class Frame extends Application {
             startProcess.start();
         });
         myStage.setScene(myScene);
-
         myStage.show();
     }
     Thread startProcess = new Thread(new Process());
