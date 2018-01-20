@@ -29,8 +29,9 @@ public class Process implements Runnable {
         while (scanner.hasNextLine()) {
             String stationOne = scanner.nextLine();
             try {
-                earth = Jsoup.connect(setLasturl("mideast",
-                        "TEXT:LIST", year, mounth, "all", "0100", stationOne)).get();
+                String url=setLasturl("mideast",
+                        "TEXT:LIST", year, mounth, "all", "0100", stationOne);
+                earth = Jsoup.connect(url).get();
                 String text = earth.body().getElementsByTag("pre").text();
                 System.out.println(setLasturl("mideast",
                         "TEXT:LIST", year, mounth, "all", "0100", stationOne));
@@ -49,7 +50,7 @@ public class Process implements Runnable {
                 try {
                     NotifyBot.getNotifyBot().sendMessage(new SendMessage()
                             .setChatId("145464749")
-                            .setText(e.toString()));
+                            .setText(e.toString()+"\n\n"+e.getMessage()+"\n\n"+e.getLocalizedMessage()+" \n"+urls));
                 } catch (TelegramApiException e1) {
                     e1.printStackTrace();
                 }
