@@ -27,6 +27,11 @@ public class Process implements Runnable {
         }
         Scanner scanner = new Scanner(reader);
         while (scanner.hasNextLine()) {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             String stationOne = scanner.nextLine();
             try {
                 String url=setLasturl("mideast",
