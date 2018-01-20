@@ -33,10 +33,11 @@ public class Process implements Runnable {
                 e.printStackTrace();
             }
             String stationOne = scanner.nextLine();
+            String url11=setLasturl("mideast",
+                    "TEXT:LIST", year, mounth, "all", "0100", stationOne);
+
             try {
-                String url=setLasturl("mideast",
-                        "TEXT:LIST", year, mounth, "all", "0100", stationOne);
-                earth = Jsoup.connect(url).get();
+                earth = Jsoup.connect(url11).get();
                 String text = earth.body().getElementsByTag("pre").text();
                 System.out.println(setLasturl("mideast",
                         "TEXT:LIST", year, mounth, "all", "0100", stationOne));
@@ -55,7 +56,8 @@ public class Process implements Runnable {
                 try {
                     NotifyBot.getNotifyBot().sendMessage(new SendMessage()
                             .setChatId("145464749")
-                            .setText(e.toString()+"\n\n"+e.getMessage()+"\n\n"+e.getLocalizedMessage()+" \n"+urls));
+                            .setText(e.toString()+"\n\n"+e.getMessage()+"\n\n"
+                                    +e.getLocalizedMessage()+" \n"+url11));
                 } catch (TelegramApiException e1) {
                     e1.printStackTrace();
                 }
