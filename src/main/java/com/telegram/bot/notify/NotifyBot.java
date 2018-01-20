@@ -1,7 +1,9 @@
 package com.telegram.bot.notify;
 
+import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 public class NotifyBot extends TelegramLongPollingBot {
 
@@ -13,6 +15,13 @@ public class NotifyBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
 
+        try {
+            sendMessage(new SendMessage()
+                    .setChatId(update.getMessage().getChatId()).
+                            setText(update.getMessage().getText()));
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

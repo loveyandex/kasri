@@ -1,5 +1,7 @@
 package com.jsoupway;
 
+import com.telegram.bot.notify.Notify;
+import com.telegram.bot.notify.NotifyBot;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -53,6 +55,7 @@ public class Frame extends Application {
         aButton.setOnAction(e -> {
             ABSOLUTE_ROOT_PATH = firstValue.getText();
             pbar.setVisible(true);
+            Notify.sendSelfMsg("downloading started :kissing_heart:");
             System.out.println(ABSOLUTE_ROOT_PATH);
             aButton.setDisable(true);
             startProcess.start();
