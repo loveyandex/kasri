@@ -1,8 +1,11 @@
 package com.jsoupway;
 
+import com.telegram.bot.notify.NotifyBot;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 import java.io.*;
 import java.util.Scanner;
@@ -43,9 +46,17 @@ public class Process implements Runnable {
 
             } catch (IOException e) {
                 e.printStackTrace();
+                try {
+                    NotifyBot.getNotifyBot().sendMessage(new SendMessage()
+                            .setChatId("145464749")
+                            .setText(e.toString()));
+                } catch (TelegramApiException e1) {
+                    e1.printStackTrace();
+                }
+                System.out.println("king error");
             }
 
-
+            System.out.println("end of line while");
         }
     }
 
@@ -104,13 +115,26 @@ public class Process implements Runnable {
 
     public static void start() {
         Stack<String> years = getYears();
-//"G:/AMinAbvall/kasridata
-        for (int i = 0; i < years.size(); i++)
-            for (int j = 1; j <= 12; j++)
+//"G:/Program Files/AMinAbvall/kasridata
+        for (int i = 0; i < years.size(); i++) {
+            for (int j = 1; j <= 12; j++) {
+                System.out.println("year is > " + years.get(i) + " month: > " + j + "  is started dowing");
                 Process.getData(Frame.ABSOLUTE_ROOT_PATH + "/iran/year_" + years.get(i) + "/month_" + String.valueOf(j),
                         "config/iran-stations.conf", years.get(i), String.valueOf(j));
 
+                try {
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                Thread.sleep(60000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
+        }
     }
 
     public static void main(String[] args) {
