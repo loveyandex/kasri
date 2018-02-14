@@ -73,37 +73,7 @@ public class Process implements Runnable {
                 "&YEAR=" + Year + "&MONTH=" + Month + "&FROM=" + From + "&TO=" + To + "&STNM=" + Station;
     }
 
-    public static void getStationNumber(String pathConfg, String stationConf) throws IOException {
-        FileReader reader = new FileReader(pathConfg);
-        Scanner scanner = new Scanner(reader);
-        File fileStations = new File(stationConf);
-        FileWriter writer = new FileWriter(fileStations);
-        if (fileStations.createNewFile()) {
-            System.out.println("File is created!");
-        } else {
-            System.out.println("File already exists.");
-        }
 
-        while (scanner.hasNextLine()) {
-            String sl = scanner.nextLine();
-            try {
-                String stations = sl.substring(32, 37);
-//Write Content
-                if (!stations.contains(" ") && isNumeric(stations)) {
-                    writer.write(stations + "\n");
-                    writer.flush();
-                }
-
-            } catch (Exception e) {
-
-            }
-        }
-        writer.close();
-    }
-
-    public static boolean isNumeric(String s) {
-        return s != null && s.matches("[-+]?\\d*\\.?\\d+");
-    }
 
     public static Stack<String> getYears() {
         FileReader reader = null;
@@ -127,8 +97,8 @@ public class Process implements Runnable {
         for (int i = 0; i < years.size(); i++) {
             for (int j = 1; j <= 12; j++) {
                 System.out.println("year is > " + years.get(i) + " month: > " + j + "  is started dowing");
-                Process.getData(Frame.ABSOLUTE_ROOT_PATH + "/iran/year_" + years.get(i) + "/month_" + String.valueOf(j),
-                        "config/iran-stations.conf", years.get(i), String.valueOf(j));
+                Process.getData(Frame.ABSOLUTE_ROOT_PATH + "/"+Frame.COUNTRY+"/year_" + years.get(i) + "/month_" + String.valueOf(j),
+                        "config/"+Frame.COUNTRY+"-stations.conf", years.get(i), String.valueOf(j));
 
                 try {
                     Thread.sleep(30000);

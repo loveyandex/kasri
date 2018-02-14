@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 public class Frame extends Application {
 
     public static String ABSOLUTE_ROOT_PATH;
+    public static String COUNTRY;
 
     @Override
     public void start(Stage myStage) {
@@ -44,16 +45,29 @@ public class Frame extends Application {
         firstValue.setAlignment(Pos.CENTER);
         rootNode.add(firstValue, 1, 1, 2, 1);
 
+
+        Label country = new Label("country:");
+        country.setAlignment(Pos.CENTER);
+        rootNode.add(country, 0, 2, 2, 1);
+
+        TextField countryvalue = new TextField("iraq");
+        countryvalue.setAlignment(Pos.CENTER);
+        rootNode.add(countryvalue, 1, 3, 2, 1);
+
+
+
+
         Button aButton = new Button("start getting Data");
-        rootNode.add(aButton, 1, 2);
+        rootNode.add(aButton, 1, 4);
         GridPane.setHalignment(aButton, HPos.CENTER);
 
         ProgressIndicator pbar = new ProgressIndicator(ProgressIndicator.INDETERMINATE_PROGRESS);
         pbar.setVisible(false);
-        rootNode.add(pbar, 1, 4);
+        rootNode.add(pbar, 1, 5);
 
         aButton.setOnAction(e -> {
             ABSOLUTE_ROOT_PATH = firstValue.getText();
+            COUNTRY=countryvalue.getText();
             pbar.setVisible(true);
             Notify.sendSelfMsg("downloading started :kissing_heart:");
             System.out.println(ABSOLUTE_ROOT_PATH);
