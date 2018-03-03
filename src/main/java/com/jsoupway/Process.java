@@ -11,14 +11,17 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.Stack;
 
+import static com.jsoupway.Methods.getStationNumber;
+
 public class Process implements Runnable {
 
     public static String baseUrl = "http://weather.uwyo.edu/cgi-bin/sounding?";
 
     public static void getData(String pathDirToSave, String stationsPath, String year, String mounth) {
+        String text = "";
         Elements elements = null;
         Stack<String> urls = new Stack<>();
-        Document earth = null;
+        Document document = null;
         FileReader reader = null;
         try {
             reader = new FileReader(stationsPath);
@@ -27,20 +30,30 @@ public class Process implements Runnable {
         }
         Scanner scanner = new Scanner(reader);
         while (scanner.hasNextLine()) {
+
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             String stationOne = scanner.nextLine();
-            String url11=setLasturl("mideast",
+            String url11 = setLasturl("mideast",
                     "TEXT:LIST", year, mounth, "all", "0100", stationOne);
 
             try {
-                earth = Jsoup.connect(url11).get();
-                String text = earth.body().getElementsByTag("pre").text();
+                document = Jsoup.connect(url11).get();
+                Elements h2 = document.body().getElementsByTag("h2");
+                Elements preElements = document.body().getElementsByTag("pre");
+                int i = 0, j = 0;
+                while (i < h2.size()) {
+                    j = 2 * i;
+                    text += h2.get(i) + "\n" + "<item1>" + "\n" + preElements.get(j).text() + "\n" + "</item1>" + "\n" + "<item2>" + "\n" + preElements.get(j + 1).text() + "\n" + "</item2>" + "\n";
+                    i++;
+                }
+
                 System.out.println(setLasturl("mideast",
                         "TEXT:LIST", year, mounth, "all", "0100", stationOne));
+
                 File dirTOSave = new File(pathDirToSave);
                 dirTOSave.mkdirs();
                 File fileTosave = new File(dirTOSave, "/" + stationOne + ".data");
@@ -53,11 +66,12 @@ public class Process implements Runnable {
 
             } catch (IOException e) {
                 e.printStackTrace();
+                Methods.writeFallenUrls(url11);
                 try {
                     NotifyBot.getNotifyBot().sendMessage(new SendMessage()
                             .setChatId("145464749")
-                            .setText(e.toString()+"\n\n"+e.getMessage()+"\n\n"
-                                    +e.getLocalizedMessage()+" \n"+url11));
+                            .setText(e.toString() + "\n\n" + e.getMessage() + "\n\n"
+                                    + e.getLocalizedMessage() + " \n" + url11));
                 } catch (TelegramApiException e1) {
                     e1.printStackTrace();
                 }
@@ -65,14 +79,15 @@ public class Process implements Runnable {
             }
 
             System.out.println("end of line while");
+            text = "";
         }
     }
+
 
     public static String setLasturl(String region, String TYPE, String Year, String Month, String From, String To, String Station) {
         return baseUrl + "region=" + region + "&TYPE=" + TYPE +
                 "&YEAR=" + Year + "&MONTH=" + Month + "&FROM=" + From + "&TO=" + To + "&STNM=" + Station;
     }
-
 
 
     public static Stack<String> getYears() {
@@ -93,12 +108,19 @@ public class Process implements Runnable {
 
     public static void start() {
         Stack<String> years = getYears();
+
+        try {
+            getStationNumber("config/"+Frame.COUNTRY+".conf","config/"+Frame.COUNTRY+"-stations.conf");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 //"G:/Program Files/AMinAbvall/kasridata
         for (int i = 0; i < years.size(); i++) {
             for (int j = 1; j <= 12; j++) {
                 System.out.println("year is > " + years.get(i) + " month: > " + j + "  is started dowing");
-                Process.getData(Frame.ABSOLUTE_ROOT_PATH + "/"+Frame.COUNTRY+"/year_" + years.get(i) + "/month_" + String.valueOf(j),
-                        "config/"+Frame.COUNTRY+"-stations.conf", years.get(i), String.valueOf(j));
+                Process.getData(Frame.ABSOLUTE_ROOT_PATH + "/" + Frame.COUNTRY + "/year_" + years.get(i) + "/month_" + String.valueOf(j),
+                        "config/" + Frame.COUNTRY + "-stations.conf", years.get(i), String.valueOf(j));
 
                 try {
                     Thread.sleep(30000);
