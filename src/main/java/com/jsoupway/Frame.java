@@ -67,7 +67,7 @@ public class Frame extends Application {
         aButton.setOnAction(e -> {
             ABSOLUTE_ROOT_PATH = firstValue.getText();
             COUNTRIES =countryvalue.getText().toLowerCase().split(";");
-
+            System.out.println(COUNTRIES.length+">>>>>>>>>");
             pbar.setVisible(true);
             Notify.sendSelfMsg("downloading started :kissing_heart:");
             System.out.println(ABSOLUTE_ROOT_PATH);
