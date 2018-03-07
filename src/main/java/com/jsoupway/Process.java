@@ -108,9 +108,10 @@ public class Process implements Runnable {
 
     public static void start() {
         Stack<String> years = getYears();
+        for (int k = 0; k < Frame.COUNTRIES.length; k++) {
 
         try {
-            getStationNumber("config/"+Frame.COUNTRY+".conf","config/"+Frame.COUNTRY+"-stations.conf");
+            getStationNumber("config/"+Frame.COUNTRIES[k] +".conf","config/"+Frame.COUNTRIES[k] +"-stations.conf");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -119,23 +120,25 @@ public class Process implements Runnable {
         for (int i = 0; i < years.size(); i++) {
             for (int j = 1; j <= 12; j++) {
                 System.out.println("year is > " + years.get(i) + " month: > " + j + "  is started dowing");
-                Process.getData(Frame.ABSOLUTE_ROOT_PATH + "/" + Frame.COUNTRY + "/year_" + years.get(i) + "/month_" + String.valueOf(j),
-                        "config/" + Frame.COUNTRY + "-stations.conf", years.get(i), String.valueOf(j));
+                Process.getData(Frame.ABSOLUTE_ROOT_PATH + "/" + Frame.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j),
+                        "config/" + Frame.COUNTRIES[k] + "-stations.conf", years.get(i), String.valueOf(j));
 
                 try {
-                    Thread.sleep(30000);
+                    Thread.sleep(10000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
             try {
-                Thread.sleep(60000);
+                Thread.sleep(20000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
         }
-    }
+        }
+
+}
 
     public static void main(String[] args) {
         start();
