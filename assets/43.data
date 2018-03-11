@@ -1,4 +1,4 @@
-<h2>40800 OIFM Esfahan Observations at    12Z 01 Saturday 1958</h2>
+<h2>40800 OIFM Esfahan Observations at  12Z 01 Saturday 1958</h2>
 <item1>
 -----------------------------------------------------------------------------
    PRES   HGHT   TEMP   DWPT   RELH   MIXR   DRCT   SKNT   THTA   THTE   THTV
@@ -79,7 +79,7 @@
    PRES   HGHT   TEMP   DWPT   RELH   MIXR   DRCT   SKNT   THTA   THTE   THTV
     hPa     m      C      C      %    g/kg    deg   knot     K      K      K
 -----------------------------------------------------------------------------
- 1000.0     45
+ 1000.0     45   34.4    4.4     43
   925.0    725
   850.0   1443
   839.0   1550   12.2    2.2     50   5.37    180     10  300.0  316.3  301.0

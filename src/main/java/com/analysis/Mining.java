@@ -1,7 +1,6 @@
 package com.analysis;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,12 +24,13 @@ public class Mining {
   scanner   = new Scanner(reader);
     }
 
-    public void readFile() throws FileNotFoundException {
-
+    public void readFile() throws IOException {
+        item1.setLength(0);
+        item2.setLength(0);
+        String getFileName = "";
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            String getFileName = "";
             if (line.contains("<h2>") && line.contains("</h2>")) {
                 String shallode = line.replace("<h2>", "").replace("</h2>", "");
                 System.out.println(shallode);
@@ -40,11 +40,11 @@ public class Mining {
             if (isItem(line,"<item1>")) {
                 String subitem1 = "";
                 while (!( subitem1 = scanner.nextLine()).contains("</item1>")) {
-                    item1.append(subitem1 + "\n");
+                    item1.append(subitem1 + "\r\n");
                 }
             } else
                 continue;
-            writeInFile(getFileName,item1);
+            writeInFile(System.getProperty("user.dir")+"/assets",getFileName,item1);
 
             System.out.println(item1);
 
@@ -52,10 +52,11 @@ public class Mining {
             if (isItem(line,"<item2>")) {
                 String subitem2 = "";
                 while (!( subitem2 = scanner.nextLine()).contains("</item2>"))
-                    item2.append(subitem2 + "\n");
+                    item2.append(subitem2 + "\n\r");
             } else
                 continue;
 
+            writeInFile(System.getProperty("user.dir")+"/assets",getFileName+"Item2",item2);
             System.out.println(item2);
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
@@ -65,11 +66,16 @@ public class Mining {
         }
     }
 
-    private boolean writeInFile(String childFilrName,StringBuilder item1) {
-
-
-
-        return false;
+    private boolean writeInFile(String pathDirToSave, String childFileName,StringBuilder item1) throws IOException {
+        File dir=new File(pathDirToSave);
+        dir.mkdir();
+        File fileTosave = new File(dir,childFileName);
+        fileTosave.createNewFile();
+        OutputStreamWriter writer=new OutputStreamWriter(new FileOutputStream(fileTosave,false));
+        writer.write(item1.toString());
+        writer.flush();
+        writer.close();
+        return true;
     }
 
     private boolean isItem(String line,String item) {
@@ -87,18 +93,18 @@ public class Mining {
         while (matcher.find())
             date=matcher.group();
         return date.replace(" ","_");
-
     }
+
     private  void analysisItem1(String item1Content){
+
     }
-
-
-
 
     public static void main(String[] args) {
         try {
             new Mining("assets/43.data").readFile();
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

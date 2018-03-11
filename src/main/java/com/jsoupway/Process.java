@@ -59,10 +59,10 @@ public class Process implements Runnable {
                 File fileTosave = new File(dirTOSave, "/" + stationOne + ".data");
                 fileTosave.createNewFile();
 
-                OutputStreamWriter inputStreamReader = new OutputStreamWriter(new FileOutputStream(fileTosave));
-                inputStreamReader.write(text);
-                inputStreamReader.flush();
-                inputStreamReader.close();
+                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(fileTosave));
+                outputStreamWriter.write(text);
+                outputStreamWriter.flush();
+                outputStreamWriter.close();
 
             } catch (IOException e) {
                 e.printStackTrace();
