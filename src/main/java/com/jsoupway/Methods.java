@@ -66,12 +66,10 @@ public class Methods {
             writer = new FileWriter(fileStations,true);
             writer.append(fallenUrl + "\n");
             writer.flush();
+            writer.close();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-
-
-
     }
 
 

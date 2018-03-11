@@ -49,7 +49,7 @@ public class Frame extends Application {
         country.setAlignment(Pos.CENTER);
         rootNode.add(country, 0, 2, 2, 1);
 
-        TextField countryvalue = new TextField();
+        TextField countryvalue = new TextField( "israel;turkey;u_arab_emirates;saudi_arabia;qatar;oman;yemen;pakistan;bahrain;azerbaijan;afghanistan;armenia");
         countryvalue.setAlignment(Pos.CENTER);
         rootNode.add(countryvalue, 1, 3, 2, 1);
 
