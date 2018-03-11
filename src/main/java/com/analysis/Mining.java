@@ -92,21 +92,42 @@ public class Mining {
         String date = "";
         while (matcher.find())
             date = matcher.group();
-        return date.replace(" ", "_");
+        String regexe1;
+        regexe1 = "[at]?[0-9]{1}[0-9]?Z";
+        // Step 1: Allocate a Pattern object to compile a regexe
+        Pattern pattern1 = Pattern.compile(regexe1, Pattern.CASE_INSENSITIVE);
+        Matcher matcher1 = pattern1.matcher(title);
+        String zone = "";
+        while (matcher1.find())
+            zone = matcher1.group();
+
+        return zone + "_" + date.replace(" ", " _");
     }
+
 
     private void analysisItem1(String item1Content) {
 
     }
 
     public static void main(String[] args) {
+//        try {
+//            new Mining("assets/43.data").readFile();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+        File file = new File(System.getProperty("user.dir") + "/assets/f.dat");
         try {
-            new Mining("assets/43.data").readFile();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            file.createNewFile();
+            System.out.println(file.getParentFile().getParentFile().isFile());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
 
 }
