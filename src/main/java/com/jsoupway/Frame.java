@@ -1,7 +1,6 @@
 package com.jsoupway;
 
 import com.telegram.bot.notify.Notify;
-import com.telegram.bot.notify.NotifyBot;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -17,7 +16,7 @@ import javafx.stage.Stage;
 public class Frame extends Application {
 
     public static String ABSOLUTE_ROOT_PATH;
-    public static String COUNTRY;
+    public static String[] COUNTRIES;
 
     @Override
     public void start(Stage myStage) {
@@ -67,7 +66,8 @@ public class Frame extends Application {
 
         aButton.setOnAction(e -> {
             ABSOLUTE_ROOT_PATH = firstValue.getText();
-            COUNTRY=countryvalue.getText();
+            COUNTRIES =countryvalue.getText().toLowerCase().split(";");
+            System.out.println(COUNTRIES.length+">>>>>>>>>");
             pbar.setVisible(true);
             Notify.sendSelfMsg("downloading started :kissing_heart:");
             System.out.println(ABSOLUTE_ROOT_PATH);

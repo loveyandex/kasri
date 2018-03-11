@@ -10,7 +10,7 @@ public class Methods {
     public static void main(String[] args) {
 
         try {
-            getStationNumber("config/" + Frame.COUNTRY + ".conf", "config/" + Frame.COUNTRY + "-stations.conf");
+            getStationNumber("config/" + Frame.COUNTRIES + ".conf", "config/" + Frame.COUNTRIES + "-stations.conf");
         } catch (IOException e) {
             e.printStackTrace();
         }
