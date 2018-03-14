@@ -65,7 +65,7 @@ public class Process implements Runnable {
                 outputStreamWriter.close();
 
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println(e);
                 Methods.writeFallenUrls(url11);
                 try {
                     NotifyBot.getNotifyBot().sendMessage(new SendMessage()

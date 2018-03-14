@@ -117,17 +117,12 @@ public class Mining {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-
         File file = new File(System.getProperty("user.dir") + "/assets/f.dat");
         try {
             file.createNewFile();
             System.out.println(file.getParentFile().getParentFile().isFile());
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
-
 }
