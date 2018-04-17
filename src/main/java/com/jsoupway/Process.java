@@ -1,5 +1,6 @@
 package com.jsoupway;
 
+import com.Frame;
 import com.telegram.bot.notify.NotifyBot;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

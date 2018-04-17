@@ -1,5 +1,6 @@
-package com.jsoupway;
+package com;
 
+import com.jsoupway.Process;
 import com.telegram.bot.notify.Notify;
 import javafx.application.Application;
 import javafx.geometry.HPos;
