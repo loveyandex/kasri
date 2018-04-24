@@ -13,6 +13,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Frame extends Application {
 
@@ -24,6 +25,8 @@ public class Frame extends Application {
 
         myStage.setTitle("weather");
 //        myStage.initStyle(StageStyle.UNDECORATED);
+        myStage.initStyle(StageStyle.UNDECORATED);
+
         myStage.setOnCloseRequest(event -> {
             System.out.println("king amin ");
             System.exit(0);

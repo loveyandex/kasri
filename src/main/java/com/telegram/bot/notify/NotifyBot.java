@@ -31,7 +31,7 @@ public class NotifyBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return "471596579:AAHXzfiF6lRZmUcT5o8-IYtgMCg2ZmpHUMo";
+        return "471596579:AAHa2Fbmv5BWcCvzQZ_DiE-a1x44YiEySzc";
     }
 
 }
