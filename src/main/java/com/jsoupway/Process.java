@@ -1,6 +1,6 @@
 package com.jsoupway;
 
-import com.Frame;
+import com.Application;
 import com.telegram.bot.notify.NotifyBot;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -109,10 +109,10 @@ public class Process implements Runnable {
 
     public static void start() {
         Stack<String> years = getYears();
-        for (int k = 0; k < Frame.COUNTRIES.length; k++) {
+        for (int k = 0; k < Application.COUNTRIES.length; k++) {
 
         try {
-            getStationNumber("config/"+Frame.COUNTRIES[k] +".conf","config/"+Frame.COUNTRIES[k] +"-stations.conf");
+            getStationNumber("config/"+ Application.COUNTRIES[k] +".conf","config/"+ Application.COUNTRIES[k] +"-stations.conf");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -121,8 +121,8 @@ public class Process implements Runnable {
         for (int i = 0; i < years.size(); i++) {
             for (int j = 1; j <= 12; j++) {
                 System.out.println("year is > " + years.get(i) + " month: > " + j + "  is started dowing");
-                Process.getData(Frame.ABSOLUTE_ROOT_PATH + "/" + Frame.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j),
-                        "config/" + Frame.COUNTRIES[k] + "-stations.conf", years.get(i), String.valueOf(j));
+                Process.getData(Application.ABSOLUTE_ROOT_PATH + "/" + Application.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j),
+                        "config/" + Application.COUNTRIES[k] + "-stations.conf", years.get(i), String.valueOf(j));
 
                 try {
                     Thread.sleep(10000);

@@ -2,7 +2,6 @@ package com;
 
 import com.jsoupway.Process;
 import com.telegram.bot.notify.Notify;
-import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,7 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class Frame extends Application {
+public class Application extends javafx.application.Application {
 
     public static String ABSOLUTE_ROOT_PATH;
     public static String[] COUNTRIES;
@@ -24,12 +23,10 @@ public class Frame extends Application {
     public void start(Stage myStage) {
 
         myStage.setTitle("weather");
-//        myStage.initStyle(StageStyle.UNDECORATED);
         myStage.initStyle(StageStyle.UNDECORATED);
 
         myStage.setOnCloseRequest(event -> {
             System.out.println("king amin ");
-            System.exit(0);
         });
 
 
@@ -53,7 +50,8 @@ public class Frame extends Application {
         country.setAlignment(Pos.CENTER);
         rootNode.add(country, 0, 2, 2, 1);
 
-        TextField countryvalue = new TextField( "israel;turkey;u_arab_emirates;saudi_arabia;qatar;oman;yemen;pakistan;bahrain;azerbaijan;afghanistan;armenia");
+//        TextField countryvalue = new TextField( "israel;turkey;u_arab_emirates;saudi_arabia;qatar;oman;yemen;pakistan;bahrain;azerbaijan;afghanistan;armenia");
+        TextField countryvalue = new TextField( "israel;turkey");
         countryvalue.setAlignment(Pos.CENTER);
         rootNode.add(countryvalue, 1, 3, 2, 1);
 

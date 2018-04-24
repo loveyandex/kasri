@@ -1,6 +1,6 @@
 package com.jsoupway;
 
-import com.Frame;
+import com.Application;
 
 import java.io.File;
 import java.io.FileReader;
@@ -12,7 +12,7 @@ public class Methods {
     public static void main(String[] args) {
 
         try {
-            getStationNumber("config/" + Frame.COUNTRIES + ".conf", "config/" + Frame.COUNTRIES + "-stations.conf");
+            getStationNumber("config/" + Application.COUNTRIES + ".conf", "config/" + Application.COUNTRIES + "-stations.conf");
         } catch (IOException e) {
             e.printStackTrace();
         }
