@@ -8,13 +8,13 @@ import java.util.regex.Pattern;
 /**
  * is created by aMIN on 3/3/2018 at 06:53 PM
  */
-public class Mining {
+public class RawMining {
     Scanner scanner;
     StringBuilder item1 = new StringBuilder("");
     StringBuilder item2 = new StringBuilder("");
 
 
-    public Mining(String path) {
+    public RawMining(String path) {
         FileReader reader = null;
         try {
             reader = new FileReader(path);
@@ -24,7 +24,7 @@ public class Mining {
         scanner = new Scanner(reader);
     }
 
-    public void readFile() throws IOException {
+    public void  readFile() throws IOException {
         item1.setLength(0);
         item2.setLength(0);
         String getFileName = "";
@@ -112,7 +112,7 @@ public class Mining {
 
     public static void main(String[] args) {
         try {
-            new Mining("assets/43.data").readFile();
+            new RawMining("assets/43.data").readFile();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

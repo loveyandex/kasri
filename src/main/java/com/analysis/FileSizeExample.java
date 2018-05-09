@@ -5,7 +5,7 @@ import java.io.File;
 
 public class FileSizeExample {
     public static void main(String[] args) {
-        File file = new File("G:\\Program Files\\AMinAbvall\\kasridata\\iraq\\year_1974\\month_2\\40650.data");
+        File file = new File("G:\\Program Files\\AMinAbvall\\kasridata");
 
         if (file.exists()) {
 

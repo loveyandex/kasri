@@ -1,22 +1,0 @@
-   Station information and sounding indices
-                            Station identifier: OIFM
-                                Station number: 40800
-                              Observation time: 090101/1200
-                              Station latitude: 32.46
-                             Station longitude: 51.71
-                             Station elevation: 1550.0
-                                  Lifted index: 4.52
-       LIFT computed using virtual temperature: 4.49
-         Convective Available Potential Energy: 0.00
-                CAPE using virtual temperature: 0.00
-                         Convective Inhibition: 0.00
-                CINS using virtual temperature: 0.00
-                        Bulk Richardson Number: 0.00
-             Bulk Richardson Number using CAPV: 0.00
-     Temp [K] of the Lifted Condensation Level: 272.53
-   Pres [hPa] of the Lifted Condensation Level: 706.27
-        Mean mixed layer potential temperature: 301.04
-                 Mean mixed layer mixing ratio: 5.22
-                 1000 hPa to 500 hPa thickness: 5635.00
-   Precipitable water [mm] for entire sounding: 14.54
-
