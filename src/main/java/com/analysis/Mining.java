@@ -78,6 +78,7 @@ public class Mining {
         return true;
     }
 
+
     private boolean isItem(String line, String item) {
         return line.contains(item);
     }
@@ -110,19 +111,24 @@ public class Mining {
     }
 
     public static void main(String[] args) {
-        try {
-            new Mining("assets/43.data").readFile();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        File file = new File(System.getProperty("user.dir") + "/assets/f.dat");
 //        try {
-//            file.createNewFile();
-//            System.out.println(file.getParentFile().getParentFile().isFile());
+//            new Mining("assets/43.data").readFile();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+
+        File file = new File(System.getProperty("user.dir") + "/assets/f.dat");
+        try {
+            file.createNewFile();
+            System.out.println(file.getParentFile().getParentFile().isFile());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
+
 }
