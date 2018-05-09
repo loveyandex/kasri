@@ -24,7 +24,7 @@ public class RawMining {
         scanner = new Scanner(reader);
     }
 
-    public void  readFile() throws IOException {
+    public void readFile() throws IOException {
         item1.setLength(0);
         item2.setLength(0);
         String getFileName = "";
@@ -44,7 +44,7 @@ public class RawMining {
                 }
             } else
                 continue;
-            writeInFile(System.getProperty("user.dir") + "/assets", getFileName, item1);
+            writeInFileInOnce(System.getProperty("user.dir") + "/assets", getFileName, item1, true);
 
             System.out.println(item1);
 
@@ -56,7 +56,7 @@ public class RawMining {
             } else
                 continue;
 
-            writeInFile(System.getProperty("user.dir") + "/assets", getFileName + "Item2", item2);
+            writeInFileInOnce(System.getProperty("user.dir") + "/assets", getFileName + "Item2", item2, true);
             System.out.println(item2);
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
@@ -66,15 +66,16 @@ public class RawMining {
         }
     }
 
-    private boolean writeInFile(String pathDirToSave, String childFileName, StringBuilder item1) throws IOException {
+    public static boolean writeInFileInOnce(String pathDirToSave, String childFileName, StringBuilder stringBuilder, boolean closIt) throws IOException {
         File dir = new File(pathDirToSave);
         dir.mkdir();
         File fileTosave = new File(dir, childFileName);
         fileTosave.createNewFile();
         OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(fileTosave, false));
-        writer.write(item1.toString());
+        writer.write(stringBuilder.toString());
         writer.flush();
-        writer.close();
+        if (closIt)
+            writer.close();
         return true;
     }
 
