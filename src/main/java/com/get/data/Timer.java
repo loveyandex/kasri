@@ -1,4 +1,4 @@
-package com.jsoupway;
+package com.get.data;
 
 import java.time.LocalDate;
 

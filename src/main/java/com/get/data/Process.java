@@ -1,4 +1,4 @@
-package com.jsoupway;
+package com.get.data;
 
 import com.Application;
 import com.telegram.bot.notify.NotifyBot;
@@ -11,8 +11,6 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 import java.io.*;
 import java.util.Scanner;
 import java.util.Stack;
-
-import static com.jsoupway.Methods.getStationNumber;
 
 public class Process implements Runnable {
 
@@ -112,7 +110,7 @@ public class Process implements Runnable {
         for (int k = 0; k < Application.COUNTRIES.length; k++) {
 
         try {
-            getStationNumber("config/"+ Application.COUNTRIES[k] +".conf","config/"+ Application.COUNTRIES[k] +"-stations.conf");
+            Methods.getStationNumber("config/"+ Application.COUNTRIES[k] +".conf","config/"+ Application.COUNTRIES[k] +"-stations.conf");
         } catch (IOException e) {
             e.printStackTrace();
         }

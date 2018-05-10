@@ -1,6 +1,6 @@
 package com;
 
-import com.jsoupway.Process;
+import com.get.data.Process;
 import com.telegram.bot.notify.Notify;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
