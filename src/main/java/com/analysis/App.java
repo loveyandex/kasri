@@ -1,14 +1,10 @@
 package com.analysis;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.CacheHint;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,9 +13,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 /**
  * is created by aMIN on 5/9/2018 at 20:08
@@ -37,7 +30,9 @@ public class App extends Application {
 
 
         GridPane rootNode = new GridPane();
-
+        rootNode.setPadding(new Insets(10, 10, 10, 10));
+        rootNode.setVgap(5);
+        rootNode.setHgap(5);
         rootNode.setAlignment(Pos.CENTER);
 
 
@@ -46,7 +41,7 @@ public class App extends Application {
         Image image = new Image("File:assets\\1x\\baseline_close_white_36dp.png");
 
         ImageView imageView = new ImageView(image);
-        imageView.setX(width - 1 * image.getWidth());
+//        imageView.setX(width - 2* image.getWidth());
 
 
         ColorAdjust blackout = new ColorAdjust();
@@ -55,11 +50,7 @@ public class App extends Application {
         imageView.setEffect(blackout);
         imageView.setCache(true);
         imageView.setCacheHint(CacheHint.SPEED);
-
-
         closePane.getChildren().add(imageView);
-
-
         imageView.setOnMouseClicked(event -> {
             System.exit(0);
 
@@ -74,54 +65,17 @@ public class App extends Application {
             imageView.setEffect(blackout);
 
         });
+        GridPane.setConstraints(closePane,0,0);
+        rootNode.getChildren().add(closePane);
 
 
-        rootNode.add(closePane, 2, 0);
-
-
-        Label label = new Label("absolute root path for saving :");
-        label.setAlignment(Pos.CENTER);
-//        rootNode.add(label, 0, 0, 2, 1);
-
-        TextField firstValue = new TextField("G:\\Program Files\\AMinAbvall\\kasridata\\iran\\year_2017\\month_1\\40754.data");
-        rootNode.add(firstValue, 2, 6,2,2);
-//        firstValue.setAlignment(Pos.CENTER);
-
-        TextField deep = new TextField("G:\\Program Files\\AMinAbvall\\kasridata\\iran\\year_2017\\month_1\\40754.data");
-        rootNode.add(deep, 2, 8,2,2);
-//        deep.setAlignment(Pos.CENTER);
-
-
-        Button aButton = new Button("start getting Data");
-        rootNode.add(aButton, 2, 10,2,1);
-//        GridPane.setHalignment(aButton, HPos.CENTER);
-
-
-        ProgressIndicator pbar = new ProgressIndicator(ProgressIndicator.INDETERMINATE_PROGRESS);
-        pbar.setVisible(false);
-        rootNode.add(pbar, 2, 12);
-
-        final Group root = new Group(rootNode);
-
-        Scene myScene = new Scene(root, width, height, Color.rgb(54, 60, 65));
+        Scene myScene = new Scene(rootNode, width, height, Color.rgb(75, 75, 69));
         primaryStage.setScene(myScene);
+
+        primaryStage.setResizable(true);
         primaryStage.show();
 
 
-
-
-
-        aButton.setOnMouseClicked(event -> {
-            try {
-                aButton.setDisable(true);
-                pbar.setVisible(true);
-                new RawMining(firstValue.getText()).readFile();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
 
     }
 
