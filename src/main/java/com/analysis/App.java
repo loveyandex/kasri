@@ -26,7 +26,7 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         primaryStage.setTitle("weather");
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+
 
 
         GridPane rootNode = new GridPane();
