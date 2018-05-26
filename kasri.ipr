@@ -182,7 +182,7 @@
       <module fileurl="file://$PROJECT_DIR$/kasri.iml" filepath="$PROJECT_DIR$/kasri.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_10" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="PropertiesComponent">
@@ -354,6 +354,17 @@
         <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.2/commons-logging-1.2-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: eu.hansolo.enzo:Enzo:0.3.6">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/eu/hansolo/enzo/Enzo/0.3.6/Enzo-0.3.6.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/eu/hansolo/enzo/Enzo/0.3.6/Enzo-0.3.6-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/eu/hansolo/enzo/Enzo/0.3.6/Enzo-0.3.6-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: javax.annotation:javax.annotation-api:1.2">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/javax/annotation/javax.annotation-api/1.2/javax.annotation-api-1.2.jar!/" />
@@ -495,6 +506,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/apache/xmlbeans/xmlbeans/2.6.0/xmlbeans-2.6.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.controlsfx:controlsfx:8.40.14">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/controlsfx/controlsfx/8.40.14/controlsfx-8.40.14.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/controlsfx/controlsfx/8.40.14/controlsfx-8.40.14-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/controlsfx/controlsfx/8.40.14/controlsfx-8.40.14-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.glassfish.grizzly:grizzly-framework:2.3.28">

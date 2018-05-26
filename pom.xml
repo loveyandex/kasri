@@ -69,5 +69,20 @@
             <version>3.17</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>8.40.14</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/eu.hansolo.enzo/Enzo -->
+        <dependency>
+            <groupId>eu.hansolo.enzo</groupId>
+            <artifactId>Enzo</artifactId>
+            <version>0.3.6</version>
+        </dependency>
+
+
     </dependencies>
 </project>

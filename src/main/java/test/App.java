@@ -5,9 +5,11 @@ package test;
  */
 
 import com.analysis.WindMining;
+import eu.hansolo.enzo.notification.Notification;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.*;
@@ -19,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.controlsfx.control.NotificationPane;
 
 import java.awt.*;
 import java.io.IOException;
@@ -26,13 +29,17 @@ import java.util.ArrayList;
 
 //from   ww w .  ja va 2  s  .c o  m
 public class App extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 
     @Override
     public void start(Stage primaryStage) {
         BorderPane root = new BorderPane();
         Group group = new Group();
         group.getChildren().add(root);
-        Scene scene = new Scene(group, new Dimension().getWidth()/2, new Dimension().getHeight()/2, Color.WHITE);
+        Scene scene = new Scene(group, new Dimension().getWidth() / 2, new Dimension().getHeight() / 2, Color.WHITE);
 
         MenuBar menuBar = new MenuBar();
         menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
@@ -53,44 +60,51 @@ public class App extends Application {
         Button button2 = new Button("Button Number 2");
 
 
-
         HBox hbox = new HBox(button1, button2);
         TextArea textArea = new TextArea();
 
-        textArea.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.exit(0);
-        });
+//        textArea.textProperty().addListener((observable, oldValue, newValue) -> {
+//        });
         try {
             ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
 
             for (int j = 0; j < windSpeedCol.size(); j++)
-                textArea.appendText(windSpeedCol.get(j).get(0)+";"+windSpeedCol.get(j).get(1)+"\r\n");
+                textArea.appendText(windSpeedCol.get(j).get(0) + ";" + windSpeedCol.get(j).get(1) + "\r\n");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        button1.setOnAction( event -> {
-            textArea.selectAll();
-            textArea.copy();
+        button1.setOnAction(event -> {
+            // Create a custom Notification without icon
+            Notification info = new Notification("You know That", "God is great");
+
+// Show the custom notification
+            Notification.Notifier.INSTANCE.notify(info);
+            Notification.Notifier.INSTANCE.notifySuccess("downloaded","dsd");
+
+
+
+
         });
 
 
-
         VBox vbox = new VBox(textArea);
-
 
         hbox.setLayoutX(232);
         hbox.setLayoutY(333);
         vbox.setLayoutX(50);
         vbox.setLayoutY(100);
-        group.getChildren().addAll(pbar,vbox,hbox);
+        group.getChildren().addAll(pbar, vbox, hbox);
 
         newMenuItem.setOnAction(event -> {
             pbar.setVisible(true);
+
         });
 
-
+        button2.setOnAction(event -> {
+            showNotificationPane(primaryStage);
+        });
 
         exitMenuItem.setOnAction(actionEvent -> Platform.exit());
 
@@ -131,7 +145,19 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    public static void main(String[] args) {
-        launch(args);
+
+    public void showNotificationPane(Stage stage) {
+        Scene scene = stage.getScene();
+        Parent pane = scene.getRoot();
+        if (!(pane instanceof NotificationPane)) {
+            NotificationPane notificationPane = new NotificationPane(pane);
+            scene = new Scene(notificationPane, scene.getWidth()/2, scene.getHeight()/2);
+            stage.setScene(scene);
+            notificationPane.show("god is great");
+        } else {
+            ((NotificationPane) pane).show();
+        }
     }
+
+
 }
