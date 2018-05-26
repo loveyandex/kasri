@@ -2,6 +2,7 @@ package com.analysis;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -11,21 +12,28 @@ import java.util.Scanner;
 public class WindMining {
 
 
-    public static void getWindSpeedCol(String dayFile, String fileName) throws IOException {
+    public static ArrayList<ArrayList<String>> getWindSpeedCol(String dayFile, String fileName) throws IOException {
 
         FileReader reader = new FileReader(dayFile);
         Scanner scanner = new Scanner(reader);
 
+        ArrayList<ArrayList<String>> points=new ArrayList<>();
+
+
         String total = "";
         while (scanner.hasNextLine()) {
+            ArrayList<String> point=new ArrayList<>();
             String line = scanner.nextLine();
             String[] split = line.split(";");
             System.out.println(split[7]);
             total += split[1]+";"+split[6] +";"+split[7] + "\r\n";
+            point.add(split[1]);
+            point.add(split[6] );
+            points.add(point);
         }
 
         RawMining.writeInFileInOnce(System.getProperty("user.dir") + "/assets", fileName+"WindSpeed" + ".csv", new StringBuilder(total), true);
-
+        return points;
     }
 
 
