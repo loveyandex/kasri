@@ -1,10 +1,9 @@
-package test;
+package com.analysis;
 
 /**
  * is created by aMIN on 5/26/2018 at 05:00
  */
 
-import com.analysis.WindMining;
 import eu.hansolo.enzo.notification.Notification;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -35,7 +34,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 //from   ww w .  ja va 2  s  .c o  m
-public class App extends Application implements Initializable {
+public class AppLication extends Application implements Initializable {
     @FXML
     private RangeSlider hSlider;
 
@@ -46,10 +45,10 @@ public class App extends Application implements Initializable {
 
     @Override
     public void start(Stage primaryStage) {
-        BorderPane root = new BorderPane();
+        BorderPane root = new BorderPane();;
         Group group = new Group();
         group.getChildren().add(root);
-        Scene scene = new Scene(group, new Dimension().getWidth() / 2, new Dimension().getHeight() / 2, Color.WHITE);
+        Scene scene = new Scene(group, new Dimension().getWidth() / 2, new Dimension().getHeight() / 2, Color.rgb(75, 75, 69));
 
         MenuBar menuBar = new MenuBar();
         menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
