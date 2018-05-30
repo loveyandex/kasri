@@ -1,4 +1,4 @@
-package com.analysis;
+package test;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -12,7 +12,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * is created by aMIN on 5/9/2018 at 20:08
@@ -26,6 +25,7 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         primaryStage.setTitle("weather");
+
 
 
 

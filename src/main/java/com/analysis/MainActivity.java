@@ -13,8 +13,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 //from   ww w .  ja va 2  s  .c o  m
-public class AppLication extends Application implements Initializable {
+public class MainActivity extends Application implements Initializable {
     @FXML
     private RangeSlider hSlider;
 
@@ -45,7 +45,8 @@ public class AppLication extends Application implements Initializable {
 
     @Override
     public void start(Stage primaryStage) {
-        BorderPane root = new BorderPane();;
+        BorderPane root = new BorderPane();
+        ;
         Group group = new Group();
         group.getChildren().add(root);
         Scene scene = new Scene(group, new Dimension().getWidth() / 2, new Dimension().getHeight() / 2, Color.rgb(75, 75, 69));
@@ -98,19 +99,16 @@ public class AppLication extends Application implements Initializable {
         });
 
 
-         hSlider = new RangeSlider(0, 100, 10, 90);
+        hSlider = new RangeSlider(0, 100, 10, 90);
 
         hSlider.setShowTickMarks(true);
         hSlider.setShowTickLabels(true);
         hSlider.setBlockIncrement(1);
 
         hSlider.lowValueProperty().addListener((observable, oldValue, newValue) -> {
-            textArea.appendText(String.valueOf(hSlider.getLowValue())+"\n");
+            textArea.appendText(String.valueOf(hSlider.getLowValue()) + "\n");
 
         });
-
-
-
 
 
         hSlider.setLayoutX(521);
@@ -172,6 +170,13 @@ public class AppLication extends Application implements Initializable {
 
         menuBar.getMenus().addAll(fileMenu, webMenu, sqlMenu);
 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText("Look, an Information Dialog");
+        alert.setContentText("I have a great message for you!");
+        alert.showAndWait();
+
+
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -187,12 +192,11 @@ public class AppLication extends Application implements Initializable {
     }
 
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ChangeListener<Scene> initializer = new ChangeListener<Scene>() {
             @Override
-            public void changed(ObservableValue<? extends Scene> obs, Scene oldScene, Scene newScene)  {
+            public void changed(ObservableValue<? extends Scene> obs, Scene oldScene, Scene newScene) {
                 if (newScene != null) {
                     hSlider.applyCss();
                     hSlider.getParent().layout();

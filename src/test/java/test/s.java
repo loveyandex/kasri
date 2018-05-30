@@ -10,10 +10,12 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -36,7 +38,7 @@ public class s extends Application
         bp.setPrefSize(800, 600);
 
 // create a sidebar with some content in it.
-        final Pane lyricPane = createSidebarContent();
+        final BorderPane lyricPane = createSidebarContent();
         SideBar sidebar = new SideBar(250, lyricPane);
         VBox.setVgrow(lyricPane, Priority.ALWAYS);
 
@@ -97,7 +99,7 @@ public class s extends Application
         /**
          * creates a sidebar containing a vertical alignment of the given nodes
          */
-        SideBar(final double expandedWidth, Node... nodes)
+        SideBar(final double expandedWidth, BorderPane nodes)
         {
             getStyleClass().add("sidebar");
             this.setPrefWidth(expandedWidth);
