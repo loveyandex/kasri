@@ -1,10 +1,10 @@
 package com.analysis;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,6 +12,8 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
@@ -19,21 +21,40 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 /**
- * is created by aMIN on 5/29/2018 at 05:39
+ * is created by aMIN on 5/30/2018 at 21:54
  */
-public class T extends Application {
+public class MainController implements Initializable {
+    @FXML
+    public VBox rootme;
+
+    public Label outputLbl;
+
+    public MenuBar menuBar;
 
     @FXML
     private TextArea textArea;
 
     @FXML
     private void onactionHandeler() {
-        System.out.println("ddd");
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/ds2.fxml"));
+            Stage stage = new Stage();
+
+            stage.setTitle("Title");
+            stage.setScene(new Scene(root, 450, 450));
+            stage.show();
+            // Hide this current window (if this is what you want)
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
@@ -54,36 +75,20 @@ public class T extends Application {
         }
     }
 
-    public static void main(String[] args) {
-        ScatterChartSample.launch(args);
 
+    public void chart(ActionEvent actionEvent) {
+        startME();
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-
-
-        File file = new File(getClass().getResource("/amin.txt").toURI());
-        if (file.exists())
-            System.out.println("file exists");
-//
-        Parent root = FXMLLoader.load(getClass().getResource("/ds.fxml"));
-
-
-        Scene scene = new Scene(root, 1000, 500);
-
-        primaryStage.setTitle("FXML Welcome");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        startME(primaryStage,scene,root);
+    public void initialize(URL location, ResourceBundle resources) {
 
     }
 
 
-
-    public void startME(Stage stage, Scene scene, Parent root) {
-        final NumberAxis xAxis = new NumberAxis(1000, 30000,1000);
-        final NumberAxis yAxis = new NumberAxis(0, 360,10);
+    public void startME() {
+        final NumberAxis xAxis = new NumberAxis(1000, 30000, 1000);
+        final NumberAxis yAxis = new NumberAxis(0, 360, 10);
         final ScatterChart<Number, Number> sc = new ScatterChart<Number, Number>(xAxis, yAxis);
         xAxis.setLabel("Age (years)");
         yAxis.setLabel("Returns to date");
@@ -94,20 +99,21 @@ public class T extends Application {
 
         try {
             ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
-
-            for (int j = 2; j < windSpeedCol.size()-1; j++)
-                series1.getData().add(new XYChart.Data(( Double.parseDouble(windSpeedCol.get(j).get(0))),Double.parseDouble( windSpeedCol.get(j).get(1))));
+            ;
+            for (int j = 2; j < windSpeedCol.size() - 1; j++)
+                series1.getData().add(new XYChart.Data((Double.parseDouble(windSpeedCol.get(j).get(0))), Double.parseDouble(windSpeedCol.get(j).get(1))));
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
-
 //        sc.setPrefSize(500, 400);
         sc.getData().addAll(series1);
         final VBox vbox = new VBox();
         final HBox hbox = new HBox();
+        vbox.setLayoutY(300);
+        vbox.setLayoutX(400);
 
         final Button add = new Button("Add Series");
         final Button remove = new Button("Remove Series");
@@ -126,11 +132,26 @@ public class T extends Application {
 
         hbox.setSpacing(10);
         hbox.getChildren().addAll(add, remove);
-
         vbox.getChildren().addAll(sc, hbox);
         hbox.setPadding(new Insets(10, 10, 10, 50));
 
-        ((VBox) root).getChildren().add(vbox);
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/ds2.fxml"));
+            ((VBox) root).getChildren().add(vbox);
+
+
+            Stage stage = new Stage();
+            stage.setTitle("Title");
+            stage.setScene(new Scene(root, 450, 450));
+            stage.show();
+            // Hide this current window (if this is what you want)
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 
 }
