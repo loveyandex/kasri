@@ -1,7 +1,7 @@
 .ideaDataSources/
-asas/
-assets/
+asas/**
+assets/*
 kasri.iws
 target/
-!assets/1x
-!assets/2x
+!assets/1x/
+!assets/2x/
