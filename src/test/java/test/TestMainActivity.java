@@ -1,9 +1,10 @@
-package com.analysis;
+package test;
 
 /**
  * is created by aMIN on 5/26/2018 at 05:00
  */
 
+import com.analysis.WindMining;
 import eu.hansolo.enzo.notification.Notification;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -34,7 +35,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 //from   ww w .  ja va 2  s  .c o  m
-public class MainActivity extends Application implements Initializable {
+public class TestMainActivity extends Application implements Initializable {
     @FXML
     private RangeSlider hSlider;
 

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox id="root" prefHeight="400" prefWidth="800"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="test.javafx.MenuController">
+    <MenuBar fx:id="menuBar">
+        <menus>
+            <Menu text="File">
+                <items>
+                    <MenuItem text="New"/>
+                    <MenuItem text="Open"/>
+                    <MenuItem text="Save"/>
+                    <MenuItem text="Save As"/>
+                    <SeparatorMenuItem/>
+                    <MenuItem text="Exit"/>
+                </items>
+            </Menu>
+            <Menu text="Edit">
+                <items>
+                    <MenuItem text="Copy"/>
+                    <MenuItem text="Cut"/>
+                    <MenuItem text="Paste"/>
+                </items>
+            </Menu>
+            <Menu text="Help">
+                <items>
+                    <MenuItem text="Search" disable="true"/>
+                    <MenuItem text="Online" disable="true"/>
+                    <SeparatorMenuItem/>
+                    <MenuItem text="About" onAction="#handleAboutAction"/>
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
+
+
+    <VBox fx:id="vbox2"  layoutX="10.0" layoutY="10.0" prefHeight="250.0" prefWidth="300.0"
+          spacing="10">
+        <style>
+            -fx-padding: 10;
+            -fx-margin-right:2323;
+            -fx-border-style: solid inside;
+            -fx-border-width: 6;
+            -fx-border-insets: 5;
+            -fx-border-radius: 5;
+            -fx-border-color: gray;
+        </style>
+
+        <children>
+            <Label fx:id="inputLbl" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE" prefHeight="30.0"
+                   prefWidth="200.0" text="Please insert Your Input here:" textAlignment="LEFT"/>
+            <TextField fx:id="inputText" prefWidth="100.0"/>
+            <Button fx:id="okBtn" alignment="CENTER_RIGHT"  contentDisplay="CENTER"
+                    mnemonicParsing="false" text="OK" textAlignment="CENTER"/>
+
+            <Label fx:id="outputLbl" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE" prefHeight="30.0"
+                   prefWidth="200.0" text="Your Input:" textAlignment="LEFT"/>
+            <TextArea fx:id="textArea" prefHeight="100.0" prefWidth="200.0" wrapText="true"/>
+        </children>
+
+    </VBox>
+
+
+</VBox>

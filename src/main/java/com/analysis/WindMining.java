@@ -32,14 +32,14 @@ public class WindMining {
             points.add(point);
         }
 
-        RawMining.writeInFileInOnce(System.getProperty("user.dir") + "/assets", fileName+"WindSpeed" + ".csv", new StringBuilder(total), true);
+        RawMining.writeInFileInOnce(System.getProperty("user.dir") + "/assets/data", fileName+"WindSpeed" + ".csv", new StringBuilder(total), true);
         return points;
     }
 
 
     public static void main(String[] args) {
         try {
-            WindMining.getWindSpeedCol("assets/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
+            WindMining.getWindSpeedCol("assets/data/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,9 +1,9 @@
-package com.analysis;
+package com.ui;
 
+import com.analysis.WindMining;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
@@ -12,62 +12,30 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * is created by aMIN on 5/29/2018 at 05:39
  */
-public class T extends Application {
-
-    @FXML
-    private TextArea textArea;
-
-    @FXML
-    private void onactionHandeler() {
-        System.out.println("ddd");
-    }
-
-    @FXML
-    private void exit() {
-        System.exit(0);
-    }
-
-    @FXML
-    private void fetch() {
-        try {
-            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
-            ;
-            for (int j = 0; j < windSpeedCol.size(); j++)
-                textArea.appendText(windSpeedCol.get(j).get(0) + ";" + windSpeedCol.get(j).get(1) + "\r\n");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+public class MainActivity extends Application {
 
     public static void main(String[] args) {
-        ScatterChartSample.launch(args);
+        launch(args);
 
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        Parent root = FXMLLoader.load(getClass().getResource("/main_activity.fxml"));
 
-        File file = new File(getClass().getResource("/amin.txt").toURI());
-        if (file.exists())
-            System.out.println("file exists");
-//
-        Parent root = FXMLLoader.load(getClass().getResource("/ds.fxml"));
 
 
         Scene scene = new Scene(root, 1000, 500);
@@ -75,15 +43,13 @@ public class T extends Application {
         primaryStage.setTitle("FXML Welcome");
         primaryStage.setScene(scene);
         primaryStage.show();
-        startME(primaryStage,scene,root);
+        startME();
 
     }
 
-
-
-    public void startME(Stage stage, Scene scene, Parent root) {
-        final NumberAxis xAxis = new NumberAxis(1000, 30000,1000);
-        final NumberAxis yAxis = new NumberAxis(0, 360,10);
+    public void startME() {
+        final NumberAxis xAxis = new NumberAxis(1000, 30000, 1000);
+        final NumberAxis yAxis = new NumberAxis(0, 360, 10);
         final ScatterChart<Number, Number> sc = new ScatterChart<Number, Number>(xAxis, yAxis);
         xAxis.setLabel("Age (years)");
         yAxis.setLabel("Returns to date");
@@ -93,21 +59,22 @@ public class T extends Application {
         series1.setName("Option 1");
 
         try {
-            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
+            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/data/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
 
-            for (int j = 2; j < windSpeedCol.size()-1; j++)
-                series1.getData().add(new XYChart.Data(( Double.parseDouble(windSpeedCol.get(j).get(0))),Double.parseDouble( windSpeedCol.get(j).get(1))));
+            for (int j = 2; j < windSpeedCol.size() - 1; j++)
+                series1.getData().add(new XYChart.Data((Double.parseDouble(windSpeedCol.get(j).get(0))), Double.parseDouble(windSpeedCol.get(j).get(1))));
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
-
 //        sc.setPrefSize(500, 400);
         sc.getData().addAll(series1);
         final VBox vbox = new VBox();
         final HBox hbox = new HBox();
+        vbox.setLayoutY(300);
+        vbox.setLayoutX(400);
 
         final Button add = new Button("Add Series");
         final Button remove = new Button("Remove Series");
@@ -130,7 +97,10 @@ public class T extends Application {
         vbox.getChildren().addAll(sc, hbox);
         hbox.setPadding(new Insets(10, 10, 10, 50));
 
-        ((VBox) root).getChildren().add(vbox);
+        VBox vBoxxx = new VBox(vbox);
+        Scene scene = new Scene(vBoxxx, 400, 300, Color.BLACK);
+        new Stage().setScene(scene);
     }
+
 
 }
