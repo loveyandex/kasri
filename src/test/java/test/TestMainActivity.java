@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 //from   ww w .  ja va 2  s  .c o  m
-public class MainActivity extends Application implements Initializable {
+public class TestMainActivity extends Application implements Initializable {
     @FXML
     private RangeSlider hSlider;
 

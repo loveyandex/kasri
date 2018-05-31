@@ -8,19 +8,19 @@ import java.util.regex.Pattern;
 /**
  * is created by aMIN on 3/3/2018 at 06:53 PM
  */
-public class RawMining {
+public class RawMining implements Runnable {
     Scanner scanner;
     StringBuilder item1 = new StringBuilder("");
     StringBuilder item2 = new StringBuilder("");
+    private String dirpath;
 
+    public RawMining() {
+    }
 
-    public RawMining(String path) {
+    public RawMining(String Dirpath, String fileName) throws FileNotFoundException {
+        dirpath = Dirpath;
         FileReader reader = null;
-        try {
-            reader = new FileReader(path);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        reader = new FileReader(Dirpath + File.separator + fileName);
         scanner = new Scanner(reader);
     }
 
@@ -44,9 +44,9 @@ public class RawMining {
                 }
             } else
                 continue;
-            writeInFileInOnce(System.getProperty("user.dir") + "/assets", getFileName, item1, true);
+            writeInFileInOnce(dirpath, getFileName, item1, true);
 
-            System.out.println(item1);
+//            System.out.println(item1);
 
             line = scanner.nextLine();
             if (isItem(line, "<item2>")) {
@@ -56,9 +56,9 @@ public class RawMining {
             } else
                 continue;
 
-            writeInFileInOnce(System.getProperty("user.dir") + "/assets", getFileName + "Item2", item2, true);
-            System.out.println(item2);
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+            writeInFileInOnce(dirpath, getFileName + "Item2", item2, true);
+//            System.out.println(item2);
+//            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
             if (scanner.hasNextLine())
                 readFile();
@@ -112,24 +112,40 @@ public class RawMining {
     }
 
     public static void main(String[] args) {
+
         try {
-            new RawMining("assets/43.data").readFile();
+            new RawMining("G:\\Program Files\\AMinAbvall\\kasridata\\iran\\year_2017\\month_1", "40766.data").readFile();
+            ;
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            new Thread(new RawMining()).start();
         } catch (IOException e) {
             e.printStackTrace();
         }
-//
-//        File file = new File(System.getProperty("user.dir") + "/assets/f.dat");
-//        try {
-//            file.createNewFile();
-//            System.out.println(file.getParentFile().getParentFile().isFile());
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
 
     }
 
+
+    @Override
+    public void run() {
+        while (true) {
+            System.out.println(Thread.currentThread().getName());
+            int nbThreads = Thread.getAllStackTraces().keySet().size();
+            System.out.println("nbt  " + nbThreads);
+            int nbRunning = 0;
+            for (Thread t : Thread.getAllStackTraces().keySet())
+                if (t.getState() == Thread.State.WAITING) nbRunning++;
+
+            System.out.println("nbRunning " + nbRunning);
+
+
+            System.out.println("god is great");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
 }

@@ -1,5 +1,6 @@
-package com.analysis;
+package com.ui;
 
+import com.analysis.WindMining;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -43,7 +44,7 @@ public class MainController implements Initializable {
     @FXML
     private void onactionHandeler() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/ds2.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/chart.fxml"));
             Stage stage = new Stage();
 
             stage.setTitle("Title");
@@ -136,7 +137,7 @@ public class MainController implements Initializable {
         hbox.setPadding(new Insets(10, 10, 10, 50));
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/ds2.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/chart.fxml"));
             ((VBox) root).getChildren().add(vbox);
 
 

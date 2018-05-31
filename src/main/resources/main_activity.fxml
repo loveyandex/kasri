@@ -4,7 +4,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<VBox fx:id="rootme" fx:controller="com.analysis.MainController" prefHeight="400" prefWidth="800"
+<VBox fx:id="rootme" fx:controller="com.ui.MainController" prefHeight="400" prefWidth="800"
       xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx/2.2">
 
     <MenuBar fx:id="menuBar" focusTraversable="true">

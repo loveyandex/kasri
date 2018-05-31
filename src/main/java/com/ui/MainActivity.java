@@ -1,5 +1,6 @@
-package com.analysis;
+package com.ui;
 
+import com.analysis.WindMining;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
