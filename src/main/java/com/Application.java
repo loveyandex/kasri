@@ -23,7 +23,6 @@ public class Application extends javafx.application.Application {
     public void start(Stage myStage) {
 
         myStage.setTitle("weather");
-        myStage.initStyle(StageStyle.UNDECORATED);
 
         myStage.setOnCloseRequest(event -> {
             System.out.println("king amin ");
@@ -71,7 +70,7 @@ public class Application extends javafx.application.Application {
             COUNTRIES =countryvalue.getText().toLowerCase().split(";");
             System.out.println(COUNTRIES.length+">>>>>>>>>");
             pbar.setVisible(true);
-            Notify.sendSelfMsg("downloading started :kissing_heart:");
+            System.out.println("downloading started :kissing_heart:");
             System.out.println(ABSOLUTE_ROOT_PATH);
             aButton.setDisable(true);
             startProcess.start();

@@ -9,6 +9,7 @@ import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 import java.io.*;
+import java.net.SocketException;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -63,18 +64,11 @@ public class Process implements Runnable {
                 outputStreamWriter.flush();
                 outputStreamWriter.close();
 
-            } catch (IOException e) {
-                System.out.println(e);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
                 Methods.writeFallenUrls(url11);
-                try {
-                    NotifyBot.getNotifyBot().sendMessage(new SendMessage()
-                            .setChatId("145464749")
-                            .setText(e.toString() + "\n\n" + e.getMessage() + "\n\n"
-                                    + e.getLocalizedMessage() + " \n" + url11));
-                } catch (TelegramApiException e1) {
-                    e1.printStackTrace();
-                }
                 System.out.println("king error");
+                continue;
             }
 
             System.out.println("end of line while");

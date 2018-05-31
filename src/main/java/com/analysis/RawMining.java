@@ -113,7 +113,7 @@ public class RawMining {
 
     public static void main(String[] args) {
         try {
-            new RawMining("assets/43.data").readFile();
+            new RawMining("G:\\Program Files\\AMinAbvall\\kasridata\\armenia\\year_1974\\month_2\\37789.data").readFile();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

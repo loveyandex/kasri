@@ -85,7 +85,7 @@ public class SecondMining {
 
     public static void main(String[] args) {
         try {
-            new SecondMining("C:\\Users\\AminAbvaal\\Desktop\\javas\\kasri\\assets\\00Z_08 _Jan _2017", "00Z_08 _Jan _2017").createCSV();
+            new SecondMining("assets/12Z_26 _Feb _1974", "12Z_26 _Feb _1974").createCSV();
         } catch (IOException e) {
             e.printStackTrace();
         }
