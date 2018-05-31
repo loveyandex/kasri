@@ -1,9 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.ui.RawMiningActivity"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.ui.RawMiningActivity">
+    <VBox fx:id="vbox2">
+        <style>
+            -fx-padding: 10;
+            -fx-border-style: solid inside;
+            -fx-border-width: 6;
+            -fx-border-insets: 5;
+            -fx-border-radius: 5;
+            -fx-border-color: gray;
+        </style>
 
-</AnchorPane>
+        <children>
+            <Label fx:id="inputLbl" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE" prefHeight="30.0"
+                   prefWidth="200.0" text="Please insert Your Input here:" textAlignment="LEFT"/>
+            <TextField fx:id="inputText" prefWidth="100.0"/>
+            <HBox>
+                <Button fx:id="chooseDir" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false"
+                        onAction="#ChDir" text="dir" textAlignment="CENTER"/>
+                <Button fx:id="okBtn" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false"
+                        onAction="#choosoe" text="file" textAlignment="CENTER"/>
+            </HBox>
+            <Label fx:id="outputLbl" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE" prefHeight="30.0"
+                   prefWidth="200.0" text="Your Input:" textAlignment="LEFT"/>
+            <TextArea fx:id="textArea" prefHeight="100.0" prefWidth="200.0" wrapText="true"/>
+        </children>
+
+    </VBox>
+
+</VBox>

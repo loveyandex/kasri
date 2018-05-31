@@ -66,7 +66,7 @@ public class MainController implements Initializable {
     @FXML
     private void fetch() {
         try {
-            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
+            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/data/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
             ;
             for (int j = 0; j < windSpeedCol.size(); j++)
                 textArea.appendText(windSpeedCol.get(j).get(0) + ";" + windSpeedCol.get(j).get(1) + "\r\n");

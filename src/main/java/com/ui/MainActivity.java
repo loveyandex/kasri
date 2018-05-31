@@ -59,7 +59,7 @@ public class MainActivity extends Application {
         series1.setName("Option 1");
 
         try {
-            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
+            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/data/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
 
             for (int j = 2; j < windSpeedCol.size() - 1; j++)
                 series1.getData().add(new XYChart.Data((Double.parseDouble(windSpeedCol.get(j).get(0))), Double.parseDouble(windSpeedCol.get(j).get(1))));
