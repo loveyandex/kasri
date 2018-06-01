@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
  * is created by aMIN on 3/3/2018 at 06:53 PM
  */
 public class RawMining implements Runnable {
+    private String fileName;
     Scanner scanner;
     StringBuilder item1 = new StringBuilder("");
     StringBuilder item2 = new StringBuilder("");
@@ -18,7 +19,8 @@ public class RawMining implements Runnable {
     }
 
     public RawMining(String Dirpath, String fileName) throws FileNotFoundException {
-        dirpath = Dirpath;
+        this.dirpath = Dirpath;
+        this.fileName = fileName;
         FileReader reader = null;
         reader = new FileReader(Dirpath + File.separator + fileName);
         scanner = new Scanner(reader);
@@ -44,7 +46,7 @@ public class RawMining implements Runnable {
                 }
             } else
                 continue;
-            writeInFileInOnce(dirpath, getFileName, item1, true);
+            writeInFileInOnce(dirpath+File.separator+fileName.replaceAll(".data",""), getFileName, item1, true);
 
 //            System.out.println(item1);
 
@@ -56,7 +58,7 @@ public class RawMining implements Runnable {
             } else
                 continue;
 
-            writeInFileInOnce(dirpath, getFileName + "Item2", item2, true);
+            writeInFileInOnce(dirpath+File.separator+fileName.replaceAll(".data",""), getFileName + "Item2", item2, true);
 //            System.out.println(item2);
 //            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 

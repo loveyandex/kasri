@@ -24,6 +24,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.controlsfx.control.NotificationPane;
 import org.controlsfx.control.RangeSlider;
@@ -77,7 +78,7 @@ public class TestMainActivity extends Application implements Initializable {
 //        textArea.textProperty().addListener((observable, oldValue, newValue) -> {
 //        });
         try {
-            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
+            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/data/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
 
             for (int j = 0; j < windSpeedCol.size(); j++)
                 textArea.appendText(windSpeedCol.get(j).get(0) + ";" + windSpeedCol.get(j).get(1) + "\r\n");
@@ -125,8 +126,26 @@ public class TestMainActivity extends Application implements Initializable {
         vbox.setLayoutY(100);
         group.getChildren().addAll(pbar, vbox, hbox);
 
+        saveMenuItem.setOnAction(event -> {
+            Stage dialog = new Stage();
+            dialog.setAlwaysOnTop(true);
+            dialog.setResizable(true);
+            dialog.initOwner(primaryStage);
+            dialog.initModality(Modality.NONE);
+            dialog.show();
+            dialog.onShowingProperty().addListener((observable, oldValue, newValue) -> {
+                System.exit(0);
+            });
+        });
+
         newMenuItem.setOnAction(event -> {
             pbar.setVisible(true);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText("Look, an Information Dialog");
+            alert.setContentText("I have a great message for you!");
+            alert.showAndWait();
 
         });
 
@@ -171,11 +190,6 @@ public class TestMainActivity extends Application implements Initializable {
 
         menuBar.getMenus().addAll(fileMenu, webMenu, sqlMenu);
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText("I have a great message for you!");
-        alert.showAndWait();
 
 
         primaryStage.setScene(scene);

@@ -1,5 +1,6 @@
 package com.ui;
 
+import com.analysis.RawMining;
 import com.config.C;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -32,7 +33,7 @@ public class RawMiningActivity extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("/raw_mining_activity.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource(C.RAW_FMXL_PATH));
 
 
         Scene scene = new Scene(root, 1000, 500);
@@ -48,7 +49,6 @@ public class RawMiningActivity extends Application {
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"),
                 new FileChooser.ExtensionFilter("PNG", "*.png"),
                 new FileChooser.ExtensionFilter("All Files", "*.*")
-
         );
         fileChooser.setTitle("Open Resource File");
         fileChooser.setInitialDirectory(new File(C.PATH_TO_RAW_DIR_ROOT));
@@ -113,6 +113,22 @@ public class RawMiningActivity extends Application {
         final File selectedDirectory =
                 directoryChooser.showDialog(primaryStage);
         if (selectedDirectory != null) {
+            File[] rawsFiles = selectedDirectory.listFiles();
+            for (File dataRaw : rawsFiles) {
+                if (dataRaw.isFile()) {
+                    try {
+                        new RawMining(dataRaw.getParent(), dataRaw.getName()).readFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+
+                }
+            }
+
+
+
             System.err.println(selectedDirectory.getAbsolutePath());
         }
     }

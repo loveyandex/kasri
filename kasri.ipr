@@ -423,6 +423,61 @@
         <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: net.time4j:time4j-calendar:4.38">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/net/time4j/time4j-calendar/4.38/time4j-calendar-4.38.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/net/time4j/time4j-calendar/4.38/time4j-calendar-4.38-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/net/time4j/time4j-calendar/4.38/time4j-calendar-4.38-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: net.time4j:time4j-core:4.38">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/net/time4j/time4j-core/4.38/time4j-core-4.38.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/net/time4j/time4j-core/4.38/time4j-core-4.38-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/net/time4j/time4j-core/4.38/time4j-core-4.38-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: net.time4j:time4j-i18n:4.38">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/net/time4j/time4j-i18n/4.38/time4j-i18n-4.38.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/net/time4j/time4j-i18n/4.38/time4j-i18n-4.38-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/net/time4j/time4j-i18n/4.38/time4j-i18n-4.38-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: net.time4j:time4j-range:4.38">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/net/time4j/time4j-range/4.38/time4j-range-4.38.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/net/time4j/time4j-range/4.38/time4j-range-4.38-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/net/time4j/time4j-range/4.38/time4j-range-4.38-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: net.time4j:time4j-ui:4.38">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/net/time4j/time4j-ui/4.38/time4j-ui-4.38.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/net/time4j/time4j-ui/4.38/time4j-ui-4.38-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/net/time4j/time4j-ui/4.38/time4j-ui-4.38-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: org.apache.commons:commons-collections4:4.1">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-collections4/4.1/commons-collections4-4.1.jar!/" />

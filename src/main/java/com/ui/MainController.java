@@ -20,11 +20,13 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.ResourceBundle;
 
 /**
@@ -78,16 +80,20 @@ public class MainController implements Initializable {
 
 
     public void chart(ActionEvent actionEvent) {
-        startME();
+        charting();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if (resources!=null){
+            Enumeration<String> keys = resources.getKeys();
 
-    }
+        while (keys.hasMoreElements())
+            System.out.println(keys.nextElement());
+    } }
 
 
-    public void startME() {
+    public void charting() {
         final NumberAxis xAxis = new NumberAxis(1000, 30000, 1000);
         final NumberAxis yAxis = new NumberAxis(0, 360, 10);
         final ScatterChart<Number, Number> sc = new ScatterChart<Number, Number>(xAxis, yAxis);
@@ -99,7 +105,7 @@ public class MainController implements Initializable {
         series1.setName("Option 1");
 
         try {
-            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
+            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/data/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
             ;
             for (int j = 2; j < windSpeedCol.size() - 1; j++)
                 series1.getData().add(new XYChart.Data((Double.parseDouble(windSpeedCol.get(j).get(0))), Double.parseDouble(windSpeedCol.get(j).get(1))));
@@ -155,4 +161,17 @@ public class MainController implements Initializable {
 
     }
 
+    public void wind(ActionEvent actionEvent) throws IOException {
+        Stage dialog = new Stage();
+
+        Parent root = FXMLLoader.load(getClass().getResource("/wind_login.fxml"));
+        Scene scene = new Scene(root, 500, 455);
+        dialog.setScene(scene);
+
+        dialog.setAlwaysOnTop(true);
+        dialog.setResizable(true);
+        dialog.initOwner(rootme.getScene().getWindow());
+        dialog.initModality(Modality.WINDOW_MODAL);
+        dialog.showAndWait();
+    }
 }

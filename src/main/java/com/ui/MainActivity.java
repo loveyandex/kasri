@@ -36,8 +36,6 @@ public class MainActivity extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("/main_activity.fxml"));
 
-
-
         Scene scene = new Scene(root, 1000, 500);
 
         primaryStage.setTitle("FXML Welcome");

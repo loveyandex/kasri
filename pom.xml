@@ -82,6 +82,25 @@
             <artifactId>Enzo</artifactId>
             <version>0.3.6</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/net.time4j/time4j-core -->
+        <dependency>
+            <groupId>net.time4j</groupId>
+            <artifactId>time4j-core</artifactId>
+            <version>4.38</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.time4j/time4j-calendar -->
+        <dependency>
+            <groupId>net.time4j</groupId>
+            <artifactId>time4j-calendar</artifactId>
+            <version>4.38</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.time4j/time4j-ui -->
+        <dependency>
+            <groupId>net.time4j</groupId>
+            <artifactId>time4j-ui</artifactId>
+            <version>4.38</version>
+        </dependency>
+
 
 
     </dependencies>

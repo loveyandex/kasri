@@ -12,6 +12,7 @@
             <Menu text="File">
                 <items>
                     <MenuItem text="chart" onAction="#chart"/>
+                    <MenuItem text="how"  onAction="#wind"/>
                     <MenuItem text="Data" onAction="#fetch"/>
                     <SeparatorMenuItem/>
                     <MenuItem text="Save"/>
@@ -22,7 +23,7 @@
             </Menu>
             <Menu text="view">
                 <items>
-                    <MenuItem text="Text Example"/>
+                    <MenuItem text=""/>
                     <MenuItem text="Objects Example"/>
                     <MenuItem text="Animation Example"/>
                 </items>
