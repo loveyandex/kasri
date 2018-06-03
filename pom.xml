@@ -101,7 +101,13 @@
             <version>4.38</version>
         </dependency>
 
-
+        <!-- https://mvnrepository.com/artifact/com.ibm.icu/com.ibm.icu -->
+        <!-- https://mvnrepository.com/artifact/com.ibm.icu/icu4j -->
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>61.1</version>
+        </dependency>
 
     </dependencies>
 </project>

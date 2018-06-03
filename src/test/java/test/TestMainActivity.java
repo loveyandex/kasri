@@ -5,6 +5,10 @@ package test;
  */
 
 import com.analysis.WindMining;
+import com.ibm.icu.text.DateFormat;
+import com.ibm.icu.util.Calendar;
+import com.ibm.icu.util.ULocale;
+import com.ui.dialogs.ExceptionDialog;
 import eu.hansolo.enzo.notification.Notification;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -24,10 +28,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -36,7 +37,10 @@ import org.controlsfx.control.NotificationPane;
 import org.controlsfx.control.RangeSlider;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -95,6 +99,15 @@ public class TestMainActivity extends Application implements Initializable {
         }
 
         button1.setOnAction(event -> {
+
+
+            ULocale locale = new ULocale("fa_IR@calendar=persian");
+
+            Calendar calendar = Calendar.getInstance(locale);
+            DateFormat df = DateFormat.getDateInstance(DateFormat.FULL, locale);
+            System.out.println(calendar.getFirstDayOfWeek());
+
+            System.out.println(df.format(calendar));
             // Create a custom Notification without icon
             Notification info = new Notification("You know That", "God is great");
 
@@ -104,7 +117,9 @@ public class TestMainActivity extends Application implements Initializable {
 
             Notification.Notifier.INSTANCE.notifyInfo("Information", "   ");
 
-
+            ExceptionDialog.
+                    createDialog( new FileNotFoundException(
+                    "Could not find file blabla.txt"));
         });
 
 
