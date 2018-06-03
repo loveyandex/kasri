@@ -13,12 +13,17 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -26,6 +31,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import org.controlsfx.control.NotificationPane;
 import org.controlsfx.control.RangeSlider;
 
@@ -33,6 +39,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 //from   ww w .  ja va 2  s  .c o  m
@@ -78,7 +85,7 @@ public class TestMainActivity extends Application implements Initializable {
 //        textArea.textProperty().addListener((observable, oldValue, newValue) -> {
 //        });
         try {
-            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/data/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
+            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
 
             for (int j = 0; j < windSpeedCol.size(); j++)
                 textArea.appendText(windSpeedCol.get(j).get(0) + ";" + windSpeedCol.get(j).get(1) + "\r\n");
@@ -151,7 +158,64 @@ public class TestMainActivity extends Application implements Initializable {
 
         button2.setOnAction(event -> {
             textArea.setText(String.valueOf(hSlider.getLowValue()));
-//            showNotificationPane(group);
+            showNotificationPane(group);
+
+// Create the custom dialog.
+            Dialog<Pair<String, String>> dialog = new Dialog<>();
+            dialog.setTitle("Login Dialog");
+            dialog.setHeaderText("Look, a Custom Login Dialog");
+
+// Set the icon (must be included in the project).
+//            dialog.setGraphic(new ImageView(this.getClass().getResource("login.png").toString()));
+
+// Set the button types.
+            ButtonType loginButtonType = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
+            dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+
+// Create the username and password labels and fields.
+            GridPane grid = new GridPane();
+            grid.setHgap(10);
+            grid.setVgap(10);
+            grid.setPadding(new javafx.geometry.Insets(20, 150, 10, 10));
+
+            TextField username = new TextField();
+            username.setPromptText("Username");
+            PasswordField password = new PasswordField();
+            password.setPromptText("Password");
+
+            grid.add(new Label("Username:"), 0, 0);
+            grid.add(username, 1, 0);
+            grid.add(new Label("Password:"), 0, 1);
+            grid.add(password, 1, 1);
+
+// Enable/Disable login button depending on whether a username was entered.
+            Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+            loginButton.setDisable(true);
+
+// Do some validation (using the Java 8 lambda syntax).
+            username.textProperty().addListener((observable, oldValue, newValue) -> {
+                loginButton.setDisable(newValue.trim().isEmpty());
+            });
+
+            dialog.getDialogPane().setContent(grid);
+
+// Request focus on the username field by default.
+            Platform.runLater(() -> username.requestFocus());
+
+// Convert the result to a username-password-pair when the login button is clicked.
+            dialog.setResultConverter(dialogButton -> {
+                if (dialogButton == loginButtonType) {
+                    return new Pair<>(username.getText(), password.getText());
+                }
+                return null;
+            });
+
+            Optional<Pair<String, String>> result1 = dialog.showAndWait();
+
+            result1.ifPresent(usernamePassword -> {
+                System.out.println("Username=" + usernamePassword.getKey() + ", Password=" + usernamePassword.getValue());
+            });
+
         });
 
         exitMenuItem.setOnAction(actionEvent -> Platform.exit());
