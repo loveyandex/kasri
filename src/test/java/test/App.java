@@ -13,6 +13,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * is created by aMIN on 5/9/2018 at 20:08
  */
@@ -52,9 +55,8 @@ public class App extends Application {
         imageView.setCacheHint(CacheHint.SPEED);
         closePane.getChildren().add(imageView);
         imageView.setOnMouseClicked(event -> {
-            System.exit(0);
-
-        });
+//            System.exit(0);
+                });
         imageView.setOnMouseEntered(event -> {
             System.out.println(event.getX() + " gpd");
             imageView.setEffect(null);

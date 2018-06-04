@@ -38,7 +38,7 @@ public class RawMiningActivity extends Application {
 
         Scene scene = new Scene(root, 1000, 500);
 
-        primaryStage.setTitle("FXML Welcome");
+        primaryStage.setTitle("");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

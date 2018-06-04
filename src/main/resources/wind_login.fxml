@@ -18,6 +18,7 @@
             </children>
 
         </StackPane>
+
         <Label fx:id="inputLbl" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE" prefHeight="30.0"
                prefWidth="200.0" text="Please insert Your Input here:" textAlignment="LEFT"/>
         <TextField fx:id="inputText" prefWidth="100.0"/>

@@ -70,5 +70,6 @@
     <orderEntry type="library" name="Maven: net.time4j:time4j-i18n:4.38" level="project" />
     <orderEntry type="library" name="Maven: net.time4j:time4j-ui:4.38" level="project" />
     <orderEntry type="library" name="Maven: net.time4j:time4j-range:4.38" level="project" />
+    <orderEntry type="library" name="Maven: com.ibm.icu:icu4j:61.1" level="project" />
   </component>
 </module>
