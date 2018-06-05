@@ -28,7 +28,7 @@ public class WindMining {
             System.out.println(split[7]);
             total += split[1]+";"+split[6] +";"+split[7] + "\r\n";
             point.add(split[1]);
-            point.add(split[6] );
+            point.add(split[7] );
             points.add(point);
         }
 

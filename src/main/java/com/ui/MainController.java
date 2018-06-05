@@ -97,12 +97,13 @@ public class MainController implements Initializable {
         final NumberAxis xAxis = new NumberAxis(1000, 30000, 1000);
         final NumberAxis yAxis = new NumberAxis(0, 360, 10);
         final ScatterChart<Number, Number> sc = new ScatterChart<Number, Number>(xAxis, yAxis);
-        xAxis.setLabel("Age (years)");
-        yAxis.setLabel("Returns to date");
-        sc.setTitle("Investment Overview");
+        xAxis.setLabel("height");
+        yAxis.setLabel("knot");
+        sc.setTitle("wind-knot-m");
 
         XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Option 1");
+        XYChart.Series series11 = new XYChart.Series();
+        series1.setName("windspeed");
 
         try {
             ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/data/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
@@ -114,15 +115,17 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
 
-
 //        sc.setPrefSize(500, 400);
-        sc.getData().addAll(series1);
+        sc.getData().addAll(series1,series11);
         final VBox vbox = new VBox();
         final HBox hbox = new HBox();
         vbox.setLayoutY(300);
         vbox.setLayoutX(400);
 
         final Button add = new Button("Add Series");
+
+
+
         final Button remove = new Button("Remove Series");
         remove.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -151,7 +154,14 @@ public class MainController implements Initializable {
             stage.setTitle("Title");
             stage.setScene(new Scene(root, 450, 450));
             stage.show();
+
+            add.setOnAction(event -> {
+                stage.hide();
+            });
+
+
             // Hide this current window (if this is what you want)
+
 
         } catch (IOException e) {
             e.printStackTrace();

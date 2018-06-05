@@ -302,6 +302,17 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/github/virtuald/curvesapi/1.04/curvesapi-1.04-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: com.google.code.gson:gson:2.8.5">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.8.5/gson-2.8.5-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.8.5/gson-2.8.5-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: com.google.guava:guava:19.0">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/19.0/guava-19.0.jar!/" />
@@ -335,15 +346,26 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/ibm/icu/icu4j/61.1/icu4j-61.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: commons-codec:commons-codec:1.10">
+    <library name="Maven: com.jfoenix:jfoenix:8.0.4">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.10/commons-codec-1.10.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/jfoenix/jfoenix/8.0.4/jfoenix-8.0.4.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.10/commons-codec-1.10-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/jfoenix/jfoenix/8.0.4/jfoenix-8.0.4-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.10/commons-codec-1.10-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/jfoenix/jfoenix/8.0.4/jfoenix-8.0.4-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: commons-codec:commons-codec:1.11">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.11/commons-codec-1.11.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.11/commons-codec-1.11-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.11/commons-codec-1.11-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-io:commons-io:2.5">
@@ -366,6 +388,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.2/commons-logging-1.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: de.jensd:fontawesomefx:8.9">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/de/jensd/fontawesomefx/8.9/fontawesomefx-8.9.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/de/jensd/fontawesomefx/8.9/fontawesomefx-8.9-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/de/jensd/fontawesomefx/8.9/fontawesomefx-8.9-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: eu.hansolo.enzo:Enzo:0.3.6">
@@ -498,6 +531,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-collections4/4.1/commons-collections4-4.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.apache.derby:derby:10.14.2.0">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.apache.httpcomponents:httpclient:4.5.3">
