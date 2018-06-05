@@ -12,6 +12,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -57,9 +58,7 @@ public class WindLoginController implements Initializable {
 //                        cell.setDisable(true);
 //                    }
                 });
-        picker.promptTextProperty().addListener((observable, oldValue, newValue) -> {
-            System.exit(0);
-        });
+
         picker.valueProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("godIsGreat");
             int dayOfMonth = picker.valueProperty().getValue().getDayOfMonth();
@@ -80,6 +79,12 @@ public class WindLoginController implements Initializable {
 
 
         });
+
+        DatePicker datePicker=new DatePicker();
+        datePicker.getEditor().setOnAction(event -> {
+            System.out.println("god is for me");
+        });
+        root23.getChildren().add(datePicker);
 
 
 

@@ -1,49 +1,39 @@
 package com.analysis;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * is created by aMIN on 5/9/2018 at 23:38
+ * is created by aMIN on 6/5/2018 at 22:11
  */
-public class SecondMining {
-    Scanner scanner;
-    FileReader reader = null;
-    private String fileName;
+public class Mapping {
 
-    SecondMining(String path, String fileName) {
-        this.fileName = fileName;
+    static public void mapStationNumTOCities(String Dirpath, String fileName) throws IOException {
 
-        try {
-            reader = new FileReader(path);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        scanner = new Scanner(reader);
-    }
-
-    private void createCSV() throws IOException {
+        FileReader reader = new FileReader(Dirpath + File.separator + fileName);
+        Scanner scanner = new Scanner(reader);
         String total = "";
-        int[] exps = new int[]{6, 13, 20, 27, 34, 41, 48, 55, 62, 69, 76};
+        int[] exps = new int[]{23, 28, 36, 40, 44, 49, 53, 58};
         int counter = 0;
         while (scanner.hasNextLine()) {
             counter++;
             String line = scanner.nextLine();
-            if (line.contains("--"))
+            if (counter==1)
                 continue;
             else {
-                if (counter!=3)
+                String x = line.substring(3, 19).replaceAll(" ", "^");
+                line = line.substring(19, line.length());
+                line = "   " + x + line;
                 for (int i = 0; i < exps.length; i++)
                     try {
                         if (line.charAt(exps[i]) == ' ') {
                             StringBuilder stringBuilder = new StringBuilder(line);
-                            stringBuilder.setCharAt(exps[i], 'N');
+                            stringBuilder.setCharAt(exps[i], '&');
                             line = stringBuilder.toString();
                         }
                     } catch (StringIndexOutOfBoundsException e) {
-
                         for (int j = i; j < exps.length; j++) {
                             StringBuilder ana = new StringBuilder(line);
                             int analength = ana.length();
@@ -51,12 +41,15 @@ public class SecondMining {
                             for (int k = analength; k < desire; k++) {
                                 ana.insert(k, " ");
                             }
+                            ;
                             ana.insert(ana.length(), "N");
 
                             line = ana.toString();
                         }
                         break;
                     }
+
+
                 line = line.replace(" ", ";");
                 String s = line;
                 for (; ; )
@@ -72,18 +65,16 @@ public class SecondMining {
             }
 
         }
-
-        RawMining.writeInFileInOnce(System.getProperty("user.dir") + "/assets/data", this.fileName + ".csv", new StringBuilder(total), true);
-
+        System.out.println(total);
+        RawMining.writeInFileInOnce("config", "turkey.conf.csv", new StringBuilder(total), true);
     }
-
 
     public static void main(String[] args) {
         try {
-            new SecondMining("assets/data/00Z_01 _Jan _2017", "00Z_01 _Jan _2017").createCSV();
+            Mapping.mapStationNumTOCities("config", "turkey.conf");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-}
 
+}
