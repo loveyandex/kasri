@@ -1,8 +1,14 @@
 package com.analysis;
 
+import com.config.C;
+
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -10,7 +16,7 @@ import java.util.Scanner;
  */
 public class Mapping {
 
-    static public void mapStationNumTOCities(String Dirpath, String fileName) throws IOException {
+    static public void creteCSVFILEFORStations(String Dirpath, String fileName) throws IOException {
 
         FileReader reader = new FileReader(Dirpath + File.separator + fileName);
         Scanner scanner = new Scanner(reader);
@@ -20,7 +26,7 @@ public class Mapping {
         while (scanner.hasNextLine()) {
             counter++;
             String line = scanner.nextLine();
-            if (counter==1)
+            if (counter == 1 || line.length() < 33 || line.toUpperCase().contains("STATION"))
                 continue;
             else {
                 String x = line.substring(3, 19).replaceAll(" ", "^");
@@ -30,7 +36,7 @@ public class Mapping {
                     try {
                         if (line.charAt(exps[i]) == ' ') {
                             StringBuilder stringBuilder = new StringBuilder(line);
-                            stringBuilder.setCharAt(exps[i], '&');
+                            stringBuilder.setCharAt(exps[i], C.INSTEAD_PARAM_LESS);
                             line = stringBuilder.toString();
                         }
                     } catch (StringIndexOutOfBoundsException e) {
@@ -42,7 +48,7 @@ public class Mapping {
                                 ana.insert(k, " ");
                             }
                             ;
-                            ana.insert(ana.length(), "N");
+                            ana.insert(ana.length(), C.INSTEAD_PARAM_LESS);
 
                             line = ana.toString();
                         }
@@ -65,16 +71,75 @@ public class Mapping {
             }
 
         }
-        System.out.println(total);
-        RawMining.writeInFileInOnce("config", "turkey.conf.csv", new StringBuilder(total), true);
+//        System.out.println(total);
+        RawMining.writeInFileInOnce(Dirpath, fileName + ".csv", new StringBuilder(total), true);
     }
+
+
+    static public Map<String, String> SecondStepMapStationNumTOCities(String path) throws FileNotFoundException {
+        Map<String, String> mapStationNumberName = new HashMap<>();
+        FileReader reader = new FileReader(path);
+        Scanner scanner = new Scanner(reader);
+
+
+        while (scanner.hasNextLine()) {
+            String nextLine = scanner.nextLine();
+            String[] strings = nextLine.split(";");
+            String stationName = strings[0].replaceAll(C.STATION_NAME_SIMBOL, C.SPACE);
+            String stationNumber = strings[3];
+            mapStationNumberName.put(stationName, stationNumber);
+        }
+
+        return mapStationNumberName;
+    }
+
+    public static ArrayList<String> readFileLines(String path) throws FileNotFoundException {
+        ArrayList<String> lines = new ArrayList<>();
+        FileReader reader = new FileReader(path);
+        Scanner scanner = new Scanner(reader);
+        String total = "";
+        while (scanner.hasNextLine())
+            lines.add(scanner.nextLine());
+        return lines;
+
+    }
+
+    public static ArrayList<String> getFileLines(String path) throws FileNotFoundException {
+        return readFileLines(path);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static void main(String[] args) {
         try {
-            Mapping.mapStationNumTOCities("config", "turkey.conf");
+            Mapping.creteCSVFILEFORStations("config", "iran.conf");
+            Map<String, String> stationNumTOCities = Mapping.SecondStepMapStationNumTOCities("config/iran.conf.csv");
+            for (Map.Entry map : stationNumTOCities.entrySet()) {
+                System.out.println(String.format("%s %s", map.getKey(), map.getValue()));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 }

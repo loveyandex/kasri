@@ -1,33 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<VBox fx:id="root23" xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.ui.WindLoginController"
-      prefHeight="400.0" prefWidth="600.0">
 
-    <children>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<GridPane fx:id="rootNode" xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.ui.WindLoginController"
+          prefHeight="2500.0" prefWidth="600.0">
 
-        <!--<StackPane>-->
-            <!--<children>-->
-                <!--<DatePicker>-->
-                <!--</DatePicker>-->
-            <!--</children>-->
-        <!--</StackPane>-->
+    <Label text="choose a persian date"
+           GridPane.columnIndex="0" styleClass="about-button" GridPane.rowIndex="0" />
 
-        <Label fx:id="inputLbl" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE" prefHeight="30.0"
-               prefWidth="200.0" text="Please insert Your Input here:" textAlignment="LEFT"/>
-        <TextField fx:id="inputText" prefWidth="100.0"/>
-        <HBox>
-            <Button fx:id="okBtn" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false"
-                    text="file" textAlignment="CENTER"/>
-
-        </HBox>
-        <Label fx:id="outputLbl" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE" prefHeight="30.0"
-               prefWidth="200.0" text="Your Input:" textAlignment="LEFT"/>
-        <TextArea fx:id="textArea" prefHeight="100.0" prefWidth="200.0" wrapText="true"/>
-    </children>
-
-</VBox>
+    <Label text="you can also gregorian date instead"
+           GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    <Label text="choose a country"
+           GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+    <Label text="choose a station"
+           GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+</GridPane>

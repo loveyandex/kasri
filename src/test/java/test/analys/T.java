@@ -1,5 +1,6 @@
 package test.analys;
 
+import com.config.C;
 import org.junit.Test;
 
 /**
@@ -16,5 +17,14 @@ public class T {
         System.out.println(x);
         System.out.println(line);
 
+        System.out.println("   ABADAN INTL AIRP OIAA        40831".length());
+
+    }
+
+
+    @Test
+    public void test2(){
+        String string="ANKARA/GUVERCIN^";
+        System.out.println(string.replaceAll(C.STATION_NAME_SIMBOL,C.SPACE));
     }
 }

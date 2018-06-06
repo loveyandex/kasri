@@ -173,15 +173,12 @@ public class MainController implements Initializable {
 
     public void wind(ActionEvent actionEvent) throws IOException {
         Stage dialog = new Stage();
-
+        dialog.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource("/wind_login.fxml"));
-        Scene scene = new Scene(root, 500, 455);
+        Scene scene = new Scene(root, 450, 350);
         dialog.setScene(scene);
-
-        dialog.setAlwaysOnTop(true);
-        dialog.setResizable(true);
         dialog.initOwner(rootme.getScene().getWindow());
-        dialog.initModality(Modality.WINDOW_MODAL);
+        dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.showAndWait();
     }
 }
