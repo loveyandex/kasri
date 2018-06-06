@@ -2,6 +2,7 @@ package com.ui;
 
 import com.analysis.Mapping;
 import com.config.C;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import net.time4j.PlainDate;
@@ -36,6 +38,8 @@ public class WindLoginController implements Initializable {
     public JFXComboBox<Label> stationsCombo;
     @FXML
     public JFXComboBox<Label> countriesCombo;
+    public JFXButton cancelBtn;
+    public JFXButton Gobtn;
 
 
     @FXML
@@ -145,6 +149,19 @@ public class WindLoginController implements Initializable {
         rootNode.add(stationsCombo, 1, 7);
         GridPane.setHalignment(stationsCombo, HPos.CENTER);
 
+        cancelBtn.pressedProperty().addListener(observable -> {
+        });
+
+        cancelBtn.setOnAction(event -> {
+            ((cancelBtn)).getParent().getScene().getWindow().hide();
+
+        });
+        cancelBtn.setOnKeyPressed(event -> {
+            if(event.getCode()==KeyCode.ENTER)
+                cancelBtn.getOnAction().handle(null);
+        });
+
+        persianCalendarCalendarPicker.setFocusTraversable(true);
     }
 
 

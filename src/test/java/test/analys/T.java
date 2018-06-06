@@ -24,7 +24,7 @@ public class T {
 
     @Test
     public void test2(){
-        String string="ANKARA/GUVERCIN^";
-        System.out.println(string.replaceAll(C.STATION_NAME_SIMBOL,C.SPACE));
+        String string="ANKAR^^K";
+        System.out.println(string.replaceAll("[?^]",C.SPACE));
     }
 }

@@ -9,7 +9,7 @@ public class C {
     public static final String OTHER="";
     public static final String RAW_FMXL_PATH = "/raw_mining_activity.fxml";
     public static final char INSTEAD_PARAM_LESS='&';
-    public static final String STATION_NAME_SIMBOL="\^";
+    public static final String STATION_NAME_SIMBOL="[?^]";
     public static final String SPACE = " ";
     public static final String COUNTRIES_CONFIG_PATH = "config/countries.conf";
 
