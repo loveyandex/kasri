@@ -5,10 +5,11 @@ package test;
  */
 
 import com.analysis.WindMining;
+import com.config.C;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.ULocale;
-import com.ui.dialogs.ExceptionDialog;
+import com.ui.dialogs.Dialog;
 import eu.hansolo.enzo.notification.Notification;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -21,7 +22,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -39,7 +39,6 @@ import org.controlsfx.control.NotificationPane;
 import org.controlsfx.control.RangeSlider;
 
 import java.awt.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -112,17 +111,20 @@ public class TestMainActivity extends Application implements Initializable {
             Notification info = new Notification("You know That", "God is great");
 
 // Show the custom notification
-            Notification.Notifier.INSTANCE.notify(info);
-            Notification.Notifier.INSTANCE.notifySuccess("downloaded", "dsd");
+//            Notification.Notifier.INSTANCE.notify(info);
+//            Notification.Notifier.INSTANCE.notifySuccess("downloaded", "dsd");
+//
+//            Notification.Notifier.INSTANCE.notifyInfo("Information", "   ");
+//
+//            Dialog.
+//                    createExceptionDialog( new FileNotFoundException(
+//                    "Could not find file blabla.txt"));
+//            Dialog.examp();
+            Dialog.createDataDirChooser();
 
-            Notification.Notifier.INSTANCE.notifyInfo("Information", "   ");
-
-            ExceptionDialog.
-                    createDialog( new FileNotFoundException(
-                    "Could not find file blabla.txt"));
         });
 
-
+        System.out.println(C.DATA_PATH);
         hSlider = new RangeSlider(0, 100, 10, 90);
 
         hSlider.setShowTickMarks(true);
@@ -176,7 +178,7 @@ public class TestMainActivity extends Application implements Initializable {
             showNotificationPane(group);
 
 // Create the custom dialog.
-            Dialog<Pair<String, String>> dialog = new Dialog<>();
+            javafx.scene.control.Dialog dialog = new javafx.scene.control.Dialog();
             dialog.setTitle("Login Dialog");
             dialog.setHeaderText("Look, a Custom Login Dialog");
 

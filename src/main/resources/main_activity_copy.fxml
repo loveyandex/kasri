@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?language JavaScript?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox fx:id="rootme" prefHeight="400" prefWidth="800" xmlns="http://javafx.com/javafx/8.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.MainController">
+
+    <MenuBar fx:id="menuBar" focusTraversable="true">
+        <menus>
+            <Menu text="File">
+                <items>
+                    <MenuItem onAction="#chart" text="chart" />
+                    <MenuItem onAction="#wind" text="how" />
+                    <MenuItem onAction="#fetch" text="Data" />
+                    <SeparatorMenuItem />
+                    <MenuItem text="Save" />
+                    <MenuItem text="Save As" />
+                    <SeparatorMenuItem />
+                    <MenuItem onAction="#exit" text="Exit" />
+                </items>
+            </Menu>
+            <Menu text="view">
+                <items>
+                    <MenuItem text="" />
+                    <MenuItem text="Objects Example" />
+                    <MenuItem text="Animation Example" />
+                </items>
+            </Menu>
+            <Menu text="Help">
+                <items>
+                    <MenuItem disable="true" text="Search" />
+                    <MenuItem text="Online Manual" visible="false" />
+                    <SeparatorMenuItem />
+                    <MenuItem text="About" />
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
+
+    <VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" spacing="10">
+        <style>
+            -fx-padding: 10;
+            -fx-margin-right:23;
+            -fx-border-style: solid inside;
+            -fx-border-width: 62;
+            -fx-border-insets: 5;
+            -fx-border-radius: 5;
+            -fx-border-color: gray;
+            -fx-
+        </style>
+
+        <children>
+            <Label fx:id="inputLbl" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE" prefHeight="30.0" prefWidth="200.0" text="Please insert Your Input here:" textAlignment="LEFT" />
+            <TextField fx:id="inputText" prefWidth="100.0" />
+            <Button fx:id="okBtn" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onactionHandeler" text="OK" textAlignment="CENTER" />
+
+            <Label fx:id="outputLbl" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE" prefHeight="18.0" prefWidth="400.0" text="Your Input:" textAlignment="LEFT" textFill="#a26060">
+            <font>
+               <Font name="Times New Roman" size="24.0" />
+            </font></Label>
+            <TextArea fx:id="textArea" prefHeight="100.0" prefWidth="200.0" wrapText="true" />
+        </children>
+
+    </VBox>
+
+
+</VBox>

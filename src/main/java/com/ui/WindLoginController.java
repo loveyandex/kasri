@@ -1,10 +1,11 @@
 package com.ui;
 
+import com.amin.jsons.Date;
+import com.amin.jsons.WindInfo;
 import com.analysis.Mapping;
 import com.config.C;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
@@ -21,6 +22,8 @@ import net.time4j.ui.javafx.CalendarPicker;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
@@ -40,22 +43,21 @@ public class WindLoginController implements Initializable {
     public JFXComboBox<Label> countriesCombo;
     public JFXButton cancelBtn;
     public JFXButton Gobtn;
-
-
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
+    private DatePicker datePicker;
 
-    public void per(ActionEvent actionEvent) {
-    }
+    public WindInfo windInfo;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        windInfo = new WindInfo();
         rootNode.setAlignment(Pos.CENTER);
 
         persianCalendarCalendarPicker = CalendarPicker.persianWithSystemDefaults();
         persianCalendarCalendarPicker.setStyle("-fx-padding: 0 0 10 0");
-
+        persianCalendarCalendarPicker.setFocusTraversable(true);
+        persianCalendarCalendarPicker.requestFocus();
 
 //        rootNode.getChildren().add(persianCalendarCalendarPicker);
         rootNode.add(persianCalendarCalendarPicker, 1, 1);
@@ -64,44 +66,29 @@ public class WindLoginController implements Initializable {
         persianCalendarCalendarPicker.setShowInfoLabel(true);
         persianCalendarCalendarPicker.setLocale(new Locale("fa", "IR"));
         persianCalendarCalendarPicker.setShowWeeks(true);
-        persianCalendarCalendarPicker.setCellCustomizer((cell, column, row, model, date) -> {
-//                    if (CellCustomizer.isWeekend(column, model)) {
-//                        cell.setStyle("-fx-background-color: #FFE0E0;");
-//                        cell.setDisable(true);
-//                    }
-                });
+        persianCalendarCalendarPicker.setCellCustomizer((cell, column, row, model, date) -> {});
 
         persianCalendarCalendarPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("godIsGreat");
-            int dayOfMonth = persianCalendarCalendarPicker.valueProperty().getValue().getDayOfMonth();
-            System.out.println(dayOfMonth);
-            int year = persianCalendarCalendarPicker.valueProperty().getValue().getYear();
-            System.out.println(year);
-            int momth = persianCalendarCalendarPicker.valueProperty().getValue().getMonth().getValue();
-            System.out.println(momth);
 
-
-
-            System.out.println("------------------------godisgreat-------");
             PersianCalendar persianCalendar = persianCalendarCalendarPicker.valueProperty().getValue();
             PlainDate plainDate = persianCalendar.transform(PlainDate.class);
-            System.out.println(plainDate.getYear());
-            System.out.println(plainDate.getMonth());
-            System.out.println(plainDate.getDayOfMonth());
 
+            windInfo.setDate(new Date(plainDate.getMonth(), plainDate.getDayOfMonth(), plainDate.getYear()));
+
+            datePicker.valueProperty().
+                    setValue(LOCAL_DATE(
+                            String.format("%s-%s-%s", plainDate.getDayOfMonth(), plainDate.getMonth(), plainDate.getYear()), "d-M-yyyy"));
+
+            if (isReadyToFire(windInfo))
+                Gobtn.setDisable(false);
 
         });
 
-        DatePicker datePicker=new DatePicker();
+        datePicker = new DatePicker();
         datePicker.setStyle("-fx-padding: 0 0 10 0");
-
-//        rootNode.getChildren().add(datePicker);
-
         rootNode.add(datePicker, 1, 3);
 
-
         countriesCombo = new JFXComboBox<>();
-
         try {
             ArrayList<String> countriesName = Mapping.getFileLines(C.COUNTRIES_CONFIG_PATH);
             countriesName.forEach(countryName -> countriesCombo.getItems().add(new Label(countryName)));
@@ -116,32 +103,31 @@ public class WindLoginController implements Initializable {
         countriesCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             stationsCombo.getItems().clear();
             try {
+                windInfo.setStationNumber(null);
+                windInfo.setCountry(newValue.getText());
                 Mapping.creteCSVFILEFORStations("config", newValue.getText() + ".conf");
                 Map<String, String> stationNumTOCities = Mapping.SecondStepMapStationNumTOCities("config/" + newValue.getText() + ".conf.csv");
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
                     if (!station.getValue().equals("&"))
                         stationsCombo.getItems().add(new Label(station.getKey()));
                 }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            if (isReadyToFire(windInfo))
+                Gobtn.setDisable(false);
 
 
         });
 
         stationsCombo.setPromptText("select station");
         stationsCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
-            try {
-                System.out.println(oldValue.getText());
-                System.out.println(newValue.getText());
 
-            } catch (NullPointerException e) {
-                try {
-                    System.out.println(newValue.getText());
-
-                }catch (NullPointerException e1){
-                    System.out.println("fucked");
-                }
+            if (newValue != null) {
+                windInfo.setStationNumber(newValue.getText());
+                if (isReadyToFire(windInfo))
+                    Gobtn.setDisable(false);
             }
         });
 //        rootNode.getChildren().add(stationsCombo);
@@ -161,9 +147,35 @@ public class WindLoginController implements Initializable {
                 cancelBtn.getOnAction().handle(null);
         });
 
+        Gobtn.setOnKeyPressed(event -> {
+            if(event.getCode()==KeyCode.ENTER)
+                Gobtn.getOnAction().handle(null);
+        });
+
+
+        Gobtn.setOnAction(event -> {
+
+        });
+
+
+
         persianCalendarCalendarPicker.setFocusTraversable(true);
     }
 
+
+    public static final LocalDate LOCAL_DATE(String dateString, String pattern) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        LocalDate localDate = LocalDate.parse(dateString, formatter);
+        return localDate;
+    }
+
+    private boolean isReadyToFire(WindInfo windInfo) {
+        if (windInfo.getDate() == null || windInfo.getStationNumber() == null || windInfo.getCountry() == null) {
+            Gobtn.setDisable(true);
+            return false;
+        } else
+            return true;
+    }
 
 
 
