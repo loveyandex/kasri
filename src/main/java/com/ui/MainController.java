@@ -1,6 +1,6 @@
 package com.ui;
 
-import com.analysis.WindMining;
+import com.analysis.wind.WindMining;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -181,15 +181,20 @@ public class MainController implements Initializable {
 
         dialog.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource("/wind_login.fxml"));
-        Scene scene = new Scene(root, 450, 350);
-        String image = MainController.class.getResource("/fav.jpg").toURI().toString();
-        root.setStyle("-fx-background-image: url('" + image + "'); " +
-                "-fx-background-position: center center; " +
-                "-fx-background-repeat: stretch;");
+        Scene scene = new Scene(root, 550, 400);
+//        String image = MainController.class.getResource("/fav.jpg").toURI().toString();
+//        root.setStyle("-fx-background-image: url('" + image + "'); " +
+//                "-fx-background-position: center center; " +
+//                "-fx-background-repeat: stretch;");
+        root.setStyle("-fx-background-color: #fff");
 
         dialog.setScene(scene);
         dialog.initOwner(rootme.getScene().getWindow());
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.showAndWait();
     }
+
+
+
+
 }

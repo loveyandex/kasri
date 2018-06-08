@@ -26,5 +26,9 @@ public class T {
     public void test2(){
         String string="ANKAR^^K";
         System.out.println(string.replaceAll("[?^]",C.SPACE));
+
+        int num = Integer.parseInt("000008");
+        String text = (num < 10 ? "0" : "") + num;
+        System.out.println(text);
     }
 }

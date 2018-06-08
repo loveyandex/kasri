@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<AnchorPane
+        xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        fx:id="rootNode"
+        fx:controller="com.ui.WindResultController">
+
+
+
+
+    <HBox style="-fx-padding: 40px 0 0px 0" >
+
+        <JFXButton fx:id="back"
+                   onAction="#back"
+                   translateX="50"
+                   stylesheets="buttons.css"
+                   styleClass="button"
+                   text="back">
+        </JFXButton>
+
+
+    </HBox>
+
+
+
+
+</AnchorPane>

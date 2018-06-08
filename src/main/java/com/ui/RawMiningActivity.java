@@ -1,6 +1,7 @@
 package com.ui;
 
 import com.analysis.RawMining;
+import com.analysis.SecondMining;
 import com.config.C;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -52,16 +53,16 @@ public class RawMiningActivity extends Application {
         );
         fileChooser.setTitle("Open Resource File");
         fileChooser.setInitialDirectory(new File(C.PATH_TO_RAW_DIR_ROOT));
-
-        File file1 = fileChooser.showSaveDialog(primaryStage);
-        if (!file1.exists()) {
-            try {
-                file1.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.exit(0);
-        }
+//
+//        File file1 = fileChooser.showSaveDialog(primaryStage);
+//        if (!file1.exists()) {
+//            try {
+//                file1.createNewFile();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            System.exit(0);
+//        }
 
 
         List<File> list = fileChooser.showOpenMultipleDialog(primaryStage);
@@ -74,21 +75,6 @@ public class RawMiningActivity extends Application {
                 }
             }
         }
-
-//
-//            File file = fileChooser.showOpenDialog(primaryStage);
-//            if (file != null) {
-//                System.out.println(file.getAbsolutePath());
-//                System.out.println(file.getName());
-//                System.out.println(file.getParent());
-//                try {
-//                    new RawMining(file.getParent(), file.getName()).readFile();
-//                    fileChooser.setInitialDirectory(file.getParentFile());
-//                    fileChooser.showOpenDialog(primaryStage);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
 
 
     }
@@ -127,36 +113,34 @@ public class RawMiningActivity extends Application {
                 }
             }
 
-
-
             System.err.println(selectedDirectory.getAbsolutePath());
         }
     }
 
 
-//    void ini(){
-//
-//        MenuItem cmItem2 = new MenuItem("Save Image");
-//        cmItem2.setOnAction(new EventHandler<ActionEvent>() {
-//                                public void handle(ActionEvent e) {
-//                                    FileChooser fileChooser = new FileChooser();
-//                                    fileChooser.setTitle("Save Image");
-//                                    Object pic;
-//                                    File file = fileChooser.showSaveDialog(primaryStage);
-//                                    if (file != null) {
-//                                        try {
-//                                            ImageIO.write(SwingFXUtils.fromFXImage(pic.getImage(),
-//                                                    null), "png", file);
-//                                        } catch (IOException ex) {
-//                                            System.out.println(ex.getMessage());
-//                                        }
-//                                    }
-//                                }
-//                            }
-//        );
-//
-//
-//    }
+    public void ChDir2(ActionEvent actionEvent) {
 
+        final DirectoryChooser directoryChooser =
+                new DirectoryChooser();
+        final File selectedDirectory =
+                directoryChooser.showDialog(primaryStage);
+        if (selectedDirectory != null) {
+            File[] rawsFiles = selectedDirectory.listFiles();
+            for (File dataRaw : rawsFiles) {
+                if (dataRaw.isFile()) {
+                    try {
+                        new SecondMining(dataRaw.getAbsolutePath(), dataRaw.getName()).createCSV();
 
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+
+                }
+            }
+
+            System.err.println(selectedDirectory.getAbsolutePath());
+        }
+
+    }
 }

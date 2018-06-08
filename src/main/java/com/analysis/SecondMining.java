@@ -1,5 +1,6 @@
 package com.analysis;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,22 +10,23 @@ import java.util.Scanner;
  * is created by aMIN on 5/9/2018 at 23:38
  */
 public class SecondMining {
+    private final String pathDir;
     Scanner scanner;
     FileReader reader = null;
     private String fileName;
 
-    SecondMining(String path, String fileName) {
+    public SecondMining(String pathDir, String fileName) {
         this.fileName = fileName;
-
+        this.pathDir=pathDir;
         try {
-            reader = new FileReader(path);
+            reader = new FileReader(pathDir+File.separator+fileName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         scanner = new Scanner(reader);
     }
 
-    private void createCSV() throws IOException {
+    public void createCSV() throws IOException {
         String total = "";
         int[] exps = new int[]{6, 13, 20, 27, 34, 41, 48, 55, 62, 69, 76};
         int counter = 0;
@@ -73,14 +75,14 @@ public class SecondMining {
 
         }
 
-        RawMining.writeInFileInOnce(System.getProperty("user.dir") + "/assets/data", this.fileName + ".csv", new StringBuilder(total), true);
+        RawMining.writeInFileInOnce(this.pathDir, this.fileName + ".csv", new StringBuilder(total), true);
 
     }
 
 
     public static void main(String[] args) {
         try {
-            new SecondMining("assets/data/00Z_01 _Jan _2017", "00Z_01 _Jan _2017").createCSV();
+            new SecondMining("assets/data", "00Z_01 _Jan _2017").createCSV();
         } catch (IOException e) {
             e.printStackTrace();
         }

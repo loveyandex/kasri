@@ -20,10 +20,17 @@
                    prefWidth="200.0" text="Please insert Your Input here:" textAlignment="LEFT"/>
             <TextField fx:id="inputText" prefWidth="100.0"/>
             <HBox>
+
                 <Button fx:id="chooseDir" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false"
-                        onAction="#ChDir" text="dir" textAlignment="CENTER"/>
+                        onAction="#ChDir" text="raw first" textAlignment="CENTER"/>
+
+                <Button fx:id="chooseDir2" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false"
+                        onAction="#ChDir2" text="second csv" textAlignment="CENTER"/>
+
                 <Button fx:id="okBtn" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false"
                         onAction="#choosoe" text="file" textAlignment="CENTER"/>
+
+
             </HBox>
             <Label fx:id="outputLbl" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE" prefHeight="30.0"
                    prefWidth="200.0" text="Your Input:" textAlignment="LEFT"/>

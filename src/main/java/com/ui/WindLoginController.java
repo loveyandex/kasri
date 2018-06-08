@@ -7,9 +7,11 @@ import com.config.C;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -22,9 +24,12 @@ import net.time4j.ui.javafx.CalendarPicker;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
@@ -49,6 +54,7 @@ public class WindLoginController implements Initializable {
     private DatePicker datePicker;
 
     public WindInfo windInfo;
+    private Map<String, String> stationNumTOCities;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -112,7 +118,7 @@ public class WindLoginController implements Initializable {
                 windInfo.setStationNumber(null);
                 windInfo.setCountry(newValue.getText());
                 Mapping.creteCSVFILEFORStations("config", newValue.getText() + ".conf");
-                Map<String, String> stationNumTOCities = Mapping.SecondStepMapStationNumTOCities("config/" + newValue.getText() + ".conf.csv");
+                stationNumTOCities = Mapping.SecondStepMapStationNumTOCities("config/" + newValue.getText() + ".conf.csv");
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
                     if (!station.getValue().equals("&"))
                         stationsCombo.getItems().add(new Label(station.getKey()));
@@ -131,7 +137,13 @@ public class WindLoginController implements Initializable {
         stationsCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
 
             if (newValue != null) {
-                windInfo.setStationNumber(newValue.getText());
+                for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
+                    if (station.getKey().equals(newValue.getText()))
+                        windInfo.setStationNumber(station.getValue());
+
+                }
+                windInfo.setStationName(newValue.getText());
+
                 if (isReadyToFire(windInfo))
                     Gobtn.setDisable(false);
             }
@@ -160,8 +172,13 @@ public class WindLoginController implements Initializable {
 
 
         Gobtn.setOnAction(event -> {
-            getResult();
-            ((Stage) ((Stage) (rootNode.getScene().getWindow())).getOwner()).getIcons().clear();
+            try {
+                getResult(((Stage) rootNode.getScene().getWindow()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
         });
 
 
@@ -169,8 +186,73 @@ public class WindLoginController implements Initializable {
         persianCalendarCalendarPicker.setFocusTraversable(true);
     }
 
-    private void getResult() {
+    private void getResult(Stage prStage) throws IOException, URISyntaxException {
+        Parent root = FXMLLoader.load(getClass().getResource("/wind_result.fxml"));
+        SceneJsonWindInfo scene = new SceneJsonWindInfo(root, 450, 350);
+        (scene).setWindInfo(windInfo);
+        String image = MainController.class.getResource("/fav.jpg").toURI().toString();
+        root.setStyle("-fx-background-image: url('" + image + "'); " +
+                "-fx-background-position: center center; " +
+                "-fx-background-repeat: stretch;");
+        prStage.hide();
+        prStage.setScene(scene);
+        prStage.show();
+        minnig();
+        prStage.setOnShowing(event -> {
+            System.out.println("showing");
+        });
     }
+    private void minnig() {
+        int numDay = windInfo.Date.Day;
+        String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
+        Month day = Month.of(windInfo.getDate().Month);
+        System.out.println(day.getDisplayName(TextStyle.SHORT,Locale.ENGLISH));
+        System.out.println(dayOfMonth);
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public static final LocalDate LOCAL_DATE(String dateString, String pattern) {

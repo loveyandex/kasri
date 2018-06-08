@@ -106,9 +106,6 @@ public class APP extends Application {
             System.out.println(observable.getClass().getName());
         });
 
-
-
-
         ResizeHelper.addResizeListener(primaryStage);
 
     }

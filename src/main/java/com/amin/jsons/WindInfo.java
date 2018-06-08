@@ -12,6 +12,7 @@ import lombok.Setter;
 public class WindInfo {
     public Date Date;
     public String StationNumber;
+    public String StationName;
     public String Country;
 
     public WindInfo() {

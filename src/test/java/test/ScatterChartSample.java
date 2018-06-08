@@ -4,7 +4,7 @@ package test;
  * is created by aMIN on 5/26/2018 at 02:04
  */
 
-import com.analysis.WindMining;
+import com.analysis.wind.WindMining;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

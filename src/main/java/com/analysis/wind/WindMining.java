@@ -1,4 +1,6 @@
-package com.analysis;
+package com.analysis.wind;
+
+import com.analysis.RawMining;
 
 import java.io.FileReader;
 import java.io.IOException;

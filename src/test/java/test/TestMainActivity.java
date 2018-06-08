@@ -4,7 +4,7 @@ package test;
  * is created by aMIN on 5/26/2018 at 05:00
  */
 
-import com.analysis.WindMining;
+import com.analysis.wind.WindMining;
 import com.config.C;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.util.Calendar;
