@@ -4,13 +4,12 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
-<GridPane fx:id="rootNode" xmlns="http://javafx.com/javafx"
+<GridPane stylesheets="stage.css" fx:id="rootNode" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="com.ui.WindLoginController"
           prefHeight="2500.0" prefWidth="600.0">
 
-    <Label focusTraversable="true" text="choose a persian date"
-           GridPane.columnIndex="0" styleClass="about-button" GridPane.rowIndex="0" />
+    <Label stylesheets="stage.css"   focusTraversable="true" text="choose a persian date" GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
     <Label text="you can also gregorian date instead"
            GridPane.columnIndex="0" GridPane.rowIndex="2"/>

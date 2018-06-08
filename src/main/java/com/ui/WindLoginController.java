@@ -14,6 +14,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.time4j.PlainDate;
 import net.time4j.calendar.PersianCalendar;
@@ -55,7 +56,12 @@ public class WindLoginController implements Initializable {
         rootNode.setAlignment(Pos.CENTER);
 
         persianCalendarCalendarPicker = CalendarPicker.persianWithSystemDefaults();
-        persianCalendarCalendarPicker.setStyle("-fx-padding: 0 0 10 0");
+        persianCalendarCalendarPicker.setStyle("  -fx-primary : gray;\n" +
+                "    -fx-secondary : #007bff;\n" +
+                "    -fx-primarytext : white;\n" +
+                "    -fx-blue: #007bff;\n" +
+                "    -fx-red: #dc3545;\n" +
+                "    -fx-green:#2E7D32;");
         persianCalendarCalendarPicker.setFocusTraversable(true);
         persianCalendarCalendarPicker.requestFocus();
 
@@ -154,12 +160,16 @@ public class WindLoginController implements Initializable {
 
 
         Gobtn.setOnAction(event -> {
-
+            getResult();
+            ((Stage) ((Stage) (rootNode.getScene().getWindow())).getOwner()).getIcons().clear();
         });
 
 
 
         persianCalendarCalendarPicker.setFocusTraversable(true);
+    }
+
+    private void getResult() {
     }
 
 

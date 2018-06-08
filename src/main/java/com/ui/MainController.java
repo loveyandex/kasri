@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -24,6 +25,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -121,6 +123,7 @@ public class MainController implements Initializable {
         final HBox hbox = new HBox();
         vbox.setLayoutY(300);
         vbox.setLayoutX(400);
+        vbox.setStyle("-fx-background-color: #fff");
 
         final Button add = new Button("Add Series");
 
@@ -139,7 +142,7 @@ public class MainController implements Initializable {
         shadow.setOffsetX(2);
         shadow.setColor(Color.GREY);
         sc.setEffect(shadow);
-
+        sc.setStyle("-fx-background-color: #fff;");
         hbox.setSpacing(10);
         hbox.getChildren().addAll(add, remove);
         vbox.getChildren().addAll(sc, hbox);
@@ -152,6 +155,7 @@ public class MainController implements Initializable {
 
             Stage stage = new Stage();
             stage.setTitle("Title");
+            root.setStyle("-fx-background-color: #fff");
             stage.setScene(new Scene(root, 450, 450));
             stage.show();
 
@@ -171,11 +175,18 @@ public class MainController implements Initializable {
 
     }
 
-    public void wind(ActionEvent actionEvent) throws IOException {
+    public void wind(ActionEvent actionEvent) throws IOException, URISyntaxException {
         Stage dialog = new Stage();
+        dialog.getIcons().add(new Image(getClass().getResource("/fav.jpg").toURI().toString()));
+
         dialog.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource("/wind_login.fxml"));
         Scene scene = new Scene(root, 450, 350);
+        String image = MainController.class.getResource("/fav.jpg").toURI().toString();
+        root.setStyle("-fx-background-image: url('" + image + "'); " +
+                "-fx-background-position: center center; " +
+                "-fx-background-repeat: stretch;");
+
         dialog.setScene(scene);
         dialog.initOwner(rootme.getScene().getWindow());
         dialog.initModality(Modality.APPLICATION_MODAL);

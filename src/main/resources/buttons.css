@@ -1,9 +1,9 @@
 * {
-    -fx-primary : gray;
-    -fx-secondary : #3f96a0;
-    -fx-primarytext : white;
-    -fx-blue: #1976D2;
-    -fx-red: #FF0000;
+    -fx-primary : #007bff;
+    -fx-secondary :#0069d9;
+    -fx-primarytext : #fff;
+    -fx-blue: #007bff;
+    -fx-red: #dc3545;
     -fx-green:#2E7D32;
 }
 
