@@ -28,7 +28,7 @@
                         onAction="#ChDir2" text="second csv" textAlignment="CENTER"/>
 
                 <Button fx:id="okBtn" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false"
-                        onAction="#choosoe" text="file" textAlignment="CENTER"/>
+                        onAction="#choosoe" text="wind mining" textAlignment="CENTER"/>
 
 
             </HBox>

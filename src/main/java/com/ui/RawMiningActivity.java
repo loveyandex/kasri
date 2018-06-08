@@ -2,6 +2,7 @@ package com.ui;
 
 import com.analysis.RawMining;
 import com.analysis.SecondMining;
+import com.analysis.wind.WindMining;
 import com.config.C;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -53,26 +54,17 @@ public class RawMiningActivity extends Application {
         );
         fileChooser.setTitle("Open Resource File");
         fileChooser.setInitialDirectory(new File(C.PATH_TO_RAW_DIR_ROOT));
-//
-//        File file1 = fileChooser.showSaveDialog(primaryStage);
-//        if (!file1.exists()) {
-//            try {
-//                file1.createNewFile();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            System.exit(0);
-//        }
 
 
         List<File> list = fileChooser.showOpenMultipleDialog(primaryStage);
         if (list != null) {
             for (File file : list) {
                 try {
-                    openFile(file);
+                    WindMining.getWindSpeedCol(file.getParent(),file.getName());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
             }
         }
 
@@ -129,7 +121,7 @@ public class RawMiningActivity extends Application {
             for (File dataRaw : rawsFiles) {
                 if (dataRaw.isFile()) {
                     try {
-                        new SecondMining(dataRaw.getAbsolutePath(), dataRaw.getName()).createCSV();
+                        new SecondMining(dataRaw.getParent(), dataRaw.getName()).createCSV();
 
                     } catch (IOException e) {
                         e.printStackTrace();

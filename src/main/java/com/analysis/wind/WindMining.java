@@ -2,6 +2,7 @@ package com.analysis.wind;
 
 import com.analysis.RawMining;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,9 +15,9 @@ import java.util.Scanner;
 public class WindMining {
 
 
-    public static ArrayList<ArrayList<String>> getWindSpeedCol(String dayFile, String fileName) throws IOException {
+    public static ArrayList<ArrayList<String>> getWindSpeedCol(String dayDir, String fileName) throws IOException {
 
-        FileReader reader = new FileReader(dayFile);
+        FileReader reader = new FileReader(dayDir+File.separator+fileName);
         Scanner scanner = new Scanner(reader);
 
         ArrayList<ArrayList<String>> points=new ArrayList<>();
@@ -34,14 +35,14 @@ public class WindMining {
             points.add(point);
         }
 
-        RawMining.writeInFileInOnce(System.getProperty("user.dir") + "/assets/data", fileName+"WindSpeed" + ".csv", new StringBuilder(total), true);
+        RawMining.writeInFileInOnce(dayDir, "WindSpeed"+fileName , new StringBuilder(total), true);
         return points;
     }
 
 
     public static void main(String[] args) {
         try {
-            WindMining.getWindSpeedCol("assets/data/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
+            WindMining.getWindSpeedCol("assets/data", "00Z_08 _Jan _2017.csv");
         } catch (IOException e) {
             e.printStackTrace();
         }
