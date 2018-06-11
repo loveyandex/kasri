@@ -20,7 +20,7 @@
                    styleClass="button"
                    text="back">
         </JFXButton>
-
+        <JFXButton fx:id="f32"></JFXButton>
 
     </HBox>
 

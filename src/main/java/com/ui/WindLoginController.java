@@ -6,6 +6,7 @@ import com.analysis.Mapping;
 import com.config.C;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -49,6 +50,7 @@ public class WindLoginController implements Initializable {
     public JFXComboBox<Label> countriesCombo;
     public JFXButton cancelBtn;
     public JFXButton Gobtn;
+    public JFXTextField height;
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
     private DatePicker datePicker;
@@ -97,7 +99,7 @@ public class WindLoginController implements Initializable {
         });
 
         datePicker = new DatePicker();
-        datePicker.setStyle("-fx-padding: 0 0 10 0");
+        height.setStyle("-fx-padding: 20 0 10 0");
         rootNode.add(datePicker, 1, 3);
 
         countriesCombo = new JFXComboBox<>();
@@ -181,15 +183,26 @@ public class WindLoginController implements Initializable {
             }
         });
 
-
-
         persianCalendarCalendarPicker.setFocusTraversable(true);
+
+        height.textProperty().addListener((observable, oldValue, newValue) -> {
+
+            if (!newValue.isEmpty())
+                windInfo.setHeight(newValue);
+        });
+
+
+
     }
 
     private void getResult(Stage prStage) throws IOException, URISyntaxException {
-        Parent root = FXMLLoader.load(getClass().getResource("/wind_result.fxml"));
+
+        URL resource = getClass().getResource("/wind_result.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader(resource);
+        Parent root = ((Parent) fxmlLoader.load(resource));
         SceneJsonWindInfo scene = new SceneJsonWindInfo(root, 450, 350);
         (scene).setWindInfo(windInfo);
+
         String image = MainController.class.getResource("/fav.jpg").toURI().toString();
         root.setStyle("-fx-background-image: url('" + image + "'); " +
                 "-fx-background-position: center center; " +

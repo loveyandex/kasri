@@ -2,8 +2,10 @@
 
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 <GridPane stylesheets="stage.css" fx:id="rootNode" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="com.ui.WindLoginController"
@@ -17,8 +19,14 @@
            GridPane.columnIndex="0" GridPane.rowIndex="4"/>
     <Label text="choose a station"
            GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-
-    <HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="8">
+    <JFXTextField fx:id="height"
+                  GridPane.columnIndex="1" GridPane.rowIndex="10"
+                  labelFloat="true" layoutX="10.0" layoutY="122.0" prefHeight="33.0" prefWidth="50.0" promptText="height">
+        <font>
+            <Font size="16.0" />
+        </font>
+    </JFXTextField>
+    <HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="11">
 
         <JFXButton fx:id="cancelBtn"
                    translateX="50"

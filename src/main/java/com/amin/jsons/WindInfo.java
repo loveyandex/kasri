@@ -1,6 +1,5 @@
 package com.amin.jsons;
 
-import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,23 +13,24 @@ public class WindInfo {
     public String StationNumber;
     public String StationName;
     public String Country;
+    private String height;
 
     public WindInfo() {
     }
 
-    public WindInfo(Date date, String stationNumber, String country) {
-        Date = date;
-        StationNumber = stationNumber;
-        Country = country;
-    }
+//    public WindInfo(Date date, String stationNumber, String country) {
+//        Date = date;
+//        StationNumber = stationNumber;
+//        Country = country;
+//    }
 
     public static void main(String[] args) {
-        WindInfo windInfo = new WindInfo(new Date(2,23,2033),"48644","iran");
-        Gson gson = new Gson();
-        String s = gson.toJson(windInfo);
-        System.out.println(s);
-        WindInfo windInfo1 = gson.fromJson(s, WindInfo.class);
-        System.out.println(windInfo.Country);
+//        WindInfo windInfo = new WindInfo(new Date(2,23,2033),"48644","iran");
+//        Gson gson = new Gson();
+//        String s = gson.toJson(windInfo);
+//        System.out.println(s);
+//        WindInfo windInfo1 = gson.fromJson(s, WindInfo.class);
+//        System.out.println(windInfo.Country);
 
 
     }

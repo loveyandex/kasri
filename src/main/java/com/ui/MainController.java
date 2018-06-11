@@ -179,19 +179,21 @@ public class MainController implements Initializable {
         Stage dialog = new Stage();
         dialog.getIcons().add(new Image(getClass().getResource("/fav.jpg").toURI().toString()));
 
-        dialog.setResizable(false);
+        dialog.setResizable(true);
         Parent root = FXMLLoader.load(getClass().getResource("/wind_login.fxml"));
         Scene scene = new Scene(root, 550, 400);
-//        String image = MainController.class.getResource("/fav.jpg").toURI().toString();
-//        root.setStyle("-fx-background-image: url('" + image + "'); " +
-//                "-fx-background-position: center center; " +
-//                "-fx-background-repeat: stretch;");
+        String image = MainController.class.getResource("/fav.jpg").toURI().toString();
+        root.setStyle("-fx-background-image: url('" + image + "'); " +
+                "-fx-background-position: center center; " +
+                "-fx-background-repeat: stretch;");
         root.setStyle("-fx-background-color: #fff");
 
         dialog.setScene(scene);
         dialog.initOwner(rootme.getScene().getWindow());
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.showAndWait();
+
+
     }
 
 
