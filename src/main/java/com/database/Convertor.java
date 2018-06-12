@@ -27,18 +27,6 @@ public class Convertor {
         }
     }
 
-    public void convertCSVPathTotable(String csvPath) throws SQLException {
-            Queries.TABLE_NAME_CSV="table1"+(getJustNameFile(new File(csvPath).getName())).replaceAll(" ","");
-            System.out.println(Queries.TABLE_NAME_CSV);
-            System.out.println(Queries.CRT_TBL_CSV_NUMERIC);
-            String aminKey = Queries.CRT_TBL_CSV_NUMERIC.replaceAll("aminTable", Queries.TABLE_NAME_CSV);
-            System.out.println(aminKey);
-
-            Driver.getDriver().createCSVTable(aminKey);
-
-
-    }
-
 
     public void convertCSVFileTotable(File csvFile) {
         String TableName=getJustNameFile(csvFile.getName());
@@ -62,7 +50,7 @@ public class Convertor {
     public static void main(String[] args){
 
         try {
-            Convertor.getInstance().convertCSVPathTotable("assets/data/00Z_01 _Jan _2017.csv");
+//            Convertor.getInstance().convertCSVPathTotable("assets/data/00Z_01 _Jan _2017.csv");
 
 
 

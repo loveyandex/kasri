@@ -67,9 +67,12 @@ public class SecondMining {
                     s = s.replaceFirst(";", "");
                 if (s.charAt(s.length() - 1) == ';')
                     s = s.substring(0, s.length() - 1);
+
+
+                s = s.replaceAll("N", "NULL");
+
                 total += s + "\r\n";
             }
-
         }
 
         RawMining.writeInFileInOnce(this.pathDir, this.fileName + ".csv", new StringBuilder(total), true);
@@ -77,7 +80,7 @@ public class SecondMining {
     }
 
 
-    public static void NtoNULLInCSV(File file) {
+    private static void NtoNULLInCSV(File file) {
         try {
             FileReader readFile = new FileReader(file);
             File file1 = new File(file.getParent(), file.getName() + "L");
@@ -104,11 +107,14 @@ public class SecondMining {
     }
 
 
-    public static void main(String[] args) {
-        //            new SecondMining("assets/data", "00Z_01 _Jan _2017").createCSV();
-        SecondMining.NtoNULLInCSV(new File("assets/data/00Z_01 _Jan _2017.csv"));
+    public static void main(String[] args) throws IOException {
+        new SecondMining("assets/data", "00Z_01 _Jan _2017").createCSV();
 
 
     }
+
+
+
+
 }
 

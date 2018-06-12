@@ -85,32 +85,42 @@ public class RawMiningActivity extends Application {
 
     }
 
-    public void ChDir(ActionEvent actionEvent) {
+    public void rawMining(ActionEvent actionEvent) {
         final DirectoryChooser directoryChooser =
                 new DirectoryChooser();
-        final File selectedDirectory =
+        final File countryselectedDirectory =
                 directoryChooser.showDialog(primaryStage);
-        if (selectedDirectory != null) {
-            File[] rawsFiles = selectedDirectory.listFiles();
-            for (File dataRaw : rawsFiles) {
-                if (dataRaw.isFile()) {
-                    try {
-                        new RawMining(dataRaw.getParent(), dataRaw.getName()).readFile();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+        if (countryselectedDirectory != null) {
+            File[] yerarFiles = countryselectedDirectory.listFiles();
+            for (File yearFile : yerarFiles) {
+                if (yearFile.isDirectory()) {
+                    File[] months = yearFile.listFiles();
+                    for (File month :
+                            months) {
+                        try {
+
+//                            String rootpathDirToSave = C.DATA_PATH + File.separator + month.getParentFile().getParentFile().getParentFile().getName()+ File.separator + yearFile.getParentFile().getParentFile().getName() + File.separator + yearFile.getParentFile().getName() ;
+                            String rootpathDirToSave = C.DATA_PATH+File.separator+countryselectedDirectory.getName()+File.separator+yearFile.getName()+File.separator+month.getName();
+                            System.out.println(rootpathDirToSave);
+                            new RawMining(month.getParent(), month.getName()).readAndWriteFile(rootpathDirToSave);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
+
+
 
                 } else {
 
                 }
             }
 
-            System.err.println(selectedDirectory.getAbsolutePath());
+            System.err.println(countryselectedDirectory.getAbsolutePath());
         }
     }
 
 
-    public void ChDir2(ActionEvent actionEvent) {
+    public void secondMining(ActionEvent actionEvent) {
 
         final DirectoryChooser directoryChooser =
                 new DirectoryChooser();

@@ -4,6 +4,7 @@ import com.config.C;
 import com.database.Driver;
 import org.junit.Test;
 
+import java.io.File;
 import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -62,6 +63,22 @@ public class T {
         System.out.println(s);
     }
 
+    @Test
+    public void testmonth(){
+        File f=new File("g:/mydata/iran");
+        File[] files = f.listFiles();
+        for (File file :
+                files) {
+            File[] months = file.listFiles();
+            for (File month :
+                    months) {
+                System.out.println(file.getName()+month.getName());
+            }
+        }
+
+
+
+    }
 
 
 

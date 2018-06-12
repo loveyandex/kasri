@@ -15,8 +15,6 @@ public class RawMining implements Runnable {
     StringBuilder item2 = new StringBuilder("");
     private String dirpath;
 
-    public RawMining() {
-    }
 
     public RawMining(String Dirpath, String fileName) throws FileNotFoundException {
         this.dirpath = Dirpath;
@@ -26,7 +24,7 @@ public class RawMining implements Runnable {
         scanner = new Scanner(reader);
     }
 
-    public void readFile() throws IOException {
+    public void readAndWriteFile(String RootpathDirToSave) throws IOException {
         item1.setLength(0);
         item2.setLength(0);
         String getFileName = "";
@@ -36,7 +34,7 @@ public class RawMining implements Runnable {
             if (line.contains("<h2>") && line.contains("</h2>")) {
                 String shallode = line.replace("<h2>", "").replace("</h2>", "");
                 System.out.println(shallode);
-                getFileName = analysisHeaderGetFileName(shallode);
+                getFileName = analysisHeaderGetFileName(shallode).replaceAll(" ","");
             }
 
             if (isItem(line, "<item1>")) {
@@ -46,7 +44,7 @@ public class RawMining implements Runnable {
                 }
             } else
                 continue;
-            writeInFileInOnce(dirpath+File.separator+fileName.replaceAll(".data",""), getFileName, item1, true);
+            writeInFileInOnce(RootpathDirToSave+File.separator+fileName.replaceAll(".data",""), getFileName, item1, true);
 
 //            System.out.println(item1);
 
@@ -58,19 +56,19 @@ public class RawMining implements Runnable {
             } else
                 continue;
 
-            writeInFileInOnce(dirpath+File.separator+fileName.replaceAll(".data",""), getFileName + "Item2", item2, true);
+            writeInFileInOnce(RootpathDirToSave+File.separator+fileName.replaceAll(".data","")+"item2", getFileName + "Item2", item2, true);
 //            System.out.println(item2);
 //            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
             if (scanner.hasNextLine())
-                readFile();
+                readAndWriteFile(RootpathDirToSave);
 
         }
     }
 
     public static boolean writeInFileInOnce(String pathDirToSave, String childFileName, StringBuilder stringBuilder, boolean closIt) throws IOException {
         File dir = new File(pathDirToSave);
-        dir.mkdir();
+        dir.mkdirs();
         File fileTosave = new File(dir, childFileName);
         fileTosave.createNewFile();
         OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(fileTosave, false));
@@ -109,22 +107,15 @@ public class RawMining implements Runnable {
     }
 
 
-    private void analysisItem1(String item1Content) {
-
-    }
-
     public static void main(String[] args) {
 
         try {
-            new RawMining("G:\\Program Files\\AMinAbvall\\kasridata\\iran\\year_2017\\month_1", "40766.data").readFile();
+            new RawMining("G:\\Program Files\\AMinAbvall\\kasridata\\iran\\year_2017\\month_2", "40766.data").readAndWriteFile("G:\\Program Files\\AMinAbvall\\kasridata\\iran\\year_2017\\month_2");
             ;
-        } catch (FileNotFoundException e) {
-            new Thread(new RawMining()).start();
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {}
+        catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
 
