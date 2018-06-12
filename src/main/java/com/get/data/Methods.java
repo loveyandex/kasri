@@ -74,6 +74,28 @@ public class Methods {
         }
     }
 
+    public static void writeFallenUrls(String fallenUrl,String fallUrlPathFile) {
+        File fileStations = new File(fallUrlPathFile);
+        try {
+            if (fileStations.createNewFile()) {
+                System.out.println("File is created!");
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(fileStations,true);
+            writer.append(fallenUrl + "\n");
+            writer.flush();
+            writer.close();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
+
 
 }
 

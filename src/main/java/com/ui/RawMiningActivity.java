@@ -4,6 +4,7 @@ import com.analysis.RawMining;
 import com.analysis.SecondMining;
 import com.analysis.wind.WindMining;
 import com.config.C;
+import com.get.data.Methods;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,7 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -109,6 +111,9 @@ public class RawMiningActivity extends Application {
                                     try {
                                         new RawMining(station.getParent(), station.getName())
                                                 .readAndWriteFile(rootpathDirToSave);
+                                    } catch (FileNotFoundException e) {
+                                        System.err.println(station.getPath());
+                                        Methods.writeFallenUrls(station.getPath(),"config/crashStationsPatternsPathFiles.conf");
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }

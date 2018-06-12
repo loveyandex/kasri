@@ -33,8 +33,8 @@ public class RawMining implements Runnable {
             String line = scanner.nextLine();
             if (line.contains("<h2>") && line.contains("</h2>")) {
                 String shallode = line.replace("<h2>", "").replace("</h2>", "");
-                System.out.println(shallode);
-                getFileName = analysisHeaderGetFileName(shallode).replaceAll(" ","");
+//                System.out.println(shallode);
+                getFileName = analysisHeaderGetFileName(shallode).replaceAll(" ", "");
             }
 
             if (isItem(line, "<item1>")) {
@@ -44,7 +44,7 @@ public class RawMining implements Runnable {
                 }
             } else
                 continue;
-            writeInFileInOnce(RootpathDirToSave+File.separator+fileName.replaceAll(".data",""), getFileName, item1, true);
+            writeInFileInOnce(RootpathDirToSave + File.separator + fileName.replaceAll(".data", ""), getFileName, item1, true);
 
 //            System.out.println(item1);
 
@@ -56,7 +56,7 @@ public class RawMining implements Runnable {
             } else
                 continue;
 
-            writeInFileInOnce(RootpathDirToSave+File.separator+fileName.replaceAll(".data","")+"item2", getFileName + "Item2", item2, true);
+            writeInFileInOnce(RootpathDirToSave + File.separator + fileName.replaceAll(".data", "") + "item2", getFileName + "Item2", item2, true);
 //            System.out.println(item2);
 //            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
@@ -70,7 +70,7 @@ public class RawMining implements Runnable {
         File dir = new File(pathDirToSave);
         dir.mkdirs();
         File fileTosave = new File(dir, childFileName);
-        System.out.println(fileTosave);
+//        System.out.println(fileTosave);
         fileTosave.createNewFile();
         OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(fileTosave, false));
         writer.write(stringBuilder.toString());
@@ -111,9 +111,12 @@ public class RawMining implements Runnable {
     public static void main(String[] args) {
 
         try {
-            new RawMining("G:\\Program Files\\AMinAbvall\\kasridata\\iran\\year_2017\\month_2", "40766.data").readAndWriteFile("G:\\month_2");;
-        } catch (FileNotFoundException e) {}
-        catch (IOException e) {
+            new RawMining("G:\\armenia\\year_1981\\month_2",
+                    "37789.data").readAndWriteFile("G:\\gg5");
+            ;
+        } catch (FileNotFoundException e) {
+            System.out.println("god is great aminabvaal");
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
