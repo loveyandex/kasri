@@ -68,4 +68,16 @@ public class Driver extends Application {
     public static Driver getDriver() {
         return new Driver();
     }
+
+    public int createCSVTable(String query) throws SQLException {
+        return getConnection().createStatement().executeUpdate(query);
+    }
+
+
+
+
+
+
+
+
 }

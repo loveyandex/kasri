@@ -22,6 +22,7 @@ public class C {
 
     public static final String APP_PROP_PATH = "application.properties";
     public static String DATA_PATH;
+    public static String SOCANDARY_DATA_PATH;
 
     static {
         try {

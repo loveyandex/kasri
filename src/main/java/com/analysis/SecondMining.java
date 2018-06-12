@@ -1,9 +1,6 @@
 package com.analysis;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 /**
@@ -80,12 +77,38 @@ public class SecondMining {
     }
 
 
-    public static void main(String[] args) {
+    public static void NtoNULLInCSV(File file) {
         try {
-            new SecondMining("assets/data", "00Z_01 _Jan _2017").createCSV();
+            FileReader readFile = new FileReader(file);
+            File file1 = new File(file.getParent(), file.getName() + "L");
+            boolean newFile = file1.createNewFile();
+            file1.renameTo(file);
+            FileWriter writer=new FileWriter(file1);
+            Scanner scanne = new Scanner(readFile);
+            int count = 0;
+            while (scanne.hasNextLine()) {
+                if (count == 0 || count == 1)
+                    continue;
+                count++;
+                String line = scanne.nextLine();
+                line = line.replaceAll("N", "NULL");
+            }
+            writer.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+
+    public static void main(String[] args) {
+        //            new SecondMining("assets/data", "00Z_01 _Jan _2017").createCSV();
+        SecondMining.NtoNULLInCSV(new File("assets/data/00Z_01 _Jan _2017.csv"));
+
+
     }
 }
 

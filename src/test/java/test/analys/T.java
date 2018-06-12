@@ -1,7 +1,12 @@
 package test.analys;
 
 import com.config.C;
+import com.database.Driver;
 import org.junit.Test;
+
+import java.sql.Array;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * is created by aMIN on 6/6/2018 at 01:38
@@ -31,4 +36,36 @@ public class T {
         String text = (num < 10 ? "0" : "") + num;
         System.out.println(text);
     }
+
+
+    @Test
+    public void test34(){
+        try {
+            ResultSet resultSet = Driver.getDriver().getConnection().createStatement().executeQuery("select *from  f");
+            Array array = resultSet.getArray(1);
+
+            while (resultSet.next())
+                System.out.println(resultSet.getString(1));
+
+        }catch (NumberFormatException w){
+            System.out.println("a");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void test11(){
+        String s="23;2323;23.23;2323.3;N;23;N;2323.23;N;N";
+        System.out.println(s.replaceAll("N", "NULL"));
+        System.out.println(s);
+    }
+
+
+
+
+
+
+
 }
