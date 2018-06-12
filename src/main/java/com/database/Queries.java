@@ -5,7 +5,7 @@ package com.database;
  */
 public class Queries {
     private final static String CSV_FILE = "aminFile";
-    public static String TABLE_NAME_CSV = "aminTable";
+    private final static String TABLE_NAME_CSV = "aminTable";
 
     public static String load_dataInto = "LOAD DATA LOCAL INFILE \'" + CSV_FILE + "\'\n" +
             "INTO TABLE " + TABLE_NAME_CSV + " \n" +
