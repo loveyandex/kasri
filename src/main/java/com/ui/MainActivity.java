@@ -21,13 +21,8 @@ public class MainActivity extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-
-
         Parent root = FXMLLoader.load(getClass().getResource("/main_activity.fxml"));
-
         Scene scene = new Scene(root, 1000, 500);
-
         primaryStage.setTitle("FXML Welcome");
         primaryStage.setScene(scene);
         primaryStage.toBack();
@@ -40,8 +35,6 @@ public class MainActivity extends Application {
 
         if (C.DATA_PATH.isEmpty())
             Dialog.createDataDirChooser();
-        else
-            System.out.println(C.DATA_PATH);
 //
 //        Notifications notificationsBuilder=Notifications.create()
 //                .graphic(null)

@@ -110,8 +110,7 @@ public class RawMining implements Runnable {
     public static void main(String[] args) {
 
         try {
-            new RawMining("G:\\Program Files\\AMinAbvall\\kasridata\\iran\\year_2017\\month_2", "40766.data").readAndWriteFile("G:\\Program Files\\AMinAbvall\\kasridata\\iran\\year_2017\\month_2");
-            ;
+            new RawMining("G:\\Program Files\\AMinAbvall\\kasridata\\iran\\year_2017\\month_2", "40766.data").readAndWriteFile("G:\\month_2");;
         } catch (FileNotFoundException e) {}
         catch (IOException e) {
             e.printStackTrace();

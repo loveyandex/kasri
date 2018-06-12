@@ -107,7 +107,7 @@ public class Dialog {
                 directoryChooser.showDialog(primaryStage);
         if (selectedDirectory != null) {
             try {
-                writePropertie("data_path", selectedDirectory.getAbsolutePath());
+                writePropertie("data_path", selectedDirectory.getCanonicalPath());
 
                 // Create a custom Notification without icon
 //                Notification info = new Notification("", "God is great");

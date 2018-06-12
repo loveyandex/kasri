@@ -65,15 +65,22 @@ public class T {
 
     @Test
     public void testmonth(){
-        File f=new File("g:/mydata/iran");
+        File f=new File(C.DATA_PATH);
         File[] files = f.listFiles();
+        System.out.println(files[0]);
         for (File file :
                 files) {
+            if (file.isDirectory()){
+
             File[] months = file.listFiles();
             for (File month :
                     months) {
                 System.out.println(file.getName()+month.getName());
             }
+            }
+
+
+
         }
 
 

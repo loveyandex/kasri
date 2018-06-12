@@ -60,7 +60,7 @@ public class RawMiningActivity extends Application {
         if (list != null) {
             for (File file : list) {
                 try {
-                    WindMining.getWindSpeedCol(file.getParent(),file.getName());
+                    WindMining.getWindSpeedCol(file.getParent(), file.getName());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -73,15 +73,15 @@ public class RawMiningActivity extends Application {
 
     private void openFile(File file) throws IOException {
 
-            Image image = new Image(file.toURI().toString());
-            ImageView imageView = new ImageView(image);
+        Image image = new Image(file.toURI().toString());
+        ImageView imageView = new ImageView(image);
 
-            HBox hbox = new HBox(imageView);
+        HBox hbox = new HBox(imageView);
 
-            ((VBox) primaryStage.getScene().getRoot()).getChildren().add(hbox);
+        ((VBox) primaryStage.getScene().getRoot()).getChildren().add(hbox);
 
-            desktop.open(file);
-            desktop.print(file);
+        desktop.open(file);
+        desktop.print(file);
 
     }
 
@@ -97,17 +97,25 @@ public class RawMiningActivity extends Application {
                     File[] months = yearFile.listFiles();
                     for (File month :
                             months) {
-                        try {
-
 //                            String rootpathDirToSave = C.DATA_PATH + File.separator + month.getParentFile().getParentFile().getParentFile().getName()+ File.separator + yearFile.getParentFile().getParentFile().getName() + File.separator + yearFile.getParentFile().getName() ;
-                            String rootpathDirToSave = C.DATA_PATH+File.separator+countryselectedDirectory.getName()+File.separator+yearFile.getName()+File.separator+month.getName();
-                            System.out.println(rootpathDirToSave);
-                            new RawMining(month.getParent(), month.getName()).readAndWriteFile(rootpathDirToSave);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        String rootpathDirToSave = C.DATA_PATH + File.separator + countryselectedDirectory.getName() + File.separator + yearFile.getName() + File.separator + month.getName();
+                        System.out.println(rootpathDirToSave);
+                        if (month.isDirectory()) {
+                            File[] stations = month.listFiles();
+                            for (File station :
+                                    stations) {
+                                if (station.isFile()) {
+
+                                    try {
+                                        new RawMining(station.getParent(), station.getName())
+                                                .readAndWriteFile(rootpathDirToSave);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
                         }
                     }
-
 
 
                 } else {
