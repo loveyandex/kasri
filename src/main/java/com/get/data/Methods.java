@@ -1,7 +1,5 @@
 package com.get.data;
 
-import com.Application;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -12,7 +10,7 @@ public class Methods {
     public static void main(String[] args) {
 
         try {
-            getStationNumber("config/" + Application.COUNTRIES + ".conf", "config/" + Application.COUNTRIES + "-stations.conf");
+            getStationNumber("config/" + Starter.COUNTRIES + ".conf", "config/" + Starter.COUNTRIES + "-stations.conf");
         } catch (IOException e) {
             e.printStackTrace();
         }

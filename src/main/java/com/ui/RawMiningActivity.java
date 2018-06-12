@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -28,10 +29,11 @@ import java.util.List;
 /**
  * is created by aMIN on 5/31/2018 at 06:50
  */
-public class RawMiningActivity extends Application {
+public class RawMiningActivity extends Application implements Runnable {
     public Button okBtn;
     public Button chooseDir;
     private static Stage primaryStage;
+    public ProgressBar progress;
     private Desktop desktop = Desktop.getDesktop();
 
     @Override
@@ -87,7 +89,7 @@ public class RawMiningActivity extends Application {
 
     }
 
-    public void rawMining(ActionEvent actionEvent) {
+    public void rawMining() {
         final DirectoryChooser directoryChooser =
                 new DirectoryChooser();
         final File kasriDate =
@@ -132,8 +134,7 @@ public class RawMiningActivity extends Application {
                 }
 
             }
-
-
+            progress.setProgress(100);
             System.err.println(kasriDate.getAbsolutePath());
         }
     }
@@ -163,5 +164,15 @@ public class RawMiningActivity extends Application {
             System.err.println(selectedDirectory.getAbsolutePath());
         }
 
+    }
+
+    @Override
+    public void run() {
+        progress.setVisible(true);
+    }
+
+    public void chooseForRaw(ActionEvent actionEvent) {
+        new Thread(this).start();
+        rawMining();
     }
 }

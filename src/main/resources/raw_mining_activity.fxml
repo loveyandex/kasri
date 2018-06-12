@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
@@ -16,13 +17,9 @@
         </style>
 
         <children>
-            <Label fx:id="inputLbl" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE" prefHeight="30.0"
-                   prefWidth="200.0" text="Please insert Your Input here:" textAlignment="LEFT"/>
-            <TextField fx:id="inputText" prefWidth="100.0"/>
-            <HBox>
-
+            <HBox alignment="CENTER">
                 <Button fx:id="chooseDir" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false"
-                        onAction="#rawMining" text="choose a country for raw minig" textAlignment="CENTER"/>
+                        onAction="#chooseForRaw" text="choose a country for raw minig" textAlignment="CENTER"/>
 
                 <Button fx:id="chooseDir2" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false"
                         onAction="#secondMining" text=" choose a country for second csv" textAlignment="CENTER"/>
@@ -32,9 +29,9 @@
 
 
             </HBox>
-            <Label fx:id="outputLbl" alignment="CENTER_LEFT" cache="true" cacheHint="SCALE" prefHeight="30.0"
-                   prefWidth="200.0" text="Your Input:" textAlignment="LEFT"/>
-            <TextArea fx:id="textArea" prefHeight="100.0" prefWidth="200.0" wrapText="true"/>
+
+            <ProgressBar fx:id="progress"  prefWidth="Infinity" visible="false"></ProgressBar>
+
         </children>
 
     </VBox>

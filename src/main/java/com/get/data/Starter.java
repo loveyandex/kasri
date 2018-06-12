@@ -1,7 +1,5 @@
-package com;
+package com.get.data;
 
-import com.get.data.Process;
-import com.telegram.bot.notify.Notify;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,9 +10,8 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-public class Application extends javafx.application.Application {
+public class Starter extends javafx.application.Application {
 
     public static String ABSOLUTE_ROOT_PATH;
     public static String[] COUNTRIES;

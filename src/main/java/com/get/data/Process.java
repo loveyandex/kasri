@@ -1,6 +1,5 @@
 package com.get.data;
 
-import com.Application;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -139,10 +138,10 @@ public class Process implements Runnable {
 
     public static void start() {
         Stack<String> years = getYears();
-        for (int k = 0; k < Application.COUNTRIES.length; k++) {
+        for (int k = 0; k < Starter.COUNTRIES.length; k++) {
 
             try {
-                Methods.getStationNumber("config/" + Application.COUNTRIES[k] + ".conf", "config/" + Application.COUNTRIES[k] + "-stations.conf");
+                Methods.getStationNumber("config/" + Starter.COUNTRIES[k] + ".conf", "config/" + Starter.COUNTRIES[k] + "-stations.conf");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -151,8 +150,8 @@ public class Process implements Runnable {
             for (int i = 0; i < years.size(); i++) {
                 for (int j = 1; j <= 12; j++) {
                     System.out.println("year is > " + years.get(i) + " month: > " + j + "  is started dowing");
-                    Process.getData(Application.ABSOLUTE_ROOT_PATH + "/" + Application.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j),
-                            "config/" + Application.COUNTRIES[k] + "-stations.conf", years.get(i), String.valueOf(j));
+                    Process.getData(Starter.ABSOLUTE_ROOT_PATH + "/" + Starter.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j),
+                            "config/" + Starter.COUNTRIES[k] + "-stations.conf", years.get(i), String.valueOf(j));
 
                     try {
                         Thread.sleep(10000);
