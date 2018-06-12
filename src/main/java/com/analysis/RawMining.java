@@ -70,6 +70,7 @@ public class RawMining implements Runnable {
         File dir = new File(pathDirToSave);
         dir.mkdirs();
         File fileTosave = new File(dir, childFileName);
+        System.out.println(fileTosave);
         fileTosave.createNewFile();
         OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(fileTosave, false));
         writer.write(stringBuilder.toString());
