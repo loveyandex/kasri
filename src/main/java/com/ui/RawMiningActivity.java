@@ -90,45 +90,51 @@ public class RawMiningActivity extends Application {
     public void rawMining(ActionEvent actionEvent) {
         final DirectoryChooser directoryChooser =
                 new DirectoryChooser();
-        final File countryselectedDirectory =
+        final File kasriDate =
                 directoryChooser.showDialog(primaryStage);
-        if (countryselectedDirectory != null) {
-            File[] yerarFiles = countryselectedDirectory.listFiles();
-            for (File yearFile : yerarFiles) {
-                if (yearFile.isDirectory()) {
-                    File[] months = yearFile.listFiles();
-                    for (File month :
-                            months) {
-//                            String rootpathDirToSave = C.DATA_PATH + File.separator + month.getParentFile().getParentFile().getParentFile().getName()+ File.separator + yearFile.getParentFile().getParentFile().getName() + File.separator + yearFile.getParentFile().getName() ;
-                        String rootpathDirToSave = C.DATA_PATH + File.separator + countryselectedDirectory.getName() + File.separator + yearFile.getName() + File.separator + month.getName();
-                        System.out.println(rootpathDirToSave);
-                        if (month.isDirectory()) {
-                            File[] stations = month.listFiles();
-                            for (File station :
-                                    stations) {
-                                if (station.isFile()) {
+        if (kasriDate != null) {
 
-                                    try {
-                                        new RawMining(station.getParent(), station.getName())
-                                                .readAndWriteFile(rootpathDirToSave);
-                                    } catch (FileNotFoundException e) {
-                                        System.err.println(station.getPath());
-                                        Methods.writeFallenUrls(station.getPath(),"config/crashStationsPatternsPathFiles.conf");
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
+            File[] countries = kasriDate.listFiles();
+            for (File country : countries) {
+                File[] yerarFiles = country.listFiles();
+                for (File yearFile : yerarFiles) {
+                    if (yearFile.isDirectory()) {
+                        File[] months = yearFile.listFiles();
+                        for (File month :
+                                months) {
+//                            String rootpathDirToSave = C.DATA_PATH + File.separator + month.getParentFile().getParentFile().getParentFile().getName()+ File.separator + yearFile.getParentFile().getParentFile().getName() + File.separator + yearFile.getParentFile().getName() ;
+                            String rootpathDirToSave = C.DATA_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName();
+                            System.out.println(rootpathDirToSave);
+                            if (month.isDirectory()) {
+                                File[] stations = month.listFiles();
+                                for (File station :
+                                        stations) {
+                                    if (station.isFile()) {
+
+                                        try {
+                                            new RawMining(station.getParent(), station.getName())
+                                                    .readAndWriteFile(rootpathDirToSave);
+                                        } catch (FileNotFoundException e) {
+                                            System.err.println(station.getPath());
+                                            Methods.writeFallenUrls(station.getPath(), "config/crashStationsPatternsPathFiles.conf");
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
                                 }
                             }
                         }
+
+
+                    } else {
+
                     }
-
-
-                } else {
-
                 }
+
             }
 
-            System.err.println(countryselectedDirectory.getAbsolutePath());
+
+            System.err.println(kasriDate.getAbsolutePath());
         }
     }
 
