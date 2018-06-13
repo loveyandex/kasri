@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.time4j.PlainDate;
@@ -30,7 +31,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
-import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
@@ -52,6 +52,7 @@ public class WindLoginController implements Initializable {
     public JFXButton Gobtn;
     //    public JFXTextField height;
     public TextField height;
+    public VBox vvv;
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
     private DatePicker datePicker;
@@ -63,6 +64,12 @@ public class WindLoginController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         windInfo = new WindInfo();
         rootNode.setAlignment(Pos.CENTER);
+        rootNode.setStyle("          -fx-padding: 10;\n" +
+                "            -fx-border-style: solid inside;\n" +
+                "            -fx-border-width: 6;\n" +
+                "            -fx-border-insets: 5;\n" +
+                "            -fx-border-radius: 5;\n" +
+                "            -fx-border-color: gray;");
 
         persianCalendarCalendarPicker = CalendarPicker.persianWithSystemDefaults();
         persianCalendarCalendarPicker.setStyle("  -fx-primary : gray;\n" +
@@ -142,6 +149,7 @@ public class WindLoginController implements Initializable {
         datePicker.setMinWidth(200);
         persianCalendarCalendarPicker.setMinWidth(200);
         height.setMinWidth(200);
+        height.setMinHeight(32);
 //        GridPane.setMargin(stationsCombo,new Insets(12,0,12,12));
         stationsCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
 
@@ -217,7 +225,7 @@ public class WindLoginController implements Initializable {
         prStage.hide();
         prStage.setScene(scene);
         prStage.show();
-        minnig();
+//        minnig();
         prStage.setOnShowing(event -> {
             System.out.println("showing");
         });
@@ -226,8 +234,8 @@ public class WindLoginController implements Initializable {
         int numDay = windInfo.Date.Day;
         String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
         Month day = Month.of(windInfo.getDate().Month);
-        System.out.println(day.getDisplayName(TextStyle.SHORT,Locale.ENGLISH));
-        System.out.println(dayOfMonth);
+//        System.out.println(day.getDisplayName(TextStyle.SHORT,Locale.ENGLISH));
+//        System.out.println(dayOfMonth);
 
 
 

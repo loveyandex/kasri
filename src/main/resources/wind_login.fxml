@@ -6,18 +6,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<GridPane stylesheets="stage.css" fx:id="rootNode" xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="com.ui.WindLoginController"
-          prefHeight="2500.0" prefWidth="600.0">
+<VBox fx:id="vvv" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.ui.WindLoginController">
     <style>
-        -fx-padding: 10;
-        -fx-border-style: solid inside;
-        -fx-border-width: 6;
-        -fx-border-insets: 5;
-        -fx-border-radius: 5;
-        -fx-border-color: gray;
+        -fx-padding: 300;
     </style>
+    <VBox.margin>
+        <Insets>
+            <top>500</top>
+        </Insets>
+    </VBox.margin>
+
+    <GridPane stylesheets="stage.css" fx:id="rootNode"
+          prefHeight="2500.0" prefWidth="600.0">
+
 
     <Label stylesheets="stage.css"   focusTraversable="true" text="choose a persian date" GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
@@ -57,3 +60,4 @@
     </HBox>
 
 </GridPane>
+</VBox>

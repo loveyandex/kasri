@@ -42,7 +42,7 @@ public class WindMining {
 
     public static void main(String[] args) {
         try {
-            WindMining.getWindSpeedCol("assets/data", "00Z_08 _Jan _2017.csv");
+            WindMining.getWindSpeedCol("assets/data", "00Z_01_Jan_2017.csv");
         } catch (IOException e) {
             e.printStackTrace();
         }

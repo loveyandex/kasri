@@ -27,6 +27,12 @@ public class Starter extends javafx.application.Application {
 
 
         GridPane rootNode = new GridPane();
+        rootNode.setStyle("          -fx-padding: 10;\n" +
+                "            -fx-border-style: solid inside;\n" +
+                "            -fx-border-width: 6;\n" +
+                "            -fx-border-insets: 5;\n" +
+                "            -fx-border-radius: 5;\n" +
+                "            -fx-border-color: gray;");
         rootNode.setPadding(new Insets(15));
         rootNode.setHgap(5);
         rootNode.setVgap(5);
