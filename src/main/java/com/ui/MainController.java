@@ -156,7 +156,7 @@ public class MainController implements Initializable {
 
             Stage stage = new Stage();
             stage.setTitle("Title");
-            root.setStyle("-fx-background-color: #fff");
+            root.setStyle("-fx-background-color: #ffb087");
             stage.setScene(new Scene(root, 450, 450));
             stage.show();
 
