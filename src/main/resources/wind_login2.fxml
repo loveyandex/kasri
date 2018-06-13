@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.ui.Neww">
+<HBox>
+
+<VBox>
+    <Label stylesheets="stage.css"   focusTraversable="true" text="choose a persian date" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+
+    <Label text="you can also gregorian date instead"
+           GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    <Label text="choose a country"
+           GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+    <Label text="choose a station"
+           GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+</VBox>
+    <VBox>
+
+    <JFXTextField fx:id="height"
+                  GridPane.columnIndex="1" GridPane.rowIndex="10"
+                  labelFloat="true" layoutX="10.0" layoutY="122.0" prefHeight="33.0" prefWidth="50.0" promptText="height">
+        <font>
+            <Font size="16.0" />
+        </font>
+    </JFXTextField>
+
+    </VBox>
+
+
+
+</HBox>
+
+
+
+<HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="11">
+
+<JFXButton fx:id="cancelBtn"
+           translateX="50"
+           stylesheets="buttons.css"
+           styleClass="button"
+           text="Cancel">
+</JFXButton>
+<JFXButton
+        fx:id="Gobtn"
+        disable="true"
+        translateX="180"
+        stylesheets="buttons.css"
+        styleClass="button"
+        text="Get Result">
+</JFXButton>
+
+
+
+</HBox>
+</VBox>

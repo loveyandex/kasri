@@ -2,30 +2,39 @@
 
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <GridPane stylesheets="stage.css" fx:id="rootNode" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="com.ui.WindLoginController"
           prefHeight="2500.0" prefWidth="600.0">
+    <style>
+        -fx-padding: 10;
+        -fx-border-style: solid inside;
+        -fx-border-width: 6;
+        -fx-border-insets: 5;
+        -fx-border-radius: 5;
+        -fx-border-color: gray;
+    </style>
 
     <Label stylesheets="stage.css"   focusTraversable="true" text="choose a persian date" GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
-    <Label text="you can also gregorian date instead"
+    <Label text="you can gregorian date instead"
            GridPane.columnIndex="0" GridPane.rowIndex="2"/>
     <Label text="choose a country"
            GridPane.columnIndex="0" GridPane.rowIndex="4"/>
     <Label text="choose a station"
            GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-    <JFXTextField fx:id="height"
-                  GridPane.columnIndex="1" GridPane.rowIndex="10"
-                  labelFloat="true" layoutX="10.0" layoutY="122.0" prefHeight="33.0" prefWidth="50.0" promptText="height">
+    <TextField fx:id="height" GridPane.columnIndex="1" GridPane.rowIndex="10" promptText="height">
         <font>
             <Font size="16.0" />
         </font>
-    </JFXTextField>
+        <GridPane.margin>
+            <Insets><top>10</top></Insets>
+        </GridPane.margin>
+    </TextField>
     <HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="11">
 
         <JFXButton fx:id="cancelBtn"
