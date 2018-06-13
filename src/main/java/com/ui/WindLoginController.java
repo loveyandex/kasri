@@ -6,7 +6,6 @@ import com.analysis.Mapping;
 import com.config.C;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,6 +14,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -50,7 +50,8 @@ public class WindLoginController implements Initializable {
     public JFXComboBox<Label> countriesCombo;
     public JFXButton cancelBtn;
     public JFXButton Gobtn;
-    public JFXTextField height;
+    //    public JFXTextField height;
+    public TextField height;
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
     private DatePicker datePicker;
@@ -92,6 +93,7 @@ public class WindLoginController implements Initializable {
             datePicker.valueProperty().
                     setValue(LOCAL_DATE(
                             String.format("%s-%s-%s", plainDate.getDayOfMonth(), plainDate.getMonth(), plainDate.getYear()), "d-M-yyyy"));
+            datePicker.setDisable(true);
 
             if (isReadyToFire(windInfo))
                 Gobtn.setDisable(false);
@@ -99,7 +101,6 @@ public class WindLoginController implements Initializable {
         });
 
         datePicker = new DatePicker();
-        height.setStyle("-fx-padding: 20 0 10 0");
         rootNode.add(datePicker, 1, 3);
 
         countriesCombo = new JFXComboBox<>();
@@ -135,7 +136,13 @@ public class WindLoginController implements Initializable {
 
         });
 
-        stationsCombo.setPromptText("select station");
+//        stationsCombo.setPromptText("select station");
+        stationsCombo.setMinWidth(200);
+        countriesCombo.setMinWidth(200);
+        datePicker.setMinWidth(200);
+        persianCalendarCalendarPicker.setMinWidth(200);
+        height.setMinWidth(200);
+//        GridPane.setMargin(stationsCombo,new Insets(12,0,12,12));
         stationsCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
 
             if (newValue != null) {

@@ -183,7 +183,7 @@ public class MainController implements Initializable {
         dialog.setResizable(true);
         Parent root = FXMLLoader.load(getClass().getResource("/wind_login.fxml"));
         Scene scene = new Scene(root, 550, 400);
-        String image = MainController.class.getResource("/fav.jpg").toURI().toString();
+        String image = MainController.class.getResource("/loginWind.jpg").toURI().toString();
         root.setStyle("-fx-background-image: url('" + image + "'); " +
                 "-fx-background-position: center center; " +
                 "-fx-background-repeat: stretch;");

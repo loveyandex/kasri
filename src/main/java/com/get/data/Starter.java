@@ -37,7 +37,7 @@ public class Starter extends javafx.application.Application {
         label.setAlignment(Pos.CENTER);
         rootNode.add(label, 0, 0, 2, 1);
 
-        TextField firstValue = new TextField("G:/Program Files/AMinAbvall/kasridata");
+        TextField firstValue = new TextField("G:/Program Files/AMinAbvall/haji");
         firstValue.setAlignment(Pos.CENTER);
         rootNode.add(firstValue, 1, 1, 2, 1);
 
