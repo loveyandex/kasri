@@ -10,7 +10,7 @@
         <menus>
             <Menu text="File">
                 <items>
-                    <MenuItem onAction="#chart" text="chart" />
+                    <MenuItem  onAction="#getDataFromInternet" text="get rawdata from net" />
                     <MenuItem onAction="#fetch" text="Data" />
                     <SeparatorMenuItem />
                     <MenuItem text="Save" />

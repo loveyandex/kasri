@@ -1,6 +1,7 @@
 package com.ui;
 
 import com.analysis.wind.WindMining;
+import com.get.data.Starter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -192,11 +193,12 @@ public class MainController implements Initializable {
         dialog.initOwner(rootme.getScene().getWindow());
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.showAndWait();
-
-
     }
 
 
-
-
+    public void getDataFromInternet(ActionEvent actionEvent) {
+        Starter starter=new Starter();
+        Stage stage=new Stage();
+        starter.start(stage);
+    }
 }
