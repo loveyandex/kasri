@@ -1,4 +1,4 @@
-package test;
+package com.amin.analysis;
 
 /**
  * is created by aMIN on 5/26/2018 at 02:04

@@ -7,7 +7,7 @@
         xmlns="http://javafx.com/javafx"
         xmlns:fx="http://javafx.com/fxml"
         fx:id="rootNode"
-        fx:controller="com.ui.WindResultController">
+        fx:controller="com.amin.ui.WindResultController">
 
 
 

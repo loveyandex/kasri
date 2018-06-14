@@ -1,7 +1,7 @@
 package test.analys;
 
-import com.config.C;
-import com.database.Driver;
+import com.amin.config.C;
+import com.amin.database.Driver;
 import org.junit.Test;
 
 import java.io.File;

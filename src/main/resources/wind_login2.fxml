@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.ui.Neww">
+      fx:controller="com.amin.ui.Neww">
 <HBox>
 
 <VBox>

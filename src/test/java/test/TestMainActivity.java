@@ -4,11 +4,11 @@ package test;
  * is created by aMIN on 5/26/2018 at 05:00
  */
 
-import com.analysis.wind.WindMining;
+import com.amin.analysis.wind.WindMining;
+import com.amin.ui.dialogs.Dialog;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.ULocale;
-import com.ui.dialogs.Dialog;
 import eu.hansolo.enzo.notification.Notification;
 import javafx.application.Application;
 import javafx.application.Platform;
