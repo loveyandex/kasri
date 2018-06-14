@@ -35,18 +35,6 @@ public class MainActivity extends Application {
 
         if (C.DATA_PATH.isEmpty())
             Dialog.createDataDirChooser();
-//
-//        Notifications notificationsBuilder=Notifications.create()
-//                .graphic(null)
-//                .hideAfter(Duration.millis(10000))
-//                .text("god is great")
-//                .onAction(event -> {
-//                    primaryStage.toFront();
-//                })
-//                .title("launching.....")
-//                .position(Pos.BOTTOM_RIGHT)
-//                ;
-//        notificationsBuilder.show();
 
     }
 

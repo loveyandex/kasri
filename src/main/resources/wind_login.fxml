@@ -35,7 +35,7 @@
             <Font size="12.0" />
         </font>
         <GridPane.margin>
-            <Insets><top>20</top></Insets>
+            <Insets><top>40</top></Insets>
             <Insets><bottom>40</bottom></Insets>
         </GridPane.margin>
     </TextField>

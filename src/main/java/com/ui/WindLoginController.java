@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.DatePicker;
@@ -30,7 +31,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -75,7 +75,7 @@ public class WindLoginController implements Initializable {
 
         persianCalendarCalendarPicker = CalendarPicker.persianWithSystemDefaults();
         persianCalendarCalendarPicker.setStyle("  -fx-primary : gray;\n" +
-                "    -fx-secondary : #007bff;\n" +
+                "    -fx-secondary : #ffd0b8;\n" +
                 "    -fx-primarytext : white;\n" +
                 "    -fx-blue: #007bff;\n" +
                 "    -fx-red: #dc3545;\n" +
@@ -154,7 +154,7 @@ public class WindLoginController implements Initializable {
         height.setMinHeight(32);
 
 
-//        GridPane.setMargin(stationsCombo,new Insets(12,0,12,12));
+        GridPane.setMargin(stationsCombo, new Insets(12, 0, 12, 0));
         stationsCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
 
             if (newValue != null) {
@@ -169,7 +169,6 @@ public class WindLoginController implements Initializable {
                     Gobtn.setDisable(false);
             }
         });
-//        rootNode.getChildren().add(stationsCombo);
 
         rootNode.add(stationsCombo, 1, 7);
         GridPane.setHalignment(stationsCombo, HPos.CENTER);
@@ -249,28 +248,10 @@ public class WindLoginController implements Initializable {
         prStage.hide();
         prStage.setScene(scene);
         prStage.show();
-//        minnig();
         prStage.setOnShowing(event -> {
             System.out.println("showing");
         });
     }
-    private void minnig() {
-        int numDay = windInfo.Date.Day;
-        String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
-        Month day = Month.of(windInfo.getDate().Month);
-//        System.out.println(day.getDisplayName(TextStyle.SHORT,Locale.ENGLISH));
-//        System.out.println(dayOfMonth);
-
-
-
-
-
-
-    }
-
-
-
-
 
 
 
