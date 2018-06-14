@@ -34,6 +34,7 @@ public class RawMiningActivity extends Application implements Runnable {
     public Button chooseDir;
     private static Stage primaryStage;
     public ProgressBar progress;
+    public Button chooseDir2;
     private Desktop desktop = Desktop.getDesktop();
 
     @Override
@@ -102,9 +103,7 @@ public class RawMiningActivity extends Application implements Runnable {
                 for (File yearFile : yerarFiles) {
                     if (yearFile.isDirectory()) {
                         File[] months = yearFile.listFiles();
-                        for (File month :
-                                months) {
-//                            String rootpathDirToSave = C.DATA_PATH + File.separator + month.getParentFile().getParentFile().getParentFile().getName()+ File.separator + yearFile.getParentFile().getParentFile().getName() + File.separator + yearFile.getParentFile().getName() ;
+                        for (File month : months) {
                             String rootpathDirToSave = C.DATA_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName();
                             System.out.println(rootpathDirToSave);
                             if (month.isDirectory()) {
@@ -141,29 +140,48 @@ public class RawMiningActivity extends Application implements Runnable {
 
 
     public void secondMining(ActionEvent actionEvent) {
-
         final DirectoryChooser directoryChooser =
                 new DirectoryChooser();
-        final File selectedDirectory =
+        final File kasriDate =
                 directoryChooser.showDialog(primaryStage);
-        if (selectedDirectory != null) {
-            File[] rawsFiles = selectedDirectory.listFiles();
-            for (File dataRaw : rawsFiles) {
-                if (dataRaw.isFile()) {
-                    try {
-                        new SecondMining(dataRaw.getParent(), dataRaw.getName()).createCSV();
+        if (kasriDate != null) {
+            File[] countries = kasriDate.listFiles();
+            for (File country : countries) {
+                File[] yerarFiles = country.listFiles();
+                for (File yearFile : yerarFiles) {
+                    if (yearFile.isDirectory()) {
+                        File[] months = yearFile.listFiles();
+                        for (File month : months) {
+                            if (month.isDirectory()) {
+                                File[] stations = month.listFiles();
+                                for (File station : stations) {
+                                    if (station.isDirectory() && !station.getName().contains("item2")) {
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                                        String rootpathDir = C.SOCANDARY_DATA_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName() + File.separator + station.getName();
+
+                                        File[] days = station.listFiles();
+                                        for (File day : days) {
+                                            if (day.isFile()) {
+                                                try {
+                                                    new SecondMining(day.getParent(), day.getName()).createCSVInPath(rootpathDir);
+
+                                                } catch (IOException e) {
+                                                    System.err.println(day.getPath());
+                                                    Methods.writeFallenUrls(day.getPath(), "config/crashDayCSVCreatorPatternOr.conf");
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
-                } else {
-
                 }
             }
-
-            System.err.println(selectedDirectory.getAbsolutePath());
+            progress.setProgress(100);
+            System.err.println(kasriDate.getAbsolutePath());
         }
-
     }
 
     @Override

@@ -86,7 +86,7 @@ public class Methods {
         FileWriter writer = null;
         try {
             writer = new FileWriter(fileStations,true);
-            writer.append(fallenUrl + "\n");
+            writer.append(fallenUrl + "\r\n");
             writer.flush();
             writer.close();
         } catch (IOException e1) {

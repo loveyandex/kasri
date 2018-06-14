@@ -5,7 +5,6 @@ package test;
  */
 
 import com.analysis.wind.WindMining;
-import com.config.C;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.ULocale;
@@ -124,7 +123,6 @@ public class TestMainActivity extends Application implements Initializable {
 
         });
 
-        System.out.println(C.DATA_PATH);
         hSlider = new RangeSlider(0, 100, 10, 90);
 
         hSlider.setShowTickMarks(true);

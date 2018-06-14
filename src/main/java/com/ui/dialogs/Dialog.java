@@ -22,9 +22,9 @@ public class Dialog {
 
     public static boolean createExceptionDialog(Exception ex) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Exception Dialog");
-        alert.setHeaderText("Look, an Exception Dialog");
-        alert.setContentText("Could not find file blabla.txt!");
+        alert.setTitle("Exception Occurred");
+        alert.setHeaderText(ex.getLocalizedMessage());
+        alert.setContentText(ex.getMessage());
 
 
 // Create expandable Exception.

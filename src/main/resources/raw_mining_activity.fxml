@@ -26,8 +26,6 @@
 
                 <Button fx:id="okBtn" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false"
                         onAction="#choosoe" text="choose a country for  wind mining" textAlignment="CENTER"/>
-
-
             </HBox>
 
             <ProgressBar fx:id="progress"  prefWidth="Infinity" visible="false"></ProgressBar>

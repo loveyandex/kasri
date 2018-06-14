@@ -2,7 +2,9 @@ package com.ui;
 
 import com.amin.jsons.WindInfo;
 import com.analysis.wind.WindMining;
+import com.config.C;
 import com.jfoenix.controls.JFXButton;
+import com.ui.dialogs.Dialog;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -77,26 +80,40 @@ public class WindResultController implements Initializable, Runnable {
         WindInfo windInfo = ((SceneJsonWindInfo) rootNode.getScene()).getWindInfo();
         int numDay = windInfo.Date.Day;
         String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
-        Month day = Month.of(windInfo.getDate().Month);
+        int monthInt = windInfo.getDate().Month;
+        Month month = Month.of(monthInt);
+        String monthDisp = month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+        int year = windInfo.getDate().Year;
 
-        String monthDisp = day.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+        String country = windInfo.getCountry();
+        String stationNumber = windInfo.getStationNumber();
+        String height = windInfo.getHeight();
+
+        String rootDir= C.DATA_PATH+File.separator+country+File.separator+"year_"+year+File.separator+"month_"+monthInt+File.separator+stationNumber;
+
+
+
         System.out.println(monthDisp);
         System.out.println(dayOfMonth);
 
-        String fileName="00Z_"+dayOfMonth+"_"+monthDisp+"_"+windInfo.getDate().Year+".csv";
+        String fileName="00Z_"+dayOfMonth+"_"+monthDisp+"_"+ year +".csv";
         String dayDir="assets/data";
         try {
-            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol(dayDir, fileName);
+            String format = String.format("/select,%s", rootDir + File.separator + fileName);
+            Process p = new ProcessBuilder("explorer.exe",format).start();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol(rootDir, fileName);
             windSpeedCol.forEach(strings -> {
                 resultArea.appendText(strings.get(0)+"--->>>"+strings.get(1)+"\r\n");
             });
 
-
-
-
-
         } catch (IOException e) {
-            e.printStackTrace();
+            Dialog.createExceptionDialog(e);
         }
 
 

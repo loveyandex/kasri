@@ -14,6 +14,8 @@ public class WindInfo {
     public String StationName;
     public String Country;
     private String height;
+    private String lowHeightRange;
+    private String highHeightRange;
 
     public WindInfo() {
     }

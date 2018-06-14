@@ -34,6 +34,16 @@ public class C {
         }
     }
 
+    static {
+        try {
+            SOCANDARY_DATA_PATH = readPropertieVal("secondary_data_path");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static String readPropertieVal(String key) throws IOException, URISyntaxException {
 

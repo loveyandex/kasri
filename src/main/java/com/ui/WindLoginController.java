@@ -23,6 +23,7 @@ import javafx.util.Duration;
 import net.time4j.PlainDate;
 import net.time4j.calendar.PersianCalendar;
 import net.time4j.ui.javafx.CalendarPicker;
+import org.controlsfx.control.RangeSlider;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -59,6 +60,7 @@ public class WindLoginController implements Initializable {
 
     public WindInfo windInfo;
     private Map<String, String> stationNumTOCities;
+    private RangeSlider hSlider;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -150,6 +152,8 @@ public class WindLoginController implements Initializable {
         persianCalendarCalendarPicker.setMinWidth(200);
         height.setMinWidth(200);
         height.setMinHeight(32);
+
+
 //        GridPane.setMargin(stationsCombo,new Insets(12,0,12,12));
         stationsCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
 
@@ -201,12 +205,32 @@ public class WindLoginController implements Initializable {
         persianCalendarCalendarPicker.setFocusTraversable(true);
 
         height.textProperty().addListener((observable, oldValue, newValue) -> {
-
-            if (!newValue.isEmpty())
+            if (newValue.equals(""))
+                windInfo.setHeight(null);
+            else
                 windInfo.setHeight(newValue);
+            if (isReadyToFire(windInfo))
+                Gobtn.setDisable(false);
         });
 
 
+        hSlider = new RangeSlider(1100, 20000, 1100, 20000);
+
+        hSlider.setShowTickMarks(true);
+        hSlider.setShowTickLabels(true);
+        hSlider.setBlockIncrement(1);
+
+        hSlider.lowValueProperty().addListener((observable, oldValue, newValue) -> {
+            height.textProperty().setValue(String.valueOf(newValue));
+        });
+
+        height.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (isReadyToFire(windInfo))
+                Gobtn.setDisable(false);
+        });
+
+
+        rootNode.add(hSlider, 1, 11);
 
     }
 
@@ -291,7 +315,7 @@ public class WindLoginController implements Initializable {
     }
 
     private boolean isReadyToFire(WindInfo windInfo) {
-        if (windInfo.getDate() == null || windInfo.getStationNumber() == null || windInfo.getCountry() == null) {
+        if (windInfo.getDate() == null || windInfo.getStationNumber() == null || windInfo.getCountry() == null || windInfo.getHeight() == null) {
             Gobtn.setDisable(true);
             return false;
         } else

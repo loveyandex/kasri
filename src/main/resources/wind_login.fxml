@@ -36,9 +36,10 @@
         </font>
         <GridPane.margin>
             <Insets><top>20</top></Insets>
+            <Insets><bottom>40</bottom></Insets>
         </GridPane.margin>
     </TextField>
-    <HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="11">
+    <HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="12">
 
         <JFXButton fx:id="cancelBtn"
                    translateX="50"
