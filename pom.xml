@@ -22,7 +22,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.amin.ui.MainActivity</mainClass>
+                            <mainClass>com.amin.ui.main.MainActivity</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

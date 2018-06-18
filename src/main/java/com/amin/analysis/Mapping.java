@@ -16,7 +16,7 @@ import java.util.Scanner;
  */
 public class Mapping {
 
-    static public void creteCSVFILEFORStations(String Dirpath, String fileName) throws IOException {
+    static public void createCSVFILEFORStations(String Dirpath, String fileName) throws IOException {
 
         FileReader reader = new FileReader(Dirpath + File.separator + fileName);
         Scanner scanner = new Scanner(reader);
@@ -76,9 +76,9 @@ public class Mapping {
     }
 
 
-    static public Map<String, String> SecondStepMapStationNumTOCities(String path) throws FileNotFoundException {
+    static public Map<String, String> MapStationNumTOCities(String pathConfigCSV) throws FileNotFoundException {
         Map<String, String> mapStationNumberName = new HashMap<>();
-        FileReader reader = new FileReader(path);
+        FileReader reader = new FileReader(pathConfigCSV);
         Scanner scanner = new Scanner(reader);
 
 
@@ -92,6 +92,34 @@ public class Mapping {
 
         return mapStationNumberName;
     }
+    static public Map<String, String> MapLatLongToNearestCities(String pathConfigCSV) throws FileNotFoundException {
+        Map<String, String> mapStationNumberName = new HashMap<>();
+        FileReader reader = new FileReader(pathConfigCSV);
+        Scanner scanner = new Scanner(reader);
+
+
+        while (scanner.hasNextLine()) {
+
+            String nextLine = scanner.nextLine();
+            String[] features = nextLine.split(";");
+            String stationName = features[0].replaceAll(C.STATION_NAME_SIMBOL, C.SPACE);
+            String stationNumber = features[3];
+            mapStationNumberName.put(stationName, stationNumber);
+
+        }
+
+        return mapStationNumberName;
+    }
+
+
+
+
+
+
+
+
+
+
 
     public static ArrayList<String> readFileLines(String path) throws FileNotFoundException {
         ArrayList<String> lines = new ArrayList<>();
@@ -131,8 +159,8 @@ public class Mapping {
 
     public static void main(String[] args) {
         try {
-            Mapping.creteCSVFILEFORStations("config", "iran.conf");
-            Map<String, String> stationNumTOCities = Mapping.SecondStepMapStationNumTOCities("config/iran.conf.csv");
+            Mapping.createCSVFILEFORStations("config", "iran.conf");
+            Map<String, String> stationNumTOCities = Mapping.MapStationNumTOCities("config/iran.conf.csv");
             for (Map.Entry map : stationNumTOCities.entrySet()) {
                 System.out.println(String.format("%s %s", map.getKey(), map.getValue()));
             }

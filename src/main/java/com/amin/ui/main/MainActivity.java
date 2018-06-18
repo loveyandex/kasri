@@ -1,6 +1,7 @@
-package com.amin.ui;
+package com.amin.ui.main;
 
 import com.amin.config.C;
+import com.amin.ui.MainController;
 import com.amin.ui.dialogs.Dialog;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

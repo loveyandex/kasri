@@ -129,8 +129,8 @@ public class WindLoginController implements Initializable {
             try {
                 windInfo.setStationNumber(null);
                 windInfo.setCountry(newValue.getText());
-                Mapping.creteCSVFILEFORStations("config", newValue.getText() + ".conf");
-                stationNumTOCities = Mapping.SecondStepMapStationNumTOCities("config/" + newValue.getText() + ".conf.csv");
+                Mapping.createCSVFILEFORStations("config", newValue.getText() + ".conf");
+                stationNumTOCities = Mapping.MapStationNumTOCities("config/" + newValue.getText() + ".conf.csv");
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
                     if (!station.getValue().equals("&"))
                         stationsCombo.getItems().add(new Label(station.getKey()));
