@@ -181,7 +181,7 @@ public class MainController implements Initializable {
         stage.getIcons().add(new Image(getClass().getResource("/fav.jpg").toURI().toString()));
 
         stage.setResizable(true);
-        Parent root = FXMLLoader.load(getClass().getResource("/wind_login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/wind_month.fxml"));
         Scene scene = new Scene(root, 550, 400);
         String image = MainController.class.getResource("/loginWind.jpg").toURI().toString();
         root.setStyle("-fx-background-image: url('" + image + "'); " +

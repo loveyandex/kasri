@@ -89,7 +89,7 @@ public class WindResultController implements Initializable, Runnable {
         String stationNumber = windInfo.getStationNumber();
         String height = windInfo.getHeight();
 
-        String rootDir= C.DATA_PATH+File.separator+country+File.separator+"year_"+year+File.separator+"month_"+monthInt+File.separator+stationNumber;
+        String rootDir= C.SOCANDARY_DATA_PATH+File.separator+country+File.separator+"year_"+year+File.separator+"month_"+monthInt+File.separator+stationNumber;
 
 
 
@@ -98,20 +98,20 @@ public class WindResultController implements Initializable, Runnable {
 
         String fileName="00Z_"+dayOfMonth+"_"+monthDisp+"_"+ year +".csv";
         String dayDir="assets/data";
-        try {
-            String format = String.format("/select,%s", rootDir + File.separator + fileName);
-            Process p = new ProcessBuilder("explorer.exe",format).start();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         try {
             ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol(rootDir, fileName);
             windSpeedCol.forEach(strings -> {
                 resultArea.appendText(strings.get(0)+"--->>>"+strings.get(1)+"\r\n");
             });
+            try {
+                String format = String.format("/select,%s", rootDir + File.separator + fileName);
+                Process p = new ProcessBuilder("explorer.exe",format).start();
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } catch (IOException e) {
             Dialog.createExceptionDialog(e);
         }

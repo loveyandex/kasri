@@ -87,7 +87,12 @@ public class T {
 
     }
 
-
+@Test
+public void testnum(){
+    for (int i = 0; i < 33; i++) {
+        System.out.printf(i+",");
+    }
+}
 
 
 

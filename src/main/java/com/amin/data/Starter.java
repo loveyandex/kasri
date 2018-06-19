@@ -1,5 +1,6 @@
 package com.amin.data;
 
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -8,10 +9,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class Starter extends javafx.application.Application {
+public class Starter extends javafx.application.Application implements EventHandler<KeyEvent> {
 
     public static String ABSOLUTE_ROOT_PATH;
     public static String[] COUNTRIES;
@@ -73,12 +76,15 @@ public class Starter extends javafx.application.Application {
             COUNTRIES =countryvalue.getText().toLowerCase().split(";");
             System.out.println(COUNTRIES.length+">>>>>>>>>");
             pbar.setVisible(true);
-            System.out.println("downloading started :kissing_heart:");
             System.out.println(ABSOLUTE_ROOT_PATH);
             aButton.setDisable(true);
             startProcess.start();
         });
         myStage.setScene(myScene);
+        myScene.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE)
+                myStage.close();
+        });
         myStage.show();
     }
     Thread startProcess = new Thread(new Process());
@@ -87,4 +93,8 @@ public class Starter extends javafx.application.Application {
         launch(args);
     }
 
+    @Override
+    public void handle(KeyEvent event) {
+//        System.exit(0);
+    }
 }
