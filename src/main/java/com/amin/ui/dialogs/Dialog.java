@@ -77,7 +77,7 @@ public class Dialog {
 
 
 
-    public static void createDataDirChooser() {
+    public static void createDataDirChooser(String path) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Requires...");
         alert.setHeaderText("data directory path is not specified");
@@ -92,22 +92,22 @@ public class Dialog {
 
         Optional<ButtonType> showAndWait = alert.showAndWait();
         if (showAndWait.isPresent()) {
-            chDir(alert.getOwner());
+            chDir(alert.getOwner(),path);
         } else {
-            createDataDirChooser();
+            createDataDirChooser(path);
         }
     }
 
 
 
-    public static void chDir(Window primaryStage) {
+    public static void chDir(Window primaryStage, String data_path) {
         final DirectoryChooser directoryChooser =
                 new DirectoryChooser();
         final File selectedDirectory =
                 directoryChooser.showDialog(primaryStage);
         if (selectedDirectory != null) {
             try {
-                writePropertie("data_path", selectedDirectory.getCanonicalPath());
+                writePropertie(data_path, selectedDirectory.getCanonicalPath());
 
                 // Create a custom Notification without icon
 //                Notification info = new Notification("", "God is great");
@@ -124,7 +124,7 @@ public class Dialog {
                 e.printStackTrace();
             }
         } else {
-            createDataDirChooser();
+            createDataDirChooser(data_path);
         }
     }
 
