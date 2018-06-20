@@ -89,32 +89,40 @@ public class WindResultController implements Initializable, Runnable {
         String stationNumber = windInfo.getStationNumber();
         String height = windInfo.getHeight();
 
-        String rootDir= C.SOCANDARY_DATA_PATH+File.separator+country+File.separator+"year_"+year+File.separator+"month_"+monthInt+File.separator+stationNumber;
+
+        for (int i = 1973; i < 2016; i++) {
 
 
-
-        System.out.println(monthDisp);
-        System.out.println(dayOfMonth);
-
-        String fileName="00Z_"+dayOfMonth+"_"+monthDisp+"_"+ year +".csv";
-        String dayDir="assets/data";
+            String rootDir= C.SOCANDARY_DATA_PATH+File.separator+country+File.separator+"year_"+i+File.separator+"month_"+monthInt+File.separator+stationNumber;
 
 
-        try {
-            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol(rootDir, fileName);
-            windSpeedCol.forEach(strings -> {
-                resultArea.appendText(strings.get(0)+"--->>>"+strings.get(1)+"\r\n");
-            });
+            System.out.println(monthDisp);
+            System.out.println(dayOfMonth);
+
+            String fileName="00Z_"+dayOfMonth+"_"+monthDisp+"_"+ i +".csv";
+            String dayDir="assets/data";
+
+
             try {
-                String format = String.format("/select,%s", rootDir + File.separator + fileName);
-                Process p = new ProcessBuilder("explorer.exe",format).start();
-
+                ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol(rootDir, fileName);
+                resultArea.appendText("------------------------------------------");
+                windSpeedCol.forEach(strings -> {
+                    resultArea.appendText(strings.get(0)+"--->>>"+strings.get(1)+"\r\n");
+                });
+//                try {
+//                    String format = String.format("/select,%s", rootDir + File.separator + fileName);
+//                    Process p = new ProcessBuilder("explorer.exe",format).start();
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             } catch (IOException e) {
-                e.printStackTrace();
+                Dialog.createExceptionDialog(e);
             }
-        } catch (IOException e) {
-            Dialog.createExceptionDialog(e);
+
+
         }
+
 
 
     }

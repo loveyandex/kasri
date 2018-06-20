@@ -15,7 +15,6 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -33,10 +32,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * is created by aMIN on 6/1/2018 at 05:50
@@ -52,14 +48,13 @@ public class WindController implements Initializable {
     public JFXComboBox<Label> countriesCombo;
     public JFXButton cancelBtn;
     public JFXButton Gobtn;
-    //    public JFXTextField height;
+
     public TextField height;
     public VBox vvv;
     public JFXComboBox monthCombo;
     public JFXComboBox dayofMonthCombo;
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
-    private DatePicker datePicker;
 
     public WindInfo windInfo;
     private Map<String, String> stationNumTOCities;
@@ -74,33 +69,42 @@ public class WindController implements Initializable {
                 "            -fx-border-width: 6;\n" +
                 "            -fx-border-insets: 5;\n" +
                 "            -fx-border-radius: 5;\n" +
-                "            -fx-border-color: gray;");
+                "            -fx-border-color: white;");
 
 
         ArrayList<String> persianMonths=new ArrayList<String>( Arrays.asList("فروردین", "اردیبهشت", "خرداد","تیر","مرداد","شهریور","مهر","ابان","اذر","دی","بهمن","اسفند"));
-        persianMonths.forEach(s -> monthCombo.getItems().add(new Label(s)));
+        Map<String, Integer> persianMapMonth = new HashMap<>();
+        for (int j = 0; j < persianMonths.size(); j++) {
+            persianMapMonth.put(persianMonths.get(j), j + 1);
+        }
+
+
+        persianMapMonth.forEach((s, integer) -> monthCombo.getItems().add(new Label((s))));
+
+
         monthCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
+            dayofMonthCombo.getItems().clear();
             int[] days={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
             for (int i = 1; i <= 31; i++) {
                     dayofMonthCombo.getItems().add(new Label(String.valueOf(i)));
             }
 
         });
+        dayofMonthCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
 
+                windInfo.setDate(null);
+                persianCalendarCalendarPicker = CalendarPicker.persianWithSystemDefaults();
+                String text = ((Label) monthCombo.getValue()).getText();
+                Integer intmonth = persianMapMonth.get(text);
 
-
-        persianCalendarCalendarPicker = CalendarPicker.persianWithSystemDefaults();
-        persianCalendarCalendarPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-
+                persianCalendarCalendarPicker.valueProperty().setValue(PersianCalendar.of(1372, intmonth, (Integer.parseInt(((Label) newValue).getText()))));
+                System.out.println(persianCalendarCalendarPicker.valueProperty().getValue().getMonth());
             PersianCalendar persianCalendar = persianCalendarCalendarPicker.valueProperty().getValue();
             PlainDate plainDate = persianCalendar.transform(PlainDate.class);
-
+                System.out.println(String.format("%s-%s-%s", plainDate.getDayOfMonth(), plainDate.getMonth(), plainDate.getYear()));
             windInfo.setDate(new Date(plainDate.getMonth(), plainDate.getDayOfMonth(), plainDate.getYear()));
-
-            datePicker.valueProperty().
-                    setValue(LOCAL_DATE(
-                            String.format("%s-%s-%s", plainDate.getDayOfMonth(), plainDate.getMonth(), plainDate.getYear()), "d-M-yyyy"));
-            datePicker.setDisable(true);
+            }
 
             if (isReadyToFire(windInfo))
                 Gobtn.setDisable(false);
@@ -110,9 +114,6 @@ public class WindController implements Initializable {
 
 
 
-
-        datePicker = new DatePicker();
-//        rootNode.add(datePicker, 1, 3);
 
         countriesCombo = new JFXComboBox<>();
         try {
@@ -150,8 +151,6 @@ public class WindController implements Initializable {
 //        stationsCombo.setPromptText("select station");
         stationsCombo.setMinWidth(200);
         countriesCombo.setMinWidth(200);
-        datePicker.setMinWidth(200);
-        persianCalendarCalendarPicker.setMinWidth(200);
         height.setMinWidth(200);
         height.setMinHeight(32);
 
@@ -203,7 +202,6 @@ public class WindController implements Initializable {
             }
         });
 
-        persianCalendarCalendarPicker.setFocusTraversable(true);
 
         height.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.equals(""))
