@@ -215,9 +215,7 @@ public class RawMiningActivity extends Application implements Runnable {
                                         if (stations != null)
                                             for (File station : stations) {
                                                 if (station.isDirectory() && !station.getName().contains("item2")) {
-
                                                     String rootpathDir = C.SOCANDARY_DATA_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName() + File.separator + station.getName();
-
                                                     File[] days = station.listFiles();
                                                     if (days != null)
                                                         for (File day : days) {
