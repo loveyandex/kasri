@@ -27,7 +27,7 @@
                         onAction="#choosoe" text="choose a country for  wind mining" textAlignment="CENTER"/>
             </HBox>
 
-            <Button fx:id="allinon" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+            <Button fx:id="allinon" alignment="BOTTOM_CENTER" contentDisplay="CENTER" mnemonicParsing="false"
                     onAction="#allinone" text="all file in one folder" textAlignment="CENTER"/>
 
             <ProgressBar fx:id="progress"  prefWidth="Infinity" visible="false"></ProgressBar>

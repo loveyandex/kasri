@@ -204,36 +204,42 @@ public class RawMiningActivity extends Application implements Runnable {
             File[] countries = kasriDate.listFiles();
             for (File country : countries) {
                 File[] yerarFiles = country.listFiles();
-                for (File yearFile : yerarFiles) {
-                    if (yearFile.isDirectory()) {
-                        File[] months = yearFile.listFiles();
-                        for (File month : months) {
-                            if (month.isDirectory()) {
-                                File[] stations = month.listFiles();
-                                for (File station : stations) {
-                                    if (station.isDirectory() && !station.getName().contains("item2")) {
+                if (yerarFiles != null)
+                    for (File yearFile : yerarFiles) {
+                        if (yearFile.isDirectory()) {
+                            File[] months = yearFile.listFiles();
+                            if (months != null)
+                                for (File month : months) {
+                                    if (month.isDirectory()) {
+                                        File[] stations = month.listFiles();
+                                        if (stations != null)
+                                            for (File station : stations) {
+                                                if (station.isDirectory() && !station.getName().contains("item2")) {
 
-                                        String rootpathDir = C.SOCANDARY_DATA_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName() + File.separator + station.getName();
+                                                    String rootpathDir = C.SOCANDARY_DATA_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName() + File.separator + station.getName();
 
-                                        File[] days = station.listFiles();
-                                        for (File day : days) {
-                                            if (day.isFile()) {
-                                                try {
-                                                    new SecondMining(day.getParent(), day.getName()).createCSVInPath(rootpathDir);
+                                                    File[] days = station.listFiles();
+                                                    if (days != null)
+                                                        for (File day : days) {
+                                                            if (day.isFile()) {
+                                                                try {
+                                                                    new SecondMining(day.getParent()+ File.separator +day.getName(), day.getName(),true)
+                                                                            .allinOneFolder(day.getPath(),
+                                                                                    country.getName() + "_" + yearFile.getName() + "_" + month.getName() + "_" + station.getName()+".csv");
 
-                                                } catch (IOException e) {
-                                                    System.err.println(day.getPath());
-                                                    Methods.writeFallenUrls(day.getPath(), "config/crashDayCSVCreatorPatternOr222222.conf");
-
+                                                                } catch (IOException e) {
+                                                                    System.err.println(day.getPath());
+                                                                    e.printStackTrace();
+                                                                    Methods.writeFallenUrls(day.getPath(), "config/crashDayCSVCreatorPatternOr222222.conf");
+                                                                }
+                                                            }
+                                                        }
                                                 }
                                             }
-                                        }
                                     }
                                 }
-                            }
                         }
                     }
-                }
             }
             progress.setProgress(100);
             System.err.println(kasriDate.getAbsolutePath());
