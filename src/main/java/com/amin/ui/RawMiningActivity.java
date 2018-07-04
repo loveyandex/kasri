@@ -246,4 +246,6 @@ public class RawMiningActivity extends Application implements Runnable {
     }
 
 
+
+
 }

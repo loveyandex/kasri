@@ -1,6 +1,6 @@
 package com.amin.analysis;
 
-import org.apache.commons.io.FileSystemUtils;
+import com.amin.config.C;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -27,10 +27,6 @@ public class SecondMining {
             e.printStackTrace();
         }
         scanner = new Scanner(reader);
-    }
-    public SecondMining(String pathDir, String fileName,boolean haminjuri){
-        this.fileName = fileName;
-        this.pathDir=pathDir;
     }
 
     public void createCSV() throws IOException {
@@ -153,10 +149,15 @@ public class SecondMining {
 
 
     }
+    public SecondMining(String pathDir, String fileName,boolean haminjuri){
+        this.fileName = fileName;
+        this.pathDir=pathDir;
+    }
 
 
     public void allinOneFolder(   String RootpathFile,String newName) throws IOException {
-        FileUtils.copyFile(new File(RootpathFile),new File("E:/allinone/"+newName));
+        FileUtils.copyFile(new File(RootpathFile),
+                new File(C.THIRDY_PATH+File.separator+newName));
     }
 
 

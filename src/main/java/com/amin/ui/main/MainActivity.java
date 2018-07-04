@@ -38,6 +38,8 @@ public class MainActivity extends Application {
             Dialog.createDataDirChooser("data_path");
         else if (C.SOCANDARY_DATA_PATH.isEmpty())
             Dialog.createDataDirChooser("secondary_data_path");
+        else if (C.THIRDY_PATH.isEmpty())
+            Dialog.createDataDirChooser("thirdy_data_path");
 
     }
 
