@@ -35,6 +35,7 @@ public class RawMiningActivity extends Application implements Runnable {
     private static Stage primaryStage;
     public ProgressBar progress;
     public Button chooseDir2;
+    public Button allinon;
     private Desktop desktop = Desktop.getDesktop();
 
     @Override
@@ -193,4 +194,52 @@ public class RawMiningActivity extends Application implements Runnable {
         new Thread(this).start();
         rawMining();
     }
+
+    public void allinone(ActionEvent actionEvent) {
+        final DirectoryChooser directoryChooser =
+                new DirectoryChooser();
+        final File kasriDate =
+                directoryChooser.showDialog(primaryStage);
+        if (kasriDate != null) {
+            File[] countries = kasriDate.listFiles();
+            for (File country : countries) {
+                File[] yerarFiles = country.listFiles();
+                for (File yearFile : yerarFiles) {
+                    if (yearFile.isDirectory()) {
+                        File[] months = yearFile.listFiles();
+                        for (File month : months) {
+                            if (month.isDirectory()) {
+                                File[] stations = month.listFiles();
+                                for (File station : stations) {
+                                    if (station.isDirectory() && !station.getName().contains("item2")) {
+
+                                        String rootpathDir = C.SOCANDARY_DATA_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName() + File.separator + station.getName();
+
+                                        File[] days = station.listFiles();
+                                        for (File day : days) {
+                                            if (day.isFile()) {
+                                                try {
+                                                    new SecondMining(day.getParent(), day.getName()).createCSVInPath(rootpathDir);
+
+                                                } catch (IOException e) {
+                                                    System.err.println(day.getPath());
+                                                    Methods.writeFallenUrls(day.getPath(), "config/crashDayCSVCreatorPatternOr222222.conf");
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            progress.setProgress(100);
+            System.err.println(kasriDate.getAbsolutePath());
+        }
+
+    }
+
+
 }
