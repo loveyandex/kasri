@@ -22,6 +22,7 @@
             <Menu text="view">
                 <items>
                     <MenuItem onAction="#wind" text="Wind" />
+                    <MenuItem onAction="#chart" text="chart" />
                 </items>
             </Menu>
             <Menu text="Help">

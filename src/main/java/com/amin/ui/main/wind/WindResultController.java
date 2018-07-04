@@ -1,8 +1,10 @@
-package com.amin.ui;
+package com.amin.ui.main.wind;
 
 import com.amin.analysis.wind.WindMining;
 import com.amin.config.C;
 import com.amin.jsons.WindInfo;
+import com.amin.ui.MainController;
+import com.amin.ui.SceneJsonWindInfo;
 import com.amin.ui.dialogs.Dialog;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
@@ -12,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -64,15 +67,21 @@ public class WindResultController implements Initializable, Runnable {
 
 
     private void getBack(Stage stage) throws IOException, URISyntaxException {
-        Parent root = FXMLLoader.load(getClass().getResource("/wind_login.fxml"));
-        System.out.println(((SceneJsonWindInfo) stage.getScene()).getWindInfo().getStationNumber());
+        stage.getIcons().add(new Image(getClass().getResource("/fav.jpg").toURI().toString()));
 
+        stage.setResizable(true);
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/wind_month.fxml"));
+        Scene scene = new Scene(root, 550, 400);
+        String image = MainController.class.getResource("/loginWind.jpg").toURI().toString();
+        root.setStyle("-fx-background-image: url('" + image + "'); " +
+                "-fx-background-position: center center; " +
+                "-fx-background-repeat: stretch;");
+        root.setStyle("-fx-background-color: #e6fcff");
 
-        Scene scene = new Scene(root, 450, 350);
         stage.setScene(scene);
-        stage.setScene(scene);
-        stage.initOwner(scene.getWindow());
+        stage.initOwner(stage.getScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
     }
 
     @Override

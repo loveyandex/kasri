@@ -1,7 +1,5 @@
 package com.amin.analysis.wind;
 
-import com.amin.analysis.RawMining;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -28,14 +26,14 @@ public class WindMining {
             ArrayList<String> point=new ArrayList<>();
             String line = scanner.nextLine();
             String[] split = line.split(";");
-            System.out.println(split[7]);
             total += split[1]+";"+split[6] +";"+split[7] + "\r\n";
             point.add(split[1]);
-            point.add(split[6] );
+            point.add(split[7] );
             points.add(point);
         }
+        System.out.println(total);
 
-        RawMining.writeInFileInOnce(dayDir, "WindSpeed"+fileName , new StringBuilder(total), true);
+//        RawMining.writeInFileInOnce(dayDir, "WindSpeed"+fileName , new StringBuilder(total), true);
         return points;
     }
 

@@ -8,12 +8,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /**
  * is created by aMIN on 5/29/2018 at 05:39
  */
-public class MainActivity extends Application {
+public class MainActivity extends Application  {
 
     public static void main(String[] args) {
         launch(args);
@@ -24,6 +25,14 @@ public class MainActivity extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/main_activity.fxml"));
         Scene scene = new Scene(root, 1000, 500);
+        scene.setOnKeyPressed(event -> {
+            if (event.getCode()==KeyCode.ESCAPE) {
+                System.exit(0);
+            }
+            System.out.println();
+        });
+
+
         primaryStage.setTitle("FXML Welcome");
         primaryStage.setScene(scene);
         primaryStage.toBack();

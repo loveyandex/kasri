@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <VBox fx:id="vvv" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.amin.ui.WindLoginController">
+      fx:controller="com.amin.ui.main.wind.WindLoginController">
     <style>
         -fx-padding: 300;
     </style>

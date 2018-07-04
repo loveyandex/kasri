@@ -98,7 +98,7 @@ public class MainController implements Initializable {
 
     public void charting() {
         final NumberAxis xAxis = new NumberAxis(1000, 30000, 1000);
-        final NumberAxis yAxis = new NumberAxis(0, 360, 10);
+        final NumberAxis yAxis = new NumberAxis(0, 100, 10);
         final ScatterChart<Number, Number> sc = new ScatterChart<Number, Number>(xAxis, yAxis);
         xAxis.setLabel("height");
         yAxis.setLabel("knot");
@@ -109,10 +109,16 @@ public class MainController implements Initializable {
         series1.setName("windspeed");
 
         try {
-            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/data/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
+
+            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("G:\\lastdir\\afghanistan\\year_1976\\month_4\\40948", "00Z_03_Apr_1976.csv");
             ;
-            for (int j = 2; j < windSpeedCol.size() - 1; j++)
-                series1.getData().add(new XYChart.Data((Double.parseDouble(windSpeedCol.get(j).get(0))), Double.parseDouble(windSpeedCol.get(j).get(1))));
+            for (int j = 2; j < windSpeedCol.size() - 1; j++) {
+                if (!windSpeedCol.get(j).get(0).equals("NULL") && !windSpeedCol.get(j).get(1).equals("NULL")) {
+                    double v0 = Double.parseDouble(windSpeedCol.get(j).get(0));
+                    double v1 = Double.parseDouble(windSpeedCol.get(j).get(1));
+                    series1.getData().add(new XYChart.Data(v0, v1));
+                }
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
