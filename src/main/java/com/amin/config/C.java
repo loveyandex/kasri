@@ -23,6 +23,7 @@ public class C {
     public static final String APP_PROP_PATH = "application.properties";
     public static String DATA_PATH;
     public static String SOCANDARY_DATA_PATH;
+    public static String THIRDY_PATH ;
 
     static {
         try {
@@ -37,6 +38,17 @@ public class C {
     static {
         try {
             SOCANDARY_DATA_PATH = readPropertieVal("secondary_data_path");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    static {
+        try {
+            THIRDY_PATH = readPropertieVal("thirdy_data_path");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (URISyntaxException e) {

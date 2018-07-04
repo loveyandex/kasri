@@ -44,7 +44,11 @@ public class MainActivity extends Application  {
                 "-fx-background-repeat: repeat ;");
 
         if (C.DATA_PATH.isEmpty())
-            Dialog.createDataDirChooser();
+            Dialog.createDataDirChooser("data_path");
+        else if (C.SOCANDARY_DATA_PATH.isEmpty())
+            Dialog.createDataDirChooser("secondary_data_path");
+        else if (C.THIRDY_PATH.isEmpty())
+            Dialog.createDataDirChooser("thirdy_data_path");
 
     }
 

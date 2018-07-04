@@ -1,6 +1,12 @@
 package com.amin.analysis;
 
-import java.io.*;
+import com.amin.config.C;
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -136,31 +142,6 @@ public class SecondMining {
     }
 
 
-    private static void NtoNULLInCSV(File file) {
-        try {
-            FileReader readFile = new FileReader(file);
-            File file1 = new File(file.getParent(), file.getName() + "L");
-            boolean newFile = file1.createNewFile();
-            file1.renameTo(file);
-            FileWriter writer=new FileWriter(file1);
-            Scanner scanne = new Scanner(readFile);
-            int count = 0;
-            while (scanne.hasNextLine()) {
-                if (count == 0 || count == 1)
-                    continue;
-                count++;
-                String line = scanne.nextLine();
-                line = line.replaceAll("N", "NULL");
-            }
-            writer.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
 
     public static void main(String[] args) throws IOException {
@@ -168,8 +149,16 @@ public class SecondMining {
 
 
     }
+    public SecondMining(String pathDir, String fileName,boolean haminjuri){
+        this.fileName = fileName;
+        this.pathDir=pathDir;
+    }
 
 
+    public void allinOneFolder(   String RootpathFile,String newName) throws IOException {
+        FileUtils.copyFile(new File(RootpathFile),
+                new File(C.THIRDY_PATH+File.separator+newName));
+    }
 
 
 }

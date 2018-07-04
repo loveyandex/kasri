@@ -5,7 +5,6 @@ package test;
  */
 
 import com.amin.analysis.wind.WindMining;
-import com.amin.ui.dialogs.Dialog;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.ULocale;
@@ -119,7 +118,6 @@ public class TestMainActivity extends Application implements Initializable {
 //                    createExceptionDialog( new FileNotFoundException(
 //                    "Could not find file blabla.txt"));
 //            Dialog.examp();
-            Dialog.createDataDirChooser();
 
         });
 
