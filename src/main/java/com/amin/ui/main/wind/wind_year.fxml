@@ -18,11 +18,11 @@
         </Insets>
     </VBox.margin>
 
-    <GridPane stylesheets="../../../../../../resources/stage.css" fx:id="rootNode"
-              prefHeight="2500.0" prefWidth="600.0">
+    <GridPane stylesheets="/stage.css" fx:id="rootNode"
+              >
 
 
-    <Label stylesheets="../../../../../../resources/stage.css" focusTraversable="true" text="choose a persian date" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <Label stylesheets="/stage.css" focusTraversable="true" text="choose a persian date" GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
     <Label text="you can gregorian date instead"
            GridPane.columnIndex="0" GridPane.rowIndex="2"/>
@@ -43,7 +43,7 @@
 
         <JFXButton fx:id="cancelBtn"
                    translateX="50"
-                   stylesheets="../../../../../../resources/buttons.css"
+                   stylesheets="/buttons.css"
                    styleClass="button"
                    text="Cancel">
         </JFXButton>
@@ -51,7 +51,7 @@
                 fx:id="Gobtn"
                 disable="true"
                 translateX="180"
-                stylesheets="../../../../../../resources/buttons.css"
+                stylesheets="/buttons.css"
                 styleClass="button"
                 text="Get Result">
         </JFXButton>

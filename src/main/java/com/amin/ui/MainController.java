@@ -188,7 +188,7 @@ public class MainController implements Initializable {
 
         stage.setResizable(true);
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/wind_year.fxml"));
-        Scene scene = new Scene(root, 550, 400);
+        Scene scene = new Scene(root, 550, 550);
         String image = MainController.class.getResource("/loginWind.jpg").toURI().toString();
         root.setStyle("-fx-background-image: url('" + image + "'); " +
                 "-fx-background-position: center center; " +
@@ -209,7 +209,7 @@ public class MainController implements Initializable {
 
         stage.setResizable(true);
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/wind_month.fxml"));
-        Scene scene = new Scene(root, 550, 400);
+        Scene scene = new Scene(root, 550, 550);
         String image = MainController.class.getResource("/loginWind.jpg").toURI().toString();
         root.setStyle("-fx-background-image: url('" + image + "'); " +
                 "-fx-background-position: center center; " +
