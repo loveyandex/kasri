@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <VBox fx:id="vvv" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.amin.ui.main.wind.WindController">
+      fx:controller="com.amin.ui.main.wind.WindMonthController">
     <style>
         -fx-padding: 300;
     </style>
@@ -54,7 +54,7 @@
                 fx:id="Gobtn"
                 disable="true"
                 translateX="180"
-                stylesheets="buttons.css"
+                stylesheets="/buttons.css"
                 styleClass="button"
                 text="Get Result">
         </JFXButton>

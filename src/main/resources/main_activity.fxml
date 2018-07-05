@@ -21,7 +21,14 @@
             </Menu>
             <Menu text="view">
                 <items>
-                    <MenuItem onAction="#wind" text="Wind" />
+
+                    <Menu fx:id="openRecentTab" mnemonicParsing="false"  text="Wind">
+                        <items>
+                            <MenuItem mnemonicParsing="false" onAction="#windmonth" text="wind on month" />
+                            <MenuItem mnemonicParsing="false"  onAction="#wind" text="wind in year" />
+                            <MenuItem mnemonicParsing="false" text="wind in day" />
+                        </items>
+                    </Menu>
                     <MenuItem onAction="#chart" text="chart" />
                 </items>
             </Menu>

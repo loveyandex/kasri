@@ -42,7 +42,7 @@ import java.util.ResourceBundle;
 /**
  * is created by aMIN on 6/1/2018 at 05:50
  */
-public class WindLoginController implements Initializable {
+public class WindYearController implements Initializable {
 
 
     public GridPane rootNode;

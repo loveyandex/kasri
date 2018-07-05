@@ -187,6 +187,27 @@ public class MainController implements Initializable {
         stage.getIcons().add(new Image(getClass().getResource("/fav.jpg").toURI().toString()));
 
         stage.setResizable(true);
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/wind_year.fxml"));
+        Scene scene = new Scene(root, 550, 400);
+        String image = MainController.class.getResource("/loginWind.jpg").toURI().toString();
+        root.setStyle("-fx-background-image: url('" + image + "'); " +
+                "-fx-background-position: center center; " +
+                "-fx-background-repeat: stretch;");
+        root.setStyle("-fx-background-color: #e6fcff");
+
+        stage.setScene(scene);
+        stage.initOwner(rootme.getScene().getWindow());
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
+
+
+
+    public void windmonth(ActionEvent actionEvent) throws IOException, URISyntaxException {
+        Stage stage = new Stage();
+        stage.getIcons().add(new Image(getClass().getResource("/fav.jpg").toURI().toString()));
+
+        stage.setResizable(true);
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/wind_month.fxml"));
         Scene scene = new Scene(root, 550, 400);
         String image = MainController.class.getResource("/loginWind.jpg").toURI().toString();
@@ -200,6 +221,29 @@ public class MainController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public void getDataFromInternet(ActionEvent actionEvent) {

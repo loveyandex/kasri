@@ -16,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -68,7 +67,6 @@ public class WindResultController implements Initializable, Runnable {
 
     private void getBack(Stage stage) throws IOException, URISyntaxException {
         stage.getIcons().add(new Image(getClass().getResource("/fav.jpg").toURI().toString()));
-
         stage.setResizable(true);
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/wind_month.fxml"));
         Scene scene = new Scene(root, 550, 400);
@@ -79,9 +77,6 @@ public class WindResultController implements Initializable, Runnable {
         root.setStyle("-fx-background-color: #e6fcff");
 
         stage.setScene(scene);
-        stage.initOwner(stage.getScene().getWindow());
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
     }
 
     @Override
@@ -99,7 +94,7 @@ public class WindResultController implements Initializable, Runnable {
         String height = windInfo.getHeight();
 
 
-        for (int i = 1973; i < 2016; i++) {
+        for (int i = 1973; i < 1973; i++) {
 
 
             String rootDir= C.SOCANDARY_DATA_PATH+File.separator+country+File.separator+"year_"+i+File.separator+"month_"+monthInt+File.separator+stationNumber;

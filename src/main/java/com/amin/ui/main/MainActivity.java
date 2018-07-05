@@ -37,7 +37,7 @@ public class MainActivity extends Application  {
         primaryStage.setScene(scene);
         primaryStage.toBack();
         primaryStage.show();
-        primaryStage.getIcons().add(new Image(getClass().getResource("/fav.jpg").toURI().toString()));
+        primaryStage.getIcons().add(new Image(getClass().getResource("/logo.png").toURI().toString()));
         String image = MainController.class.getResource("/fav.jpg").toURI().toString();
         root.setStyle("-fx-background-image: url('" + image + "'); " +
                 "-fx-background-position: center center; " +

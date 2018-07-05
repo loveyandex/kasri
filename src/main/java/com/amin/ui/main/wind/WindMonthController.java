@@ -37,7 +37,7 @@ import java.util.*;
 /**
  * is created by aMIN on 6/1/2018 at 05:50
  */
-public class WindController implements Initializable {
+public class WindMonthController implements Initializable {
 
 
     public GridPane rootNode;
