@@ -1,4 +1,4 @@
-package com.amin.ui;
+package com.amin.ui.main.main;
 
 import com.amin.analysis.wind.WindMining;
 import com.amin.data.Starter;
@@ -10,8 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -99,24 +99,32 @@ public class MainController implements Initializable {
     public void charting() {
         final NumberAxis xAxis = new NumberAxis(1000, 30000, 1000);
         final NumberAxis yAxis = new NumberAxis(0, 100, 10);
-        final ScatterChart<Number, Number> sc = new ScatterChart<Number, Number>(xAxis, yAxis);
+//        final ScatterChart<Number, Number> sc = new ScatterChart<Number, Number>(xAxis, yAxis);
+        final LineChart<Number, Number> sc = new LineChart<Number, Number>(xAxis, yAxis);
         xAxis.setLabel("height");
         yAxis.setLabel("knot");
-        sc.setTitle("wind-knot-m");
+        sc.setTitle("windyear-knot-m");
 
         XYChart.Series series1 = new XYChart.Series();
         XYChart.Series series11 = new XYChart.Series();
         series1.setName("windspeed");
+        series11.setName("d");
 
         try {
 
-            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("G:\\lastdir\\afghanistan\\year_1976\\month_4\\40948", "00Z_03_Apr_1976.csv");
-            ;
+            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol(
+                    "G:\\lastdir\\afghanistan\\year_1976\\month_4\\40948",
+                    "00Z_03_Apr_1976.csv");
             for (int j = 2; j < windSpeedCol.size() - 1; j++) {
                 if (!windSpeedCol.get(j).get(0).equals("NULL") && !windSpeedCol.get(j).get(1).equals("NULL")) {
                     double v0 = Double.parseDouble(windSpeedCol.get(j).get(0));
+                    double v00 = Double.parseDouble(windSpeedCol.get(j).get(0));
                     double v1 = Double.parseDouble(windSpeedCol.get(j).get(1));
+                    double v11 = Double.parseDouble(windSpeedCol.get(j).get(1)) + 20.0;
                     series1.getData().add(new XYChart.Data(v0, v1));
+                    ;
+                    series11.getData().add(new XYChart.Data(v00, v11));
+
                 }
             }
 
@@ -182,7 +190,7 @@ public class MainController implements Initializable {
 
     }
 
-    public void wind(ActionEvent actionEvent) throws IOException, URISyntaxException {
+    public void windyear(ActionEvent actionEvent) throws IOException, URISyntaxException {
         Stage stage = new Stage();
         stage.getIcons().add(new Image(getClass().getResource("/fav.jpg").toURI().toString()));
 
@@ -210,11 +218,11 @@ public class MainController implements Initializable {
         stage.setResizable(true);
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/wind_month.fxml"));
         Scene scene = new Scene(root, 550, 550);
-        String image = MainController.class.getResource("/loginWind.jpg").toURI().toString();
+        String image = MainController.class.getResource("/logo.png").toURI().toString();
         root.setStyle("-fx-background-image: url('" + image + "'); " +
                 "-fx-background-position: center center; " +
                 "-fx-background-repeat: stretch;");
-        root.setStyle("-fx-background-color: #e6fcff");
+//        root.setStyle("-fx-background-color: #e6fcff");
 
         stage.setScene(scene);
         stage.initOwner(rootme.getScene().getWindow());
@@ -251,4 +259,57 @@ public class MainController implements Initializable {
         Stage stage=new Stage();
         starter.start(stage);
     }
+
+    public void newChart(ActionEvent actionEvent) throws IOException {
+        new NumberAxis(1000, 30000, 1000);
+        final XYChart<Number, Number> sc;
+        sc = new Charting(1000, 30000, 1000,
+                0, 100, 10, "height", "height", Charting.LINE_CHART)
+                .addSeriesToChart(
+                        "dd"
+                        , "dd",
+                        "G:\\lastdir\\afghanistan\\year_1976\\month_4\\40948\\00Z_03_Apr_1976.csv");
+
+        final VBox vbox = new VBox();
+        final HBox hbox = new HBox();
+        vbox.setLayoutY(300);
+        vbox.setLayoutX(400);
+        vbox.setStyle("-fx-background-color: #fff");
+        final Button add = new Button("Add Series");
+        final Button remove = new Button("Remove Series");
+
+
+        remove.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                if (!sc.getData().isEmpty())
+                    sc.getData().remove((int) (Math.random() * (sc.getData().size() - 1)));
+            }
+        });
+
+        hbox.setSpacing(10);
+        hbox.getChildren().addAll(add, remove);
+        vbox.getChildren().addAll(sc, hbox);
+        hbox.setPadding(new Insets(10, 10,
+                03.10, 10));
+        try {
+
+            Parent root = FXMLLoader.load(Charting.class.getResource("/chart.fxml"));
+            ((VBox) root).getChildren().add(vbox);
+            Stage stage = new Stage();
+            stage.setTitle("Title");
+            stage.setScene(new Scene(root, 450, 450));
+            stage.show();
+            add.setOnAction(event -> {
+                stage.hide();
+            });
+            // Hide this current window (if this is what you want)
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }

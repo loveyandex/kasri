@@ -7,17 +7,13 @@
         xmlns="http://javafx.com/javafx"
         xmlns:fx="http://javafx.com/fxml"
         fx:id="rootNode"
-        fx:controller="com.amin.ui.main.wind.WindMonthResultController">
-
-
-
-
+        fx:controller="com.amin.ui.main.wind.WindYearResultController">
     <HBox style="-fx-padding: 40px 0 0px 0" >
 
         <JFXButton fx:id="back"
                    onAction="#back"
                    translateX="50"
-                   stylesheets="buttons.css"
+                   stylesheets="/buttons.css"
                    styleClass="button"
                    text="back">
         </JFXButton>

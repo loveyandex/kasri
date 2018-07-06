@@ -38,6 +38,25 @@ public class WindMining {
     }
 
 
+    public static ArrayList<ArrayList<String>> getWindSpeedCol(String dayfilePAth,int col1,int col2) throws IOException {
+
+        FileReader reader = new FileReader(dayfilePAth);
+        Scanner scanner = new Scanner(reader);
+
+        ArrayList<ArrayList<String>> points=new ArrayList<>();
+        String total = "";
+        while (scanner.hasNextLine()) {
+            ArrayList<String> point=new ArrayList<>();
+            String line = scanner.nextLine();
+            String[] split = line.split(";");
+            point.add(split[col1]);
+            point.add(split[col2] );
+            points.add(point);
+        }
+        return points;
+    }
+
+
     public static void main(String[] args) {
         try {
             WindMining.getWindSpeedCol("assets/data", "00Z_01_Jan_2017.csv");

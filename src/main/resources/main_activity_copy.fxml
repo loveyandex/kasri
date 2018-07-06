@@ -5,14 +5,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox fx:id="rootme" prefHeight="400" prefWidth="800" xmlns="http://javafx.com/javafx/8.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amin.ui.MainController">
+<VBox fx:id="rootme" prefHeight="400" prefWidth="800" xmlns="http://javafx.com/javafx/8.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amin.ui.main.main.MainController">
 
     <MenuBar fx:id="menuBar" focusTraversable="true">
         <menus>
             <Menu text="File">
                 <items>
                     <MenuItem onAction="#chart" text="chart" />
-                    <MenuItem onAction="#wind" text="how" />
+                    <MenuItem onAction="#windyear" text="how" />
                     <MenuItem onAction="#fetch" text="Data" />
                     <SeparatorMenuItem />
                     <MenuItem text="Save" />

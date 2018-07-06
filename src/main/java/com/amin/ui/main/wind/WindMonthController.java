@@ -4,8 +4,10 @@ import com.amin.analysis.Mapping;
 import com.amin.config.C;
 import com.amin.jsons.Date;
 import com.amin.jsons.WindInfo;
-import com.amin.ui.MainController;
 import com.amin.ui.SceneJsonWindInfo;
+import com.amin.ui.dialogs.Dialog;
+import com.amin.ui.main.main.Charting;
+import com.amin.ui.main.main.MainController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
@@ -15,10 +17,13 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import net.time4j.PlainDate;
@@ -26,12 +31,15 @@ import net.time4j.calendar.PersianCalendar;
 import net.time4j.ui.javafx.CalendarPicker;
 import org.controlsfx.control.RangeSlider;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.*;
 
 /**
@@ -64,22 +72,21 @@ public class WindMonthController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         windInfo = new WindInfo();
         rootNode.setAlignment(Pos.CENTER);
-        rootNode.setStyle("          -fx-padding: 10;\n" +
-                "            -fx-border-style: solid inside;\n" +
-                "            -fx-border-width: 6;\n" +
-                "            -fx-border-insets: 5;\n" +
-                "            -fx-border-radius: 5;\n" +
-                "            -fx-border-color: white;");
+//        rootNode.setStyle("          -fx-padding: 10;\n" +
+//                "            -fx-border-style: solid inside;\n" +
+//                "            -fx-border-width: 6;\n" +
+//                "            -fx-border-insets: 5;\n" +
+//                "            -fx-border-radius: 5;\n" +
+//                "            -fx-border-color: white;");
 
 
         ArrayList<String> persianMonths=new ArrayList<String>( Arrays.asList("فروردین", "اردیبهشت", "خرداد","تیر","مرداد","شهریور","مهر","ابان","اذر","دی","بهمن","اسفند"));
         Map<String, Integer> persianMapMonth = new HashMap<>();
         for (int j = 0; j < persianMonths.size(); j++) {
+            monthCombo.getItems().add(new Label((persianMonths.get(j))));
             persianMapMonth.put(persianMonths.get(j), j + 1);
         }
 
-
-        persianMapMonth.forEach((s, integer) -> monthCombo.getItems().add(new Label((s))));
 
 
         monthCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -193,13 +200,16 @@ public class WindMonthController implements Initializable {
 
 
         Gobtn.setOnAction(event -> {
-            try {
-                getResult(((Stage) rootNode.getScene().getWindow()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                getResult(((Stage) rootNode.getScene().getWindow()));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } catch (URISyntaxException e) {
+//                e.printStackTrace();
+//            }
+            showChartAndAna();
+
+
         });
 
 
@@ -230,6 +240,72 @@ public class WindMonthController implements Initializable {
 
 
         rootNode.add(hSlider, 1, 11);
+
+    }
+
+    private void showChartAndAna() {
+//        WindInfo windInfo = ((SceneJsonWindInfo) rootNode.getScene()).getWindInfo();
+        int numDay = windInfo.Date.Day;
+        String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
+        int monthInt = windInfo.getDate().Month;
+        Month month = Month.of(monthInt);
+        String monthDisp = month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+        int year = windInfo.getDate().Year;
+
+        String country = windInfo.getCountry();
+        String stationNumber = windInfo.getStationNumber();
+        String height = windInfo.getHeight();
+
+        Charting charting = new Charting(1000, 30000, 1000,
+                0, 100, 10, "height", "knot", Charting.LINE_CHART);
+        final XYChart<Number, Number> sc = charting.getSc();
+
+        final VBox vbox = new VBox();
+        final HBox hbox = new HBox();
+        vbox.setLayoutY(300);
+        vbox.setLayoutX(400);
+        vbox.setStyle("-fx-background-color: #fff");
+        for (int i = 1; i < 10; i++) {
+
+
+            String rootDir = C.SOCANDARY_DATA_PATH + File.separator + country + File.separator + "year_" + 1973 + File.separator + "month_" + monthInt + File.separator + stationNumber;
+
+
+            System.out.println(monthDisp);
+            System.out.println(dayOfMonth);
+            String fileName = "00Z_" + dayOfMonth + "_" + monthDisp + "_" + 1973 + ".csv";
+            dayOfMonth=String.valueOf(Integer.parseInt(dayOfMonth)+1);
+             dayOfMonth = (Integer.parseInt(dayOfMonth) < 10 ? "0" : "") + Integer.parseInt(dayOfMonth);
+
+            String dayDir = "assets/data";
+
+            try {
+                charting.addSeriesToChart(
+                        fileName.replaceAll(".csv", "")
+                        , fileName.replaceAll(".csv", ""),
+                        rootDir + File.separator + fileName);
+            } catch (IOException e) {
+                Dialog.createExceptionDialog(e);
+            }
+        }
+        try {
+            vbox.getChildren().addAll(sc);
+            hbox.setPadding(new Insets(10, 10,
+                    03.10, 10));
+            Parent root = FXMLLoader.load(WindMonthController.class.getResource("/chart.fxml"));
+            ((VBox) root).getChildren().add(vbox);
+            ;
+            Stage stage = new Stage();
+            stage.setTitle("Title");
+            stage.setScene(new Scene(root, 450, 450));
+            stage.show();
+
+            // Hide this current window (if this is what you want)
+
+        } catch (IOException e) {
+            Dialog.createExceptionDialog(e);
+        }
+
 
     }
 

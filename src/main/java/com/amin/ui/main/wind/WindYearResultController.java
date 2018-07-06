@@ -3,9 +3,9 @@ package com.amin.ui.main.wind;
 import com.amin.analysis.wind.WindMining;
 import com.amin.config.C;
 import com.amin.jsons.WindInfo;
-import com.amin.ui.MainController;
 import com.amin.ui.SceneJsonWindInfo;
 import com.amin.ui.dialogs.Dialog;
+import com.amin.ui.main.main.MainController;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 /**
  * is created by aMIN on 6/8/2018 at 08:15
  */
-public class WindResultController implements Initializable, Runnable {
+public class WindYearResultController implements Initializable, Runnable {
     public VBox rootNode;
     public JFXButton back;
     public TextArea resultArea;
@@ -68,7 +68,7 @@ public class WindResultController implements Initializable, Runnable {
     private void getBack(Stage stage) throws IOException, URISyntaxException {
         stage.getIcons().add(new Image(getClass().getResource("/fav.jpg").toURI().toString()));
         stage.setResizable(true);
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/wind_month.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/wind_year.fxml"));
         Scene scene = new Scene(root, 550, 400);
         String image = MainController.class.getResource("/loginWind.jpg").toURI().toString();
         root.setStyle("-fx-background-image: url('" + image + "'); " +
@@ -94,7 +94,7 @@ public class WindResultController implements Initializable, Runnable {
         String height = windInfo.getHeight();
 
 
-        for (int i = 1973; i < 1973; i++) {
+        for (int i = 1973; i < 1974; i++) {
 
 
             String rootDir= C.SOCANDARY_DATA_PATH+File.separator+country+File.separator+"year_"+i+File.separator+"month_"+monthInt+File.separator+stationNumber;
@@ -113,13 +113,6 @@ public class WindResultController implements Initializable, Runnable {
                 windSpeedCol.forEach(strings -> {
                     resultArea.appendText(strings.get(0)+"--->>>"+strings.get(1)+"\r\n");
                 });
-//                try {
-//                    String format = String.format("/select,%s", rootDir + File.separator + fileName);
-//                    Process p = new ProcessBuilder("explorer.exe",format).start();
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
             } catch (IOException e) {
                 Dialog.createExceptionDialog(e);
             }

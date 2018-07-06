@@ -4,7 +4,10 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<VBox fx:id="rootme" prefHeight="400" prefWidth="800" xmlns="http://javafx.com/javafx/8.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amin.ui.MainController">
+<VBox fx:id="rootme" prefHeight="400" prefWidth="800" xmlns="http://javafx.com/javafx/8.0.1"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amin.ui.main.main.MainController"
+      stylesheets="/dark-theme.css"
+>
 
     <MenuBar fx:id="menuBar" focusTraversable="true">
         <menus>
@@ -25,7 +28,7 @@
                     <Menu fx:id="openRecentTab" mnemonicParsing="false"  text="Wind">
                         <items>
                             <MenuItem mnemonicParsing="false" onAction="#windmonth" text="wind on month" />
-                            <MenuItem mnemonicParsing="false"  onAction="#wind" text="wind in year" />
+                            <MenuItem mnemonicParsing="false" onAction="#windyear" text="wind in year" />
                             <MenuItem mnemonicParsing="false" text="wind in day" />
                         </items>
                     </Menu>
@@ -38,6 +41,8 @@
                     <MenuItem text="Online Manual" visible="false" />
                     <SeparatorMenuItem />
                     <MenuItem text="About" />
+                    <MenuItem onAction="#newChart" text="chart" />
+
                 </items>
             </Menu>
         </menus>

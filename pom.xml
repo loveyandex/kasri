@@ -22,7 +22,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.amin.ui.main.MainActivity</mainClass>
+                            <mainClass>com.amin.ui.main.main.MainActivity</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -185,6 +185,14 @@
             <artifactId>mail</artifactId>
             <version>1.4</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.1stleg/jnativehook -->
+        <dependency>
+            <groupId>com.1stleg</groupId>
+            <artifactId>jnativehook</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+
 
 
     </dependencies>

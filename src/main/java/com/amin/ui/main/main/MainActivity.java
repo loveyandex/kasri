@@ -1,7 +1,6 @@
-package com.amin.ui.main;
+package com.amin.ui.main.main;
 
 import com.amin.config.C;
-import com.amin.ui.MainController;
 import com.amin.ui.dialogs.Dialog;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -23,13 +22,12 @@ public class MainActivity extends Application  {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/main_activity.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/main/main_activity.fxml"));
         Scene scene = new Scene(root, 1000, 500);
         scene.setOnKeyPressed(event -> {
             if (event.getCode()==KeyCode.ESCAPE) {
                 System.exit(0);
             }
-            System.out.println();
         });
 
 
@@ -38,7 +36,7 @@ public class MainActivity extends Application  {
         primaryStage.toBack();
         primaryStage.show();
         primaryStage.getIcons().add(new Image(getClass().getResource("/logo.png").toURI().toString()));
-        String image = MainController.class.getResource("/fav.jpg").toURI().toString();
+        String image = MainController.class.getResource("/logo.png").toURI().toString();
         root.setStyle("-fx-background-image: url('" + image + "'); " +
                 "-fx-background-position: center center; " +
                 "-fx-background-repeat: repeat ;");

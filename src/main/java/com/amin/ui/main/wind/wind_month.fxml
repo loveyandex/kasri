@@ -9,7 +9,10 @@
 <?import javafx.scene.text.Font?>
 <VBox fx:id="vvv" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.amin.ui.main.wind.WindMonthController">
+      fx:controller="com.amin.ui.main.wind.WindMonthController"
+      stylesheets="/dark-theme.css"
+
+>
     <style>
         -fx-padding: 300;
     </style>
