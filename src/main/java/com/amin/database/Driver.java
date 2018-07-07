@@ -73,11 +73,4 @@ public class Driver extends Application {
         return getConnection().createStatement().executeUpdate(query);
     }
 
-
-
-
-
-
-
-
 }

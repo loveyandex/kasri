@@ -80,7 +80,7 @@ public class Dialog {
     public static void createDataDirChooser(String path) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Requires...");
-        alert.setHeaderText("data directory path is not specified");
+        alert.setHeaderText(path.replaceAll("_" ," ")+"  is not specified");
         alert.setContentText("please choose the Data Folder");
         alert.getButtonTypes().clear();
         ButtonType buttonTypeOne = new ButtonType("choose");

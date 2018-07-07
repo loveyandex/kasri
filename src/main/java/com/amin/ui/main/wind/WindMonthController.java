@@ -263,7 +263,7 @@ public class WindMonthController implements Initializable {
         String height = windInfo.getHeight();
 
         Charting charting = new Charting(1000, 30000, 1000,
-                0, 100, 10, "height", "knot", Charting.LINE_CHART);
+                0, 150, 10, "height", "knot", Charting.LINE_CHART);
         final XYChart<Number, Number> sc = charting.getSc();
 
         final VBox vbox = new VBox();
@@ -275,12 +275,12 @@ public class WindMonthController implements Initializable {
         ArrayList<Double> knotslist=new ArrayList<>();
         int[] yearsknots=new int[10];
         for (int i = 1; i < 10; i++) {
-            String rootDir = C.SOCANDARY_DATA_PATH + File.separator + country + File.separator + "year_" + 1973 + File.separator + "month_" + monthInt + File.separator + stationNumber;
+            String rootDir = C.SOCANDARY_DATA_PATH + File.separator + country + File.separator + "year_" + 2016 + File.separator + "month_" + monthInt + File.separator + stationNumber;
 
 
             System.out.println(monthDisp);
             System.out.println(dayOfMonth);
-            String fileName = "00Z_" + dayOfMonth + "_" + monthDisp + "_" + 1973 + ".csv";
+            String fileName = "00Z_" + dayOfMonth + "_" + monthDisp + "_" + 2016 + ".csv";
             dayOfMonth = String.valueOf(Integer.parseInt(dayOfMonth) + 1);
             dayOfMonth = (Integer.parseInt(dayOfMonth) < 10 ? "0" : "") + Integer.parseInt(dayOfMonth);
 
