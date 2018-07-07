@@ -12,7 +12,6 @@ import java.util.Scanner;
 
 public class WindMining {
 
-
     public static ArrayList<ArrayList<String>> getWindSpeedCol(String dayDir, String fileName) throws IOException {
 
         FileReader reader = new FileReader(dayDir+File.separator+fileName);
@@ -44,7 +43,6 @@ public class WindMining {
         Scanner scanner = new Scanner(reader);
 
         ArrayList<ArrayList<String>> points=new ArrayList<>();
-        String total = "";
         while (scanner.hasNextLine()) {
             ArrayList<String> point=new ArrayList<>();
             String line = scanner.nextLine();
