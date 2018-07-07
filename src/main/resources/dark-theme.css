@@ -10,7 +10,7 @@
     -fx-blue: #1976D2;
     -fx-red: #FF0000;
     -fx-green:#2E7D32;
-    -fx-text-fill: #FFFFFF;
+    /*-fx-text-fill: #FFFFFF;*/
 }
 
 .root{
@@ -43,6 +43,7 @@
     -fx-font-size : 13pt;
     -jfx-focus-color: -fx-secondary;
     -fx-text-fill: derive(-fx-secondary, 20%);
+    -fx-text-fill:#2A2E37;
 }
 
 /*Login Screen Specific*/

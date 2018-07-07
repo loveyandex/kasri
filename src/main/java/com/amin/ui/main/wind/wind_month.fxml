@@ -40,7 +40,7 @@
     <Label  textFill="white"  text="choose a station"
            GridPane.columnIndex="0" GridPane.rowIndex="7"/>
 
-    <TextField fx:id="height" GridPane.columnIndex="1" GridPane.rowIndex="10" promptText="height">
+    <TextField fx:id="height" style="" GridPane.columnIndex="1" GridPane.rowIndex="10" promptText="height">
         <font>
             <Font size="12.0" />
         </font>
@@ -49,6 +49,8 @@
             <Insets><bottom>40</bottom></Insets>
         </GridPane.margin>
     </TextField>
+
+
     <HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="12">
 
         <JFXButton fx:id="cancelBtn"

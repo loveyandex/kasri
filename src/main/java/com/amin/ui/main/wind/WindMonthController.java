@@ -90,6 +90,8 @@ public class WindMonthController implements Initializable {
 
 
         monthCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
+
+
             dayofMonthCombo.getItems().clear();
             int[] days={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
             for (int i = 1; i <= 31; i++) {
@@ -263,7 +265,7 @@ public class WindMonthController implements Initializable {
         String height = windInfo.getHeight();
 
         Charting charting = new Charting(1000, 30000, 1000,
-                0, 150, 10, "height", "knot", Charting.LINE_CHART);
+                0, 190, 10, "height", "knot", Charting.LINE_CHART);
         final XYChart<Number, Number> sc = charting.getSc();
 
         final VBox vbox = new VBox();
@@ -273,16 +275,17 @@ public class WindMonthController implements Initializable {
         vbox.setStyle("-fx-background-color: #fff");
 
         ArrayList<Double> knotslist=new ArrayList<>();
-        int[] yearsknots=new int[10];
-        for (int i = 1; i < 10; i++) {
-            String rootDir = C.SOCANDARY_DATA_PATH + File.separator + country + File.separator + "year_" + 2016 + File.separator + "month_" + monthInt + File.separator + stationNumber;
+        int[] yearsknots=new int[3];
+        int kkk=0;
+        for (int i = 2015; i < 2018; i++) {
+            String rootDir = C.SOCANDARY_DATA_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + monthInt + File.separator + stationNumber;
 
 
             System.out.println(monthDisp);
             System.out.println(dayOfMonth);
-            String fileName = "00Z_" + dayOfMonth + "_" + monthDisp + "_" + 2016 + ".csv";
-            dayOfMonth = String.valueOf(Integer.parseInt(dayOfMonth) + 1);
-            dayOfMonth = (Integer.parseInt(dayOfMonth) < 10 ? "0" : "") + Integer.parseInt(dayOfMonth);
+            String fileName = "00Z_" + dayOfMonth + "_" + monthDisp + "_" + i + ".csv";
+//            dayOfMonth = String.valueOf(Integer.parseInt(dayOfMonth) + 1);
+//            dayOfMonth = (Integer.parseInt(dayOfMonth) < 10 ? "0" : "") + Integer.parseInt(dayOfMonth);
 
 
             ArrayList<ArrayList<String>> heightAndKnot;
@@ -294,7 +297,8 @@ public class WindMonthController implements Initializable {
 
                 double intrapolatedKnot = intrapolateKnot(height, heightAndKnot);
                 knotslist.add(intrapolatedKnot);
-                yearsknots[i]=i;
+
+                yearsknots[kkk++]=i;
                 System.out.println("intrapolate " + intrapolatedKnot);
 
             } catch (IOException e) {
@@ -303,7 +307,7 @@ public class WindMonthController implements Initializable {
         }
         try {
 
-            Charting charting2 = new Charting(0, 12, 1,
+            Charting charting2 = new Charting(2014, 2018, 1,
                     0, 100, 10, "height", "knot", Charting.LINE_CHART);
             charting2.interpolateChart("interpolate years knot in "+height+" m","interpolate",knotslist,yearsknots);
 
