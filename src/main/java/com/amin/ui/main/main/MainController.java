@@ -263,9 +263,10 @@ public class MainController implements Initializable {
     public void newChart(ActionEvent actionEvent) throws IOException {
         new NumberAxis(1000, 30000, 1000);
         final XYChart<Number, Number> sc;
-        sc = new Charting(1000, 30000, 1000,
-                0, 100, 10, "height", "height", Charting.LINE_CHART)
-                .addSeriesToChart(
+        Charting charting = new Charting(1000, 30000, 1000,
+                0, 100, 10, "height", "height", Charting.LINE_CHART);
+        sc = charting.getSc();
+        charting.addSeriesToChart(
                         "dd"
                         , "dd",
                         "G:\\lastdir\\afghanistan\\year_1976\\month_4\\40948\\00Z_03_Apr_1976.csv");

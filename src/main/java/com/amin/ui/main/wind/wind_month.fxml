@@ -22,20 +22,24 @@
         </Insets>
     </VBox.margin>
 
-    <GridPane stylesheets="/stage.css" fx:id="rootNode"
+    <GridPane stylesheets="/dark-theme.css" fx:id="rootNode"
           prefHeight="2500.0" prefWidth="600.0">
 
-    <Label stylesheets="/stage.css"   focusTraversable="true" text="choose month" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <JFXComboBox fx:id="monthCombo" minWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="0"><GridPane.margin><Insets><bottom>30</bottom></Insets></GridPane.margin></JFXComboBox>
+    <Label stylesheets="/stage.css"  textFill="white"  focusTraversable="true" text="choose month" GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
-    <Label text="choose persian day of month"
+
+        <JFXComboBox fx:id="monthCombo" id="fancytext" stylesheets="/com/amin/ui/main/wind/combo.css" minWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <GridPane.margin><Insets><bottom>30</bottom></Insets></GridPane.margin></JFXComboBox>
+
+    <Label  textFill="white"  text="choose persian day of month"
            GridPane.columnIndex="0" GridPane.rowIndex="2"/>
         <JFXComboBox fx:id="dayofMonthCombo" minWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="2"><GridPane.margin><Insets><bottom>30</bottom></Insets></GridPane.margin></JFXComboBox>
 
-        <Label text="choose a country"
-           GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-    <Label text="choose a station"
-           GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+        <Label   textFill="white"  text="choose a country"
+           GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+    <Label  textFill="white"  text="choose a station"
+           GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+
     <TextField fx:id="height" GridPane.columnIndex="1" GridPane.rowIndex="10" promptText="height">
         <font>
             <Font size="12.0" />

@@ -105,8 +105,14 @@ public class WindMonthController implements Initializable {
                 String text = ((Label) monthCombo.getValue()).getText();
                 Integer intmonth = persianMapMonth.get(text);
 
-                persianCalendarCalendarPicker.valueProperty().setValue(PersianCalendar.of(1372, intmonth, (Integer.parseInt(((Label) newValue).getText()))));
-                System.out.println(persianCalendarCalendarPicker.valueProperty().getValue().getMonth());
+                try {
+                    persianCalendarCalendarPicker.valueProperty().setValue(PersianCalendar.of(1372, intmonth, (Integer.parseInt(((Label) newValue).getText()))));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }catch (java.lang.IllegalArgumentException ex){
+                    Dialog.createExceptionDialog(ex);
+                }
+//                System.out.println(persianCalendarCalendarPicker.valueProperty().getValue().getMonth());
             PersianCalendar persianCalendar = persianCalendarCalendarPicker.valueProperty().getValue();
             PlainDate plainDate = persianCalendar.transform(PlainDate.class);
                 System.out.println(String.format("%s-%s-%s", plainDate.getDayOfMonth(), plainDate.getMonth(), plainDate.getYear()));
@@ -244,7 +250,7 @@ public class WindMonthController implements Initializable {
     }
 
     private void showChartAndAna() {
-//        WindInfo windInfo = ((SceneJsonWindInfo) rootNode.getScene()).getWindInfo();
+
         int numDay = windInfo.Date.Day;
         String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
         int monthInt = windInfo.getDate().Month;
@@ -265,31 +271,43 @@ public class WindMonthController implements Initializable {
         vbox.setLayoutY(300);
         vbox.setLayoutX(400);
         vbox.setStyle("-fx-background-color: #fff");
+
+        ArrayList<Double> knotslist=new ArrayList<>();
+        int[] yearsknots=new int[10];
         for (int i = 1; i < 10; i++) {
-
-
             String rootDir = C.SOCANDARY_DATA_PATH + File.separator + country + File.separator + "year_" + 1973 + File.separator + "month_" + monthInt + File.separator + stationNumber;
 
 
             System.out.println(monthDisp);
             System.out.println(dayOfMonth);
             String fileName = "00Z_" + dayOfMonth + "_" + monthDisp + "_" + 1973 + ".csv";
-            dayOfMonth=String.valueOf(Integer.parseInt(dayOfMonth)+1);
-             dayOfMonth = (Integer.parseInt(dayOfMonth) < 10 ? "0" : "") + Integer.parseInt(dayOfMonth);
+            dayOfMonth = String.valueOf(Integer.parseInt(dayOfMonth) + 1);
+            dayOfMonth = (Integer.parseInt(dayOfMonth) < 10 ? "0" : "") + Integer.parseInt(dayOfMonth);
 
-            String dayDir = "assets/data";
 
+            ArrayList<ArrayList<String>> heightAndKnot;
             try {
-                charting.addSeriesToChart(
+                heightAndKnot = charting.addSeriesToChart(
                         fileName.replaceAll(".csv", "")
                         , fileName.replaceAll(".csv", ""),
                         rootDir + File.separator + fileName);
+
+                double intrapolatedKnot = intrapolateKnot(height, heightAndKnot);
+                knotslist.add(intrapolatedKnot);
+                yearsknots[i]=i;
+                System.out.println("intrapolate " + intrapolatedKnot);
+
             } catch (IOException e) {
                 Dialog.createExceptionDialog(e);
             }
         }
         try {
-            vbox.getChildren().addAll(sc);
+
+            Charting charting2 = new Charting(0, 12, 1,
+                    0, 100, 10, "height", "knot", Charting.LINE_CHART);
+            charting2.interpolateChart("interpolate years knot in "+height+" m","interpolate",knotslist,yearsknots);
+
+            vbox.getChildren().addAll(sc,charting2.getSc());
             hbox.setPadding(new Insets(10, 10,
                     03.10, 10));
             Parent root = FXMLLoader.load(WindMonthController.class.getResource("/chart.fxml"));
@@ -309,6 +327,91 @@ public class WindMonthController implements Initializable {
 
     }
 
+
+    private double intrapolateKnot(String height, ArrayList<ArrayList<String>> heightAndKnotAll) {
+        double knotdesire = -1;
+        double heightdesire = Double.parseDouble(height);
+        final Vector<Double> heigthsVector = new Vector<>();
+        final Vector<Double> knotsVector = new Vector<>();
+
+        heightAndKnotAll.forEach(strings -> {
+            if (!strings.get(0).equals("HGHT")
+                    && !strings.get(1).equals("SKNT")
+                    && !strings.get(0).equals("m")
+                    && !strings.get(1).equals("knot")
+                    && !strings.get(0).equals("NULL")
+                    && !strings.get(1).equals("NULL")
+
+
+                    ) {
+                double h = Double.parseDouble(strings.get(0));
+                double knot = Double.parseDouble(strings.get(1));
+                heigthsVector.add(h);
+                knotsVector.add(knot);
+            }
+        });
+
+        for (int i = 0; i < heigthsVector.size() - 1; i++) {
+            double hi = heigthsVector.get(i);
+            double hiplus = heigthsVector.get(i + 1);
+            double knoti = knotsVector.get(i);
+            double knotiplus = knotsVector.get(i + 1);
+            if ((heightdesire - hi) * (heightdesire - hiplus) <= 0) {
+                knotdesire = (knotiplus - knoti) * (heightdesire - hi) / (hiplus - hi) + (knoti);
+                break;
+            }
+
+        }
+        return knotdesire;
+    }
+
+
+    private void chartIntrapolates(ArrayList<Double> knotesinyears, int[] years) {
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private void getResult(Stage prStage) throws IOException, URISyntaxException {
 
         URL resource = getClass().getResource("/wind_result.fxml");
@@ -324,9 +427,7 @@ public class WindMonthController implements Initializable {
         prStage.hide();
         prStage.setScene(scene);
         prStage.show();
-        prStage.setOnShowing(event -> {
-            System.out.println("showing");
-        });
+
     }
 
 

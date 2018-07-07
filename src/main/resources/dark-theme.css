@@ -10,6 +10,7 @@
     -fx-blue: #1976D2;
     -fx-red: #FF0000;
     -fx-green:#2E7D32;
+    -fx-text-fill: #FFFFFF;
 }
 
 .root{

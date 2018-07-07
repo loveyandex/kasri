@@ -1,5 +1,6 @@
 package com.amin.data;
 
+import com.amin.ui.dialogs.Dialog;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -149,14 +150,17 @@ public class Process implements Runnable {
 //"G:/Program Files/AMinAbvall/kasridata
             for (int i = 0; i < years.size(); i++) {
                 for (int j = 1; j <= 12; j++) {
-                    System.out.println("year is > " + years.get(i) + " month: > " + j + "  is started dowing");
-                    Process.getData(Starter.ABSOLUTE_ROOT_PATH + "/" + Starter.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j),
-                            "config/" + Starter.COUNTRIES[k] + "-stations.conf", years.get(i), String.valueOf(j));
-
-                    try {
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    if (!Starter.terminateThread) {
+                        System.out.println("year is > " + years.get(i) + " month: > " + j + "  is started dowing");
+                        Process.getData(Starter.ABSOLUTE_ROOT_PATH + "/" + Starter.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j),
+                                "config/" + Starter.COUNTRIES[k] + "-stations.conf", years.get(i), String.valueOf(j));
+                        try {
+                            Thread.sleep(10000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Dialog.createExceptionDialog(new RuntimeException("gettng RawData stopped !!!"));
                     }
                 }
                 try {

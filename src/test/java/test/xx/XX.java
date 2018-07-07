@@ -1,6 +1,7 @@
 package test.xx;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,4 +18,16 @@ public class XX {
         }
 
     }
+
+
+    @Test
+    public void testbreak(){
+        for (int i = 0; i < 23; i++) {
+            for (int j = 0; j < 22; j++) {
+                System.out.println(j);
+                System.out.println(i);
+            }
+        }
+    }
+
 }

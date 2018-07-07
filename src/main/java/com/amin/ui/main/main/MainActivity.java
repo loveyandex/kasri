@@ -39,13 +39,13 @@ public class MainActivity extends Application  {
         String image = MainController.class.getResource("/logo.png").toURI().toString();
         root.setStyle("-fx-background-image: url('" + image + "'); " +
                 "-fx-background-position: center center; " +
-                "-fx-background-repeat: repeat ;");
+                "-fx-background-repeat: stretch ;");
 
         if (C.DATA_PATH.isEmpty())
             Dialog.createDataDirChooser("data_path");
-        else if (C.SOCANDARY_DATA_PATH.isEmpty())
+        if (C.SOCANDARY_DATA_PATH.isEmpty())
             Dialog.createDataDirChooser("secondary_data_path");
-        else if (C.THIRDY_PATH.isEmpty())
+        if (C.THIRDY_PATH.isEmpty())
             Dialog.createDataDirChooser("thirdy_data_path");
 
     }

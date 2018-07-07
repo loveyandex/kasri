@@ -18,6 +18,7 @@ public class Starter extends javafx.application.Application implements EventHand
 
     public static String ABSOLUTE_ROOT_PATH;
     public static String[] COUNTRIES;
+    public static boolean terminateThread=false;
 
     @Override
     public void start(Stage myStage) {
@@ -25,7 +26,8 @@ public class Starter extends javafx.application.Application implements EventHand
         myStage.setTitle("weather");
 
         myStage.setOnCloseRequest(event -> {
-            System.out.println("king amin ");
+            terminateThread=true;
+
         });
 
 

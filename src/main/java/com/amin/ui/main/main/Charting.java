@@ -24,7 +24,7 @@ public class Charting {
         this.sc = sc;
     }
 
-    XYChart<Number, Number> sc;
+    private XYChart<Number, Number> sc;
 
     public Charting(double XlowerBound, double XupperBound, double XtickUnit,
                     double YlowerBound, double YupperBound, double YtickUnit,
@@ -44,13 +44,16 @@ public class Charting {
     }
 
 
-    public XYChart<Number, Number> addSeriesToChart(String title, String seriesName,
-                                                    String dayfilePath) throws IOException {
+    public ArrayList<ArrayList<String>> addSeriesToChart(String title, String seriesName,
+                                                         String dayfilePath) throws IOException {
         sc.setTitle(title);
         XYChart.Series series1 = new XYChart.Series();
         series1.setName(seriesName);
 
-        ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol(dayfilePath, 1, 7);
+        ArrayList<ArrayList<String>> windSpeedCol = null;
+
+        windSpeedCol = WindMining.getWindSpeedCol(dayfilePath, 1, 7);
+
         for (int j = 2; j < windSpeedCol.size() - 1; j++) {
             if (!windSpeedCol.get(j).get(0).equals("NULL") && !windSpeedCol.get(j).get(1).equals("NULL")) {
                 double v0 = Double.parseDouble(windSpeedCol.get(j).get(0));
@@ -58,7 +61,6 @@ public class Charting {
                 series1.getData().add(new XYChart.Data(v0, v1));
             }
         }
-
 
 //        sc.setPrefSize(500, 400);
         sc.getData().addAll(series1);
@@ -70,8 +72,31 @@ public class Charting {
 //        sc.setEffect(shadow);
 //        sc.setStyle("-fx-background-color: #fff;");
 
-        return sc;
+        return windSpeedCol;
 
+    }
+
+
+    public void interpolateChart(String title, String seriesName, ArrayList<Double> knots, int[] years) throws IOException {
+        sc.setTitle(title);
+        XYChart.Series series = new XYChart.Series();
+        XYChart.Series avgseries = new XYChart.Series();
+        series.setName(seriesName);
+        double sum = 0.0;
+        for (int i = 0; i < knots.size(); i++) {
+            sum += knots.get(i);
+        }
+        double avgknots = sum / knots.size();
+        avgseries.setName("average line on "+avgknots+" knot");
+
+        for (int i = 0; i < knots.size(); i++) {
+
+            series.getData().add(new XYChart.Data(years[i], knots.get(i)));
+            avgseries.getData().add(new XYChart.Data(years[i],avgknots));
+        }
+
+
+        sc.getData().addAll(series,avgseries);
     }
 
 
