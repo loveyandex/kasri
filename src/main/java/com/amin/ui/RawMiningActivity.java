@@ -195,6 +195,10 @@ public class RawMiningActivity extends Application implements Runnable {
         rawMining();
     }
 
+    /**
+     * deprecated methodology beause search files in one floder is not efficient
+     * but we can think more
+     */
     public void allinone(ActionEvent actionEvent) {
         final DirectoryChooser directoryChooser =
                 new DirectoryChooser();
