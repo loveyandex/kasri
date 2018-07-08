@@ -77,7 +77,7 @@ public class Charting {
     }
 
 
-    public void interpolateChart(String title, String seriesName, ArrayList<Double> knots, int[] years) throws IOException {
+    public void interpolateChart(String title, String seriesName, ArrayList<Double> knots, int[] years)  {
         sc.setTitle(title);
         XYChart.Series series = new XYChart.Series();
         XYChart.Series avgseries = new XYChart.Series();
@@ -101,6 +101,7 @@ public class Charting {
 
 
     public static void main(String[] args) {
+        MainActivity.A.a();
 
 
     }

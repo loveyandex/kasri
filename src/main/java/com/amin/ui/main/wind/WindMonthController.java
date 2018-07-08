@@ -48,6 +48,7 @@ import java.util.*;
  */
 public class WindMonthController implements Initializable {
 
+    private ArrayList<IOException> ioExceptions = new ArrayList<>();
 
     public GridPane rootNode;
 
@@ -279,44 +280,57 @@ public class WindMonthController implements Initializable {
         vbox.setLayoutX(400);
         vbox.setStyle("-fx-background-color: #fff");
 
-        ArrayList<Double> knotslist=new ArrayList<>();
-        int[] yearsknots=new int[3];
-        int kkk=0;
-        for (int i = 2015; i < 2018; i++) {
-            String rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + monthInt + File.separator + stationNumber;
+        ArrayList<Double> knotslist = new ArrayList<>();
+        int[] yearsknots = new int[3];
+        int kkk = 0;
+        String[] z = {"00Z", "12Z"};
+        for (int id = 0; id < 2; id++) {
+            String Z = z[id];
+            for (int i = 2015; i < 2018; i++) {
+                String rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + monthInt + File.separator + stationNumber;
 
 
-            System.out.println(monthDisp);
-            System.out.println(dayOfMonth);
-            String fileName = "00Z_" + dayOfMonth + "_" + monthDisp + "_" + i + ".csv";
+                System.out.println(monthDisp);
+                System.out.println(dayOfMonth);
+                String fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + i + ".csv";
 //            dayOfMonth = String.valueOf(Integer.parseInt(dayOfMonth) + 1);
 //            dayOfMonth = (Integer.parseInt(dayOfMonth) < 10 ? "0" : "") + Integer.parseInt(dayOfMonth);
+                ArrayList<ArrayList<String>> heightAndKnot;
+                try {
+                    heightAndKnot = charting.addSeriesToChart(
+                            fileName.replaceAll(".csv", "")
+                            , fileName.replaceAll(".csv", ""),
+                            rootDir + File.separator + fileName);
 
+                    double intrapolatedKnot = intrapolateKnot(height, heightAndKnot);
+                    knotslist.add(intrapolatedKnot);
 
-            ArrayList<ArrayList<String>> heightAndKnot;
-            try {
-                heightAndKnot = charting.addSeriesToChart(
-                        fileName.replaceAll(".csv", "")
-                        , fileName.replaceAll(".csv", ""),
-                        rootDir + File.separator + fileName);
+                    yearsknots[kkk++] = i;
+                    System.out.println("intrapolate " + intrapolatedKnot);
 
-                double intrapolatedKnot = intrapolateKnot(height, heightAndKnot);
-                knotslist.add(intrapolatedKnot);
-
-                yearsknots[kkk++]=i;
-                System.out.println("intrapolate " + intrapolatedKnot);
-
-            } catch (IOException e) {
-                Dialog.createExceptionDialog(e);
+                } catch (IOException e) {
+//                    System.out.println(e.getMessage());
+//                    Dialog.createExceptionDialog(e);
+                    ioExceptions.add(e);
+                }
             }
         }
+        if (!ioExceptions.isEmpty()) {
+            String msg = "";
+            for (int i = 0; i < ioExceptions.size(); i++) {
+                msg += ioExceptions.get(i).getMessage() + "\n\r";
+            }
+            Dialog.createExceptionDialog(new RuntimeException(msg));
+            ioExceptions.clear();
+        }
+
         try {
 
             Charting charting2 = new Charting(2014, 2018, 1,
                     0, 100, 10, "height", "knot", Charting.LINE_CHART);
-            charting2.interpolateChart("interpolate years knot in "+height+" m","interpolate",knotslist,yearsknots);
+            charting2.interpolateChart("interpolate years knot in " + height + " m", "interpolate", knotslist, yearsknots);
 
-            vbox.getChildren().addAll(sc,charting2.getSc());
+            vbox.getChildren().addAll(sc, charting2.getSc());
             hbox.setPadding(new Insets(10, 10,
                     03.10, 10));
             Parent root = FXMLLoader.load(WindMonthController.class.getResource("/chart.fxml"));
@@ -373,29 +387,6 @@ public class WindMonthController implements Initializable {
         }
         return knotdesire;
     }
-
-
-    private void chartIntrapolates(ArrayList<Double> knotesinyears, int[] years) {
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -53,25 +53,6 @@
                     <JFXButton fx:id="Gobtn" disable="true" styleClass="button" stylesheets="/buttons.css" text="Get Result" translateX="180">
                     </JFXButton>
                 </HBox>
-            <columnConstraints>
-               <ColumnConstraints />
-               <ColumnConstraints />
-            </columnConstraints>
-            <rowConstraints>
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-            </rowConstraints>
             </GridPane>
 
         </Tab>
@@ -79,8 +60,8 @@
             <VBox fx:id="rootNodetab2" alignment="TOP_CENTER" prefHeight="2500.0" prefWidth="600.0" style="-fx-padding: 40px 0px 0px 0px" stylesheets="/dark-theme.css">
                 <HBox alignment="TOP_CENTER">
 
-                    <JFXCheckBox fx:id="z00" checkedColor="#949c10" contentDisplay="CENTER" style="-fx-padding: 0px 20px 0px 0px" text="00Z" textAlignment="JUSTIFY" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                    <JFXCheckBox fx:id="z12" checkedColor="#949c10" contentDisplay="CENTER" text="12Z" textAlignment="JUSTIFY" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <JFXCheckBox fx:id="z00" checkedColor="#949c10" selected="true" contentDisplay="CENTER"  style="-fx-padding: 0px 20px 0px 0px" text="00Z" textAlignment="JUSTIFY" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <JFXCheckBox fx:id="z12" checkedColor="#949c10" selected="true" contentDisplay="CENTER" text="12Z" textAlignment="JUSTIFY" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 </HBox>
 
             </VBox>

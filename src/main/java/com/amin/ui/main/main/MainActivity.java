@@ -54,4 +54,26 @@ public class MainActivity extends Application  {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static class A{
+       static public void a(){
+            System.out.println("god");
+        }
+    }
+
 }
+
+
