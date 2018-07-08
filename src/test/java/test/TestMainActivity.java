@@ -8,11 +8,14 @@ import com.amin.analysis.wind.WindMining;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.ULocale;
+import com.jfoenix.controls.JFXSnackbar;
 import eu.hansolo.enzo.notification.Notification;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
@@ -96,6 +99,21 @@ public class TestMainActivity extends Application implements Initializable {
         }
 
         button1.setOnAction(event -> {
+            JFXSnackbar jfxSnackbar= new JFXSnackbar(hbox);
+            EventHandler eh = new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    jfxSnackbar.getStyleClass().forEach(s -> {
+                        System.out.println(s);
+                    });
+
+                }
+            };
+
+            jfxSnackbar.setPrefWidth(200);
+
+            jfxSnackbar.show("god is great ","go",eh);
+
 
 
             ULocale locale = new ULocale("fa_IR@calendar=persian");

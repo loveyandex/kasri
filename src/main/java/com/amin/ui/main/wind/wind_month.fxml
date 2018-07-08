@@ -1,76 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<VBox fx:id="vvv" xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.amin.ui.main.wind.WindMonthController"
-      stylesheets="/dark-theme.css"
-
->
-    <style>
-        -fx-padding: 300;
-    </style>
-    <VBox.margin>
-        <Insets>
-            <top>500</top>
-        </Insets>
-    </VBox.margin>
-
-    <GridPane stylesheets="/dark-theme.css" fx:id="rootNode"
-          prefHeight="2500.0" prefWidth="600.0">
-
-    <Label stylesheets="/stage.css"  textFill="white"  focusTraversable="true" text="choose month" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+<VBox fx:id="vvv" stylesheets="/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amin.ui.main.wind.WindMonthController">
 
 
-        <JFXComboBox fx:id="monthCombo" id="fancytext" stylesheets="/com/amin/ui/main/wind/combo.css" minWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="0">
-            <GridPane.margin><Insets><bottom>30</bottom></Insets></GridPane.margin></JFXComboBox>
+    <JFXTabPane fx:id="jfxtab" style="-fx-alignment: center">
+        <Tab text="req1">
+            <GridPane fx:id="rootNode" alignment="TOP_CENTER" prefHeight="2500.0" prefWidth="600.0" style="-fx-padding: 40px 0px 0px 0px" stylesheets="/dark-theme.css">
 
-    <Label  textFill="white"  text="choose persian day of month"
-           GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <JFXComboBox fx:id="dayofMonthCombo" minWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="2"><GridPane.margin><Insets><bottom>30</bottom></Insets></GridPane.margin></JFXComboBox>
-
-        <Label   textFill="white"  text="choose a country"
-           GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-    <Label  textFill="white"  text="choose a station"
-           GridPane.columnIndex="0" GridPane.rowIndex="7"/>
-
-    <TextField fx:id="height" style="" GridPane.columnIndex="1" GridPane.rowIndex="10" promptText="height">
-        <font>
-            <Font size="12.0" />
-        </font>
-        <GridPane.margin>
-            <Insets><top>40</top></Insets>
-            <Insets><bottom>40</bottom></Insets>
-        </GridPane.margin>
-    </TextField>
+                <Label focusTraversable="true" stylesheets="/stage.css" text="choose month" textFill="white" GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
 
-    <HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="12">
+                <JFXComboBox id="fancytext" fx:id="monthCombo" minWidth="200" stylesheets="/com/amin/ui/main/wind/combo.css" GridPane.columnIndex="1" GridPane.rowIndex="0">
 
-        <JFXButton fx:id="cancelBtn"
-                   translateX="50"
-                   stylesheets="/buttons.css"
-                   styleClass="button"
-                   text="Cancel">
-        </JFXButton>
-        <JFXButton
-                fx:id="Gobtn"
-                disable="true"
-                translateX="180"
-                stylesheets="/buttons.css"
-                styleClass="button"
-                text="Get Result">
-        </JFXButton>
+                </JFXComboBox>
+
+                <Label text="choose persian day of month" textFill="white" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <JFXComboBox fx:id="dayofMonthCombo" minWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets>
+                            <bottom>30</bottom>
+                        </Insets>
+                    </GridPane.margin>
+                </JFXComboBox>
+
+                <Label text="choose a country" textFill="white" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <Label text="choose a station" textFill="white" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+
+                <TextField fx:id="height" promptText="height" style="" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                    <font>
+                        <Font size="12.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets>
+                            <top>40</top>
+                        </Insets>
+                        <Insets>
+                            <bottom>40</bottom>
+                        </Insets>
+                    </GridPane.margin>
+                </TextField>
 
 
+                <HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="12">
 
-    </HBox>
+                    <JFXButton fx:id="cancelBtn" styleClass="button" stylesheets="/buttons.css" text="Cancel" translateX="50">
+                    </JFXButton>
+                    <JFXButton fx:id="Gobtn" disable="true" styleClass="button" stylesheets="/buttons.css" text="Get Result" translateX="180">
+                    </JFXButton>
+                </HBox>
+            <columnConstraints>
+               <ColumnConstraints />
+               <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
+            </GridPane>
 
-</GridPane>
+        </Tab>
+        <Tab text="req2">
+            <VBox fx:id="rootNodetab2" alignment="TOP_CENTER" prefHeight="2500.0" prefWidth="600.0" style="-fx-padding: 40px 0px 0px 0px" stylesheets="/dark-theme.css">
+                <HBox alignment="TOP_CENTER">
+
+                    <JFXCheckBox fx:id="z00" checkedColor="#949c10" contentDisplay="CENTER" style="-fx-padding: 0px 20px 0px 0px" text="00Z" textAlignment="JUSTIFY" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <JFXCheckBox fx:id="z12" checkedColor="#949c10" contentDisplay="CENTER" text="12Z" textAlignment="JUSTIFY" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                </HBox>
+
+            </VBox>
+
+
+        </Tab>
+    </JFXTabPane>
+
 </VBox>

@@ -9,13 +9,14 @@ import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.main.main.Charting;
 import com.amin.ui.main.main.MainController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTabPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.XYChart;
@@ -61,6 +62,8 @@ public class WindMonthController implements Initializable {
     public VBox vvv;
     public JFXComboBox monthCombo;
     public JFXComboBox dayofMonthCombo;
+    public JFXCheckBox z00;
+    public JFXTabPane jfxtab;
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
 
@@ -71,7 +74,7 @@ public class WindMonthController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         windInfo = new WindInfo();
-        rootNode.setAlignment(Pos.CENTER);
+//        rootNode.setAlignment(Pos.CENTER);
 //        rootNode.setStyle("          -fx-padding: 10;\n" +
 //                "            -fx-border-style: solid inside;\n" +
 //                "            -fx-border-width: 6;\n" +
@@ -79,9 +82,11 @@ public class WindMonthController implements Initializable {
 //                "            -fx-border-radius: 5;\n" +
 //                "            -fx-border-color: white;");
 
+        GridPane.setMargin(monthCombo,new Insets(0,0,30,0));
 
         ArrayList<String> persianMonths=new ArrayList<String>( Arrays.asList("فروردین", "اردیبهشت", "خرداد","تیر","مرداد","شهریور","مهر","ابان","اذر","دی","بهمن","اسفند"));
         Map<String, Integer> persianMapMonth = new HashMap<>();
+
         for (int j = 0; j < persianMonths.size(); j++) {
             monthCombo.getItems().add(new Label((persianMonths.get(j))));
             persianMapMonth.put(persianMonths.get(j), j + 1);
@@ -278,7 +283,7 @@ public class WindMonthController implements Initializable {
         int[] yearsknots=new int[3];
         int kkk=0;
         for (int i = 2015; i < 2018; i++) {
-            String rootDir = C.SOCANDARY_DATA_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + monthInt + File.separator + stationNumber;
+            String rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + monthInt + File.separator + stationNumber;
 
 
             System.out.println(monthDisp);

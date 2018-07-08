@@ -271,3 +271,19 @@
     -fx-fill: derive(blue, 80%);
     -fx-cursor: hand;
 }
+
+
+.jfx-snackbar-toast{
+    -fx-text-fill: #f3f3f3;
+    -fx-border-radius: 200px 20px 20px 20px;
+}
+.jfx-snackbar-content{
+    -fx-background-color: #443619;
+    -fx-border-radius: 200px 20px 20px 20px;
+}
+.jfx-snackbar{
+    -fx-border-radius: 200px 20px 20px 20px;
+}
+.jfx-snackbar-action{
+
+}

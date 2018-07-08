@@ -2,6 +2,7 @@ package com.amin.ui.main.main;
 
 import com.amin.analysis.wind.WindMining;
 import com.amin.data.Starter;
+import com.jfoenix.controls.JFXSnackbar;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -217,7 +218,7 @@ public class MainController implements Initializable {
 
         stage.setResizable(true);
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/wind_month.fxml"));
-        Scene scene = new Scene(root, 550, 550);
+        Scene scene = new Scene(root, 750, 550);
         String image = MainController.class.getResource("/logo.png").toURI().toString();
         root.setStyle("-fx-background-image: url('" + image + "'); " +
                 "-fx-background-position: center center; " +
@@ -313,4 +314,46 @@ public class MainController implements Initializable {
 
 
 
+
+
+    public void loadAddMember(ActionEvent actionEvent) {
+        try {
+            windmonth(actionEvent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void loadAddBook(ActionEvent actionEvent) {
+        EventHandler eh = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        };
+
+        JFXSnackbar jfxSnackbar= new JFXSnackbar(rootme);
+        jfxSnackbar.setPrefWidth(200);
+
+        jfxSnackbar.show("god is great ","OK",2000,eh);
+
+    }
+
+    public void loadMemberTable(ActionEvent actionEvent) {
+
+    }
+
+    public void loadBookTable(ActionEvent actionEvent) {
+
+
+    }
+
+    public void loadIssuedBookList(ActionEvent actionEvent) {
+    }
+
+    public void loadSettings(ActionEvent actionEvent) {
+    }
 }
