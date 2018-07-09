@@ -16,6 +16,8 @@ public class WindInfo {
     private String height;
     private String lowHeightRange;
     private String highHeightRange;
+    private Number lowerYear;
+    private Number highYear;
 
     public WindInfo() {
     }
@@ -38,6 +40,20 @@ public class WindInfo {
     }
 
 
+    public void setLowerYear(Number lowerYear) {
+        this.lowerYear = lowerYear;
+    }
 
+    public Number getLowerYear() {
+        return lowerYear;
+    }
+
+    public void setHighYear(Number highYear) {
+        this.highYear = highYear;
+    }
+
+    public Number getHighYear() {
+        return highYear;
+    }
 }
 

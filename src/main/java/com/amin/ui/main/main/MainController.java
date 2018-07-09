@@ -2,6 +2,7 @@ package com.amin.ui.main.main;
 
 import com.amin.analysis.wind.WindMining;
 import com.amin.data.Starter;
+import com.amin.ui.dialogs.Dialog;
 import com.jfoenix.controls.JFXSnackbar;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -328,17 +329,7 @@ public class MainController implements Initializable {
 
 
     public void loadAddBook(ActionEvent actionEvent) {
-        EventHandler eh = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-            }
-        };
-
-        JFXSnackbar jfxSnackbar= new JFXSnackbar(rootme);
-        jfxSnackbar.setPrefWidth(200);
-
-        jfxSnackbar.show("god is great ","OK",2000,eh);
+        Dialog.SnackBar.showSnack(rootme,"comming sooon...");
 
     }
 

@@ -8,10 +8,7 @@ import com.amin.ui.SceneJsonWindInfo;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.main.main.Charting;
 import com.amin.ui.main.main.MainController;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTabPane;
+import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,9 +34,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.Month;
-import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.*;
 
@@ -48,6 +43,10 @@ import java.util.*;
  */
 public class WindMonthController implements Initializable {
 
+    public RangeSlider yearsSlider;
+    public JFXSlider lowYearjfxslider;
+    public JFXSlider highYearjfxslider;
+    public HBox topOfgobtn;
     private ArrayList<IOException> ioExceptions = new ArrayList<>();
 
     public GridPane rootNode;
@@ -65,6 +64,7 @@ public class WindMonthController implements Initializable {
     public JFXComboBox dayofMonthCombo;
     public JFXCheckBox z00;
     public JFXTabPane jfxtab;
+
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
 
@@ -75,6 +75,88 @@ public class WindMonthController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         windInfo = new WindInfo();
+
+        lowYearjfxslider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            int a = (int) Math.round((Double) newValue);
+            windInfo.setLowerYear(a);
+            highYearjfxslider.valueProperty().setValue(newValue);
+            System.out.println(newValue);
+            System.out.println(a);
+            if (isReadyToFire(windInfo))
+                Gobtn.setDisable(false);
+        });
+
+        highYearjfxslider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            int a = (int) Math.round((Double) newValue);
+            windInfo.setHighYear(a);
+            System.out.println(newValue);
+            System.out.println(a);
+
+            if (isReadyToFire(windInfo))
+                Gobtn.setDisable(false);
+
+        });
+
+
+//        yearsSlider.setOrientation(Orientation.HORIZONTAL);
+//
+//
+//        yearsSlider.applyCss();
+//        yearsSlider.getParent().layout();
+//        Pane p = (Pane) yearsSlider.lookup(".low-thumb");
+//        Label l = new Label();
+//        l.textProperty().bind(yearsSlider.lowValueProperty().asString("%.5f").concat(" °"));
+//        p.getChildren().add(l);
+//
+//        ChangeListener<Scene> initializer = new ChangeListener<Scene>() {
+//            @Override
+//            public void changed(ObservableValue<? extends Scene> obs, Scene oldScene, Scene newScene) {
+//                if (newScene != null) {
+//                    yearsSlider.applyCss();
+//                    yearsSlider.getParent().layout();
+//                    Pane thumb = (Pane) yearsSlider.lookup(".range-slider .low-thumb");
+//                    Label l = new Label();
+//                    yearsSlider.lowValueProperty().setValue(((int) yearsSlider.getLowValue()));
+//                    l.textProperty().bind(yearsSlider.lowValueProperty().asString("%1f").concat(" °"));
+//                    System.out.println(l.getText());
+//                    thumb.getChildren().add(l);
+//                    System.out.println(thumb); // <-- No longer null
+////                    yearsSlider.sceneProperty().removeListener(this);
+//                }
+//            }
+//        };
+//
+//        yearsSlider.sceneProperty().addListener(initializer);
+//        yearsSlider.lowValueChangingProperty().addListener((observable, oldValue, newValue) -> {
+//            yearsSlider.applyCss();
+//            yearsSlider.getParent().layout();
+//            Pane thumb = (Pane) yearsSlider.lookup(".range-slider .low-thumb");
+//            Label l = new Label();
+////                    l.textProperty().bind(yearsSlider.lowValueProperty().asString("%4f").concat(" °"));
+//            DoubleProperty doubleProperty = yearsSlider.lowValueProperty();
+//            IntegerProperty integerProperty = new SimpleIntegerProperty(doubleProperty.intValue());
+//            StringExpression concat = integerProperty.asString("%4d").concat(" °");
+//            l.setText("");
+//            l.textProperty().bind(new SimpleIntegerProperty(yearsSlider.lowValueProperty().intValue())
+//                    .asString("%4d").concat(" °"));
+//            thumb.getChildren().clear();
+//            thumb.getChildren().add(l);
+//            System.out.println(thumb); // <-- No longer null
+//        });
+
+
+//        yearsSlider.applyCss();
+//        yearsSlider.getParent().layout();
+//        Pane thumb = (Pane) yearsSlider.lookup(".range-slider .low-thumb");
+//        Label l = new Label();
+//        DoubleProperty doubleProperty = yearsSlider.lowValueProperty();
+//        IntegerProperty integerProperty = new SimpleIntegerProperty(doubleProperty.intValue());
+//        StringExpression concat = integerProperty.asString("%4d").concat(" °");
+//        l.textProperty().bind(concat);
+//        thumb.getChildren().add(l);
+//        System.out.println(thumb); // <-- No longer null
+//        yearsSlider.sceneProperty().removeListener(this);
+
 //        rootNode.setAlignment(Pos.CENTER);
 //        rootNode.setStyle("          -fx-padding: 10;\n" +
 //                "            -fx-border-style: solid inside;\n" +
@@ -214,14 +296,10 @@ public class WindMonthController implements Initializable {
 
 
         Gobtn.setOnAction(event -> {
-//            try {
-//                getResult(((Stage) rootNode.getScene().getWindow()));
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } catch (URISyntaxException e) {
-//                e.printStackTrace();
-//            }
-            showChartAndAna();
+            if (windInfo.getHighYear().intValue() < windInfo.getLowerYear().intValue())
+                Dialog.SnackBar.showSnack(rootNode, "high year is lower than low year");
+            else
+                showChartAndAna();
 
 
         });
@@ -258,6 +336,8 @@ public class WindMonthController implements Initializable {
     }
 
     private void showChartAndAna() {
+        int fromYear = windInfo.getLowerYear().intValue();
+        int toYear = windInfo.getHighYear().intValue();
 
         int numDay = windInfo.Date.Day;
         String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
@@ -286,7 +366,7 @@ public class WindMonthController implements Initializable {
         String[] z = {"00Z", "12Z"};
         for (int id = 0; id < 2; id++) {
             String Z = z[id];
-            for (int i = 2015; i < 2018; i++) {
+            for (int i = fromYear; i <= toYear; i++) {
                 String rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + monthInt + File.separator + stationNumber;
 
 
@@ -316,11 +396,7 @@ public class WindMonthController implements Initializable {
             }
         }
         if (!ioExceptions.isEmpty()) {
-            String msg = "";
-            for (int i = 0; i < ioExceptions.size(); i++) {
-                msg += ioExceptions.get(i).getMessage() + "\n\r";
-            }
-            Dialog.createExceptionDialog(new RuntimeException(msg));
+            Dialog.createIOExceptionDialog(ioExceptions);
             ioExceptions.clear();
         }
 
@@ -466,14 +542,8 @@ public class WindMonthController implements Initializable {
 
 
 
-    public static final LocalDate LOCAL_DATE(String dateString, String pattern) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        LocalDate localDate = LocalDate.parse(dateString, formatter);
-        return localDate;
-    }
-
     private boolean isReadyToFire(WindInfo windInfo) {
-        if (windInfo.getDate() == null || windInfo.getStationNumber() == null || windInfo.getCountry() == null || windInfo.getHeight() == null) {
+        if (windInfo.getLowerYear() == null || windInfo.getHighYear() == null || windInfo.getDate() == null || windInfo.getStationNumber() == null || windInfo.getCountry() == null || windInfo.getHeight() == null) {
             Gobtn.setDisable(true);
             return false;
         } else

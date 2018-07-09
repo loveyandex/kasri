@@ -47,56 +47,6 @@
 
                 </items>
             </Menu>
-            <Menu text="Help">
-                <items>
-                    <MenuItem disable="true" text="Search" />
-                    <MenuItem text="Online Manual" visible="false" />
-                    <SeparatorMenuItem />
-                    <MenuItem text="About" />
-                    <MenuItem onAction="#newChart" text="chart" />
-
-                </items>
-            </Menu>
-            <Menu text="Help">
-                <items>
-                    <MenuItem disable="true" text="Search" />
-                    <MenuItem text="Online Manual" visible="false" />
-                    <SeparatorMenuItem />
-                    <MenuItem text="About" />
-                    <MenuItem onAction="#newChart" text="chart" />
-
-                </items>
-            </Menu>
-            <Menu text="Help">
-                <items>
-                    <MenuItem disable="true" text="Search" />
-                    <MenuItem text="Online Manual" visible="false" />
-                    <SeparatorMenuItem />
-                    <MenuItem text="About" />
-                    <MenuItem onAction="#newChart" text="chart" />
-
-                </items>
-            </Menu>
-            <Menu text="Help">
-                <items>
-                    <MenuItem disable="true" text="Search" />
-                    <MenuItem text="Online Manual" visible="false" />
-                    <SeparatorMenuItem />
-                    <MenuItem text="About" />
-                    <MenuItem onAction="#newChart" text="chart" />
-
-                </items>
-            </Menu>
-            <Menu text="Help">
-                <items>
-                    <MenuItem disable="true" text="Search" />
-                    <MenuItem text="Online Manual" visible="false" />
-                    <SeparatorMenuItem />
-                    <MenuItem text="About" />
-                    <MenuItem onAction="#newChart" text="chart" />
-
-                </items>
-            </Menu>
         </menus>
     </MenuBar>
     <children>

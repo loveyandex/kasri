@@ -57,11 +57,35 @@
 
         </Tab>
         <Tab text="req2">
-            <VBox fx:id="rootNodetab2" alignment="TOP_CENTER" prefHeight="2500.0" prefWidth="600.0" style="-fx-padding: 40px 0px 0px 0px" stylesheets="/dark-theme.css">
-                <HBox alignment="TOP_CENTER">
-
+            <VBox fx:id="rootNodetab2" alignment="TOP_CENTER"
+                  style="-fx-padding: 40px 0px 0px 0px" stylesheets="/dark-theme.css">
+                <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
+                    <Label text="time zones: " minWidth="100"
+                           style="-fx-padding: 0px 30px 0px 0px;-fx-text-fill: white"/>
                     <JFXCheckBox fx:id="z00" checkedColor="#949c10" selected="true" contentDisplay="CENTER"  style="-fx-padding: 0px 20px 0px 0px" text="00Z" textAlignment="JUSTIFY" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                    <JFXCheckBox fx:id="z12" checkedColor="#949c10" selected="true" contentDisplay="CENTER" text="12Z" textAlignment="JUSTIFY" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <HBox fx:id="topOfgobtn">
+                        <JFXCheckBox fx:id="z12" checkedColor="#949c10" selected="true" contentDisplay="CENTER"
+                                     text="12Z" textAlignment="JUSTIFY" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    </HBox>
+                </HBox>
+                <!--<HBox alignment="TOP_CENTER"  minWidth="300"  style="-fx-padding: 20px 0px 0px 0px" >-->
+                <!--<RangeSlider fx:id="yearsSlider" minWidth="300" max="2018" min="1973"  lowValue="1973" highValue="2018"-->
+                <!--showTickLabels="true" showTickMarks="true" blockIncrement="1"-->
+
+                <!--/>-->
+                <!--</HBox>-->
+                <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
+                    <Label text="from year: " minWidth="100"
+                           style="-fx-padding: 0px 40px 0px 0px;-fx-text-fill: white"/>
+                    <JFXSlider fx:id="lowYearjfxslider" minWidth="300" showTickMarks="true" showTickLabels="true"
+                               min="1973"
+                               max="2018"/>
+                </HBox>
+                <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
+                    <Label text="to year: " minWidth="100" style="-fx-padding: 0px 30px 0px 0px;-fx-text-fill: white"/>
+                    <JFXSlider fx:id="highYearjfxslider" minWidth="300" showTickMarks="true" showTickLabels="true"
+                               min="1973"
+                               max="2018"/>
                 </HBox>
 
             </VBox>

@@ -1,8 +1,15 @@
 package com.amin.ui.dialogs;
 
+import com.jfoenix.controls.JFXSnackbar;
 import eu.hansolo.enzo.notification.Notification;
-import javafx.scene.control.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Window;
@@ -13,12 +20,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static com.amin.config.C.writePropertie;
 
 public class Dialog {
-
 
     public static boolean createExceptionDialog(Exception ex) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -56,26 +63,45 @@ public class Dialog {
         return true;
     }
 
+    public static boolean createIOExceptionDialog(ArrayList<IOException> exceptions) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Exception Occurred");
+        alert.setHeaderText(exceptions.get(0).getLocalizedMessage());
+        alert.setContentText(exceptions.get(0).getMessage() + " more other like this exception");
 
-    public static String examp() {
-        TextInputDialog dialog = new TextInputDialog("walter");
-        dialog.setTitle("Text Input Dialog");
-        dialog.setHeaderText("Look, a Text Input Dialog");
-        dialog.setContentText("Please enter your name:");
 
-// Traditional way to get the response value.
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            System.out.println("Your name: " + result.get());
+// Create expandable Exception.
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        String exceptionText = "";
+        for (int i = 0; i < exceptions.size(); i++) {
+            exceptions.get(i).printStackTrace(pw);
+            exceptionText += sw.toString();
         }
+        ;
 
-// The Java 8 way to get the response value (with lambda expression).
-        result.ifPresent(name -> System.out.println("Your name: " + name));
-        return null;
+        Label label = new Label("The all exceptions stacktrace was:");
+
+        TextArea textArea = new TextArea(exceptionText);
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+
+        textArea.setMaxWidth(Double.MAX_VALUE);
+        textArea.setMaxHeight(Double.MAX_VALUE);
+        GridPane.setVgrow(textArea, Priority.ALWAYS);
+        GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+        GridPane expContent = new GridPane();
+        expContent.setMaxWidth(Double.MAX_VALUE);
+        expContent.add(label, 0, 0);
+        expContent.add(textArea, 0, 1);
+
+// Set expandable Exception into the dialog pane.
+        alert.getDialogPane().setExpandableContent(expContent);
+
+        alert.showAndWait();
+        return true;
     }
-
-
-
 
     public static void createDataDirChooser(String path) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -97,8 +123,6 @@ public class Dialog {
             createDataDirChooser(path);
         }
     }
-
-
 
     public static void chDir(Window primaryStage, String data_path) {
         final DirectoryChooser directoryChooser =
@@ -128,7 +152,19 @@ public class Dialog {
         }
     }
 
+    public static class SnackBar {
+        public static void showSnack(Pane snackbarContainer, String msg) {
+            JFXSnackbar jfxSnackbar = new JFXSnackbar(snackbarContainer);
+            EventHandler eh = new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    jfxSnackbar.unregisterSnackbarContainer(snackbarContainer);
 
-
+                }
+            };
+            jfxSnackbar.setPrefWidth(200);
+            jfxSnackbar.show(msg, "got it", 3000, eh);
+        }
+    }
 
 }
