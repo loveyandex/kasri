@@ -1,6 +1,6 @@
 package com.amin.ui.main.wind;
 
-import com.amin.jsons.WindInfo;
+import com.amin.jsons.FormInfo;
 import com.amin.ui.main.main.MainController;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
@@ -26,14 +26,14 @@ public class WindMonthResultController implements Initializable, Runnable {
     public VBox rootNode;
     public JFXButton back;
     public TextArea resultArea;
-    private WindInfo windInfo;
+    private FormInfo formInfo;
 
-    public WindInfo getWindInfo() {
-        return windInfo;
+    public FormInfo getFormInfo() {
+        return formInfo;
     }
 
-    public void setWindInfo(WindInfo windInfo) {
-        this.windInfo = windInfo;
+    public void setFormInfo(FormInfo formInfo) {
+        this.formInfo = formInfo;
     }
 
 
@@ -59,7 +59,7 @@ public class WindMonthResultController implements Initializable, Runnable {
     private void getBack(Stage stage) throws IOException, URISyntaxException {
         stage.getIcons().add(new Image(getClass().getResource("/fav.jpg").toURI().toString()));
         stage.setResizable(true);
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/wind_month.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/day.fxml"));
         Scene scene = new Scene(root, 550, 400);
         String image = MainController.class.getResource("/loginWind.jpg").toURI().toString();
         root.setStyle("-fx-background-image: url('" + image + "'); " +

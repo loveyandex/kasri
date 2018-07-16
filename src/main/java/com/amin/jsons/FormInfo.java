@@ -8,8 +8,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class WindInfo {
+public class FormInfo {
     public Date Date;
+    private String feaureName;
     public String StationNumber;
     public String StationName;
     public String Country;
@@ -19,26 +20,15 @@ public class WindInfo {
     private Number lowerYear;
     private Number highYear;
 
-    public WindInfo() {
+    public Features getFeatures() {
+        return features;
     }
 
-//    public WindInfo(Date date, String stationNumber, String country) {
-//        Date = date;
-//        StationNumber = stationNumber;
-//        Country = country;
-//    }
-
-    public static void main(String[] args) {
-//        WindInfo windInfo = new WindInfo(new Date(2,23,2033),"48644","iran");
-//        Gson gson = new Gson();
-//        String s = gson.toJson(windInfo);
-//        System.out.println(s);
-//        WindInfo windInfo1 = gson.fromJson(s, WindInfo.class);
-//        System.out.println(windInfo.Country);
-
-
+    public void setFeatures(Features features) {
+        this.features = features;
     }
 
+    private Features features;
 
     public void setLowerYear(Number lowerYear) {
         this.lowerYear = lowerYear;
@@ -54,6 +44,15 @@ public class WindInfo {
 
     public Number getHighYear() {
         return highYear;
+    }
+
+
+    public String getFeaureName() {
+        return feaureName;
+    }
+
+    public void setFeaureName(String feaureName) {
+        this.feaureName = feaureName;
     }
 }
 

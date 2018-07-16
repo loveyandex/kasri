@@ -2,7 +2,7 @@ package com.amin.ui.main.wind;
 
 import com.amin.analysis.wind.WindMining;
 import com.amin.config.C;
-import com.amin.jsons.WindInfo;
+import com.amin.jsons.FormInfo;
 import com.amin.ui.SceneJsonWindInfo;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.main.main.MainController;
@@ -35,14 +35,14 @@ public class WindYearResultController implements Initializable, Runnable {
     public VBox rootNode;
     public JFXButton back;
     public TextArea resultArea;
-    private WindInfo windInfo;
+    private FormInfo formInfo;
 
-    public WindInfo getWindInfo() {
-        return windInfo;
+    public FormInfo getFormInfo() {
+        return formInfo;
     }
 
-    public void setWindInfo(WindInfo windInfo) {
-        this.windInfo = windInfo;
+    public void setFormInfo(FormInfo formInfo) {
+        this.formInfo = formInfo;
     }
 
 
@@ -81,17 +81,17 @@ public class WindYearResultController implements Initializable, Runnable {
 
     @Override
     public void run() {
-        WindInfo windInfo = ((SceneJsonWindInfo) rootNode.getScene()).getWindInfo();
-        int numDay = windInfo.Date.Day;
+        FormInfo formInfo = ((SceneJsonWindInfo) rootNode.getScene()).getFormInfo();
+        int numDay = formInfo.Date.Day;
         String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
-        int monthInt = windInfo.getDate().Month;
+        int monthInt = formInfo.getDate().Month;
         Month month = Month.of(monthInt);
         String monthDisp = month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
-        int year = windInfo.getDate().Year;
+        int year = formInfo.getDate().Year;
 
-        String country = windInfo.getCountry();
-        String stationNumber = windInfo.getStationNumber();
-        String height = windInfo.getHeight();
+        String country = formInfo.getCountry();
+        String stationNumber = formInfo.getStationNumber();
+        String height = formInfo.getHeight();
 
 
         for (int i = 1973; i < 1974; i++) {

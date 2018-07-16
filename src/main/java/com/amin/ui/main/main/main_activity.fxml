@@ -43,7 +43,6 @@
                     <MenuItem text="Online Manual" visible="false" />
                     <SeparatorMenuItem />
                     <MenuItem text="About" />
-                    <MenuItem onAction="#newChart" text="chart" />
 
                 </items>
             </Menu>
@@ -56,22 +55,22 @@
                 <!--<FontAwesomeIconView glyphName="AT"  size="25" />-->
             </graphic>
         </JFXButton>
-        <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#loadAddBook" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="Add Book" textAlignment="CENTER">
+        <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#loadAddBook" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="...." textAlignment="CENTER">
             <graphic>
                 <FontAwesomeIconView glyphName="BOOK" size="25" />
             </graphic>
         </JFXButton>
-        <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#loadMemberTable" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="Member List" textAlignment="CENTER">
+        <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#loadMemberTable" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="..." textAlignment="CENTER">
             <graphic>
                 <FontAwesomeIconView glyphName="TABLE" size="25" />
             </graphic>
         </JFXButton>
-        <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="81.0" mnemonicParsing="false" onAction="#loadBookTable" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="Book List" textAlignment="CENTER">
+        <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="81.0" mnemonicParsing="false" onAction="#loadBookTable" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="...." textAlignment="CENTER">
             <graphic>
                 <FontAwesomeIconView glyphName="TABLE" size="25" />
             </graphic>
         </JFXButton>
-        <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#loadIssuedBookList" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="Issued Book List" textAlignment="CENTER">
+        <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#loadIssuedBookList" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="........." textAlignment="CENTER">
             <graphic>
                 <FontAwesomeIconView glyphName="CHECK" size="25" textAlignment="CENTER" />
             </graphic>

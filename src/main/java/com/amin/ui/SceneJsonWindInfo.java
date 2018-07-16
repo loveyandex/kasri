@@ -1,6 +1,6 @@
 package com.amin.ui;
 
-import com.amin.jsons.WindInfo;
+import com.amin.jsons.FormInfo;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
@@ -12,7 +12,7 @@ import javafx.scene.paint.Paint;
 public class SceneJsonWindInfo extends Scene {
 
     private String json;
-    private WindInfo windInfo;
+    private FormInfo formInfo;
 
 
 
@@ -54,11 +54,11 @@ public class SceneJsonWindInfo extends Scene {
         this.json = json;
     }
 
-    public WindInfo getWindInfo() {
-        return windInfo;
+    public FormInfo getFormInfo() {
+        return formInfo;
     }
 
-    public void setWindInfo(WindInfo windInfo) {
-        this.windInfo = windInfo;
+    public void setFormInfo(FormInfo formInfo) {
+        this.formInfo = formInfo;
     }
 }

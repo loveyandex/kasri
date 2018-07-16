@@ -45,14 +45,14 @@ public class Charting {
 
 
     public ArrayList<ArrayList<String>> addSeriesToChart(String title, String seriesName,
-                                                         String dayfilePath) throws IOException {
+                                                         String dayfilePath, int col1, int col2) throws IOException {
         sc.setTitle(title);
         XYChart.Series series1 = new XYChart.Series();
         series1.setName(seriesName);
 
         ArrayList<ArrayList<String>> windSpeedCol = null;
 
-        windSpeedCol = WindMining.getWindSpeedCol(dayfilePath, 1, 7);
+        windSpeedCol = WindMining.getWindSpeedCol(dayfilePath, col1, col2);
 
         for (int j = 2; j < windSpeedCol.size() - 1; j++) {
             if (!windSpeedCol.get(j).get(0).equals("NULL") && !windSpeedCol.get(j).get(1).equals("NULL")) {
@@ -77,7 +77,7 @@ public class Charting {
     }
 
 
-    public void interpolateChart(String title, String seriesName, ArrayList<Double> knots, int[] years)  {
+    public void interpolateChart(String title, String seriesName, ArrayList<Double> knots, int[] years, String avgseriname, String unit) {
         sc.setTitle(title);
         XYChart.Series series = new XYChart.Series();
         XYChart.Series avgseries = new XYChart.Series();
@@ -87,8 +87,7 @@ public class Charting {
             sum += knots.get(i);
         }
         double avgknots = sum / knots.size();
-        avgseries.setName("average line on "+avgknots+" knot");
-
+        avgseries.setName(avgseriname + String.format("%.4f ", avgknots) + unit);
         for (int i = 0; i < knots.size(); i++) {
 
             series.getData().add(new XYChart.Data(years[i], knots.get(i)));

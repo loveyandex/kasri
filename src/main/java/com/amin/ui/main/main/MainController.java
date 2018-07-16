@@ -3,7 +3,6 @@ package com.amin.ui.main.main;
 import com.amin.analysis.wind.WindMining;
 import com.amin.data.Starter;
 import com.amin.ui.dialogs.Dialog;
-import com.jfoenix.controls.JFXSnackbar;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -218,12 +217,12 @@ public class MainController implements Initializable {
         stage.getIcons().add(new Image(getClass().getResource("/fav.jpg").toURI().toString()));
 
         stage.setResizable(true);
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/wind_month.fxml"));
-        Scene scene = new Scene(root, 750, 550);
-        String image = MainController.class.getResource("/logo.png").toURI().toString();
-        root.setStyle("-fx-background-image: url('" + image + "'); " +
-                "-fx-background-position: center center; " +
-                "-fx-background-repeat: stretch;");
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/day.fxml"));
+        Scene scene = new Scene(root, 750, 600);
+//        String image = MainController.class.getResource("/logo.png").toURI().toString();
+//        root.setStyle("-fx-background-image: url('" + image + "'); " +
+//                "-fx-background-position: center center; " +
+//                "-fx-background-repeat: stretch;");
 //        root.setStyle("-fx-background-color: #e6fcff");
 
         stage.setScene(scene);
@@ -262,56 +261,56 @@ public class MainController implements Initializable {
         starter.start(stage);
     }
 
-    public void newChart(ActionEvent actionEvent) throws IOException {
-        new NumberAxis(1000, 30000, 1000);
-        final XYChart<Number, Number> sc;
-        Charting charting = new Charting(1000, 30000, 1000,
-                0, 100, 10, "height", "height", Charting.LINE_CHART);
-        sc = charting.getSc();
-        charting.addSeriesToChart(
-                        "dd"
-                        , "dd",
-                        "G:\\lastdir\\afghanistan\\year_1976\\month_4\\40948\\00Z_03_Apr_1976.csv");
-
-        final VBox vbox = new VBox();
-        final HBox hbox = new HBox();
-        vbox.setLayoutY(300);
-        vbox.setLayoutX(400);
-        vbox.setStyle("-fx-background-color: #fff");
-        final Button add = new Button("Add Series");
-        final Button remove = new Button("Remove Series");
-
-
-        remove.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                if (!sc.getData().isEmpty())
-                    sc.getData().remove((int) (Math.random() * (sc.getData().size() - 1)));
-            }
-        });
-
-        hbox.setSpacing(10);
-        hbox.getChildren().addAll(add, remove);
-        vbox.getChildren().addAll(sc, hbox);
-        hbox.setPadding(new Insets(10, 10,
-                03.10, 10));
-        try {
-
-            Parent root = FXMLLoader.load(Charting.class.getResource("/chart.fxml"));
-            ((VBox) root).getChildren().add(vbox);
-            Stage stage = new Stage();
-            stage.setTitle("Title");
-            stage.setScene(new Scene(root, 450, 450));
-            stage.show();
-            add.setOnAction(event -> {
-                stage.hide();
-            });
-            // Hide this current window (if this is what you want)
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void newChart(ActionEvent actionEvent) throws IOException {
+//        new NumberAxis(1000, 30000, 1000);
+//        final XYChart<Number, Number> sc;
+//        Charting charting = new Charting(1000, 30000, 1000,
+//                0, 100, 10, "height", "height", Charting.LINE_CHART);
+//        sc = charting.getSc();
+//        charting.addSeriesToChart(
+//                        "dd"
+//                        , "dd",
+//                        "G:\\lastdir\\afghanistan\\year_1976\\month_4\\40948\\00Z_03_Apr_1976.csv");
+//
+//        final VBox vbox = new VBox();
+//        final HBox hbox = new HBox();
+//        vbox.setLayoutY(300);
+//        vbox.setLayoutX(400);
+//        vbox.setStyle("-fx-background-color: #fff");
+//        final Button add = new Button("Add Series");
+//        final Button remove = new Button("Remove Series");
+//
+//
+//        remove.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent e) {
+//                if (!sc.getData().isEmpty())
+//                    sc.getData().remove((int) (Math.random() * (sc.getData().size() - 1)));
+//            }
+//        });
+//
+//        hbox.setSpacing(10);
+//        hbox.getChildren().addAll(add, remove);
+//        vbox.getChildren().addAll(sc, hbox);
+//        hbox.setPadding(new Insets(10, 10,
+//                03.10, 10));
+//        try {
+//
+//            Parent root = FXMLLoader.load(Charting.class.getResource("/chart.fxml"));
+//            ((VBox) root).getChildren().add(vbox);
+//            Stage stage = new Stage();
+//            stage.setTitle("Title");
+//            stage.setScene(new Scene(root, 450, 450));
+//            stage.show();
+//            add.setOnAction(event -> {
+//                stage.hide();
+//            });
+//            // Hide this current window (if this is what you want)
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
 

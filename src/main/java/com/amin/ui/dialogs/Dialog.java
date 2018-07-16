@@ -2,6 +2,7 @@ package com.amin.ui.dialogs;
 
 import com.jfoenix.controls.JFXSnackbar;
 import eu.hansolo.enzo.notification.Notification;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -74,10 +75,8 @@ public class Dialog {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         String exceptionText = "";
-        for (int i = 0; i < exceptions.size(); i++) {
-            exceptions.get(i).printStackTrace(pw);
-            exceptionText += sw.toString();
-        }
+        exceptions.get(0).printStackTrace(pw);
+        exceptionText += sw.toString();
         ;
 
         Label label = new Label("The all exceptions stacktrace was:");

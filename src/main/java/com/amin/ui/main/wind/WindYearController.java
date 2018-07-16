@@ -3,7 +3,7 @@ package com.amin.ui.main.wind;
 import com.amin.analysis.Mapping;
 import com.amin.config.C;
 import com.amin.jsons.Date;
-import com.amin.jsons.WindInfo;
+import com.amin.jsons.FormInfo;
 import com.amin.ui.SceneJsonWindInfo;
 import com.amin.ui.main.main.MainController;
 import com.jfoenix.controls.JFXButton;
@@ -60,13 +60,13 @@ public class WindYearController implements Initializable {
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
     private DatePicker datePicker;
 
-    public WindInfo windInfo;
+    public FormInfo formInfo;
     private Map<String, String> stationNumTOCities;
     private RangeSlider hSlider;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        windInfo = new WindInfo();
+        formInfo = new FormInfo();
         rootNode.setAlignment(Pos.CENTER);
         rootNode.setStyle("          -fx-padding: 10;\n" +
                 "            -fx-border-style: solid inside;\n" +
@@ -99,14 +99,14 @@ public class WindYearController implements Initializable {
             PersianCalendar persianCalendar = persianCalendarCalendarPicker.valueProperty().getValue();
             PlainDate plainDate = persianCalendar.transform(PlainDate.class);
 
-            windInfo.setDate(new Date(plainDate.getMonth(), plainDate.getDayOfMonth(), plainDate.getYear()));
+            formInfo.setDate(new Date(plainDate.getMonth(), plainDate.getDayOfMonth(), plainDate.getYear()));
 
             datePicker.valueProperty().
                     setValue(LOCAL_DATE(
                             String.format("%s-%s-%s", plainDate.getDayOfMonth(), plainDate.getMonth(), plainDate.getYear()), "d-M-yyyy"));
             datePicker.setDisable(true);
 
-            if (isReadyToFire(windInfo))
+            if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
 
         });
@@ -129,8 +129,8 @@ public class WindYearController implements Initializable {
         countriesCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             stationsCombo.getItems().clear();
             try {
-                windInfo.setStationNumber(null);
-                windInfo.setCountry(newValue.getText());
+                formInfo.setStationNumber(null);
+                formInfo.setCountry(newValue.getText());
                 Mapping.createCSVFILEFORStations("config", newValue.getText() + ".conf");
                 stationNumTOCities = Mapping.MapStationNumTOCities("config/" + newValue.getText() + ".conf.csv");
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
@@ -141,7 +141,7 @@ public class WindYearController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (isReadyToFire(windInfo))
+            if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
 
 
@@ -162,12 +162,12 @@ public class WindYearController implements Initializable {
             if (newValue != null) {
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
                     if (station.getKey().equals(newValue.getText()))
-                        windInfo.setStationNumber(station.getValue());
+                        formInfo.setStationNumber(station.getValue());
 
                 }
-                windInfo.setStationName(newValue.getText());
+                formInfo.setStationName(newValue.getText());
 
-                if (isReadyToFire(windInfo))
+                if (isReadyToFire(formInfo))
                     Gobtn.setDisable(false);
             }
         });
@@ -207,10 +207,10 @@ public class WindYearController implements Initializable {
 
         height.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.equals(""))
-                windInfo.setHeight(null);
+                formInfo.setHeight(null);
             else
-                windInfo.setHeight(newValue);
-            if (isReadyToFire(windInfo))
+                formInfo.setHeight(newValue);
+            if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
         });
 
@@ -226,7 +226,7 @@ public class WindYearController implements Initializable {
         });
 
         height.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (isReadyToFire(windInfo))
+            if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
         });
 
@@ -241,7 +241,7 @@ public class WindYearController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(resource);
         Parent root = ((Parent) fxmlLoader.load(resource));
         SceneJsonWindInfo scene = new SceneJsonWindInfo(root, 450, 350);
-        (scene).setWindInfo(windInfo);
+        (scene).setFormInfo(formInfo);
 
         String image = MainController.class.getResource("/fav.jpg").toURI().toString();
         root.setStyle("-fx-background-image: url('" + image + "'); " +
@@ -297,8 +297,8 @@ public class WindYearController implements Initializable {
         return localDate;
     }
 
-    private boolean isReadyToFire(WindInfo windInfo) {
-        if (windInfo.getDate() == null || windInfo.getStationNumber() == null || windInfo.getCountry() == null || windInfo.getHeight() == null) {
+    private boolean isReadyToFire(FormInfo formInfo) {
+        if (formInfo.getDate() == null || formInfo.getStationNumber() == null || formInfo.getCountry() == null || formInfo.getHeight() == null) {
             Gobtn.setDisable(true);
             return false;
         } else

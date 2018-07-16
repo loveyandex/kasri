@@ -3,7 +3,8 @@ package com.amin.ui.main.wind;
 import com.amin.analysis.Mapping;
 import com.amin.config.C;
 import com.amin.jsons.Date;
-import com.amin.jsons.WindInfo;
+import com.amin.jsons.Features;
+import com.amin.jsons.FormInfo;
 import com.amin.ui.SceneJsonWindInfo;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.main.main.Charting;
@@ -41,20 +42,21 @@ import java.util.*;
 /**
  * is created by aMIN on 6/1/2018 at 05:50
  */
-public class WindMonthController implements Initializable {
+public class FormDayController implements Initializable {
 
     public RangeSlider yearsSlider;
     public JFXSlider lowYearjfxslider;
     public JFXSlider highYearjfxslider;
     public HBox topOfgobtn;
+    public JFXComboBox feturesCombo;
     private ArrayList<IOException> ioExceptions = new ArrayList<>();
 
     public GridPane rootNode;
 
     @FXML
-    public JFXComboBox<Label> stationsCombo;
+    private JFXComboBox<Label> stationsCombo;
     @FXML
-    public JFXComboBox<Label> countriesCombo;
+    private JFXComboBox<Label> countriesCombo;
     public JFXButton cancelBtn;
     public JFXButton Gobtn;
 
@@ -68,102 +70,52 @@ public class WindMonthController implements Initializable {
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
 
-    public WindInfo windInfo;
+    public FormInfo formInfo;
     private Map<String, String> stationNumTOCities;
     private RangeSlider hSlider;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        windInfo = new WindInfo();
+        formInfo = new FormInfo();
+
+        String[] featursName = {"PRES", "HGHT", "TEMP", "DWPT", "RELH", "MIXR", "DRCT", "SKNT", "THTA", "THTE", "THTV"};
+        for (int i = 0; i < featursName.length; i++) {
+            feturesCombo.getItems().add(new Label(featursName[i]));
+        }
+
+        feturesCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
+            formInfo.setFeaureName(((Label) newValue).getText());
+
+            if (isReadyToFire(formInfo))
+                Gobtn.setDisable(false);
+        });
+
+
+
+
+
 
         lowYearjfxslider.valueProperty().addListener((observable, oldValue, newValue) -> {
             int a = (int) Math.round((Double) newValue);
-            windInfo.setLowerYear(a);
+            formInfo.setLowerYear(a);
             highYearjfxslider.valueProperty().setValue(newValue);
             System.out.println(newValue);
             System.out.println(a);
-            if (isReadyToFire(windInfo))
+            if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
         });
 
         highYearjfxslider.valueProperty().addListener((observable, oldValue, newValue) -> {
             int a = (int) Math.round((Double) newValue);
-            windInfo.setHighYear(a);
+            formInfo.setHighYear(a);
             System.out.println(newValue);
             System.out.println(a);
 
-            if (isReadyToFire(windInfo))
+            if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
 
         });
 
-
-//        yearsSlider.setOrientation(Orientation.HORIZONTAL);
-//
-//
-//        yearsSlider.applyCss();
-//        yearsSlider.getParent().layout();
-//        Pane p = (Pane) yearsSlider.lookup(".low-thumb");
-//        Label l = new Label();
-//        l.textProperty().bind(yearsSlider.lowValueProperty().asString("%.5f").concat(" °"));
-//        p.getChildren().add(l);
-//
-//        ChangeListener<Scene> initializer = new ChangeListener<Scene>() {
-//            @Override
-//            public void changed(ObservableValue<? extends Scene> obs, Scene oldScene, Scene newScene) {
-//                if (newScene != null) {
-//                    yearsSlider.applyCss();
-//                    yearsSlider.getParent().layout();
-//                    Pane thumb = (Pane) yearsSlider.lookup(".range-slider .low-thumb");
-//                    Label l = new Label();
-//                    yearsSlider.lowValueProperty().setValue(((int) yearsSlider.getLowValue()));
-//                    l.textProperty().bind(yearsSlider.lowValueProperty().asString("%1f").concat(" °"));
-//                    System.out.println(l.getText());
-//                    thumb.getChildren().add(l);
-//                    System.out.println(thumb); // <-- No longer null
-////                    yearsSlider.sceneProperty().removeListener(this);
-//                }
-//            }
-//        };
-//
-//        yearsSlider.sceneProperty().addListener(initializer);
-//        yearsSlider.lowValueChangingProperty().addListener((observable, oldValue, newValue) -> {
-//            yearsSlider.applyCss();
-//            yearsSlider.getParent().layout();
-//            Pane thumb = (Pane) yearsSlider.lookup(".range-slider .low-thumb");
-//            Label l = new Label();
-////                    l.textProperty().bind(yearsSlider.lowValueProperty().asString("%4f").concat(" °"));
-//            DoubleProperty doubleProperty = yearsSlider.lowValueProperty();
-//            IntegerProperty integerProperty = new SimpleIntegerProperty(doubleProperty.intValue());
-//            StringExpression concat = integerProperty.asString("%4d").concat(" °");
-//            l.setText("");
-//            l.textProperty().bind(new SimpleIntegerProperty(yearsSlider.lowValueProperty().intValue())
-//                    .asString("%4d").concat(" °"));
-//            thumb.getChildren().clear();
-//            thumb.getChildren().add(l);
-//            System.out.println(thumb); // <-- No longer null
-//        });
-
-
-//        yearsSlider.applyCss();
-//        yearsSlider.getParent().layout();
-//        Pane thumb = (Pane) yearsSlider.lookup(".range-slider .low-thumb");
-//        Label l = new Label();
-//        DoubleProperty doubleProperty = yearsSlider.lowValueProperty();
-//        IntegerProperty integerProperty = new SimpleIntegerProperty(doubleProperty.intValue());
-//        StringExpression concat = integerProperty.asString("%4d").concat(" °");
-//        l.textProperty().bind(concat);
-//        thumb.getChildren().add(l);
-//        System.out.println(thumb); // <-- No longer null
-//        yearsSlider.sceneProperty().removeListener(this);
-
-//        rootNode.setAlignment(Pos.CENTER);
-//        rootNode.setStyle("          -fx-padding: 10;\n" +
-//                "            -fx-border-style: solid inside;\n" +
-//                "            -fx-border-width: 6;\n" +
-//                "            -fx-border-insets: 5;\n" +
-//                "            -fx-border-radius: 5;\n" +
-//                "            -fx-border-color: white;");
 
         GridPane.setMargin(monthCombo,new Insets(0,0,30,0));
 
@@ -190,7 +142,7 @@ public class WindMonthController implements Initializable {
         dayofMonthCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
 
-                windInfo.setDate(null);
+                formInfo.setDate(null);
                 persianCalendarCalendarPicker = CalendarPicker.persianWithSystemDefaults();
                 String text = ((Label) monthCombo.getValue()).getText();
                 Integer intmonth = persianMapMonth.get(text);
@@ -206,10 +158,10 @@ public class WindMonthController implements Initializable {
             PersianCalendar persianCalendar = persianCalendarCalendarPicker.valueProperty().getValue();
             PlainDate plainDate = persianCalendar.transform(PlainDate.class);
                 System.out.println(String.format("%s-%s-%s", plainDate.getDayOfMonth(), plainDate.getMonth(), plainDate.getYear()));
-            windInfo.setDate(new Date(plainDate.getMonth(), plainDate.getDayOfMonth(), plainDate.getYear()));
+                formInfo.setDate(new Date(plainDate.getMonth(), plainDate.getDayOfMonth(), plainDate.getYear()));
             }
 
-            if (isReadyToFire(windInfo))
+            if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
 
         });
@@ -233,8 +185,8 @@ public class WindMonthController implements Initializable {
         countriesCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             stationsCombo.getItems().clear();
             try {
-                windInfo.setStationNumber(null);
-                windInfo.setCountry(newValue.getText());
+                formInfo.setStationNumber(null);
+                formInfo.setCountry(newValue.getText());
                 Mapping.createCSVFILEFORStations("config", newValue.getText() + ".conf");
                 stationNumTOCities = Mapping.MapStationNumTOCities("config/" + newValue.getText() + ".conf.csv");
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
@@ -245,7 +197,7 @@ public class WindMonthController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (isReadyToFire(windInfo))
+            if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
 
 
@@ -264,12 +216,12 @@ public class WindMonthController implements Initializable {
             if (newValue != null) {
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
                     if (station.getKey().equals(newValue.getText()))
-                        windInfo.setStationNumber(station.getValue());
+                        formInfo.setStationNumber(station.getValue());
 
                 }
-                windInfo.setStationName(newValue.getText());
+                formInfo.setStationName(newValue.getText());
 
-                if (isReadyToFire(windInfo))
+                if (isReadyToFire(formInfo))
                     Gobtn.setDisable(false);
             }
         });
@@ -296,7 +248,7 @@ public class WindMonthController implements Initializable {
 
 
         Gobtn.setOnAction(event -> {
-            if (windInfo.getHighYear().intValue() < windInfo.getLowerYear().intValue())
+            if (formInfo.getHighYear().intValue() < formInfo.getLowerYear().intValue())
                 Dialog.SnackBar.showSnack(rootNode, "high year is lower than low year");
             else
                 showChartAndAna();
@@ -307,10 +259,10 @@ public class WindMonthController implements Initializable {
 
         height.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.equals(""))
-                windInfo.setHeight(null);
+                formInfo.setHeight(null);
             else
-                windInfo.setHeight(newValue);
-            if (isReadyToFire(windInfo))
+                formInfo.setHeight(newValue);
+            if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
         });
 
@@ -326,7 +278,7 @@ public class WindMonthController implements Initializable {
         });
 
         height.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (isReadyToFire(windInfo))
+            if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
         });
 
@@ -336,22 +288,27 @@ public class WindMonthController implements Initializable {
     }
 
     private void showChartAndAna() {
-        int fromYear = windInfo.getLowerYear().intValue();
-        int toYear = windInfo.getHighYear().intValue();
+        int fromYear = formInfo.getLowerYear().intValue();
+        int toYear = formInfo.getHighYear().intValue();
+        String featureName = formInfo.getFeaureName();
+        int featureIndexCSV = getfeatureIndex(featureName).getLevelCode() - 1;
+        double lowrange = Double.parseDouble(getfeatureIndex(featureName).getLow_range());
+        double highrange = Double.parseDouble(getfeatureIndex(featureName).getHigh_range());
+        String unit = (getfeatureIndex(featureName).getUnit());
 
-        int numDay = windInfo.Date.Day;
+
+        int numDay = formInfo.Date.Day;
         String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
-        int monthInt = windInfo.getDate().Month;
+        int monthInt = formInfo.getDate().Month;
         Month month = Month.of(monthInt);
         String monthDisp = month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
-        int year = windInfo.getDate().Year;
 
-        String country = windInfo.getCountry();
-        String stationNumber = windInfo.getStationNumber();
-        String height = windInfo.getHeight();
+        String country = formInfo.getCountry();
+        String stationNumber = formInfo.getStationNumber();
+        String height = formInfo.getHeight();
 
         Charting charting = new Charting(1000, 30000, 1000,
-                0, 190, 10, "height", "knot", Charting.LINE_CHART);
+                lowrange, highrange, 10, "geoHeight(m)", featureName+"("+unit+")", Charting.LINE_CHART);
         final XYChart<Number, Number> sc = charting.getSc();
 
         final VBox vbox = new VBox();
@@ -377,10 +334,9 @@ public class WindMonthController implements Initializable {
 //            dayOfMonth = (Integer.parseInt(dayOfMonth) < 10 ? "0" : "") + Integer.parseInt(dayOfMonth);
                 ArrayList<ArrayList<String>> heightAndKnot;
                 try {
-                    heightAndKnot = charting.addSeriesToChart(
-                            fileName.replaceAll(".csv", "")
+                    heightAndKnot = charting.addSeriesToChart(featureName
                             , fileName.replaceAll(".csv", ""),
-                            rootDir + File.separator + fileName);
+                            rootDir + File.separator + fileName, 1, featureIndexCSV);
 
                     double intrapolatedKnot = intrapolateKnot(height, heightAndKnot);
                     knotslist.add(intrapolatedKnot);
@@ -402,16 +358,16 @@ public class WindMonthController implements Initializable {
 
         try {
 
-            Charting charting2 = new Charting(2014, 2018, 1,
-                    0, 100, 10, "height", "knot", Charting.LINE_CHART);
-            charting2.interpolateChart("interpolate years knot in " + height + " m", "interpolate", knotslist, yearsknots);
+            Charting charting2 = new Charting(fromYear, toYear ,1,
+                    lowrange, highrange, 10, "years", featureName+"("+unit+")", Charting.LINE_CHART);
+            charting2.interpolateChart("interpolate years for "+featureName+" in " + height + " m",
+                    "interpolate", knotslist, yearsknots, "avg line val is on ",unit);
 
             vbox.getChildren().addAll(sc, charting2.getSc());
             hbox.setPadding(new Insets(10, 10,
                     03.10, 10));
-            Parent root = FXMLLoader.load(WindMonthController.class.getResource("/chart.fxml"));
+            Parent root = FXMLLoader.load(FormDayController.class.getResource("/chart.fxml"));
             ((VBox) root).getChildren().add(vbox);
-            ;
             Stage stage = new Stage();
             stage.setTitle("Title");
             stage.setScene(new Scene(root, 450, 450));
@@ -423,6 +379,34 @@ public class WindMonthController implements Initializable {
             Dialog.createExceptionDialog(e);
         }
 
+
+    }
+
+    private Features getfeatureIndex(String featureName) {
+        if (featureName.equals(Features.PRES.getName()))
+            return Features.PRES;
+        else if (featureName.equals(Features.HGHT.getName()))
+            return Features.HGHT;
+        else if (featureName.equals(Features.TEMP.getName()))
+            return Features.TEMP;
+        else if (featureName.equals(Features.DWPT.getName()))
+            return Features.DWPT;
+        else if (featureName.equals(Features.RELH.getName()))
+            return Features.RELH;
+        else if (featureName.equals(Features.MIXR.getName()))
+            return Features.MIXR;
+        else if (featureName.equals(Features.DRCT.getName()))
+            return Features.DRCT;
+        else if (featureName.equals(Features.SKNT.getName()))
+            return Features.SKNT;
+        else if (featureName.equals(Features.THTA.getName()))
+            return Features.THTA;
+        else if (featureName.equals(Features.THTE.getName()))
+            return Features.THTE;
+        else if (featureName.equals(Features.THTV.getName()))
+            return Features.THTV;
+        else
+            return null;
 
     }
 
@@ -494,7 +478,7 @@ public class WindMonthController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(resource);
         Parent root = ((Parent) fxmlLoader.load(resource));
         SceneJsonWindInfo scene = new SceneJsonWindInfo(root, 450, 350);
-        (scene).setWindInfo(windInfo);
+        (scene).setFormInfo(formInfo);
 
         String image = MainController.class.getResource("/fav.jpg").toURI().toString();
         root.setStyle("-fx-background-image: url('" + image + "'); " +
@@ -507,43 +491,8 @@ public class WindMonthController implements Initializable {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private boolean isReadyToFire(WindInfo windInfo) {
-        if (windInfo.getLowerYear() == null || windInfo.getHighYear() == null || windInfo.getDate() == null || windInfo.getStationNumber() == null || windInfo.getCountry() == null || windInfo.getHeight() == null) {
+    private boolean isReadyToFire(FormInfo formInfo) {
+        if (formInfo.getFeaureName() == null || formInfo.getLowerYear() == null || formInfo.getHighYear() == null || formInfo.getDate() == null || formInfo.getStationNumber() == null || formInfo.getCountry() == null || formInfo.getHeight() == null) {
             Gobtn.setDisable(true);
             return false;
         } else
