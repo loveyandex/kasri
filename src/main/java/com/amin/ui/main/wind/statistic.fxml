@@ -10,13 +10,14 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <StackPane fx:id="rootstackpane" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.amin.ui.main.wind.StatisticalController"
            xmlns="http://javafx.com/javafx/2.2"
            stylesheets="/statistic.css"
 >
     <VBox maxWidth="400" maxHeight="300" spacing="20"
-          stylesheets="/statistic.css"
           alignment="CENTER">
         <children>
             <HBox>
@@ -42,7 +43,17 @@
                     <JFXComboBox fx:id="feturesCombo"
                                  stylesheets="/combo.css"
                                  minWidth="300"
-                    />
+                    >
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="max value" />
+                                <String fx:value="min value"  />
+                                <String fx:value="average" />
+                                <String fx:value="Varience" />
+                                <String fx:value="Standard deviation" />
+                            </FXCollections>
+                        </items>
+                    </JFXComboBox>
                     <HBox.margin>
                         <Insets>
                             <left>5</left>
@@ -57,7 +68,7 @@
                              minHeight="-Infinity"
             >
                 <heading>
-                    <Label>JFoenix Dialog</Label>
+                    <Label fx:id="mathematicLable">Mathematical concepts</Label>
                 </heading>
                 <body>
                     <Label fx:id="valueLable">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed

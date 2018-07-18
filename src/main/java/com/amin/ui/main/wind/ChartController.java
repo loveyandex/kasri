@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -23,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class ChartController implements Initializable, Runnable {
 
-    private FormInfo formInfo;
+    private ArrayList<ArrayList<Object>> allfeatureandyear;
     @FXML
     private VBox rootme;
 
@@ -36,18 +37,23 @@ public class ChartController implements Initializable, Runnable {
 
     @Override
     public void run() {
-        formInfo = (FormInfo) ((SceneJson) rootme.getScene()).getJson();
-        System.out.println(formInfo.Country + " king");
+        allfeatureandyear = (ArrayList) ((SceneJson) rootme.getScene()).getJson();
+        allfeatureandyear.forEach(objects -> {
+            objects.forEach(o -> System.out.println("king ain "+o));
+        });
     }
 
 
     public void statisticalModels(ActionEvent actionEvent) throws IOException {
+        Stage primaryStage=new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/statistic.fxml"));
         root.setStyle("-fx-padding: 30 30 30 30 ");
-        Scene scene = new SceneJson<>(root);
-        Stage primaryStage=new Stage();
+
+        SceneJson sceneJson = new SceneJson<>(root);
+        sceneJson.setJson(allfeatureandyear);
+        primaryStage.setScene(sceneJson);
+
         primaryStage.setResizable(false);
-        primaryStage.setScene(scene);
         primaryStage.show();
     }
 

@@ -2,6 +2,7 @@ package com.amin.ui.main.main;
 
 import com.amin.analysis.wind.WindMining;
 import com.amin.data.Starter;
+import com.amin.ui.SceneJson;
 import com.amin.ui.dialogs.Dialog;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -335,7 +336,16 @@ public class MainController implements Initializable {
     public void loadMemberTable(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/statistic.fxml"));
         root.setStyle("-fx-padding: 30 30 30 30 ");
-        Scene scene = new Scene(root);
+        SceneJson scene = new SceneJson<>(root);
+        ArrayList<ArrayList> json = new ArrayList<>();
+        ArrayList<Object> kaArrayList=new ArrayList();
+        for (int i = 0; i < 5; i++) {
+            ArrayList e = new ArrayList();
+            e.add(23.32+i);
+            e.add(2016+i);
+            json.add(e);
+        }
+        scene.setJson(json);
         Stage primaryStage = new Stage();
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);

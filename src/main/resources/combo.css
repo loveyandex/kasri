@@ -23,10 +23,6 @@
     -fx-text-fill: #9d8024;
 }
 
-.jfx-combo-box .label:cell-selection:focused{
-    -fx-text-fill: #ffff;
-
-}
 .combo-box-popup:hover  .list-cell:hover {
     -fx-background-color: #ebebeb;
 

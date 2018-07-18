@@ -283,6 +283,7 @@ public class FormDayController implements Initializable {
     }
 
     private void showChartAndAna() {
+        if (!AllfeatureAndYear.isEmpty()) AllfeatureAndYear.clear();
         int fromYear = formInfo.getLowerYear().intValue();
         int toYear = formInfo.getHighYear().intValue();
         String featureName = formInfo.getFeaureName();
