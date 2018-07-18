@@ -2,7 +2,6 @@ package com.amin.ui.dialogs;
 
 import com.jfoenix.controls.JFXSnackbar;
 import eu.hansolo.enzo.notification.Notification;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -105,7 +104,7 @@ public class Dialog {
     public static void createDataDirChooser(String path) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Requires...");
-        alert.setHeaderText(path.replaceAll("_" ," ")+"  is not specified");
+        alert.setHeaderText(path.replaceAll("_", " ") + "  is not specified");
         alert.setContentText("please choose the Data Folder");
         alert.getButtonTypes().clear();
         ButtonType buttonTypeOne = new ButtonType("choose");
@@ -117,7 +116,7 @@ public class Dialog {
 
         Optional<ButtonType> showAndWait = alert.showAndWait();
         if (showAndWait.isPresent()) {
-            chDir(alert.getOwner(),path);
+            chDir(alert.getOwner(), path);
         } else {
             createDataDirChooser(path);
         }
@@ -164,6 +163,14 @@ public class Dialog {
             jfxSnackbar.setPrefWidth(200);
             jfxSnackbar.show(msg, "got it", 3000, eh);
         }
-    }
 
+
+        public static void showSnack(Pane snackbarContainer, String msg, long timeout) {
+            JFXSnackbar jfxSnackbar = new JFXSnackbar(snackbarContainer);
+
+            jfxSnackbar.getStyleClass().add("jfx-snackbar-content");
+            jfxSnackbar.show(msg, timeout);
+
+        }
+    }
 }

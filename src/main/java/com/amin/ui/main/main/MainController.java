@@ -332,8 +332,12 @@ public class MainController implements Initializable {
 
     }
 
-    public void loadMemberTable(ActionEvent actionEvent) {
-
+    public void loadMemberTable(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/statistic2.fxml"));
+        Scene scene = new Scene(root, 1000, 500);
+        Stage primaryStage=new Stage();
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public void loadBookTable(ActionEvent actionEvent) {
@@ -346,4 +350,6 @@ public class MainController implements Initializable {
 
     public void loadSettings(ActionEvent actionEvent) {
     }
+
+
 }

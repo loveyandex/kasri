@@ -183,6 +183,12 @@
             <version>2.1.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.edwardraff/JSAT -->
+        <dependency>
+            <groupId>com.edwardraff</groupId>
+            <artifactId>JSAT</artifactId>
+            <version>0.0.9</version>
+        </dependency>
 
 
     </dependencies>

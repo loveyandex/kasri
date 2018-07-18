@@ -172,20 +172,14 @@ public class FormDayController implements Initializable {
         });
 
 
-
-
-
-        countriesCombo = new JFXComboBox<>();
         try {
             ArrayList<String> countriesName = Mapping.getFileLines(C.COUNTRIES_CONFIG_PATH);
             countriesName.forEach(countryName -> countriesCombo.getItems().add(new Label(countryName)));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        rootNode.add(countriesCombo, 1, 5);
 
 
-        stationsCombo = new JFXComboBox<>();
 
         countriesCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             stationsCombo.getItems().clear();
@@ -215,7 +209,6 @@ public class FormDayController implements Initializable {
         height.setMinHeight(32);
 
 
-        GridPane.setMargin(stationsCombo, new Insets(12, 0, 12, 0));
         stationsCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
 
             if (newValue != null) {
@@ -231,7 +224,6 @@ public class FormDayController implements Initializable {
             }
         });
 
-        rootNode.add(stationsCombo, 1, 7);
         GridPane.setHalignment(stationsCombo, HPos.CENTER);
 
         cancelBtn.pressedProperty().addListener(observable -> {
@@ -368,14 +360,17 @@ public class FormDayController implements Initializable {
             charting2.interpolateChart("interpolate years for "+featureName+" in " + height + " m",
                     "interpolate", knotslist, yearsknots, "avg line val is on ",unit);
 
+
             vbox.getChildren().addAll(sc, charting2.getSc());
             hbox.setPadding(new Insets(10, 10,
                     03.10, 10));
             Parent root = FXMLLoader.load(FormDayController.class.getResource("/chart.fxml"));
             ((VBox) root).getChildren().add(vbox);
             Stage stage = new Stage();
-            stage.setTitle("Title");
-            stage.setScene(new Scene(root, 450, 450));
+            stage.setTitle("statistical analysis");
+            SceneJsonWindInfo sceneJsonWindInfo = new SceneJsonWindInfo(root, 450, 450);
+            sceneJsonWindInfo.setFormInfo(formInfo);
+            stage.setScene(sceneJsonWindInfo);
             stage.show();
 
             // Hide this current window (if this is what you want)

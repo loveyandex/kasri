@@ -30,6 +30,11 @@
       </driver-properties>
     </data-source>
   </component>
+  <component name="EntryPointsManager">
+    <writeAnnotations>
+      <writeAnnotation name="javafx.fxml.FXML" />
+    </writeAnnotations>
+  </component>
   <component name="GradleLocalSettings">
     <option name="modificationStamps">
       <map>
@@ -234,6 +239,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/com/1stleg/jnativehook/2.1.0/jnativehook-2.1.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: com.edwardraff:JSAT:0.0.9">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/edwardraff/JSAT/0.0.9/JSAT-0.0.9.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/com/edwardraff/JSAT/0.0.9/JSAT-0.0.9-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/edwardraff/JSAT/0.0.9/JSAT-0.0.9-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.0">
@@ -938,6 +954,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/javassist/javassist/3.20.0-GA/javassist-3.20.0-GA-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.jetbrains:annotations:16.0.2">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/16.0.2/annotations-16.0.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/16.0.2/annotations-16.0.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/16.0.2/annotations-16.0.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.json:json:20160810">

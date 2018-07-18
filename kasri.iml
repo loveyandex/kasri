@@ -85,5 +85,7 @@
     <orderEntry type="library" name="Maven: javax.mail:mail:1.4" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
     <orderEntry type="library" name="Maven: com.1stleg:jnativehook:2.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.edwardraff:JSAT:0.0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.jetbrains:annotations:16.0.2" level="project" />
   </component>
 </module>
