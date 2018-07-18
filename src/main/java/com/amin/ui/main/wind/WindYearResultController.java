@@ -3,7 +3,7 @@ package com.amin.ui.main.wind;
 import com.amin.analysis.wind.WindMining;
 import com.amin.config.C;
 import com.amin.jsons.FormInfo;
-import com.amin.ui.SceneJsonWindInfo;
+import com.amin.ui.SceneJson;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.main.main.MainController;
 import com.jfoenix.controls.JFXButton;
@@ -81,7 +81,7 @@ public class WindYearResultController implements Initializable, Runnable {
 
     @Override
     public void run() {
-        FormInfo formInfo = ((SceneJsonWindInfo) rootNode.getScene()).getFormInfo();
+        FormInfo formInfo = (FormInfo) ((SceneJson) rootNode.getScene()).getJson();
         int numDay = formInfo.Date.Day;
         String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
         int monthInt = formInfo.getDate().Month;

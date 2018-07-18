@@ -4,40 +4,77 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDialogLayout?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import de.jensd.fx.glyphs.weathericons.WeatherIconView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <StackPane fx:id="rootstackpane" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.amin.ui.main.wind.StatisticalController"
            xmlns="http://javafx.com/javafx/2.2"
+           stylesheets="/statistic.css"
 >
     <VBox maxWidth="400" maxHeight="300" spacing="20"
           stylesheets="/statistic.css"
           alignment="CENTER">
         <children>
-            <Label focusTraversable="true"
-                   stylesheets="/stage.css"
-                   text="choose a feature"
-                   textFill="#d5b02c"
-            />
+            <HBox>
 
-            <JFXComboBox fx:id="feturesCombo"
-                         stylesheets="/combo.css"
-                         minWidth="200"
-            />
+                <HBox alignment="BASELINE_LEFT">
+
+                    <Label focusTraversable="true"
+                           stylesheets="/stage.css"
+                           text="choose a feature"
+                           textFill="#03A9F4"
+
+                    />
+                    <HBox.margin>
+                        <Insets>
+                            <left>0</left>
+                            <right>10</right>
+                        </Insets>
+                    </HBox.margin>
+
+                </HBox>
+                <HBox alignment="BASELINE_RIGHT">
+
+                    <JFXComboBox fx:id="feturesCombo"
+                                 stylesheets="/combo.css"
+                                 minWidth="300"
+                    />
+                    <HBox.margin>
+                        <Insets>
+                            <left>5</left>
+                            <right>0</right>
+                        </Insets>
+                    </HBox.margin>
+                </HBox>
+            </HBox>
             <JFXDialogLayout fx:id="content"
-                             style="-fx-background-color: WHITE; -fx-background-radius: 3">
+                             style="-fx-background-color: WHITE; -fx-background-radius: 3"
+                             minWidth="-Infinity"
+                             minHeight="-Infinity"
+            >
                 <heading>
                     <Label>JFoenix Dialog</Label>
                 </heading>
                 <body>
-                    <Label>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    <Label fx:id="valueLable">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                         do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                         enim ad minim veniam, quis nostrud exercitation ullamco laboris
                         nisi ut aliquip ex ea commodo consequat.
                     </Label>
                 </body>
                 <actions>
-                    <JFXButton fx:id="acceptButton" styleClass="dialog-accept">ACCEPT
+                    <JFXButton fx:id="acceptButton" styleClass="dialog-accept"  onMouseClicked="#copied">Copy value
+                        <graphic>
+                            <ImageView   >
+                                <image >
+                                    <Image  url="/baseline_file_copy_black_18dp.png"  />
+                                </image>
+                            </ImageView>
+                        </graphic>
                     </JFXButton>
                 </actions>
             </JFXDialogLayout>

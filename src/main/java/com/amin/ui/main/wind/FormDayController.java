@@ -5,10 +5,9 @@ import com.amin.config.C;
 import com.amin.jsons.Date;
 import com.amin.jsons.Features;
 import com.amin.jsons.FormInfo;
-import com.amin.ui.SceneJsonWindInfo;
+import com.amin.ui.SceneJson;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.main.main.Charting;
-import com.amin.ui.main.main.MainController;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +15,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -33,7 +31,6 @@ import org.controlsfx.control.RangeSlider;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.Month;
 import java.time.format.TextStyle;
@@ -73,6 +70,7 @@ public class FormDayController implements Initializable {
     public FormInfo formInfo;
     private Map<String, String> stationNumTOCities;
     private RangeSlider hSlider;
+    ArrayList<ArrayList<Object>> AllfeatureAndYear=new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -319,11 +317,11 @@ public class FormDayController implements Initializable {
         int kkk = 0;
         String[] z = {"00Z", "12Z"};
         for (int id = 0; id < 2; id++) {
+
             String Z = z[id];
             for (int i = fromYear; i <= toYear; i++) {
+                ArrayList<Object> featureAndYear=new ArrayList<>();
                 String rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + monthInt + File.separator + stationNumber;
-
-
                 System.out.println(monthDisp);
                 System.out.println(dayOfMonth);
                 String fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + i + ".csv";
@@ -337,6 +335,9 @@ public class FormDayController implements Initializable {
 
                     double intrapolatedKnot = intrapolateKnot(height, heightAndKnot);
                     knotslist.add(intrapolatedKnot);
+                    featureAndYear.add(((Double) intrapolatedKnot));
+                    featureAndYear.add(i);
+                    AllfeatureAndYear.add(featureAndYear);
 
                     yearsknots[kkk++] = i;
                     System.out.println("intrapolate " + intrapolatedKnot);
@@ -354,7 +355,11 @@ public class FormDayController implements Initializable {
         }
 
         try {
-
+            AllfeatureAndYear.forEach(objects -> {
+                objects.forEach(o -> {
+                    System.out.println(o);
+                });
+            });
             Charting charting2 = new Charting(fromYear, toYear ,1,
                     lowrange, highrange, 10, "years", featureName+"("+unit+")", Charting.LINE_CHART);
             charting2.interpolateChart("interpolate years for "+featureName+" in " + height + " m",
@@ -368,9 +373,11 @@ public class FormDayController implements Initializable {
             ((VBox) root).getChildren().add(vbox);
             Stage stage = new Stage();
             stage.setTitle("statistical analysis");
-            SceneJsonWindInfo sceneJsonWindInfo = new SceneJsonWindInfo(root, 450, 450);
-            sceneJsonWindInfo.setFormInfo(formInfo);
-            stage.setScene(sceneJsonWindInfo);
+
+            SceneJson sceneJson = new SceneJson<ArrayList>(root, 450, 450);
+            sceneJson.setJson(AllfeatureAndYear);
+
+            stage.setScene(sceneJson);
             stage.show();
 
             // Hide this current window (if this is what you want)
@@ -452,43 +459,6 @@ public class FormDayController implements Initializable {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private void getResult(Stage prStage) throws IOException, URISyntaxException {
-
-        URL resource = getClass().getResource("/wind_result.fxml");
-        FXMLLoader fxmlLoader = new FXMLLoader(resource);
-        Parent root = ((Parent) fxmlLoader.load(resource));
-        SceneJsonWindInfo scene = new SceneJsonWindInfo(root, 450, 350);
-        (scene).setFormInfo(formInfo);
-
-        String image = MainController.class.getResource("/fav.jpg").toURI().toString();
-        root.setStyle("-fx-background-image: url('" + image + "'); " +
-                "-fx-background-position: center center; " +
-                "-fx-background-repeat: stretch;");
-        prStage.hide();
-        prStage.setScene(scene);
-        prStage.show();
-
-    }
 
 
     private boolean isReadyToFire(FormInfo formInfo) {

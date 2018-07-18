@@ -333,9 +333,11 @@ public class MainController implements Initializable {
     }
 
     public void loadMemberTable(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/statistic2.fxml"));
-        Scene scene = new Scene(root, 1000, 500);
-        Stage primaryStage=new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/statistic.fxml"));
+        root.setStyle("-fx-padding: 30 30 30 30 ");
+        Scene scene = new Scene(root);
+        Stage primaryStage = new Stage();
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

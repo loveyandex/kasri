@@ -49,9 +49,14 @@
         </menus>
     </MenuBar>
     <children>
-        <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#loadAddMember" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="Wind on Month" textAlignment="CENTER">
+        <JFXButton contentDisplay="TOP"
+                   mnemonicParsing="false"
+                   onAction="#loadAddMember" prefHeight="400.0"
+                   prefWidth="160.0"
+                   styleClass="toolbar-button"
+                   text="Wind on Month" textAlignment="CENTER">
             <graphic>
-                <WeatherIconView glyphName="SUNY"/>
+                <WeatherIconView glyphName="cloud"/>
                 <!--<FontAwesomeIconView glyphName="AT"  size="25" />-->
             </graphic>
         </JFXButton>

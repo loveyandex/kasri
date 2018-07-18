@@ -1,9 +1,8 @@
 package com.amin.ui.main.wind;
 
 import com.amin.jsons.FormInfo;
-import com.amin.ui.SceneJsonWindInfo;
+import com.amin.ui.SceneJson;
 import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,15 +36,17 @@ public class ChartController implements Initializable, Runnable {
 
     @Override
     public void run() {
-        formInfo = ((SceneJsonWindInfo) rootme.getScene()).getFormInfo();
+        formInfo = (FormInfo) ((SceneJson) rootme.getScene()).getJson();
         System.out.println(formInfo.Country + " king");
     }
 
 
     public void statisticalModels(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/statistic.fxml"));
-        Scene scene = new Scene(root, 1000, 500);
+        root.setStyle("-fx-padding: 30 30 30 30 ");
+        Scene scene = new SceneJson<>(root);
         Stage primaryStage=new Stage();
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

@@ -4,7 +4,7 @@ import com.amin.analysis.Mapping;
 import com.amin.config.C;
 import com.amin.jsons.Date;
 import com.amin.jsons.FormInfo;
-import com.amin.ui.SceneJsonWindInfo;
+import com.amin.ui.SceneJson;
 import com.amin.ui.main.main.MainController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -240,8 +240,8 @@ public class WindYearController implements Initializable {
         URL resource = getClass().getResource("/wind_result.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(resource);
         Parent root = ((Parent) fxmlLoader.load(resource));
-        SceneJsonWindInfo scene = new SceneJsonWindInfo(root, 450, 350);
-        (scene).setFormInfo(formInfo);
+        SceneJson scene = new SceneJson<FormInfo>(root, 450, 350);
+        (scene).setJson(formInfo);
 
         String image = MainController.class.getResource("/fav.jpg").toURI().toString();
         root.setStyle("-fx-background-image: url('" + image + "'); " +
