@@ -19,7 +19,9 @@
                        textFill="#d5b02c"
                        GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
-                <JFXComboBox fx:id="feturesCombo" minWidth="200"
+                <JFXComboBox fx:id="feturesCombo"
+                             stylesheets="/combo.css"
+                             minWidth="200"
                              GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <GridPane.margin>
                         <Insets>
@@ -35,7 +37,8 @@
                        GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
 
-                <JFXComboBox id="fancytext" fx:id="monthCombo" minWidth="200" stylesheets="/combo.css"
+                <JFXComboBox id="fancytext" fx:id="monthCombo" minWidth="200"
+                             stylesheets="/combo.css"
                              GridPane.columnIndex="1" GridPane.rowIndex="1">
 
                 </JFXComboBox>
@@ -44,6 +47,7 @@
                        textFill="#d5b02c"
                        GridPane.columnIndex="0" GridPane.rowIndex="2" />
                 <JFXComboBox fx:id="dayofMonthCombo" minWidth="200"
+                             stylesheets="/combo.css"
                              GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets>
@@ -55,9 +59,11 @@
                 <Label text="choose a country"
                        textFill="#d5b02c"
                        GridPane.columnIndex="0" GridPane.rowIndex="5" />
+
                 <Label text="choose a station"
                        textFill="#d5b02c"
                        GridPane.columnIndex="0" GridPane.rowIndex="7" />
+
                 <Label text="height(m)"
                        textFill="#d5b02c"
                        GridPane.columnIndex="0" GridPane.rowIndex="9" >

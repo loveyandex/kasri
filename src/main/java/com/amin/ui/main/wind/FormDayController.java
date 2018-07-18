@@ -85,6 +85,11 @@ public class FormDayController implements Initializable {
 
         feturesCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             formInfo.setFeaureName(((Label) newValue).getText());
+            String ele = ".jfx-combo-box .label {-fx-text-fill: #9d8024;}";
+            feturesCombo.getStyleClass().add(ele);
+
+
+
 
             if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
