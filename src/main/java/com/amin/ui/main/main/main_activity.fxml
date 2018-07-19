@@ -49,6 +49,7 @@
         </menus>
     </MenuBar>
     <children>
+
         <JFXButton contentDisplay="TOP"
                    mnemonicParsing="false"
                    onAction="#loadAddMember" prefHeight="400.0"

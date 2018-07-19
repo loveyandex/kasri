@@ -23,7 +23,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import net.time4j.PlainDate;
 import net.time4j.calendar.PersianCalendar;
 import net.time4j.ui.javafx.CalendarPicker;
@@ -46,7 +45,8 @@ public class FormDayController implements Initializable {
     public JFXSlider lowYearjfxslider;
     public JFXSlider highYearjfxslider;
     public HBox topOfgobtn;
-    public JFXComboBox feturesCombo;
+    public JFXComboBox featuresCombo;
+    public JFXComboBox unitsCombo;
     private ArrayList<IOException> ioExceptions = new ArrayList<>();
 
     public GridPane rootNode;
@@ -70,22 +70,25 @@ public class FormDayController implements Initializable {
 
     public FormInfo formInfo;
     private Map<String, String> stationNumTOCities;
+
+    @FXML
     private RangeSlider hSlider;
-    ArrayList<ArrayList<Object>> AllfeatureAndYear=new ArrayList<>();
+
+    private ArrayList<ArrayList<Object>> AllfeatureAndYear = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         formInfo = new FormInfo();
 
-        String[] featursName = {"PRES", "HGHT", "TEMP", "DWPT", "RELH", "MIXR", "DRCT", "SKNT", "THTA", "THTE", "THTV"};
+        String[] featursName = {"PRES", "HGHT", "TEMP", "DWPT", "RELH", "MIXR", "DRCT", "WIND SPEED", "THTA", "THTE", "THTV"};
         for (int i = 0; i < featursName.length; i++) {
-            feturesCombo.getItems().add(new Label(featursName[i]));
+            featuresCombo.getItems().add(new Label(featursName[i]));
         }
+        featuresCombo.valueProperty().setValue(featuresCombo.getItems().get(7));
 
-        feturesCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
+        featuresCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             formInfo.setFeaureName(((Label) newValue).getText());
-            String ele = ".jfx-combo-box .label {-fx-text-fill: #9d8024;}";
-            feturesCombo.getStyleClass().add(ele);
+
 
 
 
@@ -204,9 +207,6 @@ public class FormDayController implements Initializable {
 //        stationsCombo.setPromptText("select station");
         stationsCombo.setMinWidth(200);
         countriesCombo.setMinWidth(200);
-        height.setMinWidth(200);
-        height.setMinHeight(32);
-
 
         stationsCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
 
@@ -263,14 +263,9 @@ public class FormDayController implements Initializable {
         });
 
 
-        hSlider = new RangeSlider(1100, 20000, 1100, 20000);
-
-        hSlider.setShowTickMarks(true);
-        hSlider.setShowTickLabels(true);
-        hSlider.setBlockIncrement(1);
 
         hSlider.lowValueProperty().addListener((observable, oldValue, newValue) -> {
-            height.textProperty().setValue(String.valueOf(newValue));
+            height.textProperty().setValue(String.valueOf(Math.round(newValue.doubleValue())));
         });
 
         height.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -279,7 +274,6 @@ public class FormDayController implements Initializable {
         });
 
 
-        rootNode.add(hSlider, 1, 11);
 
     }
 
@@ -381,8 +375,6 @@ public class FormDayController implements Initializable {
 
             stage.setScene(sceneJson);
             stage.show();
-
-            // Hide this current window (if this is what you want)
 
         } catch (IOException e) {
             Dialog.createExceptionDialog(e);

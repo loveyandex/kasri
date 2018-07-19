@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.RangeSlider?>
 <VBox fx:id="vvv" stylesheets="/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.121"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.amin.ui.main.wind.FormDayController">
@@ -19,7 +20,7 @@
                        textFill="#d5b02c"
                        GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
-                <JFXComboBox fx:id="feturesCombo"
+                <JFXComboBox fx:id="featuresCombo"
                              stylesheets="/combo.css"
                              minWidth="200"
                              GridPane.columnIndex="1" GridPane.rowIndex="0">
@@ -85,26 +86,23 @@
 
                 </JFXComboBox>
 
-                <Label text="height(m)"
+                <Label text="change unit(SI \&amp; NnoSI)"
                        textFill="#d5b02c"
+
                        GridPane.columnIndex="0" GridPane.rowIndex="9" >
 
                 </Label>
 
-                <TextField fx:id="height" promptText="height"
-                           GridPane.columnIndex="1" GridPane.rowIndex="9">
-                    <font>
-                        <Font size="12.0" />
-                    </font>
+                <JFXComboBox fx:id="unitsCombo"
+                             minWidth="200"
+                             stylesheets="/combo.css"
+                             GridPane.columnIndex="1" GridPane.rowIndex="9">
                     <GridPane.margin>
                         <Insets>
-                            <top>40</top>
-                        </Insets>
-                        <Insets>
-                            <bottom>40</bottom>
+                            <bottom>30</bottom>
                         </Insets>
                     </GridPane.margin>
-                </TextField>
+                </JFXComboBox>
 
 
                 <HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="12">
@@ -167,6 +165,44 @@
                                min="1973"
                                max="2018"/>
                 </HBox>
+
+                <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
+                    <Label text="height(m)"
+                           minWidth="100"
+                           style="-fx-padding: 0px 40px 0px 0px;-fx-text-fill:#d5b02c"/>
+
+                    <JFXTextField alignment="BASELINE_LEFT"
+                                  fx:id="height"
+                                  promptText="height"
+
+                                  style="-fx-background-color: white"
+                                  minWidth="300"
+                    >
+                        <font>
+                            <Font size="9.0"/>
+                        </font>
+
+                    </JFXTextField>
+                </HBox>
+                <HBox alignment="BASELINE_CENTER"
+
+                      style="-fx-padding: 30px 00px 0px 100px;-fx-text-fill:#d5b02c"
+                >
+
+                    <RangeSlider
+                            stylesheets="/combo.css"
+                            fx:id="hSlider"
+                            min="900"
+                            max="35000"
+                            lowValue="1000"
+                            highValue="350000"
+                            maxWidth="300"
+                            minWidth="300"
+
+                    ></RangeSlider>
+
+                </HBox>
+
 
             </VBox>
 

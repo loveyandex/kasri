@@ -517,6 +517,17 @@
         <root url="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.4/mail-1.4-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: javax.measure:jsr-275:0.9.1">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/measure/jsr-275/0.9.1/jsr-275-0.9.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/measure/jsr-275/0.9.1/jsr-275-0.9.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/measure/jsr-275/0.9.1/jsr-275-0.9.1-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: javax.validation:validation-api:1.1.0.Final">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar!/" />
@@ -537,6 +548,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/javax/ws/rs/javax.ws.rs-api/2.0.1/javax.ws.rs-api-2.0.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: javax.ws.rs:jsr311-api:1.1.1">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: junit:junit:4.12">
@@ -957,15 +979,26 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/javassist/javassist/3.20.0-GA/javassist-3.20.0-GA-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.jetbrains:annotations:16.0.2">
+    <library name="Maven: org.javolution:javolution:5.2.3">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/16.0.2/annotations-16.0.2.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/javolution/javolution/5.2.3/javolution-5.2.3.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/16.0.2/annotations-16.0.2-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/javolution/javolution/5.2.3/javolution-5.2.3-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/16.0.2/annotations-16.0.2-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/javolution/javolution/5.2.3/javolution-5.2.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.jscience:jscience:4.3.1">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/jscience/jscience/4.3.1/jscience-4.3.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/jscience/jscience/4.3.1/jscience-4.3.1-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/jscience/jscience/4.3.1/jscience-4.3.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.json:json:20160810">

@@ -27,3 +27,32 @@
     -fx-background-color: #ebebeb;
 
 }
+
+
+.range-slider {
+    /* default track color: */
+    -slider-filled-track-color: red ;
+    -slider-track-color: white;
+}
+
+/* Make thumb same color as filled part of track */
+.range-slider .low-thumb,
+.range-slider .high-thumb {
+    -fx-background-color: #066598;
+}
+
+.range-slider .track {
+     -fx-background-color: #dfdfdf;
+ }
+
+.range-slider .range-bar {
+    -fx-background-color: #d5b02c;
+    -fx-tick-length: 3px;
+    -fx-minor-tick-length: 2px;
+}
+.range-slider .axis {
+    -fx-tick-length: 3px;
+    -fx-minor-tick-length: 2px;
+    -fx-border-color: null;
+}
+

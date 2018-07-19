@@ -24,7 +24,11 @@ public class MainActivity extends Application  {
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/main/main_activity.fxml"));
         Scene scene = new Scene(root, 1000, 500);
         primaryStage.setOnCloseRequest(event -> {
+            scene.getWindow().hide();
+            System.out.println("after hiding");
             System.exit(0);
+            System.out.println("after exit never print :(O");
+
         });
 
 

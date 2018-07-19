@@ -19,7 +19,7 @@ public class Demo extends Application {
 
         final Label betLabel = new Label("sdsd");
 
-        final Slider betSlider = new Slider();
+        final Slider betSlider = new Slider(3,23,3.5);
         betSlider.valueProperty().addListener(new ChangeListener() {
 
             @Override
