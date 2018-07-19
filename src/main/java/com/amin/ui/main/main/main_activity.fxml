@@ -5,7 +5,7 @@
 <?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import de.jensd.fx.glyphs.weathericons.WeatherIconView?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <VBox fx:id="rootme" prefHeight="400" prefWidth="800" xmlns="http://javafx.com/javafx/8.0.1"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amin.ui.main.main.MainController"
       stylesheets="/dark-theme.css"
@@ -49,44 +49,60 @@
         </menus>
     </MenuBar>
     <children>
+        <HBox>
 
-        <JFXButton contentDisplay="TOP"
-                   mnemonicParsing="false"
-                   onAction="#loadAddMember" prefHeight="400.0"
-                   prefWidth="160.0"
-                   styleClass="toolbar-button"
-                   text="Wind on Month" textAlignment="CENTER">
-            <graphic>
-                <WeatherIconView glyphName="cloud"/>
-                <!--<FontAwesomeIconView glyphName="AT"  size="25" />-->
-            </graphic>
-        </JFXButton>
-        <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#loadAddBook" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="...." textAlignment="CENTER">
-            <graphic>
-                <FontAwesomeIconView glyphName="BOOK" size="25" />
-            </graphic>
-        </JFXButton>
-        <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
-                   onAction="#loadMemberTable" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
-                   text="test static ui" textAlignment="CENTER">
-            <graphic>
-                <FontAwesomeIconView glyphName="TABLE" size="25" />
-            </graphic>
-        </JFXButton>
-        <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="81.0" mnemonicParsing="false" onAction="#loadBookTable" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="...." textAlignment="CENTER">
-            <graphic>
-                <FontAwesomeIconView glyphName="TABLE" size="25" />
-            </graphic>
-        </JFXButton>
-        <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#loadIssuedBookList" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="........." textAlignment="CENTER">
-            <graphic>
-                <FontAwesomeIconView glyphName="CHECK" size="25" textAlignment="CENTER" />
-            </graphic>
-        </JFXButton>
-        <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="223.0" mnemonicParsing="false" onAction="#loadSettings" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="Settings" textAlignment="CENTER">
-            <graphic>
-                <FontAwesomeIconView glyphName="COG" size="25" />
-            </graphic>
-        </JFXButton>
+
+            <VBox>
+
+
+                <JFXButton contentDisplay="TOP"
+                           mnemonicParsing="false"
+                           onAction="#loadAddMember" prefHeight="400.0"
+                           prefWidth="160.0"
+                           styleClass="toolbar-button"
+                           text="Wind on Month" textAlignment="CENTER">
+                    <graphic>
+                        <WeatherIconView glyphName="cloud"/>
+                        <!--<FontAwesomeIconView glyphName="AT"  size="25" />-->
+                    </graphic>
+                </JFXButton>
+                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                           onAction="#loadAddBook" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
+                           text="...." textAlignment="CENTER">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="BOOK" size="25"/>
+                    </graphic>
+                </JFXButton>
+                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                           onAction="#loadMemberTable" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
+                           text="test static ui" textAlignment="CENTER">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="TABLE" size="25"/>
+                    </graphic>
+                </JFXButton>
+                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="81.0" mnemonicParsing="false"
+                           onAction="#loadBookTable" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
+                           text="...." textAlignment="CENTER">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="TABLE" size="25"/>
+                    </graphic>
+                </JFXButton>
+                <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#loadIssuedBookList"
+                           prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="........."
+                           textAlignment="CENTER">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="CHECK" size="25" textAlignment="CENTER"/>
+                    </graphic>
+                </JFXButton>
+                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="223.0" mnemonicParsing="false"
+                           onAction="#loadSettings" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
+                           text="Settings" textAlignment="CENTER">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="COG" size="25"/>
+                    </graphic>
+                </JFXButton>
+            </VBox>
+
+        </HBox>
     </children>
 </VBox>

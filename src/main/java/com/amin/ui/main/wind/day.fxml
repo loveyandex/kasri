@@ -86,7 +86,7 @@
 
                 </JFXComboBox>
 
-                <Label text="change unit(SI \&amp; NnoSI)"
+                <Label text="change unit(SI &amp; NonSI)"
                        textFill="#d5b02c"
 
                        GridPane.columnIndex="0" GridPane.rowIndex="9" >
@@ -122,13 +122,13 @@
                     <Label text="time zones: " minWidth="100"
                            style="-fx-padding: 0px 30px 0px 0px;-fx-text-fill: white"/>
                     <JFXCheckBox fx:id="z00" checkedColor="#949c10"
-                                 selected="true" contentDisplay="CENTER"
+                                 selected="true" disable="true" contentDisplay="CENTER"
                                  style="-fx-padding: 0px 20px 0px 0px" text="00Z"
                                  textAlignment="JUSTIFY"
                                  textFill="WHITE"
                                  GridPane.columnIndex="0" GridPane.rowIndex="1" />
                     <HBox fx:id="topOfgobtn">
-                        <JFXCheckBox fx:id="z12" checkedColor="#949c10"
+                        <JFXCheckBox fx:id="z12" disable="true" checkedColor="#949c10"
                                      selected="true" contentDisplay="CENTER"
                                      text="12Z" textAlignment="JUSTIFY"
                                      textFill="WHITE"

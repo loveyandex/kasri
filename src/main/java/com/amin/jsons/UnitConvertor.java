@@ -7,7 +7,7 @@ import javax.measure.unit.*;
  * is created by aMIN on 19/07/2018 at 04:17 PM
  */
 public enum UnitConvertor {
-    ;
+;
 
     public enum PRES {
         units(SI.PASCAL, NonSI.ATMOSPHERE, NonSI.BAR, NonSI.MILLIMETER_OF_MERCURY);

@@ -5,6 +5,7 @@ import com.amin.config.C;
 import com.amin.jsons.Date;
 import com.amin.jsons.Features;
 import com.amin.jsons.FormInfo;
+import com.amin.jsons.UnitConvertor;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
@@ -80,24 +81,101 @@ public class FormDayController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         formInfo = new FormInfo();
 
-        String[] featursName = {"PRES", "HGHT", "TEMP", "DWPT", "RELH", "MIXR", "DRCT", "WIND SPEED", "THTA", "THTE", "THTV"};
+        String[] featursName = {"PRES", "HGHT", "TEMP", "DWPT", "RELH", "MIXR", "DRCT", Features.SKNT.getName(), "THTA", "THTE", "THTV"};
         for (int i = 0; i < featursName.length; i++) {
             featuresCombo.getItems().add(new Label(featursName[i]));
         }
         featuresCombo.valueProperty().setValue(featuresCombo.getItems().get(7));
 
         featuresCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
-            formInfo.setFeaureName(((Label) newValue).getText());
+            String feaureName = ((Label) newValue).getText();
+            formInfo.setFeaureName(feaureName);
+            unitsCombo.getItems().clear();
+            formInfo.setFeatureUnit(null);
+            if (feaureName.equals(Features.PRES.getName())) {
+                UnitConvertor.PRES units = UnitConvertor.PRES.units;
+                formInfo.setFeatureUnit("hPa");
+                unitsCombo.getItems().add(new Label("hPa"));
+                unitsCombo.getItems().add(new Label(units.getPascal().getSymbol()));
+                unitsCombo.getItems().add(new Label(units.getAtmosphere().toString()));
+                unitsCombo.getItems().add(new Label(units.getBar().toString()));
+                unitsCombo.getItems().add(new Label(units.getMillimeterOfMercury().toString()));
+                unitsCombo.valueProperty().setValue(unitsCombo.getItems().get(0));
+            } else if (feaureName.equals(Features.HGHT.getName())) {
+                UnitConvertor.HGHT units = UnitConvertor.HGHT.units;
+                formInfo.setFeatureUnit(units.getMeter().toString());
 
+                unitsCombo.getItems().add(new Label(units.getMeter().toString()));
+                unitsCombo.getItems().add(new Label(units.getFoot().toString()));
+                unitsCombo.getItems().add(new Label(units.getMile().toString()));
+                unitsCombo.getItems().add(new Label(units.getYard().toString()));
+                unitsCombo.getItems().add(new Label(units.getInch().toString()));
+                unitsCombo.valueProperty().setValue(unitsCombo.getItems().get(0));
 
+            } else if (feaureName.equals(Features.TEMP.getName())
+                    || feaureName.equals(Features.DWPT.getName())
+                    || feaureName.equals(Features.THTA.getName())
+                    || feaureName.equals(Features.THTE.getName())
+                    || feaureName.equals(Features.THTV.getName())) {
+                UnitConvertor.TEMP units = UnitConvertor.TEMP.units;
+                formInfo.setFeatureUnit(units.getCelsius().toString());
 
+                unitsCombo.getItems().add(new Label(units.getCelsius().toString()));
+                unitsCombo.getItems().add(new Label(units.getKelvin().getSymbol()));
+                unitsCombo.getItems().add(new Label(units.getFahrenheit().toString()));
+                unitsCombo.getItems().add(new Label(units.getRankine().toString()));
+                unitsCombo.valueProperty().setValue(unitsCombo.getItems().get(0));
+
+            } else if (feaureName.equals(Features.SKNT.getName())) {
+                UnitConvertor.SPEED units = UnitConvertor.SPEED.units;
+                formInfo.setFeatureUnit(units.getMetersPerSecond().toString());
+
+                unitsCombo.getItems().add(new Label(units.getMetersPerSecond().toString()));
+                unitsCombo.getItems().add(new Label(units.getKnot().toString()));
+                unitsCombo.getItems().add(new Label(units.getKilometresPerHour().toString()));
+                unitsCombo.getItems().add(new Label(units.getMilesPerHour().toString()));
+                unitsCombo.getItems().add(new Label(units.getMach().toString()));
+                unitsCombo.valueProperty().setValue(unitsCombo.getItems().get(0));
+
+            } else if (feaureName.equals(Features.DRCT.getName())) {
+                UnitConvertor.DRCT units = UnitConvertor.DRCT.units;
+                formInfo.setFeatureUnit(units.getDegreeAngle().toString());
+
+                unitsCombo.getItems().add(new Label(units.getDegreeAngle().toString()));
+                unitsCombo.getItems().add(new Label(units.getRadian().getSymbol()));
+                unitsCombo.getItems().add(new Label(units.getGrade().toString()));
+                unitsCombo.getItems().add(new Label(units.getMinuteAngle().toString()));
+                unitsCombo.getItems().add(new Label(units.getSecondAngle().toString()));
+                unitsCombo.getItems().add(new Label(units.getRevolution().toString()));
+                unitsCombo.valueProperty().setValue(unitsCombo.getItems().get(0));
+
+            } else if (feaureName.equals(Features.RELH.getName())) {
+                formInfo.setFeatureUnit("%");
+                unitsCombo.getItems().add(new Label("%"));
+                unitsCombo.valueProperty().setValue(unitsCombo.getItems().get(0));
+
+            } else if (feaureName.equals(Features.MIXR.getName())) {
+                formInfo.setFeatureUnit("g/kg");
+                unitsCombo.getItems().add(new Label("g/kg"));
+                unitsCombo.valueProperty().setValue(unitsCombo.getItems().get(0));
+
+            }
 
 
             if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
+            else
+                Gobtn.setDisable(true);
         });
 
-
+        unitsCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null)
+                formInfo.setFeatureUnit(((Label) newValue).getText());
+            if (isReadyToFire(formInfo))
+                Gobtn.setDisable(false);
+            else
+                Gobtn.setDisable(true);
+        });
 
 
 
@@ -137,13 +215,16 @@ public class FormDayController implements Initializable {
 
 
         monthCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
-
-
+            formInfo.setDate(null);
             dayofMonthCombo.getItems().clear();
             int[] days={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
             for (int i = 1; i <= 31; i++) {
                     dayofMonthCombo.getItems().add(new Label(String.valueOf(i)));
             }
+            if (isReadyToFire(formInfo))
+                Gobtn.setDisable(false);
+            else
+                Gobtn.setDisable(true);
 
         });
         dayofMonthCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -200,6 +281,8 @@ public class FormDayController implements Initializable {
             }
             if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
+            else
+                Gobtn.setDisable(true);
 
 
         });
@@ -276,6 +359,7 @@ public class FormDayController implements Initializable {
 
 
     }
+
 
     private void showChartAndAna() {
         if (!AllfeatureAndYear.isEmpty()) AllfeatureAndYear.clear();
@@ -456,7 +540,7 @@ public class FormDayController implements Initializable {
 
 
     private boolean isReadyToFire(FormInfo formInfo) {
-        if (formInfo.getFeaureName() == null || formInfo.getLowerYear() == null || formInfo.getHighYear() == null || formInfo.getDate() == null || formInfo.getStationNumber() == null || formInfo.getCountry() == null || formInfo.getHeight() == null) {
+        if (formInfo.getFeatureUnit() == null || formInfo.getFeaureName() == null || formInfo.getLowerYear() == null || formInfo.getHighYear() == null || formInfo.getDate() == null || formInfo.getStationNumber() == null || formInfo.getCountry() == null || formInfo.getHeight() == null) {
             Gobtn.setDisable(true);
             return false;
         } else

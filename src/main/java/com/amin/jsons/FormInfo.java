@@ -19,6 +19,16 @@ public class FormInfo {
     private String highHeightRange;
     private Number lowerYear;
     private Number highYear;
+    private String featureUnit;
+
+    public String getFeatureUnit() {
+        return featureUnit;
+    }
+
+    public void setFeatureUnit(String featureUnit) {
+        this.featureUnit = featureUnit;
+    }
+
 
     public Features getFeatures() {
         return features;
