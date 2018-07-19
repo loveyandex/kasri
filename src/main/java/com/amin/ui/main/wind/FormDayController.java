@@ -6,6 +6,7 @@ import com.amin.jsons.Date;
 import com.amin.jsons.Features;
 import com.amin.jsons.FormInfo;
 import com.amin.ui.SceneJson;
+import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.main.main.Charting;
 import com.jfoenix.controls.*;
@@ -303,7 +304,7 @@ public class FormDayController implements Initializable {
         String stationNumber = formInfo.getStationNumber();
         String height = formInfo.getHeight();
 
-        Charting charting = new Charting(1000, 30000, 1000,
+        Charting charting = new Charting(900, 33000, 1000,
                 lowrange, highrange, 10, "geoHeight(m)", featureName+"("+unit+")", Charting.LINE_CHART);
         final XYChart<Number, Number> sc = charting.getSc();
 
@@ -372,7 +373,7 @@ public class FormDayController implements Initializable {
                     03.10, 10));
             Parent root = FXMLLoader.load(FormDayController.class.getResource("/chart.fxml"));
             ((VBox) root).getChildren().add(vbox);
-            Stage stage = new Stage();
+            StageOverride stage = new StageOverride();
             stage.setTitle("statistical analysis");
 
             SceneJson sceneJson = new SceneJson<ArrayList>(root, 450, 450);

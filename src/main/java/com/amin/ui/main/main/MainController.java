@@ -3,6 +3,7 @@ package com.amin.ui.main.main;
 import com.amin.analysis.wind.WindMining;
 import com.amin.data.Starter;
 import com.amin.ui.SceneJson;
+import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -214,12 +215,10 @@ public class MainController implements Initializable {
 
 
     public void windmonth(ActionEvent actionEvent) throws IOException, URISyntaxException {
-        Stage stage = new Stage();
-        stage.getIcons().add(new Image(getClass().getResource("/fav.jpg").toURI().toString()));
-
+        Stage stage = new StageOverride();
         stage.setResizable(true);
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/day.fxml"));
-        Scene scene = new Scene(root, 750, 600);
+        Scene scene = new SceneJson<>(root, 750, 600);
 //        String image = MainController.class.getResource("/logo.png").toURI().toString();
 //        root.setStyle("-fx-background-image: url('" + image + "'); " +
 //                "-fx-background-position: center center; " +
@@ -346,7 +345,7 @@ public class MainController implements Initializable {
             json.add(e);
         }
         scene.setJson(json);
-        Stage primaryStage = new Stage();
+        Stage primaryStage = new StageOverride();
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();

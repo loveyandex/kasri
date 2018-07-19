@@ -2,6 +2,7 @@ package com.amin.ui.main.wind;
 
 import com.amin.jsons.FormInfo;
 import com.amin.ui.SceneJson;
+import com.amin.ui.StageOverride;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,7 +46,7 @@ public class ChartController implements Initializable, Runnable {
 
 
     public void statisticalModels(ActionEvent actionEvent) throws IOException {
-        Stage primaryStage=new Stage();
+        Stage primaryStage=new StageOverride();
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/wind/statistic.fxml"));
         root.setStyle("-fx-padding: 30 30 30 30 ");
 

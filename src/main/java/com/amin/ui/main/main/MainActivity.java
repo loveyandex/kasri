@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /**
@@ -24,10 +23,8 @@ public class MainActivity extends Application  {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/main/main_activity.fxml"));
         Scene scene = new Scene(root, 1000, 500);
-        scene.setOnKeyPressed(event -> {
-            if (event.getCode()==KeyCode.ESCAPE) {
-                System.exit(0);
-            }
+        primaryStage.setOnCloseRequest(event -> {
+            System.exit(0);
         });
 
 

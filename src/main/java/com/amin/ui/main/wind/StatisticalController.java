@@ -51,7 +51,7 @@ public class StatisticalController implements Initializable, Runnable {
         StringSelection stringSelection = new StringSelection(myString);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, null);
-        Dialog.SnackBar.showSnack(rootstackpane, "copied", 900);
+        Dialog.SnackBar.showSnack(rootstackpane, "copied", 1000);
 
     }
 
@@ -76,7 +76,6 @@ public class StatisticalController implements Initializable, Runnable {
         allfeatureandyear.forEach(objects -> {
             doubles.add((Double) objects.get(0));
         });
-        mathematicLable.setText(mathematicLable.getText()+doubles.size());
 
         Vec vec=new Vec() {
             @Override
