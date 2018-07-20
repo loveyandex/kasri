@@ -1,6 +1,7 @@
 package test.analys;
 
 import com.amin.jsons.UnitConvertor;
+import com.amin.ui.main.main.Charting;
 import org.junit.Test;
 
 import javax.measure.Measure;
@@ -8,9 +9,11 @@ import javax.measure.converter.UnitConverter;
 import javax.measure.quantity.Pressure;
 import javax.measure.quantity.Velocity;
 import javax.measure.unit.AlternateUnit;
-import javax.measure.unit.SI;
 import javax.measure.unit.NonSI;
+import javax.measure.unit.SI;
 import javax.measure.unit.Unit;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * is created by aMIN on 19/07/2018 at 04:25 PM
@@ -60,4 +63,30 @@ public class js {
 
 
     }
+
+
+    @Test
+    public void test24() {
+
+        Method method;
+        try {
+            method = Charting.class.getMethod("conv28", double.class);
+            Object invoke = method.invoke(new Charting(), 28);
+            System.out.println(((Double) invoke));
+
+
+        } catch (SecurityException e) {
+        } catch (NoSuchMethodException e) {
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+
+
 }

@@ -32,6 +32,8 @@ import org.controlsfx.control.RangeSlider;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.time.Month;
 import java.time.format.TextStyle;
@@ -329,8 +331,17 @@ public class FormDayController implements Initializable {
         Gobtn.setOnAction(event -> {
             if (formInfo.getHighYear().intValue() < formInfo.getLowerYear().intValue())
                 Dialog.SnackBar.showSnack(rootNode, "high year is lower than low year");
-            else
-                showChartAndAna();
+            else {
+                try {
+                    showChartAndAna();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
 
 
         });
@@ -361,15 +372,12 @@ public class FormDayController implements Initializable {
     }
 
 
-    private void showChartAndAna() {
+    private void showChartAndAna() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         if (!AllfeatureAndYear.isEmpty()) AllfeatureAndYear.clear();
         int fromYear = formInfo.getLowerYear().intValue();
         int toYear = formInfo.getHighYear().intValue();
         String featureName = formInfo.getFeaureName();
         int featureIndexCSV = getfeatureIndex(featureName).getLevelCode() - 1;
-        double lowrange = Double.parseDouble(getfeatureIndex(featureName).getLow_range());
-        double highrange = Double.parseDouble(getfeatureIndex(featureName).getHigh_range());
-//        String unit = (getfeatureIndex(featureName).getUnit());
         String unit = formInfo.getFeatureUnit();
 
 
@@ -383,15 +391,24 @@ public class FormDayController implements Initializable {
         String stationNumber = formInfo.getStationNumber();
         String height = formInfo.getHeight();
 
+
+        double lowrange = Double.parseDouble(getfeatureIndex(featureName).getLow_range());
+        double highrange = Double.parseDouble(getfeatureIndex(featureName).getHigh_range());
+
+        Charting charting123 = new Charting();
+        int cti = charting123.convertTogether(featureName, unit);
+
+        Method method;
+        method = Charting.class.getMethod("conv" + cti, double.class);
+
+        Double invokelowrange = ((Double) method.invoke(charting123, lowrange));
+        Double invokehighrange = ((Double) method.invoke(charting123, highrange));
+        double ytickUnit = ((Double) method.invoke(charting123, 10));
+
         Charting charting = new Charting(900, 33000, 1000,
-                lowrange, highrange, 10, "geopotHeight(m)", featureName+"("+unit+")", Charting.LINE_CHART);
+                invokelowrange, invokehighrange, ytickUnit, "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
         final XYChart<Number, Number> sc = charting.getSc();
 
-        final VBox vbox = new VBox();
-        final HBox hbox = new HBox();
-        vbox.setLayoutY(300);
-        vbox.setLayoutX(400);
-        vbox.setStyle("-fx-background-color: #fff");
 
         ArrayList<Double> knotslist = new ArrayList<>();
         int[] yearsknots = new int[3];
@@ -406,50 +423,61 @@ public class FormDayController implements Initializable {
                 System.out.println(monthDisp);
                 System.out.println(dayOfMonth);
                 String fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + i + ".csv";
-                ArrayList<ArrayList<String>> heightAndFeature;
+                ArrayList<ArrayList<Double>> heightAndFeature;
                 try {
+//
+//                    heightAndFeature = charting.addSeriesToChart(featureName
+//                            , fileName.replaceAll(".csv", ""),
+//                            rootDir + File.separator + fileName, 1, featureIndexCSV);
+
 
                     heightAndFeature = charting.addSeriesToChart(featureName
                             , fileName.replaceAll(".csv", ""),
-                            rootDir + File.separator + fileName, 1, featureIndexCSV);
+                            rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
 
 
-                    heightAndFeature = charting.addSeriesToChart(featureName
-                            , fileName.replaceAll(".csv", ""),
-                            rootDir + File.separator + fileName, 1, featureIndexCSV,featureName,unit);
+                    Double intrapolatedKnot = intrapolateFeature(height, heightAndFeature);
+                    if (intrapolatedKnot != null) {
 
-
-
-                    double intrapolatedKnot = intrapolateKnot(height, heightAndFeature);
-
-                    knotslist.add(intrapolatedKnot);
+                        knotslist.add(intrapolatedKnot);
 
                     featureAndYear.add(((Double) intrapolatedKnot));
                     featureAndYear.add(i);
+                        yearsknots[kkk++] = i;
+                        AllfeatureAndYear.add(featureAndYear);
+                    }
 
-                    AllfeatureAndYear.add(featureAndYear);
-
-                    yearsknots[kkk++] = i;
 
                 } catch (IOException e) {
                     ioExceptions.add(e);
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
                 }
 
             }
         }
-        if (!ioExceptions.isEmpty()) {
-            Dialog.createIOExceptionDialog(ioExceptions);
-            ioExceptions.clear();
-        }
+//        if (!ioExceptions.isEmpty()) {
+//            Dialog.createIOExceptionDialog(ioExceptions);
+//            ioExceptions.clear();
+//        }
 
         try {
 
             Charting charting2 = new Charting(fromYear, toYear ,1,
-                    lowrange, highrange, 10, "years", featureName+"("+unit+")", Charting.LINE_CHART);
+                    invokelowrange, invokehighrange, ytickUnit, "years", featureName + "(" + unit + ")", Charting.LINE_CHART);
             charting2.interpolateChart("interpolate years for "+featureName+" in " + height + " m",
                     "interpolate", knotslist, yearsknots, "avg line val is on ",unit);
 
 
+            final VBox vbox = new VBox();
+            final HBox hbox = new HBox();
+            vbox.setLayoutY(300);
+            vbox.setLayoutX(400);
+            vbox.setStyle("-fx-background-color: #fff");
             vbox.getChildren().addAll(sc, charting2.getSc());
             hbox.setPadding(new Insets(10, 10,
                     03.10, 10));
@@ -499,6 +527,37 @@ public class FormDayController implements Initializable {
         else
             return null;
 
+    }
+
+
+    private Double intrapolateFeature(String height, ArrayList<ArrayList<Double>> heightAndFeature) {
+
+        Double knotdesire = null;
+        double heightdesire = Double.parseDouble(height);
+        final Vector<Double> heigthsVector = new Vector<>();
+        final Vector<Double> knotsVector = new Vector<>();
+
+        heightAndFeature.forEach(doubles -> {
+
+            double h = (doubles.get(0));
+            double knot = (doubles.get(1));
+                heigthsVector.add(h);
+                knotsVector.add(knot);
+
+        });
+
+        for (int i = 0; i < heigthsVector.size() - 1; i++) {
+            double hi = heigthsVector.get(i);
+            double hiplus = heigthsVector.get(i + 1);
+            double knoti = knotsVector.get(i);
+            double knotiplus = knotsVector.get(i + 1);
+            if ((heightdesire - hi) * (heightdesire - hiplus) <= 0) {
+                knotdesire = (knotiplus - knoti) * (heightdesire - hi) / (hiplus - hi) + (knoti);
+                break;
+            }
+
+        }
+        return knotdesire;
     }
 
 
