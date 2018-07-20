@@ -369,7 +369,8 @@ public class FormDayController implements Initializable {
         int featureIndexCSV = getfeatureIndex(featureName).getLevelCode() - 1;
         double lowrange = Double.parseDouble(getfeatureIndex(featureName).getLow_range());
         double highrange = Double.parseDouble(getfeatureIndex(featureName).getHigh_range());
-        String unit = (getfeatureIndex(featureName).getUnit());
+//        String unit = (getfeatureIndex(featureName).getUnit());
+        String unit = formInfo.getFeatureUnit();
 
 
         int numDay = formInfo.Date.Day;
@@ -383,7 +384,7 @@ public class FormDayController implements Initializable {
         String height = formInfo.getHeight();
 
         Charting charting = new Charting(900, 33000, 1000,
-                lowrange, highrange, 10, "geoHeight(m)", featureName+"("+unit+")", Charting.LINE_CHART);
+                lowrange, highrange, 10, "geopotHeight(m)", featureName+"("+unit+")", Charting.LINE_CHART);
         final XYChart<Number, Number> sc = charting.getSc();
 
         final VBox vbox = new VBox();
@@ -405,28 +406,35 @@ public class FormDayController implements Initializable {
                 System.out.println(monthDisp);
                 System.out.println(dayOfMonth);
                 String fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + i + ".csv";
-//            dayOfMonth = String.valueOf(Integer.parseInt(dayOfMonth) + 1);
-//            dayOfMonth = (Integer.parseInt(dayOfMonth) < 10 ? "0" : "") + Integer.parseInt(dayOfMonth);
-                ArrayList<ArrayList<String>> heightAndKnot;
+                ArrayList<ArrayList<String>> heightAndFeature;
                 try {
-                    heightAndKnot = charting.addSeriesToChart(featureName
+
+                    heightAndFeature = charting.addSeriesToChart(featureName
                             , fileName.replaceAll(".csv", ""),
                             rootDir + File.separator + fileName, 1, featureIndexCSV);
 
-                    double intrapolatedKnot = intrapolateKnot(height, heightAndKnot);
+
+                    heightAndFeature = charting.addSeriesToChart(featureName
+                            , fileName.replaceAll(".csv", ""),
+                            rootDir + File.separator + fileName, 1, featureIndexCSV,featureName,unit);
+
+
+
+                    double intrapolatedKnot = intrapolateKnot(height, heightAndFeature);
+
                     knotslist.add(intrapolatedKnot);
+
                     featureAndYear.add(((Double) intrapolatedKnot));
                     featureAndYear.add(i);
+
                     AllfeatureAndYear.add(featureAndYear);
 
                     yearsknots[kkk++] = i;
-                    System.out.println("intrapolate " + intrapolatedKnot);
 
                 } catch (IOException e) {
-//                    System.out.println(e.getMessage());
-//                    Dialog.createExceptionDialog(e);
                     ioExceptions.add(e);
                 }
+
             }
         }
         if (!ioExceptions.isEmpty()) {
@@ -435,11 +443,7 @@ public class FormDayController implements Initializable {
         }
 
         try {
-            AllfeatureAndYear.forEach(objects -> {
-                objects.forEach(o -> {
-                    System.out.println(o);
-                });
-            });
+
             Charting charting2 = new Charting(fromYear, toYear ,1,
                     lowrange, highrange, 10, "years", featureName+"("+unit+")", Charting.LINE_CHART);
             charting2.interpolateChart("interpolate years for "+featureName+" in " + height + " m",
@@ -455,6 +459,8 @@ public class FormDayController implements Initializable {
             stage.setTitle("statistical analysis");
 
             SceneJson sceneJson = new SceneJson<ArrayList>(root, 450, 450);
+
+
             sceneJson.setJson(AllfeatureAndYear);
 
             stage.setScene(sceneJson);
