@@ -1,5 +1,6 @@
 package com.amin.ui.main.main;
 
+import com.amin.analysis.Mapping;
 import com.amin.analysis.wind.WindMining;
 import com.amin.jsons.Features;
 import com.amin.jsons.UnitConvertor;
@@ -384,8 +385,6 @@ public class Charting {
 
 
     public static void main(String[] args) {
-        MainActivity.A.a();
-
 
     }
 

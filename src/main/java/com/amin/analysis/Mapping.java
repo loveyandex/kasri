@@ -1,11 +1,9 @@
 package com.amin.analysis;
 
 import com.amin.config.C;
+import com.amin.ui.dialogs.Dialog;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -92,6 +90,8 @@ public class Mapping {
 
         return mapStationNumberName;
     }
+
+
     static public Map<String, String> MapLatLongToNearestCities(String pathConfigCSV) throws FileNotFoundException {
         Map<String, String> mapStationNumberName = new HashMap<>();
         FileReader reader = new FileReader(pathConfigCSV);
@@ -115,12 +115,6 @@ public class Mapping {
 
 
 
-
-
-
-
-
-
     public static ArrayList<String> readFileLines(String path) throws FileNotFoundException {
         ArrayList<String> lines = new ArrayList<>();
         FileReader reader = new FileReader(path);
@@ -137,10 +131,51 @@ public class Mapping {
     }
 
 
+    public static class LatLong {
+
+        public void getLatLongStations() {
+
+            File file = new File("config");
+            file.mkdirs();
+            File[] files = file.listFiles();
+
+            for (File f:files) {
+                if (f.isFile()) {
+                    if (f.getName().contains(".conf.csv")) {
+                        try {
+                            writeInFileInOnce("config", "countries.configfile.conf", new StringBuilder(f.getName()+"\r\n"), true);
+                        } catch (IOException e) {
+                            Dialog.createExceptionDialog(e);
+                        }
+                    }
+
+                }
+            }
+        }
+
+
+        public static void main(String[] args) {
+            new LatLong().getLatLongStations();
+        }
+
+        public static boolean writeInFileInOnce(String pathDirToSave, String childFileName, StringBuilder stringBuilder, boolean append) throws IOException {
+            File dir = new File(pathDirToSave);
+            dir.mkdirs();
+            File fileTosave = new File(dir, childFileName);
+            System.out.println("saved in "+fileTosave.getPath());
+            fileTosave.createNewFile();
+            OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(fileTosave, append));
+            writer.write(stringBuilder.toString());
+            writer.flush();
+
+
+            return true;
+        }
 
 
 
 
+    }
 
 
 

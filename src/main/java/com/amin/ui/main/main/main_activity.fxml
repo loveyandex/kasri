@@ -62,7 +62,7 @@
                            styleClass="toolbar-button"
                            text="Wind on Month" textAlignment="CENTER">
                     <graphic>
-                        <WeatherIconView glyphName="cloud"/>
+                        <WeatherIconView glyphName="CLOUD"/>
                         <!--<FontAwesomeIconView glyphName="AT"  size="25" />-->
                     </graphic>
                 </JFXButton>

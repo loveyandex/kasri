@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import jsat.linear.Vec;
-import jsat.math.MathTricks;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -105,19 +104,24 @@ public class StatisticalController implements Initializable, Runnable {
                 return null;
             }
         };
+        try {
 
 
-        if (newValue.equals(MathTerminology.MAXVALUE))
-            calcMax(vec);
-        else if (newValue.equals(MathTerminology.MINVALUE))
-            calcMin(vec);
-        else if (newValue.equals(MathTerminology.AVARAGE))
-            calcAvg(vec);
-        else if (newValue.equals(MathTerminology.VARIENCE))
-            calcVar(vec);
-        else if (newValue.equals(MathTerminology.STANDARDDEVIATION))
-            calcSD(vec);
+            if (newValue.equals(MathTerminology.MAXVALUE)) {
+                calcMax(vec);
+            } else if (newValue.equals(MathTerminology.MINVALUE)) {
+                calcMin(vec);
+            } else if (newValue.equals(MathTerminology.AVARAGE)) {
+                calcAvg(vec);
+            } else if (newValue.equals(MathTerminology.VARIENCE)) {
+                calcVar(vec);
+            } else if (newValue.equals(MathTerminology.STANDARDDEVIATION)) {
+                calcSD(vec);
+            }
 
+        } catch (java.lang.IndexOutOfBoundsException e) {
+            Dialog.createExceptionDialog(e);
+        }
 
     }
 

@@ -91,12 +91,8 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (resources!=null){
-            Enumeration<String> keys = resources.getKeys();
 
-        while (keys.hasMoreElements())
-            System.out.println(keys.nextElement());
-    } }
+    }
 
 
     public void charting() {

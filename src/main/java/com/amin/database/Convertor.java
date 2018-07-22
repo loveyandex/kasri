@@ -56,7 +56,6 @@ public class Convertor {
 
             String fil="C:/Users/AminAbvaal/Desktop/javas/kasri/assets/data/00Z_01_Jan_2017.csv";
             String sql = Queries.load_dataInto.replaceAll("aminTable", "table100z_01_jan_2017").replaceAll("aminFile",fil);
-            System.out.println(sql);
             Driver.getDriver().getConnection().createStatement().executeQuery(sql);
 
 //            throw new SQLException();

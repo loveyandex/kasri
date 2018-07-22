@@ -110,9 +110,6 @@ public class Dialog {
         ButtonType buttonTypeOne = new ButtonType("choose");
         alert.getButtonTypes().add(buttonTypeOne);
 
-        alert.getButtonTypes().forEach(buttonType -> {
-            System.out.println(buttonType.getText());
-        });
 
         Optional<ButtonType> showAndWait = alert.showAndWait();
         if (showAndWait.isPresent()) {

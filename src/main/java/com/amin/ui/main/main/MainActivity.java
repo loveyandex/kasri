@@ -25,14 +25,12 @@ public class MainActivity extends Application  {
         Scene scene = new Scene(root, 1000, 500);
         primaryStage.setOnCloseRequest(event -> {
             scene.getWindow().hide();
-            System.out.println("after hiding");
             System.exit(0);
-            System.out.println("after exit never print :(O");
 
         });
 
 
-        primaryStage.setTitle("data mining");
+        primaryStage.setTitle("Mining");
         primaryStage.setScene(scene);
         primaryStage.toBack();
         primaryStage.show();
@@ -65,15 +63,6 @@ public class MainActivity extends Application  {
 
 
 
-
-
-
-
-    public static class A{
-       static public void a(){
-            System.out.println("god");
-        }
-    }
 
 }
 

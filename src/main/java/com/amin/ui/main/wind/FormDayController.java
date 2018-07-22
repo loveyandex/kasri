@@ -186,8 +186,6 @@ public class FormDayController implements Initializable {
             int a = (int) Math.round((Double) newValue);
             formInfo.setLowerYear(a);
             highYearjfxslider.valueProperty().setValue(newValue);
-            System.out.println(newValue);
-            System.out.println(a);
             if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
         });
@@ -195,8 +193,6 @@ public class FormDayController implements Initializable {
         highYearjfxslider.valueProperty().addListener((observable, oldValue, newValue) -> {
             int a = (int) Math.round((Double) newValue);
             formInfo.setHighYear(a);
-            System.out.println(newValue);
-            System.out.println(a);
 
             if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
@@ -271,8 +267,21 @@ public class FormDayController implements Initializable {
             try {
                 formInfo.setStationNumber(null);
                 formInfo.setCountry(newValue.getText());
-                Mapping.createCSVFILEFORStations("config", newValue.getText() + ".conf");
-                stationNumTOCities = Mapping.MapStationNumTOCities("config/" + newValue.getText() + ".conf.csv");
+
+                String dirpath = "config";
+                String fileName = newValue.getText() + ".conf";
+
+                File dir = new File(dirpath);
+                dir.mkdirs();
+                File fileTosave = new File(dir, fileName);
+                if (!fileTosave.exists())
+                    Mapping.createCSVFILEFORStations(dirpath, fileName);
+
+                stationNumTOCities = Mapping.
+                        MapStationNumTOCities("config/" + newValue.getText() + ".conf.csv");
+
+
+
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
                     if (!station.getValue().equals("&"))
                         stationsCombo.getItems().add(new Label(station.getKey()));
@@ -420,8 +429,6 @@ public class FormDayController implements Initializable {
             for (int i = fromYear; i <= toYear; i++) {
                 ArrayList<Object> featureAndYear=new ArrayList<>();
                 String rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + monthInt + File.separator + stationNumber;
-                System.out.println(monthDisp);
-                System.out.println(dayOfMonth);
                 String fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + i + ".csv";
                 ArrayList<ArrayList<Double>> heightAndFeature;
                 try {
