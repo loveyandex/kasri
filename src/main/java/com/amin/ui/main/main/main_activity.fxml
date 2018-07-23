@@ -18,7 +18,7 @@
                     <MenuItem  onAction="#getDataFromInternet" text="get rawdata from net" />
                     <MenuItem onAction="#fetch" text="Data" />
                     <SeparatorMenuItem />
-                    <MenuItem text="Save" />
+                    <MenuItem text="Save" onAction="#ff"/>
                     <MenuItem text="Save As" />
                     <SeparatorMenuItem />
                     <MenuItem onAction="#exit" text="Exit" />

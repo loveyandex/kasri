@@ -5,6 +5,7 @@ import com.amin.data.Starter;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -359,4 +360,10 @@ public class MainController implements Initializable {
     }
 
 
+    public void ff(ActionEvent actionEvent) {
+        Platform.runLater(()->{
+            JFXTooltip jfxTooltip=new JFXTooltip("god is great kijng ",rootme);
+            jfxTooltip.show(rootme.getScene().getWindow());
+        });
+    }
 }
