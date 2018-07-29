@@ -17,6 +17,7 @@ import jsat.linear.Vec;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -148,5 +149,13 @@ public class allStationsStatisticalController implements Initializable, Runnable
         double max = Vec.max();
         valueLable.setText(String.valueOf(max));
         System.out.println(max);
+    }
+
+    public void showinexplorer(MouseEvent mouseEvent) {
+        try {
+            Runtime.getRuntime().exec("explorer "+colsData.get(colsData.size()-1).get(0));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

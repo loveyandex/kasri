@@ -84,6 +84,17 @@
                             </ImageView>
                         </graphic>
                     </JFXButton>
+                    <JFXButton fx:id="showinexplorer" styleClass="dialog-showin"
+                               onMouseClicked="#showinexplorer">show in folder
+                        <graphic>
+                            <ImageView
+                            >
+                                <image >
+                                    <Image  url="/drawable/1x/baseline_folder_open_white_18dp.png"  />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </JFXButton>
                 </actions>
             </JFXDialogLayout>
 

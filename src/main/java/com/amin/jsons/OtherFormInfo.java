@@ -22,7 +22,15 @@ public class OtherFormInfo {
     private Number lowerYear;
     private Number highYear;
     private String featureUnit;
+    private String dirTOSave;
 
 
+    public void setDirTOSave(String dirTOSave) {
+        this.dirTOSave = dirTOSave;
+    }
+
+    public String getDirTOSave() {
+        return dirTOSave;
+    }
 }
 

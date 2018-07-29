@@ -140,7 +140,7 @@
                     <HBox>
                         <JFXButton
                                 alignment="BASELINE_RIGHT"
-                                fx:id="savebtn3">
+                                fx:id="savebtn">
                             <graphic>
                                 <ImageView>
                                     <image>

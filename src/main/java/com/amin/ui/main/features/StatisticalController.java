@@ -58,7 +58,10 @@ public class StatisticalController implements Initializable, Runnable {
     public void run() {
         allfeatureandyear = (ArrayList) ((SceneJson) rootstackpane.getScene()).getJson();
         allfeatureandyear.forEach(objects -> {
-            objects.forEach(o -> System.out.println("king ain " + o));
+            objects.forEach(o -> {
+                System.out.println(objects.size());
+                System.out.println("king ain " + o);
+            });
         });
 //
 

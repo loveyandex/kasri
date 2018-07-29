@@ -67,6 +67,13 @@
 
 }
 
+.dialog-showin {
+    -fx-text-fill: #03A9F4;
+    -fx-font-weight: BOLD;
+    -fx-padding: 0.7em 0.8em;
+
+}
+
 /*******************************************************************************
  *                                                                             *
  * JFX Pop Up                                                                  *

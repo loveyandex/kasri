@@ -24,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import net.time4j.PlainDate;
 import net.time4j.calendar.PersianCalendar;
@@ -43,6 +44,7 @@ import java.util.*;
 /**
  * is created by aMIN on 6/1/2018 at 05:50
  */
+
 public class AllStationsOfCountryController implements Initializable {
 
     public RangeSlider yearsSlider;
@@ -50,6 +52,7 @@ public class AllStationsOfCountryController implements Initializable {
     public JFXSlider highYearjfxslider;
     public JFXComboBox featuresCombo;
     public JFXComboBox unitsCombo;
+    public JFXButton savebtn;
     private ArrayList<IOException> ioExceptions = new ArrayList<>();
 
     public GridPane rootNode;
@@ -82,6 +85,22 @@ public class AllStationsOfCountryController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         formInfo = new OtherFormInfo();
+
+        savebtn.setOnMouseClicked(event -> {
+            final DirectoryChooser directoryChooser =
+                    new DirectoryChooser();
+            final File kasriDate =
+                    directoryChooser.showDialog(rootNode.getScene().getWindow());
+            if (kasriDate != null) {
+                formInfo.setDirTOSave(kasriDate.getAbsolutePath());
+            }
+        });
+
+
+
+
+
+
 
         String[] featursName = {"PRES", "HGHT", "TEMP", "DWPT", "RELH", "MIXR", "DRCT", Features.SKNT.getName(), "THTA", "THTE", "THTV"};
         for (int i = 0; i < featursName.length; i++) {
@@ -338,6 +357,8 @@ public class AllStationsOfCountryController implements Initializable {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
+                } catch (FileNotFoundException e) {
+                    Dialog.createExceptionDialog(e);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -375,6 +396,9 @@ public class AllStationsOfCountryController implements Initializable {
     private void showChartAndAna() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, IOException {
         String childFileName = "";
         String pathDirToSave = System.getProperty("user.home") + "/Desktop";
+        if (formInfo.getDirTOSave() != null)
+            pathDirToSave = formInfo.getDirTOSave();
+
         if (!AllfeatureAndYear.isEmpty()) AllfeatureAndYear.clear();
         int fromYear = formInfo.getLowerYear().intValue();
         int toYear = formInfo.getHighYear().intValue();
@@ -413,7 +437,7 @@ public class AllStationsOfCountryController implements Initializable {
         final XYChart<Number, Number> sc = charting.getSc();
 
         int counterforStations = -1;
-        childFileName = formInfo.getFeaureName() + "_" + formInfo.getCountry() + "_" + dayOfMonth + "_" + monthDisp + "_.csv";
+        childFileName = formInfo.getFeaureName() + "_" + height + "_" + formInfo.getCountry() + "_" + dayOfMonth + "_" + monthDisp + "_.csv";
 
         File file = new File(pathDirToSave,childFileName);
         if (file.exists())
@@ -457,8 +481,8 @@ public class AllStationsOfCountryController implements Initializable {
                             AllfeatureAndYear.add(featureAndYear);
 
                             Mapping.LatLong.writeStringInFile(pathDirToSave, childFileName
-                                    , String.format("%d,%s,%s,%s,%f\n", i, Z, stationNamesList.get(counterforStations)
-                                            , stationNumber, intrapolateFeature), true);
+                                    , String.format("%d,%s,%s,%s,%f,%s\n", i, Z, stationNamesList.get(counterforStations)
+                                            , stationNumber, intrapolateFeature, unit), true);
                         }
 
 
@@ -479,7 +503,9 @@ public class AllStationsOfCountryController implements Initializable {
 
         }
 
-        ArrayList<ArrayList<String>> colsData = Mapping.LatLong.getColsData(System.getProperty("user.home") + "/Desktop/" + childFileName, ",", 0, 1, 2, 3, 4);
+        ArrayList<ArrayList<String>> colsData = Mapping.LatLong.getColsData(
+                pathDirToSave + File.separator + childFileName, ","
+                , 0, 1, 2, 3, 4, 5);
 
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

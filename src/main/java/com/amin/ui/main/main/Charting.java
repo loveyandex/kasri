@@ -1,6 +1,5 @@
 package com.amin.ui.main.main;
 
-import com.amin.analysis.Mapping;
 import com.amin.analysis.wind.WindMining;
 import com.amin.jsons.Features;
 import com.amin.jsons.UnitConvertor;
@@ -356,13 +355,7 @@ public class Charting {
     }
 
 
-
-
-
-
-
-
-    public void interpolateChart(String title, String seriesName, ArrayList<Double> knots, int[] years, String avgseriname, String unit) {
+    public void interpolateChart(String title, String seriesName, ArrayList<Double> knots, ArrayList<Integer> years, String avgseriname, String unit) {
         sc.setTitle(title);
         XYChart.Series series = new XYChart.Series();
         XYChart.Series avgseries = new XYChart.Series();
@@ -371,12 +364,14 @@ public class Charting {
         for (int i = 0; i < knots.size(); i++) {
             sum += knots.get(i);
         }
-        double avgknots = sum / knots.size();
+        int size = knots.size();
+        System.out.println("size of "+size);
+        double avgknots = sum / size;
         avgseries.setName(avgseriname + String.format("%.4f ", avgknots) + unit);
         for (int i = 0; i < knots.size(); i++) {
 
-            series.getData().add(new XYChart.Data(years[i], knots.get(i)));
-            avgseries.getData().add(new XYChart.Data(years[i], avgknots));
+            series.getData().add(new XYChart.Data(years.get(i), knots.get(i)));
+            avgseries.getData().add(new XYChart.Data(years.get(i), avgknots));
         }
 
 

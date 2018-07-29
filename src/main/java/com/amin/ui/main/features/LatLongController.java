@@ -419,7 +419,7 @@ public class LatLongController implements Initializable {
 
 
         ArrayList<Double> knotslist = new ArrayList<>();
-        int[] yearsknots = new int[3];
+        ArrayList<Integer> yearsofFeature = new ArrayList<>();
         int kkk = 0;
         String[] z = {"00Z", "12Z"};
         for (int id = 0; id < 2; id++) {
@@ -449,7 +449,7 @@ public class LatLongController implements Initializable {
 
                         featureAndYear.add(((Double) intrapolatedKnot));
                         featureAndYear.add(i);
-                        yearsknots[kkk++] = i;
+                        yearsofFeature.add(i);
                         AllfeatureAndYear.add(featureAndYear);
                     }
 
@@ -476,7 +476,7 @@ public class LatLongController implements Initializable {
             Charting charting2 = new Charting(fromYear, toYear ,1,
                     invokelowrange, invokehighrange, ytickUnit, "years", featureName + "(" + unit + ")", Charting.LINE_CHART);
             charting2.interpolateChart("interpolate years for "+featureName+" in " + height + " m",
-                    "interpolate", knotslist, yearsknots, "avg line val is on ",unit);
+                    "interpolate", knotslist, yearsofFeature, "avg line val is on ",unit);
 
 
             final VBox vbox = new VBox();

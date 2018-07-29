@@ -38,6 +38,7 @@ public class ChartController implements Initializable, Runnable {
     public void run() {
         allfeatureandyear = (ArrayList) ((SceneJson) rootme.getScene()).getJson();
         allfeatureandyear.forEach(objects -> {
+            System.out.println("obj size"+objects.size());
             objects.forEach(o -> System.out.println("king ain "+o));
         });
     }
