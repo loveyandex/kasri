@@ -6,6 +6,8 @@
 <?import de.jensd.fx.glyphs.weathericons.WeatherIconView?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <VBox fx:id="rootme" prefHeight="400" prefWidth="800" xmlns="http://javafx.com/javafx/8.0.1"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amin.ui.main.main.MainController"
       stylesheets="/dark-theme.css"
@@ -29,7 +31,7 @@
 
                     <Menu fx:id="openRecentTab" mnemonicParsing="false"  text="Wind">
                         <items>
-                            <MenuItem mnemonicParsing="false" onAction="#windmonth" text="wind on month" />
+                            <MenuItem mnemonicParsing="false" onAction="#dayFeature" text="wind on month" />
                             <MenuItem mnemonicParsing="false" onAction="#windyear" text="wind in year" />
                             <MenuItem mnemonicParsing="false" text="wind in day" />
                         </items>
@@ -60,22 +62,27 @@
                            onAction="#loadAddMember" prefHeight="400.0"
                            prefWidth="160.0"
                            styleClass="toolbar-button"
-                           text="Wind on Month" textAlignment="CENTER">
+                           text="features in Day" textAlignment="CENTER">
                     <graphic>
                         <WeatherIconView glyphName="CLOUD"/>
                         <!--<FontAwesomeIconView glyphName="AT"  size="25" />-->
                     </graphic>
                 </JFXButton>
                 <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
-                           onAction="#loadAddBook" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
-                           text="...." textAlignment="CENTER">
+                           onAction="#latlong" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
+                           text="lat &amp; long" textAlignment="CENTER">
                     <graphic>
-                        <FontAwesomeIconView glyphName="BOOK" size="25"/>
+                        <ImageView   >
+                            <image >
+                                <Image url="/drawable/1x/baseline_add_location_white_24dp.png"  />
+                            </image>
+                        </ImageView>
+
                     </graphic>
                 </JFXButton>
                 <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
                            onAction="#loadMemberTable" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
-                           text="test static ui" textAlignment="CENTER">
+                           text="all stations of country" textAlignment="CENTER">
                     <graphic>
                         <FontAwesomeIconView glyphName="TABLE" size="25"/>
                     </graphic>

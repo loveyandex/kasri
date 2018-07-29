@@ -1,4 +1,4 @@
-package com.amin.ui.main.wind;
+package com.amin.ui.main.features;
 
 import com.amin.analysis.Mapping;
 import com.amin.config.C;

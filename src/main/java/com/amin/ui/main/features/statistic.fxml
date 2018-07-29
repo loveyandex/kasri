@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
 <StackPane fx:id="rootstackpane" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.amin.ui.main.wind.StatisticalController"
+           fx:controller="com.amin.ui.main.features.StatisticalController"
            xmlns="http://javafx.com/javafx/2.2"
            stylesheets="/statistic.css"
 >

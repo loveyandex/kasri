@@ -1,4 +1,4 @@
-package com.amin.ui.main.wind;
+package com.amin.ui.main.features;
 
 import com.amin.config.MathTerminology;
 import com.amin.ui.SceneJson;

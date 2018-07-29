@@ -8,7 +8,7 @@
 <?import org.controlsfx.control.RangeSlider?>
 <VBox fx:id="vvv" stylesheets="/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.121"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.amin.ui.main.wind.FormDayController">
+      fx:controller="com.amin.ui.main.features.AllStationsOfCountryController">
 
 
     <JFXTabPane fx:id="jfxtab" style="-fx-alignment: center">
@@ -72,11 +72,12 @@
                 </JFXComboBox>
 
                 <Label text="choose a station"
-                       textFill="#d5b02c"
+                       textFill="#836b22"
                        GridPane.columnIndex="0" GridPane.rowIndex="7" />
 
                 <JFXComboBox id="fancytext" fx:id="stationsCombo" minWidth="200"
                              stylesheets="/combo.css"
+                             disable="true"
                              GridPane.columnIndex="1" GridPane.rowIndex="7">
                     <GridPane.margin>
                         <Insets>
