@@ -2,8 +2,10 @@ package com.amin.ui.main.features;
 
 import com.amin.analysis.Mapping;
 import com.amin.config.C;
-import com.amin.jsons.*;
 import com.amin.jsons.Date;
+import com.amin.jsons.Features;
+import com.amin.jsons.OtherFormInfo;
+import com.amin.jsons.UnitConvertor;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
@@ -16,12 +18,13 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import net.time4j.PlainDate;
 import net.time4j.calendar.PersianCalendar;
 import net.time4j.ui.javafx.CalendarPicker;
@@ -45,7 +48,6 @@ public class AllStationsOfCountryController implements Initializable {
     public RangeSlider yearsSlider;
     public JFXSlider lowYearjfxslider;
     public JFXSlider highYearjfxslider;
-    public HBox topOfgobtn;
     public JFXComboBox featuresCombo;
     public JFXComboBox unitsCombo;
     private ArrayList<IOException> ioExceptions = new ArrayList<>();
@@ -258,12 +260,12 @@ public class AllStationsOfCountryController implements Initializable {
             e.printStackTrace();
         }
 
-
-
+        formInfo.setStationNamesList(new ArrayList<>());
+        formInfo.setStationNumbersList(new ArrayList<>());
         countriesCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
-            stationsCombo.getItems().clear();
+            formInfo.getStationNamesList().clear();
+            formInfo.getStationNumbersList().clear();
             try {
-                formInfo.setStationNumber(null);
                 formInfo.setCountry(newValue.getText());
 
                 String dirpath = "config";
@@ -281,8 +283,10 @@ public class AllStationsOfCountryController implements Initializable {
 
 
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
-                    if (!station.getValue().equals("&"))
-                        stationsCombo.getItems().add(new Label(station.getKey()));
+                    if (!station.getValue().equals("&")) {
+                        formInfo.getStationNamesList().add(station.getKey());
+                        formInfo.getStationNumbersList().add(station.getValue());
+                    }
                 }
 
             } catch (IOException e) {
@@ -300,20 +304,6 @@ public class AllStationsOfCountryController implements Initializable {
         stationsCombo.setMinWidth(200);
         countriesCombo.setMinWidth(200);
 
-        stationsCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
-
-            if (newValue != null) {
-                for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
-                    if (station.getKey().equals(newValue.getText()))
-                        formInfo.setStationNumber(station.getValue());
-
-                }
-                formInfo.setStationName(newValue.getText());
-
-                if (isReadyToFire(formInfo))
-                    Gobtn.setDisable(false);
-            }
-        });
 
         GridPane.setHalignment(stationsCombo, HPos.CENTER);
 
@@ -337,15 +327,18 @@ public class AllStationsOfCountryController implements Initializable {
 
         Gobtn.setOnAction(event -> {
             if (formInfo.getHighYear().intValue() < formInfo.getLowerYear().intValue())
-                Dialog.SnackBar.showSnack(rootNode, "high year is lower than low year");
+                Dialog.SnackBar.showSnack(rootNode, "high year is lower than low year!!");
             else {
                 try {
+
                     showChartAndAna();
                 } catch (NoSuchMethodException e) {
                     e.printStackTrace();
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -379,7 +372,9 @@ public class AllStationsOfCountryController implements Initializable {
     }
 
 
-    private void showChartAndAna() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private void showChartAndAna() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, IOException {
+        String childFileName = "";
+        String pathDirToSave = System.getProperty("user.home") + "/Desktop";
         if (!AllfeatureAndYear.isEmpty()) AllfeatureAndYear.clear();
         int fromYear = formInfo.getLowerYear().intValue();
         int toYear = formInfo.getHighYear().intValue();
@@ -395,7 +390,8 @@ public class AllStationsOfCountryController implements Initializable {
         String monthDisp = month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
 
         String country = formInfo.getCountry();
-        String stationNumber = formInfo.getStationNumber();
+        ArrayList<String> stationNumberslist = formInfo.getStationNumbersList();
+        ArrayList<String> stationNamesList = formInfo.getStationNamesList();
         String height = formInfo.getHeight();
 
 
@@ -416,66 +412,117 @@ public class AllStationsOfCountryController implements Initializable {
                 invokelowrange, invokehighrange, ytickUnit, "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
         final XYChart<Number, Number> sc = charting.getSc();
 
+        int counterforStations = -1;
+        childFileName = formInfo.getFeaureName() + "_" + formInfo.getCountry() + "_" + dayOfMonth + "_" + monthDisp + "_.csv";
 
-        ArrayList<Double> knotslist = new ArrayList<>();
-        int[] yearsknots = new int[3];
-        int kkk = 0;
-        String[] z = {"00Z", "12Z"};
-        for (int id = 0; id < 2; id++) {
+        File file = new File(pathDirToSave,childFileName);
+        if (file.exists())
+            file.delete();
 
-            String Z = z[id];
-            for (int i = fromYear; i <= toYear; i++) {
-                ArrayList<Object> featureAndYear=new ArrayList<>();
-                String rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + monthInt + File.separator + stationNumber;
-                String fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + i + ".csv";
-                ArrayList<ArrayList<Double>> heightAndFeature;
-                try {
+        for (String stationNumber : stationNumberslist) {
+            counterforStations++;
+            ArrayList<Double> featurelist = new ArrayList<>();
+            String[] z = {"00Z", "12Z"};
+            for (int id = 0; id < 2; id++) {
+                int kkk = 0;
+                int[] yearsknots = new int[3];
+
+                String Z = z[id];
+                for (int i = fromYear; i <= toYear; i++) {
+
+                    ArrayList<Object> featureAndYear = new ArrayList<>();
+                    String rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + monthInt + File.separator + stationNumber;
+                    String fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + i + ".csv";
+                    ArrayList<ArrayList<Double>> heightAndFeature;
+                    try {
 //
 //                    heightAndFeature = charting.addSeriesToChart(featureName
 //                            , fileName.replaceAll(".csv", ""),
 //                            rootDir + File.separator + fileName, 1, featureIndexCSV);
 
 
-                    heightAndFeature = charting.addSeriesToChart(featureName
-                            , fileName.replaceAll(".csv", ""),
-                            rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
+                        heightAndFeature = charting.addSeriesToChart(featureName
+                                , fileName.replaceAll(".csv", ""),
+                                rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
 
 
-                    Double intrapolatedKnot = intrapolateFeature(height, heightAndFeature);
-                    if (intrapolatedKnot != null) {
+                        Double intrapolateFeature = intrapolateFeature(height, heightAndFeature);
+                        if (intrapolateFeature != null) {
 
-                        knotslist.add(intrapolatedKnot);
+                            featurelist.add(intrapolateFeature);
 
-                    featureAndYear.add(((Double) intrapolatedKnot));
-                    featureAndYear.add(i);
-                        yearsknots[kkk++] = i;
-                        AllfeatureAndYear.add(featureAndYear);
+                            featureAndYear.add(((Double) intrapolateFeature));
+                            featureAndYear.add(i);
+                            yearsknots[kkk++] = i;
+                            AllfeatureAndYear.add(featureAndYear);
+
+                            Mapping.LatLong.writeStringInFile(pathDirToSave, childFileName
+                                    , String.format("%d,%s,%s,%s,%f\n", i, Z, stationNamesList.get(counterforStations)
+                                            , stationNumber, intrapolateFeature), true);
+                        }
+
+
+                    } catch (IOException e) {
+                        ioExceptions.add(e);
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
                     }
 
-
-                } catch (IOException e) {
-                    ioExceptions.add(e);
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
                 }
 
+
             }
+
         }
+
+        ArrayList<ArrayList<String>> colsData = Mapping.LatLong.getColsData(System.getProperty("user.home") + "/Desktop/" + childFileName, ",", 0, 1, 2, 3, 4);
+
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("success");
+        alert.setHeaderText("valid stations data saved in your path");
+        alert.show();
+        alert.setOnHiding(event -> {
+            Stage primaryStage = new StageOverride();
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(AllStationsOfCountryController.this.getClass().getResource("/com/amin/ui/main/features/allstationsstatistic.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            root.setStyle("-fx-padding: 30 30 30 30 ");
+
+            SceneJson sceneJson = new SceneJson<>(root);
+            sceneJson.setJson(colsData);
+            primaryStage.setScene(sceneJson);
+
+            primaryStage.setResizable(false);
+            primaryStage.show();
+        });
+
+
+
+
+
+
+
+
 //        if (!ioExceptions.isEmpty()) {
 //            Dialog.createIOExceptionDialog(ioExceptions);
 //            ioExceptions.clear();
 //        }
+/*
 
         try {
 
             Charting charting2 = new Charting(fromYear, toYear ,1,
                     invokelowrange, invokehighrange, ytickUnit, "years", featureName + "(" + unit + ")", Charting.LINE_CHART);
             charting2.interpolateChart("interpolate years for "+featureName+" in " + height + " m",
-                    "interpolate", knotslist, yearsknots, "avg line val is on ",unit);
+                    "interpolate", featurelist, yearsknots, "avg line val is on ",unit);
 
 
             final VBox vbox = new VBox();
@@ -503,6 +550,7 @@ public class AllStationsOfCountryController implements Initializable {
             Dialog.createExceptionDialog(e);
         }
 
+*/
 
     }
 

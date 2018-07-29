@@ -3,6 +3,8 @@
 <?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.RangeSlider?>
@@ -128,13 +130,38 @@
                                  textAlignment="JUSTIFY"
                                  textFill="WHITE"
                                  GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                    <HBox fx:id="topOfgobtn">
+                    <HBox>
                         <JFXCheckBox fx:id="z12" disable="true" checkedColor="#949c10"
                                      selected="true" contentDisplay="CENTER"
                                      text="12Z" textAlignment="JUSTIFY"
                                      textFill="WHITE"
                                      GridPane.columnIndex="0" GridPane.rowIndex="1"/>
                     </HBox>
+                    <HBox>
+                        <JFXButton
+                                alignment="BASELINE_RIGHT"
+                                fx:id="savebtn3">
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="/drawable/1x/baseline_folder_open_white_18dp.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <font>
+                                <Font size="9.0"/>
+                            </font>
+                        </JFXButton>
+                        <HBox.margin>
+                            <Insets>
+                                <left>60
+                                </left>
+                            </Insets>
+                        </HBox.margin>
+                    </HBox>
+
+
+
                 </HBox>
                 <!--<HBox alignment="TOP_CENTER"  minWidth="300"  style="-fx-padding: 20px 0px 0px 0px" >-->
                 <!--<RangeSlider fx:id="yearsSlider" minWidth="300" max="2018" min="1973"  lowValue="1973" highValue="2018"-->
@@ -175,9 +202,8 @@
                     <JFXTextField alignment="BASELINE_LEFT"
                                   fx:id="height"
                                   promptText="height"
-
-                                  style="-fx-background-color: white"
                                   minWidth="300"
+                                  style="-fx-background-color: white"
                     >
                         <font>
                             <Font size="9.0"/>
@@ -203,6 +229,7 @@
                     ></RangeSlider>
 
                 </HBox>
+
 
 
             </VBox>

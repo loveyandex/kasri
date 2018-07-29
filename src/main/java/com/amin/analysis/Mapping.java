@@ -153,7 +153,7 @@ public class Mapping {
         }
 
 
-        public ArrayList<ArrayList<String>> getCol1Col2Data(String absfilepath, int col1, int col2) throws IOException {
+        public static ArrayList<ArrayList<String>> getCol1Col2Data(String absfilepath, int col1, int col2) throws IOException {
 
             FileReader reader = new FileReader(absfilepath);
             Scanner scanner = new Scanner(reader);
@@ -169,9 +169,25 @@ public class Mapping {
             }
             return points;
         }
+        public static ArrayList<ArrayList<String>> getCol1Col2Data(String absfilepath, int col1, int col2,String sparate) throws IOException {
+
+            FileReader reader = new FileReader(absfilepath);
+            Scanner scanner = new Scanner(reader);
+
+            ArrayList<ArrayList<String>> points = new ArrayList<>();
+            while (scanner.hasNextLine()) {
+                ArrayList<String> point = new ArrayList<>();
+                String line = scanner.nextLine();
+                String[] split = line.split(sparate);
+                point.add(split[col1]);
+                point.add(split[col2]);
+                points.add(point);
+            }
+            return points;
+        }
 
 
-        public ArrayList<ArrayList<String>> getColsData(String absfilepath, int... cols) throws IOException {
+        public static ArrayList<ArrayList<String>> getColsData(String absfilepath, int... cols) throws IOException {
 
             FileReader reader = new FileReader(absfilepath);
             Scanner scanner = new Scanner(reader);
@@ -181,6 +197,24 @@ public class Mapping {
                 ArrayList<String> point = new ArrayList<>();
                 String line = scanner.nextLine();
                 String[] split = line.split(";");
+                for (int i = 0; i < cols.length; i++) {
+                    point.add(split[cols[i]]);
+                }
+                points.add(point);
+            }
+            return points;
+        }
+
+        public static ArrayList<ArrayList<String>> getColsData(String absfilepath,String sep, int... cols) throws IOException {
+
+            FileReader reader = new FileReader(absfilepath);
+            Scanner scanner = new Scanner(reader);
+
+            ArrayList<ArrayList<String>> points = new ArrayList<>();
+            while (scanner.hasNextLine()) {
+                ArrayList<String> point = new ArrayList<>();
+                String line = scanner.nextLine();
+                String[] split = line.split(sep);
                 for (int i = 0; i < cols.length; i++) {
                     point.add(split[cols[i]]);
                 }
@@ -200,15 +234,32 @@ public class Mapping {
             return lines;
         }
 
-        static void writeStringInFile(String pathDirToSave, String childFileName, StringBuilder stringBuilder, boolean append) throws IOException {
+        public static void writeStringInFile(String pathDirToSave, String childFileName, StringBuilder stringBuilder, boolean append) throws IOException {
             File dir = new File(pathDirToSave);
             dir.mkdirs();
             File fileTosave = new File(dir, childFileName);
-            System.out.println("saved in "+fileTosave.getPath());
             fileTosave.createNewFile();
-            OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(fileTosave, append));
+            FileOutputStream fileOutputStream = new FileOutputStream(fileTosave, append);
+            OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream);
             writer.write(stringBuilder.toString());
             writer.flush();
+            writer.close();
+            fileOutputStream.close();
+            System.out.println("written in " + fileTosave.getPath());
+        }
+
+        public static void writeStringInFile(String pathDirToSave, String childFileName, String s, boolean append) throws IOException {
+            File dir = new File(pathDirToSave);
+            dir.mkdirs();
+            File fileTosave = new File(dir, childFileName);
+            fileTosave.createNewFile();
+            FileOutputStream fileOutputStream = new FileOutputStream(fileTosave, append);
+            OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream);
+            writer.write(s);
+            writer.flush();
+            writer.close();
+            fileOutputStream.close();
+            System.out.println("written in " + fileTosave.getPath());
         }
 
         public void delimiteCSVColsWriteFile(boolean append, String pathDirToSave, String childFileName, String... colsvalue) throws IOException {
