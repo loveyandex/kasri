@@ -446,10 +446,11 @@ public class AllStationsOfCountryController implements Initializable {
         for (String stationNumber : stationNumberslist) {
             counterforStations++;
             ArrayList<Double> featurelist = new ArrayList<>();
+            ArrayList<Integer> yearsofFeature = new ArrayList<>();
+
             String[] z = {"00Z", "12Z"};
             for (int id = 0; id < 2; id++) {
                 int kkk = 0;
-                int[] yearsknots = new int[3];
 
                 String Z = z[id];
                 for (int i = fromYear; i <= toYear; i++) {
@@ -477,7 +478,7 @@ public class AllStationsOfCountryController implements Initializable {
 
                             featureAndYear.add(((Double) intrapolateFeature));
                             featureAndYear.add(i);
-                            yearsknots[kkk++] = i;
+                            yearsofFeature.add(i);
                             AllfeatureAndYear.add(featureAndYear);
 
                             Mapping.LatLong.writeStringInFile(pathDirToSave, childFileName
