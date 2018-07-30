@@ -1,4 +1,4 @@
-package com.amin.data;
+package com.amin.getdata;
 
 import java.time.LocalDate;
 

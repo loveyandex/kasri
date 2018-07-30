@@ -21,7 +21,6 @@
                     <MenuItem onAction="#fetch" text="Data" />
                     <SeparatorMenuItem />
                     <MenuItem text="Save" onAction="#ff"/>
-                    <MenuItem text="Save As" />
                     <SeparatorMenuItem />
                     <MenuItem onAction="#exit" text="Exit" />
                 </items>
@@ -82,14 +81,14 @@
                 </JFXButton>
                 <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
                            onAction="#loadMemberTable" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
-                           text="all statione" textAlignment="CENTER">
+                           text="${'all stations \n in one day'}" textAlignment="CENTER">
                     <graphic>
                         <FontAwesomeIconView glyphName="TABLE" size="25"/>
                     </graphic>
                 </JFXButton>
                 <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="81.0" mnemonicParsing="false"
                            onAction="#loadBookTable" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
-                           text="...." textAlignment="CENTER">
+                           text="in whole of year" textAlignment="CENTER">
                     <graphic>
                         <FontAwesomeIconView glyphName="TABLE" size="25"/>
                     </graphic>

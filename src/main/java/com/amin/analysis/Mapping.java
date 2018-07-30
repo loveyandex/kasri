@@ -245,7 +245,7 @@ public class Mapping {
             writer.flush();
             writer.close();
             fileOutputStream.close();
-            System.out.println("written in " + fileTosave.getPath());
+//            System.out.println("written in " + fileTosave.getPath());
         }
 
         public static void writeStringInFile(String pathDirToSave, String childFileName, String s, boolean append) throws IOException {
@@ -301,32 +301,6 @@ public class Mapping {
         }
 
 
-        public static void main(String[] args) {
-            try {
-                LatLong latLong = new LatLong();
-//                ArrayList<ArrayList<String>> col1Col2Data = latLong.getCol1Col2Data(
-//                        "C:/Users/AminAbvaal/Desktop/javas/kasri/config/iran.conf.csv", 0, 1);
-//                col1Col2Data.forEach(strings -> {
-//                            strings.forEach(s -> {
-//                                System.out.printf("%s  ", s.replaceAll("\\^", " "));
-//                            });
-//                            System.out.println();
-//                        }
-//
-//                );
-
-                ArrayList<ArrayList<String>> latLongForAContryCities = latLong.getLatLongForAContryCities();
-                for (int i = 0; i < 3; i++) {
-                    ArrayList<String> strings = latLongForAContryCities.get(i);
-                    latLong.delimiteCSVColsWriteFile(true, "config", "amin.csv",
-                            strings.toArray(new String[0]));
-                }
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 
 
     }

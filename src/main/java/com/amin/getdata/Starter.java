@@ -1,14 +1,11 @@
-package com.amin.data;
+package com.amin.getdata;
 
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -62,16 +59,25 @@ public class Starter extends javafx.application.Application implements EventHand
         countryvalue.setAlignment(Pos.CENTER);
         rootNode.add(countryvalue, 1, 3, 2, 1);
 
+        Label regionl = new Label("region:");
+        regionl.setAlignment(Pos.CENTER);
+        rootNode.add(regionl, 0, 4, 2, 1);
+
+        TextField region = new TextField( "");
+        ComboBox<String> comboBoxrigion=new ComboBox<>();
+        region.setAlignment(Pos.CENTER);
+        rootNode.add(region, 1, 5, 2, 1);
+
 
 
 
         Button aButton = new Button("start getting Data");
-        rootNode.add(aButton, 1, 4);
+        rootNode.add(aButton, 1, 6);
         GridPane.setHalignment(aButton, HPos.CENTER);
 
         ProgressIndicator pbar = new ProgressIndicator(ProgressIndicator.INDETERMINATE_PROGRESS);
         pbar.setVisible(false);
-        rootNode.add(pbar, 1, 5);
+        rootNode.add(pbar, 1, 7);
 
         aButton.setOnAction(e -> {
             ABSOLUTE_ROOT_PATH = firstValue.getText();

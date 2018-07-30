@@ -28,7 +28,7 @@ public class LineChartSample extends Application {
         //defining a series
         XYChart.Series series = new XYChart.Series();
         series.setName("My portfolio");
-        //populating the series with data
+        //populating the series with getdata
         series.getData().add(new XYChart.Data(1, 26));
         series.getData().add(new XYChart.Data(2, 14));
         series.getData().add(new XYChart.Data(3, 15));
