@@ -4,7 +4,7 @@ import com.amin.analysis.RawMining;
 import com.amin.analysis.SecondMining;
 import com.amin.analysis.wind.WindMining;
 import com.amin.config.C;
-import com.amin.data.Methods;
+import com.amin.getdata.Methods;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;

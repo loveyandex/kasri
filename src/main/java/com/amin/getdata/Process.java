@@ -1,4 +1,4 @@
-package com.amin.data;
+package com.amin.getdata;
 
 import com.amin.ui.dialogs.Dialog;
 import org.jsoup.Jsoup;

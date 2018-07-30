@@ -1,4 +1,4 @@
-package com.amin.data;
+package com.amin.getdata;
 
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;

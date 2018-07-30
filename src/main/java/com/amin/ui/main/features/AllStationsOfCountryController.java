@@ -395,7 +395,7 @@ public class AllStationsOfCountryController implements Initializable {
 
     private void showChartAndAna() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, IOException {
         String childFileName = "";
-        String pathDirToSave = System.getProperty("user.home") + "/Desktop/data";
+        String pathDirToSave = System.getProperty("user.home") + "/Desktop/getdata";
         if (formInfo.getDirTOSave() != null)
             pathDirToSave = formInfo.getDirTOSave();
 

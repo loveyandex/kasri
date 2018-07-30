@@ -1,7 +1,7 @@
 package com.amin.ui.main.main;
 
 import com.amin.analysis.wind.WindMining;
-import com.amin.data.Starter;
+import com.amin.getdata.Starter;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
@@ -298,13 +298,21 @@ public class MainController implements Initializable {
         stage.showAndWait();
     }
 
-    public void loadBookTable(ActionEvent actionEvent) {
-
-        Dialog.SnackBar.showSnack(rootme,"comming sooon...");
+    public void loadBookTable(ActionEvent actionEvent) throws IOException {
+        Stage stage = new StageOverride();
+        stage.setTitle("whole of the year in all stations of a country");
+        stage.setResizable(true);
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/wholeyear/wholeyearallstationsofcountry.fxml"));
+        Scene scene = new SceneJson<>(root, 750, 600);
+        stage.setScene(scene);
+        stage.initOwner(rootme.getScene().getWindow());
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
 
     }
 
     public void loadIssuedBookList(ActionEvent actionEvent) {
+        Dialog.SnackBar.showSnack(rootme,"comming sooon...");
     }
 
     public void loadSettings(ActionEvent actionEvent) {

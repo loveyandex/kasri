@@ -68,7 +68,7 @@ public class TextAreaDemo extends Application {
             public void handle(DragEvent event) {
 
                 /* accept it only if it is  not dragged from the same node 
-                 * and if it has a string data */
+                 * and if it has a string getdata */
                 if (event.getGestureSource() != target &&
                         event.getDragboard().hasString()) {
                     /* allow for both copying and moving, whatever user chooses */
@@ -88,7 +88,7 @@ public class TextAreaDemo extends Application {
         target.setOnDragDropped(new EventHandler <DragEvent>() {
             public void handle(DragEvent event) {
 
-                /* if there is a string data on dragboard, read it and use it */
+                /* if there is a string getdata on dragboard, read it and use it */
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasString()) {

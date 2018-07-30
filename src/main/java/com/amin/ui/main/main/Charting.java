@@ -3,6 +3,7 @@ package com.amin.ui.main.main;
 import com.amin.analysis.wind.WindMining;
 import com.amin.jsons.Features;
 import com.amin.jsons.UnitConvertor;
+import com.amin.ui.dialogs.Dialog;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * is created by aMIN on 7/5/2018 at 16:09
@@ -101,6 +103,58 @@ public class Charting {
         sc.getData().addAll(series1);
         return arrayListArrayList;
     }
+
+
+    public Charting(String featurename, String unitname) {
+        arrayListArrayList = new ArrayList<>();
+        windSpeedCol = new ArrayList<>();
+        int cti = convertTogether(featurename, unitname);
+
+        try {
+            method = Charting.class.getMethod("conv" + cti, double.class);
+        } catch (NoSuchMethodException e) {
+            Dialog.createExceptionDialog(e);
+        }
+
+    }
+
+    private Method method;
+    private ArrayList<ArrayList<Double>> arrayListArrayList;
+
+    private ArrayList<ArrayList<String>> windSpeedCol;
+
+    public ArrayList<ArrayList<Double>> getcol1col2daydata(String dayfilePath, int col1, int col2) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        arrayListArrayList.clear();
+        windSpeedCol.clear();
+        windSpeedCol = WindMining.getWindSpeedCol(dayfilePath, col1, col2);
+
+        for (int j = 2; j < windSpeedCol.size() - 1; j++) {
+            if (!windSpeedCol.get(j).get(0).equals("NULL") && !windSpeedCol.get(j).get(1).equals("NULL")) {
+                try {
+                    ArrayList<Double> doubleArrayList=new ArrayList<>(2);
+                    double v0 = Double.parseDouble(windSpeedCol.get(j).get(0));
+                    double v1 = Double.parseDouble(windSpeedCol.get(j).get(1));
+                    Double invokeDouble = ((Double) method.invoke(this, v1));
+                    doubleArrayList.add(v0);
+                    doubleArrayList.add(invokeDouble);
+                    arrayListArrayList.add(doubleArrayList);
+                }catch (NumberFormatException e){
+                    System.out.println(dayfilePath);
+                }
+
+            }
+        }
+        return arrayListArrayList;
+    }
+
+
+
+
+
+
+
+
+
 
 
     public int convertTogether(String featurename, String unitname) {
