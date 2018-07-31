@@ -28,6 +28,20 @@ public class Jsoup {
         Element knowledge = body.getElementById("knowledge-currency__tgt-amount");
         String eu = knowledge.text();
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         try (
                 Writer writer = Files.newBufferedWriter(Paths.get(STRING_ARRAY_SAMPLE), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
 
