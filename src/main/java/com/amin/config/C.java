@@ -68,7 +68,6 @@ public class C {
         in.close();
 
         String pval = properties.getProperty(key);
-        System.out.println();
         return pval;
 
     }
@@ -86,7 +85,6 @@ public class C {
         in.close();
 
         String pval = properties.getProperty(key);
-        System.out.println(pval);
         String toVal = (pval == null || !value.equals(pval)) ? value : pval;
 
 
@@ -96,7 +94,6 @@ public class C {
         out.flush();
         out.close();
         String myValue = (String) properties.getProperty(key);
-        System.out.println (myValue);
 
     }
 

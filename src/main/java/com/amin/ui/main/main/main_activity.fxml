@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?language JavaScript?>
-
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import de.jensd.fx.glyphs.weathericons.WeatherIconView?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <VBox fx:id="rootme" prefHeight="400" prefWidth="800" xmlns="http://javafx.com/javafx/8.0.1"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amin.ui.main.main.MainController"
       stylesheets="/dark-theme.css"
@@ -16,8 +20,7 @@
                     <MenuItem  onAction="#getDataFromInternet" text="get rawdata from net" />
                     <MenuItem onAction="#fetch" text="Data" />
                     <SeparatorMenuItem />
-                    <MenuItem text="Save" />
-                    <MenuItem text="Save As" />
+                    <MenuItem text="Save" onAction="#ff"/>
                     <SeparatorMenuItem />
                     <MenuItem onAction="#exit" text="Exit" />
                 </items>
@@ -27,7 +30,7 @@
 
                     <Menu fx:id="openRecentTab" mnemonicParsing="false"  text="Wind">
                         <items>
-                            <MenuItem mnemonicParsing="false" onAction="#windmonth" text="wind on month" />
+                            <MenuItem mnemonicParsing="false" onAction="#dayFeature" text="wind on month" />
                             <MenuItem mnemonicParsing="false" onAction="#windyear" text="wind in year" />
                             <MenuItem mnemonicParsing="false" text="wind in day" />
                         </items>
@@ -41,11 +44,71 @@
                     <MenuItem text="Online Manual" visible="false" />
                     <SeparatorMenuItem />
                     <MenuItem text="About" />
-                    <MenuItem onAction="#newChart" text="chart" />
 
                 </items>
             </Menu>
         </menus>
     </MenuBar>
+    <children>
+        <HBox>
 
+
+            <VBox>
+
+
+                <JFXButton contentDisplay="TOP"
+                           mnemonicParsing="false"
+                           onAction="#loadAddMember" prefHeight="400.0"
+                           prefWidth="160.0"
+                           styleClass="toolbar-button"
+                           text="features in Day" textAlignment="CENTER">
+                    <graphic>
+                        <WeatherIconView glyphName="CLOUD"/>
+                        <!--<FontAwesomeIconView glyphName="AT"  size="25" />-->
+                    </graphic>
+                </JFXButton>
+                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                           onAction="#latlong" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
+                           text="lat &amp; long" textAlignment="CENTER">
+                    <graphic>
+                        <ImageView   >
+                            <image >
+                                <Image url="/drawable/1x/baseline_add_location_white_24dp.png"  />
+                            </image>
+                        </ImageView>
+
+                    </graphic>
+                </JFXButton>
+                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                           onAction="#loadMemberTable" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
+                           text="${'all stations \n in one day'}" textAlignment="CENTER">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="TABLE" size="25"/>
+                    </graphic>
+                </JFXButton>
+                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="81.0" mnemonicParsing="false"
+                           onAction="#loadBookTable" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
+                           text="in whole of year" textAlignment="CENTER">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="TABLE" size="25"/>
+                    </graphic>
+                </JFXButton>
+                <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#loadIssuedBookList"
+                           prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="........."
+                           textAlignment="CENTER">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="CHECK" size="25" textAlignment="CENTER"/>
+                    </graphic>
+                </JFXButton>
+                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="223.0" mnemonicParsing="false"
+                           onAction="#loadSettings" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
+                           text="Settings" textAlignment="CENTER">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="COG" size="25"/>
+                    </graphic>
+                </JFXButton>
+            </VBox>
+
+        </HBox>
+    </children>
 </VBox>

@@ -6,15 +6,20 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.VBox?>
-<VBox fx:id="rootme" fx:controller="com.amin.ui.main.main.MainController" prefHeight="400" prefWidth="800"
+<VBox fx:id="rootme" fx:controller="com.amin.ui.main.features.ChartController" prefHeight="400" prefWidth="800"
       xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx/2.2">
 
     <MenuBar fx:id="menuBar" focusTraversable="true">
     <menus>
     <Menu text="File">
     <items>
-    <MenuItem  text="save" />
-    <MenuItem  text="save As" />
+    <MenuItem  text="" />
+    <MenuItem  text="" />
+    </items>
+    </Menu>
+    <Menu text="data analysis">
+    <items>
+    <MenuItem  text="statistical models "  onAction="#statisticalModels"/>
     </items>
     </Menu>
     </menus>

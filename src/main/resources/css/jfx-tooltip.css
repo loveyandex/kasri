@@ -1,0 +1,12 @@
+.jfx-tooltip {
+    -fx-text-fill: #ffffff; /*The specification says Grey 700, but it looks quite ugly*/
+    -fx-font-weight: bold;
+    -fx-background-color: #444444; /* This should be #646464 according to Material Design */
+    -fx-opacity: 0.9;
+    -fx-padding: 3px 8px;
+    -fx-font-size: 10px;
+    -fx-max-height: 22px;
+    -fx-max-width: 250px;
+    -fx-background-radius: 2px;
+    -fx-pref-width: 100%;
+}

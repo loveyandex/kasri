@@ -1,0 +1,58 @@
+#fancytext {
+    -fx-primary : #2A2E37;
+    -fx-text-fill: white;
+    -fx-font: 12px "B zar";
+    /*-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, #fff3e7 0%, #fff31a 50%);*/
+    /*-fx-stroke: white;*/
+    -fx-stroke-width: 1;
+}
+
+.jfx-slider {
+    -jfx-default-thumb: #9d8024;
+    -jfx-default-track: #CCCCCC;
+}
+
+
+
+
+/*.jfx-combo-box {*/
+    /*-fx-background-color:  PINK;*/
+/*}*/
+
+.jfx-combo-box .label {
+    -fx-text-fill: #9d8024;
+}
+
+.combo-box-popup:hover  .list-cell:hover {
+    -fx-background-color: #ebebeb;
+
+}
+
+
+.range-slider {
+    /* default track color: */
+    -slider-filled-track-color: red ;
+    -slider-track-color: white;
+}
+
+/* Make thumb same color as filled part of track */
+.range-slider .low-thumb,
+.range-slider .high-thumb {
+    -fx-background-color: #066598;
+}
+
+.range-slider .track {
+     -fx-background-color: #dfdfdf;
+ }
+
+.range-slider .range-bar {
+    -fx-background-color: #d5b02c;
+    -fx-tick-length: 3px;
+    -fx-minor-tick-length: 2px;
+}
+.range-slider .axis {
+    -fx-tick-length: 3px;
+    -fx-minor-tick-length: 2px;
+    -fx-border-color: null;
+}
+

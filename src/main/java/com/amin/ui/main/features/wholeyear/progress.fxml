@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.amin.ui.main.features.wholeyear.ProgressController"
+      prefHeight="400.0" prefWidth="600.0">
+    <ProgressIndicator
+            style="-fx-progress-color: #f5a215;"
+            visible="true"
+    >
+
+    </ProgressIndicator>
+</VBox>

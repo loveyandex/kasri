@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox fx:id="vvv" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.amin.ui.main.features.WindYearController">
+    <style>
+        -fx-padding: 300;
+    </style>
+    <VBox.margin>
+        <Insets>
+            <top>500</top>
+        </Insets>
+    </VBox.margin>
+
+    <GridPane stylesheets="/stage.css" fx:id="rootNode"
+              >
+
+
+    <Label stylesheets="/stage.css" focusTraversable="true" text="choose a persian date" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+
+    <Label text="you can gregorian date instead"
+           GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    <Label text="choose a country"
+           GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+    <Label text="choose a station"
+           GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+    <TextField fx:id="height" GridPane.columnIndex="1" GridPane.rowIndex="10" promptText="height">
+        <font>
+            <Font size="12.0" />
+        </font>
+        <GridPane.margin>
+            <Insets><top>40</top></Insets>
+            <Insets><bottom>40</bottom></Insets>
+        </GridPane.margin>
+    </TextField>
+    <HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="12">
+
+        <JFXButton fx:id="cancelBtn"
+                   translateX="50"
+                   stylesheets="/buttons.css"
+                   styleClass="button"
+                   text="Cancel">
+        </JFXButton>
+        <JFXButton
+                fx:id="Gobtn"
+                disable="true"
+                translateX="180"
+                stylesheets="/buttons.css"
+                styleClass="button"
+                text="Get Result">
+        </JFXButton>
+
+
+
+    </HBox>
+
+</GridPane>
+</VBox>

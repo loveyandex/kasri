@@ -2,16 +2,16 @@ package test.backtopbtn;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -52,13 +52,47 @@ public class APP extends Application {
         );
 
         Button closeButton = new Button("X");
+        closeButton.setStyle("-fx-background-radius: 0;-fx-background-color: #ff667d;-fx-text-fill: white");
+
         closeButton.setMinWidth(30);
         Button oth = new Button();
+        oth.setStyle("-fx-background-radius: 0;-fx-border-radius: 0");
+
 //        oth.setDisable(true);
         oth.setMinWidth(270);
 
+
+        TextArea console = new TextArea(">>");
+        console.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                ;
+            }
+        });
+
+        console.caretPositionProperty().addListener((obs, oldPosition, newPosition) -> {
+            String text = console.getText().substring(0, newPosition.intValue());
+            int index;
+            for (index = text.length() - 1; index >= 0 && !Character.isWhitespace(text.charAt(index)); index--) ;
+            String prefix = text.substring(index + 1, text.length());
+            if (text.charAt(text.length())=='\n') {
+                console.appendText(">>");
+
+            }
+        });
+        console.caretPositionProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println(newValue);
+        });
+
+
+
+
+
+
+
+
         HBox hBox= new HBox(oth,closeButton);
-        VBox vBox=new VBox(hBox,file);
+        VBox vBox = new VBox(hBox, file, console);
         closeButton.setOnAction(event -> {
             Platform.exit();
         });
@@ -73,8 +107,7 @@ public class APP extends Application {
         layout = new BorderPane();
         layout.setTop(vBox);;
 
-        Scene scene = new Scene(layout, 300, 200);
-        scene.getStylesheets().add("Viper.css");
+        Scene scene = new Scene(layout, 300, 200, Color.rgb(75, 75, 69));
         window.setScene(scene);
 //        window.setMaximized(true);
         window.initStyle(StageStyle.UNDECORATED);
@@ -101,7 +134,6 @@ public class APP extends Application {
         });
         oth.setFocusTraversable(false);
 //        closeButton.setFocusTraversable(false);
-        oth.setStyle("-fx-border-radius: 0 0 0 0");
         oth.focusedProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println(observable.getClass().getName());
         });
