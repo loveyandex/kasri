@@ -1,11 +1,13 @@
 package com.amin.getdata.bystates;
 
 
+import com.amin.IO.MyReader;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -33,8 +35,7 @@ public class Process implements Runnable {
                 e.printStackTrace();
             }
             String stationOne = scanner.nextLine();
-            String url11 = setLasturl("mideast",
-                    "TEXT:LIST", year, mounth, "all", "0100", stationOne);
+            String url11 = setLasturl("TEXT:LIST", year, mounth, "all", "0100", stationOne);
 
             try {
                 document = Jsoup.connect(url11).get();
@@ -47,8 +48,7 @@ public class Process implements Runnable {
                     i++;
                 }
 
-                System.out.println(setLasturl("mideast",
-                        "TEXT:LIST", year, mounth, "all", "0100", stationOne));
+                System.out.println(url11);
 
                 File dirTOSave = new File(pathDirToSave);
                 dirTOSave.mkdirs();
@@ -62,7 +62,7 @@ public class Process implements Runnable {
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                Methods.writeFallenUrls(url11);
+                Methods.writeFallenUrls(CrashedCountry,url11);
                 System.out.println("king error");
                 continue;
             }
@@ -181,6 +181,12 @@ public class Process implements Runnable {
     }
 
 
+    public static String setLasturl( String TYPE, String Year, String Month, String From, String To, String Station) {
+        return baseUrl + "TYPE=" + TYPE +
+                "&YEAR=" + Year + "&MONTH=" + Month + "&FROM=" + From + "&TO=" + To + "&STNM=" + Station;
+    }
+
+
     public static Stack<String> getYears() {
         FileReader reader = null;
         Stack<String> years = new Stack<>();
@@ -197,12 +203,18 @@ public class Process implements Runnable {
         return years;
     }
 
+    private ArrayList<String> getyears() throws FileNotFoundException {
+        return MyReader.readFileLines("config/years.conf");
+    }
+
+
     public static void start() {
         Stack<String> years = getYears();
         for (int k = 0; k < Starter.COUNTRIES.length; k++) {
 
             try {
-                Methods.getStationNumber("config/states/" + Starter.COUNTRIES[k] + ".conf", "config/stations/" + Starter.COUNTRIES[k] + "-stations.conf");
+                Methods.getStationNumber("config/states/" + Starter.COUNTRIES[k] + ".conf"
+                        , "config/stations/" + Starter.COUNTRIES[k] + "-stations.conf");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -211,8 +223,12 @@ public class Process implements Runnable {
             for (int i = 0; i < years.size(); i++) {
                 for (int j = 1; j <= 12; j++) {
                         System.out.println("year is > " + years.get(i) + " month: > " + j + "  is started dowing");
+                        CrashedCountry=Starter.COUNTRIES[k];
+
                         Process.getData(Starter.ABSOLUTE_ROOT_PATH + "/" + Starter.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j),
-                                "config/" + Starter.COUNTRIES[k] + "-stations.conf", years.get(i), String.valueOf(j));
+                                "config/stations/" + Starter.COUNTRIES[k] + "-stations.conf"
+                                , years.get(i)
+                                , String.valueOf(j));
                         try {
                             Thread.sleep(10000);
                         } catch (InterruptedException e) {
@@ -230,10 +246,11 @@ public class Process implements Runnable {
         }
 
     }
+    private static String CrashedCountry="";
 
     public static void main(String[] args) {
 //        start();
-        getData2("G:/alternative/newmew","40745","1997","5");
+//        getData2("G:/alternative/newmew","40745","1997","5");
     }
 
     @Override

@@ -1,4 +1,4 @@
-package test.old;
+package com.amin.IO;
 
 import com.amin.IO.MyWriter;
 import lombok.val;
@@ -19,11 +19,9 @@ public class Exce {
                 final val file1 = files[i];
                 if (file1.getName().contains(".conf.csv"))
                 {
-
                     final String x = file1.getName().replaceAll(".conf.csv", "");
                     File file2=new File("config/states",x+".conf");
                     file2.delete();
-
                 }
 
 

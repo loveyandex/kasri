@@ -11,7 +11,7 @@ public class Methods {
     public static void main(String[] args) {
 
         try {
-            getStationNumber("config/" + Starter.COUNTRIES + ".conf", "config/" + Starter.COUNTRIES + "-stations.conf");
+            getStationNumber("config/states/" + Starter.COUNTRIES + ".conf", "config/stations/" + Starter.COUNTRIES + "-stations.conf");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,7 +52,7 @@ public class Methods {
 
 
     public static void writeFallenUrls(String fallenUrl) {
-        File fileStations = new File(System.getProperty("user.dir") + File.separator + "config/fallenUrls.conf");
+        File fileStations = new File(System.getProperty("user.dir") + File.separator + "config/fallenUrls2.conf");
         try {
             if (fileStations.createNewFile()) {
                 System.out.println("File is created!");
@@ -73,27 +73,20 @@ public class Methods {
         }
     }
 
-    public static void writeFallenUrls(String fallenUrl,String fallUrlPathFile) {
-        File fileStations = new File(fallUrlPathFile);
-        try {
-            if (fileStations.createNewFile()) {
-                System.out.println("File is created!");
-            } else {
-                System.out.println("File already exists.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+    public static void writeFallenUrls(String country,String fallenUrl) {
+        File fileStations = new File("config/fallenUrls2.conf");
         FileWriter writer = null;
         try {
             writer = new FileWriter(fileStations,true);
-            writer.append(fallenUrl + "\r\n");
+            writer.append(country+";"+fallenUrl + "\n");
             writer.flush();
             writer.close();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
     }
+
 
 
 }

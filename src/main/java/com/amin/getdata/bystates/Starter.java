@@ -47,7 +47,7 @@ public class Starter extends javafx.application.Application implements EventHand
         label.setAlignment(Pos.CENTER);
         rootNode.add(label, 0, 0, 2, 1);
 
-        TextField firstValue = new TextField("G:/Program Files/AMinAbvall/haji");
+        TextField firstValue = new TextField("G:/Program Files/AMinAbvall/world");
         firstValue.setAlignment(Pos.CENTER);
         rootNode.add(firstValue, 1, 1, 2, 1);
 
@@ -103,19 +103,21 @@ public class Starter extends javafx.application.Application implements EventHand
     private void setstationsforpersent() {
         File rootfile = new File("config/states");
         final File[] listFiles = rootfile.listFiles();
-        for (File file : listFiles
-        ) {
+        for (File file : listFiles)
             if (file.isFile()) {
-                regionteTextArea.appendText(file.getName().replaceAll(".conf","") + "\n");
+                final String s = file.getName().replaceAll(".conf", "");
+                regionteTextArea.appendText(s + "\n");
             }
 
-        }
+        COUNTRIES = regionteTextArea.textProperty().getValue().split("\\n");
+
 
         regionteTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
             COUNTRIES = newValue.split("\\n");
             for (int i = 0; i < COUNTRIES.length; i++) {
                 System.out.println(COUNTRIES[i]);
             }
+            System.out.println(COUNTRIES.length);
         });
 
     }
