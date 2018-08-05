@@ -1,6 +1,6 @@
 package com.amin.getdata.station;
 
-import com.amin.ui.main.features.wholeyear.MyWriter;
+import com.amin.IO.MyWriter;
 
 import java.io.FileReader;
 import java.io.IOException;

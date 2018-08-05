@@ -322,8 +322,8 @@ public class Mapping {
 
     public static void main(String[] args) {
         try {
-            Mapping.createCSVFILEFORStations("config", "iran.conf");
-            Map<String, String> stationNumTOCities = Mapping.MapStationNumTOCities("config/iran.conf.csv");
+            Mapping.createCSVFILEFORStations("config", "iran__islamic_rep.conf");
+            Map<String, String> stationNumTOCities = Mapping.MapStationNumTOCities("config/iran__islamic_rep.conf.csv");
             for (Map.Entry map : stationNumTOCities.entrySet()) {
                 System.out.println(String.format("%s %s", map.getKey(), map.getValue()));
             }

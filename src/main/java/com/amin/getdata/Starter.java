@@ -105,4 +105,16 @@ public class Starter extends javafx.application.Application implements EventHand
     public void handle(KeyEvent event) {
 //        System.exit(0);
     }
+
+
+
+
+
+
+
+
+
+    private void setstationsforpersent(){
+
+    }
 }

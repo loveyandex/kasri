@@ -1,6 +1,6 @@
 package test.old;
 
-import com.amin.ui.main.features.wholeyear.MyWriter;
+import com.amin.IO.MyWriter;
 import lombok.val;
 
 import java.io.File;
@@ -21,8 +21,9 @@ public class Exce {
                 {
 
                     final String x = file1.getName().replaceAll(".conf.csv", "");
-                    myWriter.appendStringInNewLine(x);
-                    System.out.println(x);
+                    File file2=new File("config/states",x+".conf");
+                    file2.delete();
+
                 }
 
 
