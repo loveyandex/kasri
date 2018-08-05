@@ -33,6 +33,12 @@ public class MyWriter {
 
     }
 
+    public void appendStringInNewLine(String s) throws IOException {
+        outputStreamWriter.write(s+"\r\n");
+        outputStreamWriter.flush();
+
+    }
+
     public void close() {
         try {
             outputStreamWriter.close();

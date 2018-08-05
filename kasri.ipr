@@ -321,7 +321,7 @@
   </component>
   <component name="dataSourceStorageLocal">
     <data-source name="weather@localhost" uuid="11cadd06-7a61-4001-89f5-1dc12211fb19">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" family="MYSQL" exact-version="0.0" />
     </data-source>
   </component>
   <component name="libraryTable">

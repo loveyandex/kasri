@@ -2,7 +2,6 @@ package com.amin.getdata.station;
 
 import com.amin.ui.main.features.wholeyear.MyWriter;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
@@ -14,18 +13,17 @@ public class GeneratStationConfig {
     public static void main(String[] args) throws IOException {
         String fileName = null;
         String Dirpath = null;
-        FileReader reader = new FileReader("config/stations-temp.conf");
+        FileReader reader = new FileReader("config/stationsL.conf");
         Scanner scanner = new Scanner(reader);
-        String total = "";
-        int[] exps = new int[]{23, 28, 36, 40, 44, 49, 53, 58};
-        int counter = 0;
+
         MyWriter myWriter = null;
         while (scanner.hasNextLine()) {
-            counter++;
             String line = scanner.nextLine();
 
             if (line.isEmpty()) {
+
                 if (scanner.hasNextLine()) {
+
                     if (myWriter != null){
                         myWriter.close();
                     }
@@ -44,15 +42,15 @@ public class GeneratStationConfig {
                     remove_fromlast();
                     System.out.println(maked);
                     myWriter = new MyWriter("config/states", maked.toLowerCase() + ".conf", true);
-                    myWriter.appendStringInFile(stationNameline+"\n");
+                    myWriter.appendStringInNewLine(stationNameline);
                 } else
                     continue;
-            }
-            try {
-                if (scanner.hasNextLine())
-                    myWriter.appendStringInFile(scanner.nextLine()+"\n");
-            } catch (IOException e) {
-                e.printStackTrace();
+            } else {
+                try {
+                    myWriter.appendStringInFile(line+ "\n");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
         }
