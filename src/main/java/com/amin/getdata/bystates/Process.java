@@ -62,6 +62,12 @@ public class Process implements Runnable {
                 outputStreamWriter.flush();
                 outputStreamWriter.close();
 
+            } catch (UncheckedIOException ee) {
+                System.out.println(ee.getMessage());
+                System.out.println(ee.getLocalizedMessage());
+                System.out.println("queen error");
+                Methods.writeFallenUrls(     "config/fallenUrls3.conf",CrashedCountry, url11);
+                continue;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 Methods.writeFallenUrls(CrashedCountry,url11);
@@ -231,15 +237,15 @@ public class Process implements Runnable {
                     System.out.println("year is > " + years.get(i) + " month: > " + j + "  is started dowing");
                     CrashedCountry = Starter.COUNTRIES[k];
 
-                    Process.getData(Starter.ABSOLUTE_ROOT_PATH + "/" + Starter.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j),
-                            "config/stations/" + Starter.COUNTRIES[k] + "-stations.conf"
-                            , years.get(i)
-                            , String.valueOf(j));
-                    try {
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                        Process.getData(Starter.ABSOLUTE_ROOT_PATH + "/" + Starter.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j),
+                                "config/stations/" + Starter.COUNTRIES[k] + "-stations.conf"
+                                , years.get(i)
+                                , String.valueOf(j));
+                        try {
+                            Thread.sleep(10000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
 
                 }
                 try {

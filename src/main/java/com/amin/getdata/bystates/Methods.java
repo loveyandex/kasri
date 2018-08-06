@@ -87,6 +87,19 @@ public class Methods {
         }
     }
 
+    public static void writeFallenUrls(   String pathname ,String country,String fallenUrl) {
+        File fileStations = new File(pathname);
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(fileStations,true);
+            writer.append(country+";"+fallenUrl + "\n");
+            writer.flush();
+            writer.close();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
+
 
 
 }

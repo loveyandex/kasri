@@ -45,7 +45,7 @@ public class Starter extends javafx.application.Application implements EventHand
         rootNode.setVgap(5);
         rootNode.setAlignment(Pos.CENTER);
 
-        Scene myScene = new Scene(rootNode, 400, 300);
+        Scene myScene = new Scene(rootNode, 400, 500);
         Label label = new Label("absolute root path for saving :");
         label.setAlignment(Pos.CENTER);
         rootNode.add(label, 0, 0, 2, 1);
