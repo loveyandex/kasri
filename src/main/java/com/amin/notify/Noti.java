@@ -1,4 +1,4 @@
-package test.notifier;
+package com.amin.notify;
 
 import eu.hansolo.enzo.notification.Notification;
 import javafx.application.Application;
