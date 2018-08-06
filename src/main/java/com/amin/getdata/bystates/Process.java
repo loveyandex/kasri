@@ -28,6 +28,8 @@ public class Process implements Runnable {
         }
         Scanner scanner = new Scanner(reader);
         while (scanner.hasNextLine()) {
+            if (Starter.mustStop)
+                break;
 
             try {
                 Thread.sleep(2000);
@@ -210,6 +212,7 @@ public class Process implements Runnable {
 
     public static void start() {
         Stack<String> years = getYears();
+        outerloop:
         for (int k = 0; k < Starter.COUNTRIES.length; k++) {
 
             try {
@@ -220,20 +223,23 @@ public class Process implements Runnable {
             }
 
 //"G:/Program Files/AMinAbvall/kasridata
+
             for (int i = 0; i < years.size(); i++) {
                 for (int j = 1; j <= 12; j++) {
-                        System.out.println("year is > " + years.get(i) + " month: > " + j + "  is started dowing");
-                        CrashedCountry=Starter.COUNTRIES[k];
+                    if (Starter.mustStop)
+                        break outerloop;
+                    System.out.println("year is > " + years.get(i) + " month: > " + j + "  is started dowing");
+                    CrashedCountry = Starter.COUNTRIES[k];
 
-                        Process.getData(Starter.ABSOLUTE_ROOT_PATH + "/" + Starter.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j),
-                                "config/stations/" + Starter.COUNTRIES[k] + "-stations.conf"
-                                , years.get(i)
-                                , String.valueOf(j));
-                        try {
-                            Thread.sleep(10000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                    Process.getData(Starter.ABSOLUTE_ROOT_PATH + "/" + Starter.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j),
+                            "config/stations/" + Starter.COUNTRIES[k] + "-stations.conf"
+                            , years.get(i)
+                            , String.valueOf(j));
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
                 }
                 try {

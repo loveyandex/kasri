@@ -131,8 +131,9 @@ public class WindYearController implements Initializable {
             try {
                 formInfo.setStationNumber(null);
                 formInfo.setCountry(newValue.getText());
-                Mapping.createCSVFILEFORStations("config", newValue.getText() + ".conf");
-                stationNumTOCities = Mapping.MapStationNumTOCities("config/" + newValue.getText() + ".conf.csv");
+
+                Mapping.createCSVFILEFORStations("config/old-stations", newValue.getText() + ".conf");
+                stationNumTOCities = Mapping.MapStationNumTOCities("config/old-stations/" + newValue.getText() + ".conf.csv");
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
                     if (!station.getValue().equals("&"))
                         stationsCombo.getItems().add(new Label(station.getKey()));

@@ -13,12 +13,15 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Iterator;
+import java.util.Set;
 
 public class Starter extends javafx.application.Application implements EventHandler<KeyEvent> {
 
     private TextArea regionteTextArea;
     public static String ABSOLUTE_ROOT_PATH;
     public static String[] COUNTRIES;
+    public static boolean mustStop=false;
 
     @Override
     public void start(Stage myStage) {
@@ -26,7 +29,7 @@ public class Starter extends javafx.application.Application implements EventHand
         myStage.setTitle("weather");
 
         myStage.setOnCloseRequest(event -> {
-
+            mustStop=true;
         });
 
 

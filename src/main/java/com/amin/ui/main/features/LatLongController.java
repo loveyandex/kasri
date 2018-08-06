@@ -267,7 +267,7 @@ public class LatLongController implements Initializable {
                 formInfo.setStationNumber(null);
                 formInfo.setCountry(newValue.getText());
 
-                String dirpath = "config";
+                String dirpath = "config/old-stations";
                 String fileName = newValue.getText() + ".conf";
 
                 File dir = new File(dirpath);
@@ -277,7 +277,7 @@ public class LatLongController implements Initializable {
                     Mapping.createCSVFILEFORStations(dirpath, fileName);
 
                 stationNumTOCities = Mapping.
-                        MapStationNumTOCities("config/" + newValue.getText() + ".conf.csv");
+                        MapStationNumTOCities("config/old-stations/" + newValue.getText() + ".conf.csv");
 
 
 

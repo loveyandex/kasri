@@ -279,7 +279,7 @@ public class Mapping {
             ArrayList<String> linesFile = getLinesFile("config/countries.configfile.conf");
             for (int i = 1; i < 3; i++) {
                 String countryconfigfilename = linesFile.get(i);
-                ArrayList<ArrayList<String>> colsData = getColsData("config/" + countryconfigfilename, 0, 3, 4, 5, 6, 7);
+                ArrayList<ArrayList<String>> colsData = getColsData("config/old-stations/" + countryconfigfilename, 0, 3, 4, 5, 6, 7);
                 for (int j = 0; j < colsData.size(); j++) {
                     String citiname = colsData.get(j).get(0).replaceAll("\\^", " ");
                     System.out.println(citiname);
