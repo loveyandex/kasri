@@ -389,7 +389,7 @@ public class LatLongController implements Initializable {
         String unit = formInfo.getFeatureUnit();
 
 
-        int numDay = formInfo.Date.Day;
+        int numDay = formInfo.getDate().Day;
         String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
         int monthInt = formInfo.getDate().Month;
         Month month = Month.of(monthInt);

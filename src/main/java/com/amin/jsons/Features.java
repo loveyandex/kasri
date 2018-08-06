@@ -9,7 +9,7 @@ public enum Features {
 
     PRES(1, "PRES","hPa","0","1000"), HGHT(2, "HGHT","m","0","35000"), TEMP(3, "TEMP","C","-100","65"), DWPT(4, "DWPT","C","-110","65")
     , RELH(5, "RELH","%","0","100"), MIXR(6, "MIXR","g/kg","0","8.5"), DRCT(7, "DRCT","deg","0","360")
-    , SKNT(8, "WIND SPEED","knot","0","300"), THTA(9, "THTA","K","100","1000"), THTE(10, "THTE","K","100","1000"), THTV(11, "THTV","K","100","1000");
+    , SKNT(8, "WIND_SPEED","knot","0","300"), THTA(9, "THTA","K","100","1000"), THTE(10, "THTE","K","100","1000"), THTV(11, "THTV","K","100","1000");
 
 
     private final int levelCode;

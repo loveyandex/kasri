@@ -4,6 +4,7 @@ import com.amin.analysis.wind.WindMining;
 import com.amin.getdata.Starter;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
+import com.amin.ui.backtopbtn.ScriptAPP;
 import com.amin.ui.dialogs.Dialog;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -312,10 +313,15 @@ public class MainController implements Initializable {
     }
 
     public void loadIssuedBookList(ActionEvent actionEvent) {
-        Dialog.SnackBar.showSnack(rootme,"comming sooon...");
+        try {
+            new ScriptAPP().start(new StageOverride());
+        } catch (Exception e) {
+            Dialog.createExceptionDialog(e);
+        }
     }
 
     public void loadSettings(ActionEvent actionEvent) {
+                Dialog.SnackBar.showSnack(rootme,"comming sooon...");
     }
 
 

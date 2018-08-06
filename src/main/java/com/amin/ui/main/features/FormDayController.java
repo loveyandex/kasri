@@ -120,7 +120,9 @@ public class FormDayController implements Initializable {
                     || feaureName.equals(Features.THTE.getName())
                     || feaureName.equals(Features.THTV.getName())) {
                 UnitConvertor.TEMP units = UnitConvertor.TEMP.units;
-                formInfo.setFeatureUnit(units.getCelsius().toString());
+                final String featureUnit = units.getCelsius().toString();
+                System.out.println(featureUnit);
+                formInfo.setFeatureUnit(featureUnit);
 
                 unitsCombo.getItems().add(new Label(units.getCelsius().toString()));
                 unitsCombo.getItems().add(new Label(units.getKelvin().getSymbol()));
@@ -390,7 +392,7 @@ public class FormDayController implements Initializable {
         String unit = formInfo.getFeatureUnit();
 
 
-        int numDay = formInfo.Date.Day;
+        int numDay = formInfo.getDate().Day;
         String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
         int monthInt = formInfo.getDate().Month;
         Month month = Month.of(monthInt);
