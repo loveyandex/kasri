@@ -144,6 +144,7 @@ public class FormDayController implements Initializable {
             } else if (feaureName.equals(Features.DRCT.getName())) {
                 UnitConvertor.DRCT units = UnitConvertor.DRCT.units;
                 formInfo.setFeatureUnit(units.getDegreeAngle().toString());
+                System.out.println(units.getDegreeAngle().toString());
 
                 unitsCombo.getItems().add(new Label(units.getDegreeAngle().toString()));
                 unitsCombo.getItems().add(new Label(units.getRadian().getSymbol()));

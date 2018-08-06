@@ -123,6 +123,9 @@
       <module name="kasri" target="1.8" />
     </bytecodeTargetLevel>
   </component>
+  <component name="CssDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/amin/ui/backtopbtn/scripts.css" dialect="CLASSIC" />
+  </component>
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="weather@localhost" uuid="11cadd06-7a61-4001-89f5-1dc12211fb19">
       <driver-ref>mysql</driver-ref>
