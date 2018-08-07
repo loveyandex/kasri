@@ -89,6 +89,11 @@ public class Methods {
 
     public static void writeFallenUrls(   String pathname ,String country,String fallenUrl) {
         File fileStations = new File(pathname);
+        try {
+            fileStations.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         FileWriter writer = null;
         try {
             writer = new FileWriter(fileStations,true);

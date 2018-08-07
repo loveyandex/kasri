@@ -50,7 +50,7 @@ public class Starter extends javafx.application.Application implements EventHand
         label.setAlignment(Pos.CENTER);
         rootNode.add(label, 0, 0, 2, 1);
 
-        TextField firstValue = new TextField("G:/Program Files/AMinAbvall/world");
+        TextField firstValue = new TextField("E:\\neuronman\\world");
         firstValue.setAlignment(Pos.CENTER);
         rootNode.add(firstValue, 1, 1, 2, 1);
 

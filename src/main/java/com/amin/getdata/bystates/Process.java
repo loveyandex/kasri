@@ -56,6 +56,7 @@ public class Process implements Runnable {
                 dirTOSave.mkdirs();
                 File fileTosave = new File(dirTOSave, "/" + stationOne + ".data");
                 fileTosave.createNewFile();
+                System.out.println(fileTosave.getAbsolutePath());
 
                 OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(fileTosave));
                 outputStreamWriter.write(text);
@@ -67,6 +68,12 @@ public class Process implements Runnable {
                 System.out.println(ee.getLocalizedMessage());
                 System.out.println("queen error");
                 Methods.writeFallenUrls(     "config/fallenUrls3.conf",CrashedCountry, url11);
+                continue;
+            }catch (java.net.SocketException ee) {
+                System.out.println(ee.getMessage());
+                System.out.println(ee.getLocalizedMessage());
+                System.out.println("loard error");
+                Methods.writeFallenUrls(     "config/fallenUrls4.conf",CrashedCountry, url11);
                 continue;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -237,7 +244,8 @@ public class Process implements Runnable {
                     System.out.println("year is > " + years.get(i) + " month: > " + j + "  is started dowing");
                     CrashedCountry = Starter.COUNTRIES[k];
 
-                        Process.getData(Starter.ABSOLUTE_ROOT_PATH + "/" + Starter.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j),
+                    String pathDirToSave = Starter.ABSOLUTE_ROOT_PATH + "/" + Starter.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j);
+                    Process.getData(pathDirToSave,
                                 "config/stations/" + Starter.COUNTRIES[k] + "-stations.conf"
                                 , years.get(i)
                                 , String.valueOf(j));
@@ -257,6 +265,8 @@ public class Process implements Runnable {
             }
         }
 
+        System.out.println("finished all stations");
+
     }
     private static String CrashedCountry="";
 
@@ -267,7 +277,9 @@ public class Process implements Runnable {
 
     @Override
     public void run() {
+
         start();
+        System.out.printf("end of run");
     }
 
 
