@@ -42,6 +42,11 @@ public class Noti extends Application {
             }
         }).start();
 
+
+
+
+
+
         instance.setOnNotificationPressed(event -> {
             System.out.println("god is great");
         });
@@ -52,7 +57,7 @@ public class Noti extends Application {
     }
 
 
-    void sendmsg(String ip, int port, String msg) throws IOException {
+    public static void sendmsg(String ip, int port, String msg) throws IOException {
         DatagramSocket socket = new DatagramSocket();
         DatagramPacket packet = new DatagramPacket(msg.getBytes(), msg.length(), InetAddress.getByName(ip), (int) port);
         socket.send(packet);

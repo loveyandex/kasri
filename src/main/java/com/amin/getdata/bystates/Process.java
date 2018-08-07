@@ -82,106 +82,10 @@ public class Process implements Runnable {
     }
 
 
-    public static void getDataFrom(String pathDirToSave, String stationsPath,String region, String year, String mounth) {
-        String text = "";
-        Elements elements = null;
-        Stack<String> urls = new Stack<>();
-        Document document = null;
-        FileReader reader = null;
-        try {
-            reader = new FileReader(stationsPath);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        Scanner scanner = new Scanner(reader);
-        while (scanner.hasNextLine()) {
 
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            String stationOne = scanner.nextLine();
-            String url11 = setLasturl(region,
-                    "TEXT:LIST", year, mounth, "all", "0100", stationOne);
 
-            try {
-                document = Jsoup.connect(url11).get();
-                Elements h2 = document.body().getElementsByTag("h2");
-                Elements preElements = document.body().getElementsByTag("pre");
-                int i = 0, j = 0;
-                while (i < h2.size()) {
-                    j = 2 * i;
-                    text += h2.get(i) + "\n" + "<item1>" + "\n" + preElements.get(j).text() + "\n" + "</item1>" + "\n" + "<item2>" + "\n" + preElements.get(j + 1).text() + "\n" + "</item2>" + "\n";
-                    i++;
-                }
 
-                System.out.println(setLasturl("mideast",
-                        "TEXT:LIST", year, mounth, "all", "0100", stationOne));
 
-                File dirTOSave = new File(pathDirToSave);
-                dirTOSave.mkdirs();
-                File fileTosave = new File(dirTOSave, "/" + stationOne + ".data");
-                fileTosave.createNewFile();
-
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(fileTosave));
-                outputStreamWriter.write(text);
-                outputStreamWriter.flush();
-                outputStreamWriter.close();
-
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                Methods.writeFallenUrls(url11);
-                System.out.println("king error");
-                continue;
-            }
-
-            System.out.println("end of line while");
-            text = "";
-        }
-    }
-
-    public static void getData2(String pathDirToSave, String stationNumber, String year, String mounth) {
-        String text = "";
-        Document document;
-
-        String stationOne = stationNumber;
-        String url11 = setLasturl("mideast",
-                "TEXT:LIST", year, mounth, "all", "0100", stationOne);
-
-        try {
-            document = Jsoup.connect(url11).get();
-            Elements h2 = document.body().getElementsByTag("h2");
-            Elements preElements = document.body().getElementsByTag("pre");
-            int i = 0, j = 0;
-            while (i < h2.size()) {
-                j = 2 * i;
-                text += h2.get(i) + "\n" + "<item1>" + "\n" + preElements.get(j).text() + "\n" + "</item1>" + "\n" + "<item2>" + "\n" + preElements.get(j + 1).text() + "\n" + "</item2>" + "\n";
-                i++;
-            };
-            System.out.println(setLasturl("mideast",
-                    "TEXT:LIST", year, mounth, "all", "0100", stationOne));
-
-            File dirTOSave = new File(pathDirToSave);
-            dirTOSave.mkdirs();
-            File fileTosave = new File(dirTOSave, "/" + stationOne + ".data");
-            fileTosave.createNewFile();
-
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(fileTosave));
-            outputStreamWriter.write(text);
-            outputStreamWriter.flush();
-            outputStreamWriter.close();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            Methods.writeFallenUrls(url11);
-            System.out.println("king error");
-        }
-
-        System.out.println("end of line while");
-        text = "";
-
-    }
 
 
     public static String setLasturl(String region, String TYPE, String Year, String Month, String From, String To, String Station) {
