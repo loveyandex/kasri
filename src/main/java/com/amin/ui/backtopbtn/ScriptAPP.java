@@ -62,7 +62,7 @@ public class ScriptAPP extends Application {
         TextArea console = new TextArea(">>onday 40800 10 26 PRES hPa 8999 1999 2017 iran__islamic_rep\n>>");
         console.setMinSize(900, 220);
         console.setStyle("-fx-base: #fff3f8;\n" +
-                " -fx-control-inner-background: #effff2;-fx-border-color: white");
+                " -fx-control-inner-background: #effff2");
 
 
         wind_speed.setOnAction(event -> {
@@ -89,7 +89,7 @@ public class ScriptAPP extends Application {
         });
 
         drct.setOnAction(event -> {
-            console.appendText("onday 40800 10 26 DRCT ° 20000 1973 2017 iran__islamic_rep");
+            console.appendText("onday 40800 10 26 DRCT ° 20000 1973 2017           iran__islamic_rep ");
         });
 
 
@@ -194,9 +194,21 @@ public class ScriptAPP extends Application {
 
     }
 
+    private String s;
 
+    private void rem() {
+        s = s.replaceAll("  ", " ");
+        if (s.contains("  "))
+            rem();
+        else return;
+    }
     private void scripting(String cmd) {
-        final String[] args = cmd.replaceAll("  ", " ").split(" ");
+        s=cmd;
+        rem();
+        cmd=s;
+        System.out.println("f:\n"+cmd);
+        final String[] args = cmd.split(" ");
+
         final String func = args[0];
         if (func.equals("onday"))
             runFopen(args);
