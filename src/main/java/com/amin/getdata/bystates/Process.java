@@ -2,6 +2,7 @@ package com.amin.getdata.bystates;
 
 
 import com.amin.IO.MyReader;
+import com.amin.notify.Noti;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -64,10 +65,22 @@ public class Process implements Runnable {
                 outputStreamWriter.close();
 
             } catch (org.jsoup.UncheckedIOException ee) {
-                System.out.println(ee.getMessage());
-                System.out.println(ee.getLocalizedMessage());
+                System.out.println(ee.toString());
                 System.out.println("queen error");
                 Methods.writeFallenUrls(     "config/fallenUrls3.conf",CrashedCountry, url11);
+                new Thread(() -> {
+                    while (true){
+                        try {
+                            Noti.sendmsg("172.24.65.93",8687,ee.toString());
+
+                            Thread.sleep(250);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
                 continue;
             }catch (Exception e) {
                 System.out.println(e.getMessage());
