@@ -67,11 +67,11 @@ public class Process implements Runnable {
             } catch (org.jsoup.UncheckedIOException ee) {
                 System.out.println(ee.toString());
                 System.out.println("queen error");
-                Methods.writeFallenUrls(     "config/fallenUrls3.conf",CrashedCountry, url11);
+                Methods.writeFallenUrls("config/fallenUrls3.conf", CrashedCountry, url11);
                 new Thread(() -> {
-                    while (true){
+                    while (MyReader.readFirstLine("config/start.txt").equals("true")) {
                         try {
-                            Noti.sendmsg("172.24.65.93",8687,ee.toString());
+                            Noti.sendmsg("172.24.65.93", 8687, ee.toString());
 
                             Thread.sleep(250);
                         } catch (InterruptedException e) {
@@ -82,9 +82,9 @@ public class Process implements Runnable {
                     }
                 }).start();
                 continue;
-            }catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
-                Methods.writeFallenUrls(CrashedCountry,url11);
+                Methods.writeFallenUrls(CrashedCountry, url11);
                 System.out.println("king error");
                 continue;
             }
@@ -95,19 +95,13 @@ public class Process implements Runnable {
     }
 
 
-
-
-
-
-
-
     public static String setLasturl(String region, String TYPE, String Year, String Month, String From, String To, String Station) {
         return baseUrl + "region=" + region + "&TYPE=" + TYPE +
                 "&YEAR=" + Year + "&MONTH=" + Month + "&FROM=" + From + "&TO=" + To + "&STNM=" + Station;
     }
 
 
-    public static String setLasturl( String TYPE, String Year, String Month, String From, String To, String Station) {
+    public static String setLasturl(String TYPE, String Year, String Month, String From, String To, String Station) {
         return baseUrl + "TYPE=" + TYPE +
                 "&YEAR=" + Year + "&MONTH=" + Month + "&FROM=" + From + "&TO=" + To + "&STNM=" + Station;
     }
@@ -117,7 +111,7 @@ public class Process implements Runnable {
         FileReader reader = null;
         Stack<String> years = new Stack<>();
         try {
-            reader = new FileReader("config/years.conf");
+            reader = new FileReader("config/years2.conf");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -157,14 +151,14 @@ public class Process implements Runnable {
 
                     String pathDirToSave = Starter.ABSOLUTE_ROOT_PATH + "/" + Starter.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j);
                     Process.getData(pathDirToSave,
-                                "config/stations/" + Starter.COUNTRIES[k] + "-stations.conf"
-                                , years.get(i)
-                                , String.valueOf(j));
-                        try {
-                            Thread.sleep(10000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                            "config/stations/" + Starter.COUNTRIES[k] + "-stations.conf"
+                            , years.get(i)
+                            , String.valueOf(j));
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
                 }
                 try {
@@ -179,7 +173,8 @@ public class Process implements Runnable {
         System.out.println("finished all stations");
 
     }
-    private static String CrashedCountry="";
+
+    private static String CrashedCountry = "";
 
     public static void main(String[] args) {
 //        start();
