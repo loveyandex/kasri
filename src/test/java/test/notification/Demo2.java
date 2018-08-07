@@ -35,7 +35,7 @@ import test.sounds.Tes;
 import java.util.Random;
 
 
-public class Demo extends Application {
+public class Demo2 extends Application {
     private static final Random         RND           = new Random();
     private static final Notification[] NOTIFICATIONS = {
         NotificationBuilder.create().title("Info").message("New Information").image(Notification.INFO_ICON).build(),

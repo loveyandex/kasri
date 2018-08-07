@@ -31,6 +31,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -52,7 +53,7 @@ import java.util.stream.IntStream;
  * Date: 01.07.13
  * Time: 07:10
  */
-public class Notification {
+public class NotificationProgress {
     public static final Image INFO_ICON    = new Image(Notifier.class.getResourceAsStream("info.png"));
     public static final Image WARNING_ICON = new Image(Notifier.class.getResourceAsStream("warning.png"));
     public static final Image SUCCESS_ICON = new Image(Notifier.class.getResourceAsStream("success.png"));
@@ -63,13 +64,13 @@ public class Notification {
 
 
     // ******************** Constructors **************************************
-    public Notification(final String TITLE, final String MESSAGE) {
+    public NotificationProgress(final String TITLE, final String MESSAGE) {
         this(TITLE, MESSAGE, null);
     }
-    public Notification(final String MESSAGE, final Image IMAGE) {
+    public NotificationProgress(final String MESSAGE, final Image IMAGE) {
         this("", MESSAGE, IMAGE);
     }
-    public Notification(final String TITLE, final String MESSAGE, final Image IMAGE) {
+    public NotificationProgress(final String TITLE, final String MESSAGE, final Image IMAGE) {
         this.TITLE   = TITLE;
         this.MESSAGE = MESSAGE;
         this.IMAGE   = IMAGE;
@@ -211,7 +212,8 @@ public class Notification {
          * @param POPUP_LIFETIME
          */
         public void setPopupLifetime(final Duration POPUP_LIFETIME) {
-            popupLifetime = Duration.millis(clamp(2000, 20000, POPUP_LIFETIME.toMillis()));
+//            popupLifetime = Duration.millis(clamp(2000, 20000, POPUP_LIFETIME.toMillis()));
+            popupLifetime = Duration.millis(clamp( POPUP_LIFETIME.toMillis()));
         }
 
         /**
@@ -241,7 +243,7 @@ public class Notification {
          * Show the given Notification on the screen
          * @param NOTIFICATION
          */
-        public void notify(final Notification NOTIFICATION) {
+        public void notify(final NotificationProgress NOTIFICATION) {
             preOrder();
             showPopup(NOTIFICATION);
         }
@@ -253,7 +255,7 @@ public class Notification {
          * @param IMAGE
          */
         public void notify(final String TITLE, final String MESSAGE, final Image IMAGE) {
-            notify(new Notification(TITLE, MESSAGE, IMAGE));
+            notify(new NotificationProgress(TITLE, MESSAGE, IMAGE));
         }
 
         /**
@@ -262,7 +264,7 @@ public class Notification {
          * @param MESSAGE
          */
         public void notifyInfo(final String TITLE, final String MESSAGE) {
-            notify(new Notification(TITLE, MESSAGE, Notification.INFO_ICON));
+            notify(new NotificationProgress(TITLE, MESSAGE, NotificationProgress.INFO_ICON));
         }
 
         /**
@@ -271,7 +273,7 @@ public class Notification {
          * @param MESSAGE
          */
         public void notifyWarning(final String TITLE, final String MESSAGE) {
-            notify(new Notification(TITLE, MESSAGE, Notification.WARNING_ICON));
+            notify(new NotificationProgress(TITLE, MESSAGE, NotificationProgress.WARNING_ICON));
         }
 
         /**
@@ -280,7 +282,7 @@ public class Notification {
          * @param MESSAGE
          */
         public void notifySuccess(final String TITLE, final String MESSAGE) {
-            notify(new Notification(TITLE, MESSAGE, Notification.SUCCESS_ICON));
+            notify(new NotificationProgress(TITLE, MESSAGE, NotificationProgress.SUCCESS_ICON));
         }
 
         /**
@@ -289,7 +291,7 @@ public class Notification {
          * @param MESSAGE
          */
         public void notifyError(final String TITLE, final String MESSAGE) {
-            notify(new Notification(TITLE, MESSAGE, Notification.ERROR_ICON));
+            notify(new NotificationProgress(TITLE, MESSAGE, NotificationProgress.ERROR_ICON));
         }
 
         /**
@@ -314,6 +316,9 @@ public class Notification {
         private double clamp(final double MIN, final double MAX, final double VALUE) {
             if (VALUE < MIN) return MIN;
             if (VALUE > MAX) return MAX;
+            return VALUE;
+        }
+        private double clamp( final double VALUE) {
             return VALUE;
         }
 
@@ -345,13 +350,18 @@ public class Notification {
          * Creates and shows a popup with the data from the given Notification object
          * @param NOTIFICATION
          */
-        private void showPopup(final Notification NOTIFICATION) {
+        public ProgressBar progressBar  ;
+
+        private void showPopup(final NotificationProgress NOTIFICATION) {
             Label title = new Label(NOTIFICATION.TITLE);
             title.getStyleClass().add("title");
 
             ImageView icon = new ImageView(NOTIFICATION.IMAGE);
             icon.setFitWidth(ICON_WIDTH);
             icon.setFitHeight(ICON_HEIGHT);
+           progressBar = new ProgressBar(0);
+
+
 
             Label message = new Label(NOTIFICATION.MESSAGE, icon);
             message.getStyleClass().add("message");
@@ -359,7 +369,7 @@ public class Notification {
             VBox popupLayout = new VBox();
             popupLayout.setSpacing(10);
             popupLayout.setPadding(new Insets(10, 10, 10, 10));
-            popupLayout.getChildren().addAll(title, message);
+            popupLayout.getChildren().addAll(title, message,progressBar);
 
             StackPane popupContent = new StackPane();
             popupContent.setPrefSize(width, height);
@@ -371,7 +381,8 @@ public class Notification {
             POPUP.setY(getY());
             POPUP.getContent().add(popupContent);
             POPUP.addEventHandler(MouseEvent.MOUSE_PRESSED, new WeakEventHandler<>(event ->
-                fireNotificationEvent(new NotificationEvent(NOTIFICATION, Notifier.this, POPUP, NotificationEvent.NOTIFICATION_PRESSED))
+                fireNotificationEvent2(new NotificationEvent2(NOTIFICATION, 
+                        Notifier.this, POPUP, NotificationEvent2.NOTIFICATION_PRESSED))
             ));
             popups.add(POPUP);
 
@@ -387,7 +398,9 @@ public class Notification {
             timeline.setOnFinished(actionEvent -> Platform.runLater(() -> {
                 POPUP.hide();
                 popups.remove(POPUP);
-                fireNotificationEvent(new NotificationEvent(NOTIFICATION, Notifier.this, POPUP, NotificationEvent.HIDE_NOTIFICATION));
+                fireNotificationEvent2(new NotificationEvent2(NOTIFICATION,
+                        Notifier.this, POPUP
+                        , NotificationEvent2.HIDE_NOTIFICATION));
             }));
 
             if (stage.isShowing()) {
@@ -397,7 +410,7 @@ public class Notification {
             }
 
             POPUP.show(stage);
-            fireNotificationEvent(new NotificationEvent(NOTIFICATION, Notifier.this, POPUP, NotificationEvent.SHOW_NOTIFICATION));
+            fireNotificationEvent2(new NotificationEvent2(NOTIFICATION, Notifier.this, POPUP, NotificationEvent2.SHOW_NOTIFICATION));
             timeline.play();
         }
 
@@ -430,39 +443,39 @@ public class Notification {
 
 
         // ******************** Event handling ********************************
-        public final ObjectProperty<EventHandler<NotificationEvent>> onNotificationPressedProperty() { return onNotificationPressed; }
-        public final void setOnNotificationPressed(EventHandler<NotificationEvent> value) { onNotificationPressedProperty().set(value); }
-        public final EventHandler<NotificationEvent> getOnNotificationPressed() { return onNotificationPressedProperty().get(); }
-        private ObjectProperty<EventHandler<NotificationEvent>> onNotificationPressed = new ObjectPropertyBase<EventHandler<NotificationEvent>>() {
+        public final ObjectProperty<EventHandler<NotificationEvent2>> onNotificationPressedProperty() { return onNotificationPressed; }
+        public final void setOnNotificationPressed(EventHandler<NotificationEvent2> value) { onNotificationPressedProperty().set(value); }
+        public final EventHandler<NotificationEvent2> getOnNotificationPressed() { return onNotificationPressedProperty().get(); }
+        private ObjectProperty<EventHandler<NotificationEvent2>> onNotificationPressed = new ObjectPropertyBase<EventHandler<NotificationEvent2>>() {
             @Override public Object getBean() { return this; }
             @Override public String getName() { return "onNotificationPressed";}
         };
 
-        public final ObjectProperty<EventHandler<NotificationEvent>> onShowNotificationProperty() { return onShowNotification; }
-        public final void setOnShowNotification(EventHandler<NotificationEvent> value) { onShowNotificationProperty().set(value); }
-        public final EventHandler<NotificationEvent> getOnShowNotification() { return onShowNotificationProperty().get(); }
-        private ObjectProperty<EventHandler<NotificationEvent>> onShowNotification = new ObjectPropertyBase<EventHandler<NotificationEvent>>() {
+        public final ObjectProperty<EventHandler<NotificationEvent2>> onShowNotificationProperty() { return onShowNotification; }
+        public final void setOnShowNotification(EventHandler<NotificationEvent2> value) { onShowNotificationProperty().set(value); }
+        public final EventHandler<NotificationEvent2> getOnShowNotification() { return onShowNotificationProperty().get(); }
+        private ObjectProperty<EventHandler<NotificationEvent2>> onShowNotification = new ObjectPropertyBase<EventHandler<NotificationEvent2>>() {
             @Override public Object getBean() { return this; }
             @Override public String getName() { return "onShowNotification";}
         };
 
-        public final ObjectProperty<EventHandler<NotificationEvent>> onHideNotificationProperty() { return onHideNotification; }
-        public final void setOnHideNotification(EventHandler<NotificationEvent> value) { onHideNotificationProperty().set(value); }
-        public final EventHandler<NotificationEvent> getOnHideNotification() { return onHideNotificationProperty().get(); }
-        private ObjectProperty<EventHandler<NotificationEvent>> onHideNotification = new ObjectPropertyBase<EventHandler<NotificationEvent>>() {
+        public final ObjectProperty<EventHandler<NotificationEvent2>> onHideNotificationProperty() { return onHideNotification; }
+        public final void setOnHideNotification(EventHandler<NotificationEvent2> value) { onHideNotificationProperty().set(value); }
+        public final EventHandler<NotificationEvent2> getOnHideNotification() { return onHideNotificationProperty().get(); }
+        private ObjectProperty<EventHandler<NotificationEvent2>> onHideNotification = new ObjectPropertyBase<EventHandler<NotificationEvent2>>() {
             @Override public Object getBean() { return this; }
             @Override public String getName() { return "onHideNotification";}
         };
 
 
-        public void fireNotificationEvent(final NotificationEvent EVENT) {
+        public void fireNotificationEvent2(final NotificationEvent2 EVENT) {
             final EventType TYPE = EVENT.getEventType();
-            final EventHandler<NotificationEvent> HANDLER;
-            if (NotificationEvent.NOTIFICATION_PRESSED == TYPE) {
+            final EventHandler<NotificationEvent2> HANDLER;
+            if (NotificationEvent2.NOTIFICATION_PRESSED == TYPE) {
                 HANDLER = getOnNotificationPressed();
-            } else if (NotificationEvent.SHOW_NOTIFICATION == TYPE) {
+            } else if (NotificationEvent2.SHOW_NOTIFICATION == TYPE) {
                 HANDLER = getOnShowNotification();
-            } else if (NotificationEvent.HIDE_NOTIFICATION == TYPE) {
+            } else if (NotificationEvent2.HIDE_NOTIFICATION == TYPE) {
                 HANDLER = getOnHideNotification();
             } else {
                 HANDLER = null;
