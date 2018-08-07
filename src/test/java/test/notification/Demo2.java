@@ -98,7 +98,7 @@ public class Demo2 extends Application {
         pane.setPadding(new Insets(10, 10, 10, 10));
         pane.getChildren().addAll(button);
 
-        Scene scene = new Scene(pane);
+        Scene scene = new Scene(pane,322,60);
 
         stage.setOnCloseRequest(observable -> notifier.stop());
         stage.setScene(scene);

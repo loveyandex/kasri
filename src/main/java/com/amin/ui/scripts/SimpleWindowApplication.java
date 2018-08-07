@@ -1,4 +1,4 @@
-package com.amin.ui.backtopbtn;
+package com.amin.ui.scripts;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;

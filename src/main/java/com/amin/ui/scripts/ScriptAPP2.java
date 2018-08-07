@@ -1,4 +1,4 @@
-package com.amin.ui.backtopbtn;
+package com.amin.ui.scripts;
 
 import com.amin.jsons.Date;
 import com.amin.jsons.FormInfo;
@@ -6,6 +6,8 @@ import com.amin.scripting.Funsctions;
 import com.amin.ui.dialogs.Dialog;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -20,15 +22,18 @@ import javafx.stage.StageStyle;
 /**
  * is created by aMIN on 6/8/2018 at 04:43
  */
-public class ScriptAPP extends Application {
+public class ScriptAPP2 extends Application {
     public Button titlebtn;
-    private BorderPane layout;
+    public TextArea console;
+    public VBox vobo;
+    public BorderPane bord;
     private Stage window;
     private double xOffset = 0;
     private double yOffset = 0;
 
 
     public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/scripts/scriptapp.fxml"));
         window = primaryStage;
 
         MenuBar file = new MenuBar();
@@ -59,10 +64,10 @@ public class ScriptAPP extends Application {
                 mixr,
                 drct
         );
-        TextArea console = new TextArea(">>onday 40800 10 26 PRES hPa 8999 1999 2017 iran__islamic_rep\n>>");
+        console.setText(">>onday 40800 10 26 PRES hPa 8999 1999 2017 iran__islamic_rep\n>>");
         console.setMinSize(900, 220);
         console.setStyle("-fx-base: #fff3f8;\n" +
-                " -fx-control-inner-background: #effff2");
+                " -fx-control-inner-background: #effff2;-fx-border-color: white");
 
 
         wind_speed.setOnAction(event -> {
@@ -89,9 +94,8 @@ public class ScriptAPP extends Application {
         });
 
         drct.setOnAction(event -> {
-            console.appendText("onday 40800 10 26 DRCT ° 20000 1973 2017           iran__islamic_rep ");
+            console.appendText("onday 40800 10 26 DRCT ° 20000 1973 2017 iran__islamic_rep");
         });
-
 
 
         Button closeButton = new Button("X");
@@ -119,7 +123,6 @@ public class ScriptAPP extends Application {
         oth.setStyle("-fx-background-radius: 0;-fx-border-radius: 0");
 
 
-
         console.setOnKeyPressed(event -> {
             final KeyCode code = event.getCode();
             if (code == KeyCode.ENTER) {
@@ -137,6 +140,11 @@ public class ScriptAPP extends Application {
                 scripting(x);
                 System.out.println(x);
             }
+            if (code == KeyCode.TAB) {
+                event.consume();
+            }
+
+
         });
 
 
@@ -153,11 +161,10 @@ public class ScriptAPP extends Application {
 
         );
 
-        layout = new BorderPane();
-        layout.setTop(vBox);
+        bord.setTop(vBox);
         ;
 
-        Scene scene = new Scene(layout, 900, 300, Color.rgb(75, 75, 69));
+        Scene scene = new Scene(bord, 900, 300, Color.rgb(75, 75, 69));
         oth.setMinWidth(scene.getWidth() - 30 - 25);
 
         window.setScene(scene);
@@ -194,21 +201,9 @@ public class ScriptAPP extends Application {
 
     }
 
-    private String s;
 
-    private void rem() {
-        s = s.replaceAll("  ", " ");
-        if (s.contains("  "))
-            rem();
-        else return;
-    }
     private void scripting(String cmd) {
-        s=cmd;
-        rem();
-        cmd=s;
-        System.out.println("f:\n"+cmd);
-        final String[] args = cmd.split(" ");
-
+        final String[] args = cmd.replaceAll("  ", " ").split(" ");
         final String func = args[0];
         if (func.equals("onday"))
             runFopen(args);

@@ -4,7 +4,7 @@ import com.amin.analysis.wind.WindMining;
 import com.amin.getdata.Starter;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
-import com.amin.ui.backtopbtn.ScriptAPP;
+import com.amin.ui.scripts.ScriptAPP;
 import com.amin.ui.dialogs.Dialog;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;

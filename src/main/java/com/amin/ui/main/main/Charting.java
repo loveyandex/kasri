@@ -432,10 +432,4 @@ public class Charting {
         sc.getData().addAll(series, avgseries);
     }
 
-
-    public static void main(String[] args) {
-
-    }
-
-
 }

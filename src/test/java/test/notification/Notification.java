@@ -116,13 +116,12 @@ public class Notification {
             scene.getStylesheets().add(getClass().getResource("notifier.css").toExternalForm());            
 
             stage = new Stage();
-            stage.setMaxWidth(1);
-            stage.setMaxHeight(1);
-            stage.setWidth(1);
-            stage.setHeight(1);
+            stage.initStyle(StageStyle.UTILITY);
+            stage.setOpacity(0);
+            stage.setHeight(0);
+            stage.setWidth(0);
 
             stage.setResizable(false);
-            stage.initStyle(StageStyle.TRANSPARENT);
             stage.setScene(scene);
             stage.setAlwaysOnTop(true);
         }

@@ -24,7 +24,16 @@ public class Tes extends Application {
         try {
             final String source = Tes.class.getResource(musicFile).toURI().toString();
             AudioClip s = new AudioClip(source);
-            s.play();
+
+            s.rateProperty().addListener((observable, oldValue, newValue) -> {
+                System.out.println(newValue);
+            });
+
+            s.cycleCountProperty().addListener((observable, oldValue, newValue) -> {
+                System.out.println(newValue);
+
+            });
+            s.play(0.1);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

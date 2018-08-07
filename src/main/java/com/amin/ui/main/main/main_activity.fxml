@@ -94,7 +94,7 @@
                     </graphic>
                 </JFXButton>
                 <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#loadIssuedBookList"
-                           prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="........."
+                           prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="scripts"
                            textAlignment="CENTER">
                     <graphic>
                         <FontAwesomeIconView glyphName="CHECK" size="25" textAlignment="CENTER"/>

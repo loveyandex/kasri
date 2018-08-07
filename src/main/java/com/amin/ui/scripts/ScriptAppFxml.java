@@ -1,7 +1,6 @@
-package com.amin.ui.backtopbtn;
+package com.amin.ui.scripts;
 
 import com.amin.ui.SceneJson;
-import com.amin.ui.StageOverride;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,7 +21,7 @@ public class ScriptAppFxml extends Application implements Initializable {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("all stations of a country");
         stage.setResizable(true);
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/backtopbtn/scriptapp.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/scripts/scriptapp.fxml"));
         Scene scene = new SceneJson<>(root, 750, 600);
         stage.setScene(scene);
         stage.show();

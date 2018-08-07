@@ -6,7 +6,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
 fx:id="bord"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.amin.ui.backtopbtn.ScriptAPP2"
+            fx:controller="com.amin.ui.scripts.ScriptAPP2"
             prefHeight="400.0" prefWidth="600.0">
     <VBox fx:id="vobo">
 
@@ -14,7 +14,7 @@ fx:id="bord"
         <children>
             <TextArea
                     fx:id="console"
-                    stylesheets="/com/amin/ui/backtopbtn/scripts.css"
+                    stylesheets="/com/amin/ui/scripts/scripts.css"
             >
 
             </TextArea>
