@@ -63,19 +63,13 @@ public class Process implements Runnable {
                 outputStreamWriter.flush();
                 outputStreamWriter.close();
 
-            } catch (UncheckedIOException ee) {
+            } catch (org.jsoup.UncheckedIOException ee) {
                 System.out.println(ee.getMessage());
                 System.out.println(ee.getLocalizedMessage());
                 System.out.println("queen error");
                 Methods.writeFallenUrls(     "config/fallenUrls3.conf",CrashedCountry, url11);
                 continue;
-            }catch (java.net.SocketException ee) {
-                System.out.println(ee.getMessage());
-                System.out.println(ee.getLocalizedMessage());
-                System.out.println("loard error");
-                Methods.writeFallenUrls(     "config/fallenUrls4.conf",CrashedCountry, url11);
-                continue;
-            } catch (Exception e) {
+            }catch (Exception e) {
                 System.out.println(e.getMessage());
                 Methods.writeFallenUrls(CrashedCountry,url11);
                 System.out.println("king error");
