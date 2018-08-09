@@ -111,7 +111,7 @@ public class Process implements Runnable {
         FileReader reader = null;
         Stack<String> years = new Stack<>();
         try {
-            reader = new FileReader("config/years2.conf");
+            reader = new FileReader("config/years.conf");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
