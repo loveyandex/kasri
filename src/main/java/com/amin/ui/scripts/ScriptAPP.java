@@ -1,13 +1,16 @@
 package com.amin.ui.scripts;
 
+import com.amin.analysis.Mapping;
 import com.amin.jsons.Date;
 import com.amin.jsons.FormInfo;
+import com.amin.jsons.OtherFormInfo;
 import com.amin.scripting.Funsctions;
 import com.amin.ui.dialogs.Dialog;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -16,6 +19,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * is created by aMIN on 6/8/2018 at 04:43
@@ -30,7 +39,7 @@ public class ScriptAPP extends Application {
 
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
-
+        primaryStage.getIcons().add(new Image(getClass().getResource("/logo.png").toURI().toString()));
         MenuBar file = new MenuBar();
         file.setId("file");
 
@@ -42,6 +51,8 @@ public class ScriptAPP extends Application {
 
 
         Menu editMenu = new Menu("samples");
+        Menu onday = new Menu("samples onday");
+        Menu ondaystations = new Menu("samples onday over the state");
         final MenuItem wind_speed = new MenuItem("wind speed");
         final MenuItem temp = new MenuItem("temp");
         final MenuItem DWPT = new MenuItem("DWPT");
@@ -49,7 +60,7 @@ public class ScriptAPP extends Application {
         final MenuItem relh = new MenuItem("RELH");
         final MenuItem mixr = new MenuItem("MIXR");
         final MenuItem drct = new MenuItem("DRCT");
-        editMenu.getItems().addAll(
+        onday.getItems().addAll(
                 wind_speed,
                 temp,
                 DWPT,
@@ -58,6 +69,34 @@ public class ScriptAPP extends Application {
                 mixr,
                 drct
         );
+        editMenu.getItems().add(onday);
+
+
+        final MenuItem wind_speed1 = new MenuItem("wind speed");
+        final MenuItem temp1 = new MenuItem("temp");
+        final MenuItem DWPT1 = new MenuItem("DWPT");
+        final MenuItem press1 = new MenuItem("press");
+        final MenuItem relh1 = new MenuItem("RELH");
+        final MenuItem mixr1 = new MenuItem("MIXR");
+        final MenuItem drct1 = new MenuItem("DRCT");
+        ondaystations.getItems().addAll(
+                wind_speed1,
+                temp1,
+                DWPT1,
+                press1,
+                relh1,
+                mixr1,
+                drct1
+        );
+        editMenu.getItems().add(ondaystations);
+
+
+
+
+
+
+
+
         TextArea console = new TextArea(">>onday 40800 10 26 PRES hPa 8999 1999 2017 iran__islamic_rep\n>>");
         console.setMinSize(900, 220);
         console.setStyle("-fx-base: #fff3f8;\n" +
@@ -93,19 +132,47 @@ public class ScriptAPP extends Application {
 
 
 
+
+        wind_speed1.setOnAction(event -> {
+            console.appendText("ondaystations  10 26 WIND_SPEED m/s 20000 1973 2017 iran__islamic_rep");
+        });
+
+        temp1.setOnAction(event -> {
+            console.appendText("ondaystations  10 26 TEMP ℃ 20000 1973 2017 iran__islamic_rep");
+        });
+        DWPT1.setOnAction(event -> {
+            console.appendText("ondaystations  10 26 DWPT ℃ 20000 1973 2017 iran__islamic_rep");
+        });
+
+        press1.setOnAction(event -> {
+            console.appendText("ondaystations  10 26 PRES atm 20000 1973 2017 iran__islamic_rep");
+        });
+
+        relh1.setOnAction(event -> {
+            console.appendText("ondaystations  10 26 RELH % 20000 1973 2017 iran__islamic_rep");
+        });
+
+        mixr1.setOnAction(event -> {
+            console.appendText("ondaystations  10 26 MIXR g/kg 20000 1973 2017 iran__islamic_rep");
+        });
+
+        drct1.setOnAction(event -> {
+            console.appendText("ondaystations  10 26 DRCT ° 20000 1973 2017           iran__islamic_rep ");
+        });
+
+
+
         Button closeButton = new Button("X");
         closeButton.setStyle("-fx-background-radius: 0;-fx-background-color: #ff667d;-fx-text-fill: white");
 
 
         Button minimumbtn = new Button("__");
         minimumbtn.setStyle("-fx-border-radius: 0;-fx-background-radius: 0;" +
-                "-fx-background-color: #fefff6;" +
-                "-fx-text-fill: #ababab");
+                "-fx-background-color: #353533;" +
+                "-fx-text-fill: #ffffff");
 
         minimumbtn.getStyleClass().add(".btn:hover{\n" +
-                "    -fx-background-color: #eb5f48; -fx-text-fill: white;\n" +
-                "\n" +
-                "}");
+                "    -fx-background-color: #eb5f48; -fx-text-fill: white;}");
 
 
         minimumbtn.setOnAction(event -> {
@@ -115,7 +182,9 @@ public class ScriptAPP extends Application {
 
         closeButton.setMinWidth(30);
         Button oth = new Button("scripting");
-        oth.setStyle("-fx-background-radius: 0;-fx-border-radius: 0");
+        oth.setStyle("-fx-background-radius: 0;-fx-border-radius: 0;"+
+                "-fx-background-color: #353533;" +
+                "-fx-text-fill: #ffffff;");
 
 
 
@@ -211,8 +280,69 @@ public class ScriptAPP extends Application {
         final String func = args[0];
         if (func.equals("onday"))
             runFopen(args);
+        else if (func.equals("ondaystations"))
+            runAllDay(args);
 
 
+    }
+
+    private Map<String, String> stationNumTOCities;
+
+    private void runAllDay(String[] args) {
+
+        if (args.length == 1)
+            Dialog.createExceptionDialog(new RuntimeException("not arrgumet assigned"));
+        else {
+
+            final int month = Integer.parseInt(args[1]);
+            final int day = Integer.parseInt(args[2]);
+            final String featurename = args[3];
+            final String unit = args[4];
+            final String height = args[5];
+            int loweryear = Integer.parseInt(args[6]);
+            int highyear = Integer.parseInt(args[7]);
+            final String country = args[8];
+            OtherFormInfo otherFormInfo = new OtherFormInfo();
+            otherFormInfo.setFeatureUnit(unit)
+                    .setHeight(height).setDate(new Date(month, day, 1994))
+                    .setCountry(country)
+                    .setLowerYear(loweryear)
+                    .setHighYear(highyear)
+                    .setFeaureName(featurename)
+                    .setStationNamesList(new ArrayList<>())
+                    .setStationNumbersList(new ArrayList<>());
+
+            try {
+
+                String dirpath = "config/old-stations";
+                String fileName = country + ".conf";
+
+                File dir = new File(dirpath);
+                dir.mkdirs();
+                File fileTosave = new File(dir, fileName);
+                if (!fileTosave.exists())
+                    Mapping.createCSVFILEFORStations(dirpath, fileName);
+
+                stationNumTOCities = Mapping.
+                        MapStationNumTOCities("config/old-stations/" + country + ".conf.csv");
+
+
+                for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
+                    if (!station.getValue().equals("&")) {
+                        otherFormInfo.getStationNamesList().add(station.getKey());
+                        otherFormInfo.getStationNumbersList().add(station.getValue());
+                    }
+                }
+
+                Funsctions.getInstance().fAllstationsonDay(otherFormInfo);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
     private void runFopen(String[] args) {

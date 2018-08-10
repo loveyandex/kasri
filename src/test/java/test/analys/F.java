@@ -14,13 +14,12 @@ public class F {
         var divide = cd.divide(new Complex(32, 32));
         System.out.println(divide);
 
-        double[] maxpos = max(24243443, 23, 23, 23, 23, 23, 2, 3, 23, 5, 3, 432, 543, 52, 356, 45, 423, 56324, 23, 4234, 6, 57, 432, 4, 5);
-        System.out.println(maxpos[1]);
-        System.out.println(maxpos[0]);
+        double maxpos = max(-242434493, 23, 23, 23, 23, 23, 2, 3, 23, 5, 3, 432, 543, 52, 356, 45, 423, 56324, 23, 4234, 6, 57, 432, 4, 5);
+        System.out.println(maxpos);
 
     }
 
-    public static double[] max(double... vals) {
+    public static double max(double... vals) {
         double m = -1.0D / 0.0;
         double[] var3 = vals;
         int var4 = vals.length;
@@ -31,6 +30,6 @@ public class F {
             m = Math.max(v, m);
         }
 
-        return new double[]{m,var6};
+        return m;
     }
 }

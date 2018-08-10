@@ -1,19 +1,24 @@
 package com.amin.scripting;
 
+import com.amin.analysis.Mapping;
 import com.amin.config.C;
 import com.amin.jsons.Features;
 import com.amin.jsons.FormInfo;
+import com.amin.jsons.OtherFormInfo;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
+import com.amin.ui.main.features.AllStationsOfCountryController;
 import com.amin.ui.main.features.FormDayController;
 import com.amin.ui.main.main.Charting;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,8 +55,164 @@ public class Funsctions {
         }
     }
 
+    public void fAllstationsonDay(OtherFormInfo otherFormInfo){
+        try {
+            allstationsofCountry(otherFormInfo);
+        } catch (NoSuchMethodException e) {
+            Dialog.createExceptionDialog(new RuntimeException("choose the right unit"));
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private ArrayList<ArrayList<Object>> AllfeatureAndYear = new ArrayList<>();
+
+    private void allstationsofCountry( OtherFormInfo formInfo) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, IOException {
+        String childFileName = "";
+        String pathDirToSave = System.getProperty("user.home") + "/Desktop/getdata";
+        if (formInfo.getDirTOSave() != null)
+            pathDirToSave = formInfo.getDirTOSave();
+
+        if (!AllfeatureAndYear.isEmpty()) AllfeatureAndYear.clear();
+        int fromYear = formInfo.getLowerYear().intValue();
+        int toYear = formInfo.getHighYear().intValue();
+        String featureName = formInfo.getFeaureName();
+        int featureIndexCSV = getfeatureIndex(featureName).getLevelCode() - 1;
+        String unit = formInfo.getFeatureUnit();
+
+
+        int numDay = formInfo.Date.Day;
+        String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
+        int monthInt = formInfo.getDate().Month;
+        Month month = Month.of(monthInt);
+        String monthDisp = month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+
+        String country = formInfo.getCountry();
+        ArrayList<String> stationNumberslist = formInfo.getStationNumbersList();
+        ArrayList<String> stationNamesList = formInfo.getStationNamesList();
+        String height = formInfo.getHeight();
+
+
+        double lowrange = Double.parseDouble(getfeatureIndex(featureName).getLow_range());
+        double highrange = Double.parseDouble(getfeatureIndex(featureName).getHigh_range());
+
+        Charting charting123 = new Charting();
+        int cti = charting123.convertTogether(featureName, unit);
+
+        Method method;
+        method = Charting.class.getMethod("conv" + cti, double.class);
+
+        Double invokelowrange = ((Double) method.invoke(charting123, lowrange));
+        Double invokehighrange = ((Double) method.invoke(charting123, highrange));
+        double ytickUnit = ((Double) method.invoke(charting123, 10));
+
+        Charting charting = new Charting(900, 33000, 1000,
+                invokelowrange, invokehighrange, ytickUnit, "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
+        final XYChart<Number, Number> sc = charting.getSc();
+
+        int counterforStations = -1;
+        childFileName = formInfo.getFeaureName() + "_" + height + "_" + formInfo.getCountry() + "_" + dayOfMonth + "_" + monthDisp + "_.csv";
+
+        File file = new File(pathDirToSave,childFileName);
+        if (file.exists())
+            file.delete();
+
+        for (String stationNumber : stationNumberslist) {
+            counterforStations++;
+            ArrayList<Double> featurelist = new ArrayList<>();
+            ArrayList<Integer> yearsofFeature = new ArrayList<>();
+
+            String[] z = {"00Z", "12Z"};
+            for (int id = 0; id < 2; id++) {
+                int kkk = 0;
+
+                String Z = z[id];
+                for (int i = fromYear; i <= toYear; i++) {
+
+                    ArrayList<Object> featureAndYear = new ArrayList<>();
+                    String rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + monthInt + File.separator + stationNumber;
+                    String fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + i + ".csv";
+                    ArrayList<ArrayList<Double>> heightAndFeature;
+                    try {
+//
+//                    heightAndFeature = charting.addSeriesToChart(featureName
+//                            , fileName.replaceAll(".csv", ""),
+//                            rootDir + File.separator + fileName, 1, featureIndexCSV);
+
+
+                        heightAndFeature = charting.addSeriesToChart(featureName
+                                , fileName.replaceAll(".csv", ""),
+                                rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
+
+
+                        Double intrapolateFeature = intrapolateFeature(height, heightAndFeature);
+                        if (intrapolateFeature != null) {
+
+                            featurelist.add(intrapolateFeature);
+
+                            featureAndYear.add(((Double) intrapolateFeature));
+                            featureAndYear.add(i);
+                            yearsofFeature.add(i);
+                            AllfeatureAndYear.add(featureAndYear);
+
+                            Mapping.LatLong.writeStringInFile(pathDirToSave, childFileName
+                                    , String.format("%d,%s,%s,%s,%f,%s\n", i, Z, stationNamesList.get(counterforStations)
+                                            , stationNumber, intrapolateFeature, unit), true);
+                        }
+
+
+                    } catch (IOException e) {
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+
+            }
+
+        }
+
+        ArrayList<ArrayList<String>> colsData = Mapping.LatLong.getColsData(
+                pathDirToSave + File.separator + childFileName, ","
+                , 0, 1, 2, 3, 4, 5);
+
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("success");
+        alert.setHeaderText("valid stations data saved in your path");
+        alert.show();
+        alert.setOnHiding(event -> {
+            Stage primaryStage = new StageOverride();
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(this.getClass().getResource("/com/amin/ui/main/features/allstationsstatistic.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            root.setStyle("-fx-padding: 30 30 30 30 ");
+
+            SceneJson sceneJson = new SceneJson<>(root);
+            sceneJson.setJson(colsData);
+            primaryStage.setScene(sceneJson);
+
+            primaryStage.setResizable(false);
+            primaryStage.show();
+        });
+
+    }
+
+
+
+
 
 
     private void showChartAndAna(FormInfo formInfo) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {

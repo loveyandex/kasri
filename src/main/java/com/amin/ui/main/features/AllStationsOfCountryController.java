@@ -106,7 +106,6 @@ public class AllStationsOfCountryController implements Initializable {
         for (int i = 0; i < featursName.length; i++) {
             featuresCombo.getItems().add(new Label(featursName[i]));
         }
-        featuresCombo.valueProperty().setValue(featuresCombo.getItems().get(7));
 
         featuresCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             String feaureName = ((Label) newValue).getText();
