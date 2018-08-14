@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static java.lang.Math.abs;
+
 public class LatLongFXMLController implements Initializable {
     final Connection connection = Driver.getDriver().getConnection();
 
@@ -81,16 +83,15 @@ public class LatLongFXMLController implements Initializable {
                 final String longitude = resultSet.getString(5);
                 final String country = resultSet.getString(2);
 
-//                stations.add(new ArrayList<String>(){{
-//                add(stnm);
-//                add(country);
-//                add(latitude);
-//                add(longitude);
-//            }});
-                System.out.println("kiri");
+                stations.add(new ArrayList<String>(){{
+                add(stnm);
+                add(country);
+                add(latitude);
+                add(longitude);
+            }});
 
 
-                marker2.setPosition(new LatLong(Double.parseDouble(latitude), Double.parseDouble(country)));
+                marker2.setPosition(new LatLong(Double.parseDouble(latitude), Double.parseDouble(longitude)));
                 marker2.setTitle(stnm);
                 map.addMarker(marker2);
 
@@ -100,16 +101,15 @@ public class LatLongFXMLController implements Initializable {
 
         map.addMouseEventHandler(UIEventType.click, (GMapMouseEvent event) -> {
             final LatLong latLong = event.getLatLong();
-            System.out.println("kosiiii");
-//            marker.setPosition(latLong);
-//            marker.setTitle("first");
-//            marker.setVisible(true);
-//            map.addMarker(marker);
-//            SnackBar.showSnackwithAction(anchorroot,actionEvent -> {
-//                calcFeaute(stations,latLong);
-//            },latLong.toString(),5000);
+            marker.setPosition(latLong);
+            marker.setTitle("first");
+            marker.setVisible(true);
+            map.addMarker(marker);
+            SnackBar.showSnackwithAction(anchorroot,actionEvent -> {
+                calcFeaute(stations,latLong);
+            },latLong.toString(),5000);
 
-            SnackBar.showSnackwithAction(anchorroot, latLong.toString(), 5000);
+            SnackBar.showSnackwithAction(anchorroot, actionEvent -> calcFeaute(stations,latLong),latLong.toString(), 5000);
         });
 
 
@@ -123,7 +123,7 @@ public class LatLongFXMLController implements Initializable {
             final double logn = Double.parseDouble(strings.get(3));
             final double latitude = latLong.getLatitude();
             final double longitude = latLong.getLongitude();
-            double distance = Math.hypot((latitude - lat), (longitude - logn));
+            double distance = Math.hypot(abs(latitude - lat), abs(longitude - logn));
             distnaces.add(distance);
 
         });
@@ -135,21 +135,23 @@ public class LatLongFXMLController implements Initializable {
         final ArrayList<String> best = stations.get(mimndistloc);
         final String stnumbr = best.get(0);
         final String country = best.get(1);
-        ScriptAPP.scripting(String.format("onday %s 10 26 WIND_SPEED m/s 10000 1973 2017 %s", stnumbr, country));
+        System.out.println(stnumbr);
+        System.out.println(country);
+        ScriptAPP.scripting(String.format("onday %s 10 26 WIND_SPEED m/s 20000 1973 2017 %s", stnumbr, country));
 
 
     }
 
 
     private double[] minloc(List<Double> doubles) {
-        double m = -1.0D / 0.0;
+        double m = +1.0D / 0.0;
         int index = 0;
         int var4 = doubles.size();
         for (int var5 = 0; var5 < var4; ++var5) {
             double v = doubles.get(var5);
-            if (Math.max(v, m) == v)
+            if (Math.min(v, m) == v)
                 index = var5;
-            m = Math.max(v, m);
+            m = Math.min(v, m);
 
         }
         return new double[]{m, index};
