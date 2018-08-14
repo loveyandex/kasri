@@ -262,15 +262,15 @@ public class ScriptAPP extends Application {
 
     }
 
-    private String s;
+    private static String s;
 
-    private void rem() {
+    private static void rem() {
         s = s.replaceAll("  ", " ");
         if (s.contains("  "))
             rem();
         else return;
     }
-    private void scripting(String cmd) {
+    public static void scripting(String cmd) {
         s=cmd;
         rem();
         cmd=s;
@@ -286,9 +286,9 @@ public class ScriptAPP extends Application {
 
     }
 
-    private Map<String, String> stationNumTOCities;
+   static private Map<String, String> stationNumTOCities;
 
-    private void runAllDay(String[] args) {
+    private  static void runAllDay(String[] args) {
 
         if (args.length == 1)
             Dialog.createExceptionDialog(new RuntimeException("not arrgumet assigned"));
@@ -345,7 +345,7 @@ public class ScriptAPP extends Application {
         }
     }
 
-    private void runFopen(String[] args) {
+    private static void runFopen(String[] args) {
         if (args.length == 1)
             Dialog.createExceptionDialog(new RuntimeException("not arrgumet assigned"));
         else {

@@ -16,7 +16,7 @@ import java.sql.Statement;
 public class Driver extends Application {
     private static Driver driver;
     private  Connection connection;
-    public Driver() {
+    private Driver() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
              connection=DriverManager.getConnection(
@@ -43,10 +43,6 @@ public class Driver extends Application {
         try {
             statement.executeUpdate(Queries.CRT_TBL_X);
             Platform.exit();
-
-
-
-
 
         } catch (SQLException e) {
             Dialog.createExceptionDialog(e);

@@ -1,5 +1,6 @@
 package test.analys;
 
+import com.amin.ui.scripts.ScriptAPP;
 import jsat.io.JSATData;
 import jsat.math.Complex;
 import jsat.math.MathTricks;
@@ -10,12 +11,8 @@ import lombok.experimental.var;
  */
 public class F {
     public static void main(String[] args) {
-        jsat.math.Complex cd=new Complex(323.3,2323.23);
-        var divide = cd.divide(new Complex(32, 32));
-        System.out.println(divide);
+        ScriptAPP.scripting("onday 40800 10 26 WIND_SPEED m/s 20000 1973 2017 iran__islamic_rep");
 
-        double maxpos = max(-242434493, 23, 23, 23, 23, 23, 2, 3, 23, 5, 3, 432, 543, 52, 356, 45, 423, 56324, 23, 4234, 6, 57, 432, 4, 5);
-        System.out.println(maxpos);
 
     }
 

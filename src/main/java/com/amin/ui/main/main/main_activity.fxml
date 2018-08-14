@@ -109,7 +109,7 @@
                 </JFXButton>
                 <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="223.0" mnemonicParsing="false"
                            onAction="#loadSettings" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
-                           text="Settings" textAlignment="CENTER">
+                           text="Map" textAlignment="CENTER">
                     <graphic>
                         <FontAwesomeIconView glyphName="COG" size="25"/>
                     </graphic>

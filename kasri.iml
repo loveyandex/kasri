@@ -91,5 +91,14 @@
     <orderEntry type="library" name="Maven: org.javolution:javolution:5.2.3" level="project" />
     <orderEntry type="library" name="Maven: javax.measure:jsr-275:0.9.1" level="project" />
     <orderEntry type="library" name="Maven: javax.ws.rs:jsr311-api:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.google.maps:google-maps-services:0.2.8" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp:3.8.1" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okio:okio:1.13.0" level="project" />
+    <orderEntry type="library" name="Maven: joda-time:joda-time:2.9.9" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.slf4j:slf4j-nop:1.7.22" level="project" />
+    <orderEntry type="library" name="Maven: com.lynden:GMapsFX:2.12.0" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.2.1" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.2.1" level="project" />
   </component>
 </module>

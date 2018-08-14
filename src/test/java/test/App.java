@@ -1,5 +1,6 @@
 package test;
 
+import com.amin.ui.scripts.ScriptAPP;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -29,6 +30,7 @@ public class App extends Application {
 
         primaryStage.setTitle("weather");
 
+        ScriptAPP.scripting("onday 40800 10 26 WIND_SPEED m/s 20000 1973 2017 iran__islamic_rep");
 
 
 
