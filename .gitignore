@@ -4,3 +4,6 @@ kasri.iws
 target/
 dollar-euro.csv
 jre/
+*.ipr
+*.iws
+*.iml
