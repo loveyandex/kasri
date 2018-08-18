@@ -365,15 +365,15 @@
         <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.2.1/logback-classic-1.2.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: ch.qos.logback:logback-core:1.2.1">
+    <library name="Maven: ch.qos.logback:logback-core:1.2.3">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.2.1/logback-core-1.2.1.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.2.1/logback-core-1.2.1-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.2.1/logback-core-1.2.1-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.1stleg:jnativehook:2.1.0">
@@ -1221,6 +1221,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/jsoup/jsoup/1.11.2/jsoup-1.11.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.neuroph:neuroph-core:2.92">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/neuroph/neuroph-core/2.92/neuroph-core-2.92.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/neuroph/neuroph-core/2.92/neuroph-core-2.92-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/neuroph/neuroph-core/2.92/neuroph-core-2.92-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.projectlombok:lombok:1.18.0">
