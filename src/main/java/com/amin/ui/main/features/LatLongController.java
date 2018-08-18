@@ -86,7 +86,6 @@ public class LatLongController implements Initializable {
         for (int i = 0; i < featursName.length; i++) {
             featuresCombo.getItems().add(new Label(featursName[i]));
         }
-        featuresCombo.valueProperty().setValue(featuresCombo.getItems().get(7));
 
         featuresCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             String feaureName = ((Label) newValue).getText();
@@ -267,7 +266,7 @@ public class LatLongController implements Initializable {
                 formInfo.setStationNumber(null);
                 formInfo.setCountry(newValue.getText());
 
-                String dirpath = "config";
+                String dirpath = "config/old-stations";
                 String fileName = newValue.getText() + ".conf";
 
                 File dir = new File(dirpath);
@@ -277,7 +276,7 @@ public class LatLongController implements Initializable {
                     Mapping.createCSVFILEFORStations(dirpath, fileName);
 
                 stationNumTOCities = Mapping.
-                        MapStationNumTOCities("config/" + newValue.getText() + ".conf.csv");
+                        MapStationNumTOCities("config/old-stations/" + newValue.getText() + ".conf.csv");
 
 
 
@@ -389,7 +388,7 @@ public class LatLongController implements Initializable {
         String unit = formInfo.getFeatureUnit();
 
 
-        int numDay = formInfo.Date.Day;
+        int numDay = formInfo.getDate().Day;
         String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
         int monthInt = formInfo.getDate().Month;
         Month month = Month.of(monthInt);

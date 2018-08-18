@@ -82,7 +82,7 @@ public class WindYearResultController implements Initializable, Runnable {
     @Override
     public void run() {
         FormInfo formInfo = (FormInfo) ((SceneJson) rootNode.getScene()).getJson();
-        int numDay = formInfo.Date.Day;
+        int numDay = formInfo.getDate().Day;
         String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
         int monthInt = formInfo.getDate().Month;
         Month month = Month.of(monthInt);

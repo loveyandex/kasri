@@ -2,6 +2,7 @@ package com.amin.jsons;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 
@@ -10,6 +11,7 @@ import java.util.ArrayList;
  */
 @Getter
 @Setter
+@Accessors(chain = true)
 public class OtherFormInfo {
     public Date Date;
     private String feaureName;
@@ -24,13 +26,5 @@ public class OtherFormInfo {
     private String featureUnit;
     private String dirTOSave;
 
-
-    public void setDirTOSave(String dirTOSave) {
-        this.dirTOSave = dirTOSave;
-    }
-
-    public String getDirTOSave() {
-        return dirTOSave;
-    }
 }
 

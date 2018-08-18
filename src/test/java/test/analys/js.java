@@ -87,6 +87,12 @@ public class js {
     }
 
 
+    @Test
+   public void te(){
+        System.out.println("E:/dd");
+    }
+
+
 
 
 }

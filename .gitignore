@@ -1,7 +1,9 @@
 .ideaDataSources/
 asas/**
-assets/*
 kasri.iws
 target/
-!assets/1x/
-!assets/2x/
+dollar-euro.csv
+jre/
+*.ipr
+*.iws
+*.iml

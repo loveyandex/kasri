@@ -9,60 +9,29 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FormInfo {
-    public Date Date;
+    private Date Date;
     private String feaureName;
-    public String StationNumber;
-    public String StationName;
-    public String Country;
+    private String StationNumber;
+    private String StationName;
+    private String Country;
     private String height;
-    private String lowHeightRange;
-    private String highHeightRange;
     private Number lowerYear;
     private Number highYear;
     private String featureUnit;
 
-    public String getFeatureUnit() {
-        return featureUnit;
+    public FormInfo() {
     }
 
-    public void setFeatureUnit(String featureUnit) {
-        this.featureUnit = featureUnit;
-    }
-
-
-    public Features getFeatures() {
-        return features;
-    }
-
-    public void setFeatures(Features features) {
-        this.features = features;
-    }
-
-    private Features features;
-
-    public void setLowerYear(Number lowerYear) {
-        this.lowerYear = lowerYear;
-    }
-
-    public Number getLowerYear() {
-        return lowerYear;
-    }
-
-    public void setHighYear(Number highYear) {
-        this.highYear = highYear;
-    }
-
-    public Number getHighYear() {
-        return highYear;
-    }
-
-
-    public String getFeaureName() {
-        return feaureName;
-    }
-
-    public void setFeaureName(String feaureName) {
+    public FormInfo(com.amin.jsons.Date date, String feaureName, String stationNumber, String stationName, String country, String height,  Number lowerYear, Number highYear, String featureUnit) {
+        Date = date;
         this.feaureName = feaureName;
+        StationNumber = stationNumber;
+        StationName = stationName;
+        Country = country;
+        this.height = height;
+        this.lowerYear = lowerYear;
+        this.highYear = highYear;
+        this.featureUnit = featureUnit;
     }
 }
 

@@ -87,7 +87,6 @@ public class FormDayController implements Initializable {
         for (int i = 0; i < featursName.length; i++) {
             featuresCombo.getItems().add(new Label(featursName[i]));
         }
-        featuresCombo.valueProperty().setValue(featuresCombo.getItems().get(7));
 
         featuresCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             String feaureName = ((Label) newValue).getText();
@@ -120,7 +119,9 @@ public class FormDayController implements Initializable {
                     || feaureName.equals(Features.THTE.getName())
                     || feaureName.equals(Features.THTV.getName())) {
                 UnitConvertor.TEMP units = UnitConvertor.TEMP.units;
-                formInfo.setFeatureUnit(units.getCelsius().toString());
+                final String featureUnit = units.getCelsius().toString();
+                System.out.println(featureUnit);
+                formInfo.setFeatureUnit(featureUnit);
 
                 unitsCombo.getItems().add(new Label(units.getCelsius().toString()));
                 unitsCombo.getItems().add(new Label(units.getKelvin().getSymbol()));
@@ -142,6 +143,7 @@ public class FormDayController implements Initializable {
             } else if (feaureName.equals(Features.DRCT.getName())) {
                 UnitConvertor.DRCT units = UnitConvertor.DRCT.units;
                 formInfo.setFeatureUnit(units.getDegreeAngle().toString());
+                System.out.println(units.getDegreeAngle().toString());
 
                 unitsCombo.getItems().add(new Label(units.getDegreeAngle().toString()));
                 unitsCombo.getItems().add(new Label(units.getRadian().getSymbol()));
@@ -268,7 +270,7 @@ public class FormDayController implements Initializable {
                 formInfo.setStationNumber(null);
                 formInfo.setCountry(newValue.getText());
 
-                String dirpath = "config";
+                String dirpath = "config/old-stations";
                 String fileName = newValue.getText() + ".conf";
 
                 File dir = new File(dirpath);
@@ -278,7 +280,7 @@ public class FormDayController implements Initializable {
                     Mapping.createCSVFILEFORStations(dirpath, fileName);
 
                 stationNumTOCities = Mapping.
-                        MapStationNumTOCities("config/" + newValue.getText() + ".conf.csv");
+                        MapStationNumTOCities("config/old-stations/" + newValue.getText() + ".conf.csv");
 
 
 
@@ -390,7 +392,7 @@ public class FormDayController implements Initializable {
         String unit = formInfo.getFeatureUnit();
 
 
-        int numDay = formInfo.Date.Day;
+        int numDay = formInfo.getDate().Day;
         String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
         int monthInt = formInfo.getDate().Month;
         Month month = Month.of(monthInt);
@@ -466,10 +468,10 @@ public class FormDayController implements Initializable {
 
             }
         }
-//        if (!ioExceptions.isEmpty()) {
-//            Dialog.createIOExceptionDialog(ioExceptions);
-//            ioExceptions.clear();
-//        }
+        if (!ioExceptions.isEmpty()) {
+            Dialog.createIOExceptionDialog(ioExceptions);
+            ioExceptions.clear();
+        }
 
         try {
 

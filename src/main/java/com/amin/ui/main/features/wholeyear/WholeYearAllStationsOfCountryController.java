@@ -1,5 +1,6 @@
 package com.amin.ui.main.features.wholeyear;
 
+import com.amin.IO.MyWriter;
 import com.amin.analysis.Mapping;
 import com.amin.config.C;
 import com.amin.jsons.Features;
@@ -104,7 +105,6 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
         for (int i = 0; i < featursName.length; i++) {
             featuresCombo.getItems().add(new Label(featursName[i]));
         }
-        featuresCombo.valueProperty().setValue(featuresCombo.getItems().get(7));
 
         featuresCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             String feaureName = ((Label) newValue).getText();
@@ -276,7 +276,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
             try {
                 formInfo.setCountry(newValue.getText());
 
-                String dirpath = "config";
+                String dirpath = "config/old-stations";
                 String fileName = newValue.getText() + ".conf";
 
                 File dir = new File(dirpath);
@@ -286,7 +286,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                     Mapping.createCSVFILEFORStations(dirpath, fileName);
 
                 stationNumTOCities = Mapping.
-                        MapStationNumTOCities("config/" + newValue.getText() + ".conf.csv");
+                        MapStationNumTOCities("config/old-stations/" + newValue.getText() + ".conf.csv");
 
 
 

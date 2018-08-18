@@ -202,7 +202,7 @@ public class Process implements Runnable {
         for (int k = 0; k < Starter.COUNTRIES.length; k++) {
 
             try {
-                Methods.getStationNumber("config/" + Starter.COUNTRIES[k] + ".conf", "config/" + Starter.COUNTRIES[k] + "-stations.conf");
+                Methods.getStationNumber("config/states/" + Starter.COUNTRIES[k] + ".conf", "config/stations/" + Starter.COUNTRIES[k] + "-stations.conf");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -243,4 +243,9 @@ public class Process implements Runnable {
     public void run() {
         start();
     }
+
+
 }
+
+
+

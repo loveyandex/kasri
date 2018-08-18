@@ -17,4 +17,22 @@ public class Analy {
         System.out.println(s2);
 
     }
+
+    @Test
+    public void test3434() {
+        s="s                       f         g";
+        rem();
+        System.out.println(s);
+    }
+
+    public String s;
+
+    private void rem() {
+        s = s.replaceAll("  ", " ");
+        if (s.contains("  "))
+            rem();
+        else return;
+    }
+
+
 }

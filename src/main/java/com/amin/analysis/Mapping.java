@@ -1,9 +1,13 @@
 package com.amin.analysis;
 
 import com.amin.config.C;
+import com.amin.database.Driver;
 import com.amin.ui.dialogs.Dialog;
 
 import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -104,6 +108,8 @@ public class Mapping {
             String[] features = nextLine.split(";");
             String stationName = features[0].replaceAll(C.STATION_NAME_SIMBOL, C.SPACE);
             String stationNumber = features[3];
+            String LAT = features[3];
+            String LONG = features[3];
             mapStationNumberName.put(stationName, stationNumber);
 
         }
@@ -223,7 +229,7 @@ public class Mapping {
             return points;
         }
 
-        public ArrayList<String> getLinesFile(String absfilepath) throws IOException {
+        static public ArrayList<String> getLinesFile(String absfilepath) throws IOException {
             FileReader reader = new FileReader(absfilepath);
             Scanner scanner = new Scanner(reader);
 
@@ -274,30 +280,45 @@ public class Mapping {
         }
 
 
-        public ArrayList<ArrayList<String>> getLatLongForAContryCities() throws IOException {
+        public static ArrayList<ArrayList<String>> getLatLongForAContryCities(final String rootparent, String countryconfigfilename) {
+            ArrayList<ArrayList<String>> colsData = null;
+            try {
+                colsData = getColsData(rootparent + File.separator + countryconfigfilename, 0, 3, 4, 5, 6, 7);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ArrayList<ArrayList<String>> output = new ArrayList<>();
 
-            ArrayList<String> linesFile = getLinesFile("config/countries.configfile.conf");
-            for (int i = 1; i < 3; i++) {
-                String countryconfigfilename = linesFile.get(i);
-                ArrayList<ArrayList<String>> colsData = getColsData("config/" + countryconfigfilename, 0, 3, 4, 5, 6, 7);
                 for (int j = 0; j < colsData.size(); j++) {
                     String citiname = colsData.get(j).get(0).replaceAll("\\^", " ");
+                    String citistationnumber = colsData.get(j).get(1);
                     System.out.println(citiname);
                     double citiLat = Double.parseDouble(colsData.get(j).get(2))
                             + (Double.parseDouble(colsData.get(j).get(3).replaceAll("N", ""))) / 60.0d;
                     double citiLong = Double.parseDouble(colsData.get(j).get(4))
                             + (Double.parseDouble(colsData.get(j).get(5).replaceAll("E", ""))) / 60.0d;
+
+
+                    ArrayList inoutput = new ArrayList() {{
+                        String csn = citistationnumber.replaceAll(" ","_");
+                        if (csn.equals("&"))
+                            csn = "NULL";
+                        add(csn);
+                        add(countryconfigfilename.replaceAll(".conf.csv", ""));
+                        add(citiname);
+                        add(String.valueOf(citiLat));
+                        add(String.valueOf(citiLong));
+
+                    }};
+                    output.add(inoutput);
+
                     System.out.println(citiLat);
                     System.out.println(citiLong);
 
                 }
-                return colsData;
+            return output;
 
 
-            }
-
-
-            return null;
         }
 
 
@@ -306,30 +327,37 @@ public class Mapping {
     }
 
 
+    public static void main(String[] args) throws IOException {
+
+        String abspathfile = "config/countries.configfile.conf";
+        final ArrayList<String> fileLines = getFileLines(abspathfile);
+        fileLines.forEach(Mapping::map);
+
+    }
+
+    final static Connection connection = Driver.getDriver().getConnection();
+
+    static void map(String fn) {
+        final ArrayList<ArrayList<String>> latLongForAContryCities;
+        latLongForAContryCities = LatLong.getLatLongForAContryCities("config/old-stations", fn);
+        latLongForAContryCities
+                .forEach(strings -> {
+                    try {
+
+                        final PreparedStatement preparedStatement = connection.prepareStatement("insert into station_latlong (station,country, citiname, lati ,longi) values (?,?,?,?,?);");
+
+                        preparedStatement.setString(1, strings.get(0));
+                        preparedStatement.setString(2, strings.get(1));
+                        preparedStatement.setString(3, strings.get(2));
+                        preparedStatement.setString(4, strings.get(3));
+                        preparedStatement.setString(5, strings.get(4));
+                        preparedStatement.executeUpdate();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    public static void main(String[] args) {
-        try {
-            Mapping.createCSVFILEFORStations("config", "iran.conf");
-            Map<String, String> stationNumTOCities = Mapping.MapStationNumTOCities("config/iran.conf.csv");
-            for (Map.Entry map : stationNumTOCities.entrySet()) {
-                System.out.println(String.format("%s %s", map.getKey(), map.getValue()));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 
 
