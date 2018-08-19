@@ -959,6 +959,17 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/apache/xmlbeans/xmlbeans/2.6.0/xmlbeans-2.6.0-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: org.beykery:neuroph:2.92">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/beykery/neuroph/2.92/neuroph-2.92.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/beykery/neuroph/2.92/neuroph-2.92-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/beykery/neuroph/2.92/neuroph-2.92-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: org.controlsfx:controlsfx:8.40.14">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/org/controlsfx/controlsfx/8.40.14/controlsfx-8.40.14.jar!/" />
@@ -1221,17 +1232,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/jsoup/jsoup/1.11.2/jsoup-1.11.2-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.neuroph:neuroph-core:2.92">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neuroph/neuroph-core/2.92/neuroph-core-2.92.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neuroph/neuroph-core/2.92/neuroph-core-2.92-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/neuroph/neuroph-core/2.92/neuroph-core-2.92-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.projectlombok:lombok:1.18.0">

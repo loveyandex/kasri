@@ -1,6 +1,6 @@
 package com.amin.getdata.station;
 
-import com.amin.IO.MyWriter;
+import com.amin.io.MyWriter;
 
 import java.io.FileReader;
 import java.io.IOException;

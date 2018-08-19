@@ -1,7 +1,7 @@
 package com.amin.getdata.bystates;
 
 
-import com.amin.IO.MyReader;
+import com.amin.io.MyReader;
 import com.amin.notify.Noti;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

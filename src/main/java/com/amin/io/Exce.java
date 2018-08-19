@@ -1,6 +1,5 @@
-package com.amin.IO;
+package com.amin.io;
 
-import com.amin.IO.MyWriter;
 import lombok.val;
 
 import java.io.File;

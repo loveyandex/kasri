@@ -1,4 +1,4 @@
-package com.amin.IO;
+package com.amin.io;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
