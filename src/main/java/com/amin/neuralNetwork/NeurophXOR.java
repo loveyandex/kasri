@@ -5,7 +5,7 @@ import org.neuroph.core.NeuralNetwork;
 import org.neuroph.core.Neuron;
 import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
-import org.neuroph.nnet.learning.BackPropagation;
+import org.neuroph.nnet.learning.SigmoidDeltaRule;
 import org.neuroph.util.ConnectionFactory;
 import org.neuroph.util.NeuralNetworkType;
 
@@ -70,7 +70,7 @@ public class NeurophXOR {
         ds.addRow(rTwo);
         DataSetRow rThree = new DataSetRow(new double[]{0.25, 0.25}, new double[]{0.42});
         ds.addRow(rThree);
-        DataSetRow rFour = new DataSetRow(new double[]{0.25, 0.1}, new double[]{0.1});
+        DataSetRow rFour = new DataSetRow(new double[]{0.25, 0.1}, new double[]{0.91});
         ds.addRow(rFour);
         DataSetRow rFour2 = new DataSetRow(new double[]{0.85, 0.2}, new double[]{0.63});
         ds.addRow(rFour2);
@@ -79,10 +79,10 @@ public class NeurophXOR {
         DataSetRow rFour222 = new DataSetRow(new double[]{1, 0}, new double[]{0.31});
         ds.addRow(rFour222);
 
-        BackPropagation backPropagation = new BackPropagation();
-        backPropagation.setMaxIterations(1000);
+        SigmoidDeltaRule sigmoidDeltaRule = new SigmoidDeltaRule();
+        sigmoidDeltaRule.setMaxIterations(12000);
 
-        ann.learn(ds, backPropagation);
+        ann.learn(ds, sigmoidDeltaRule);
 
         return ann;
 

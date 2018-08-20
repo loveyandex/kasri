@@ -38,6 +38,17 @@
                     <MenuItem onAction="#chart" text="chart" />
                 </items>
             </Menu>
+            <Menu text="all heigth">
+                <items>
+
+                    <Menu fx:id="allhigt" mnemonicParsing="false"  text="Wind">
+                        <items>
+                            <MenuItem mnemonicParsing="false" onAction="#ondayAllHeight" text="on day" />
+                        </items>
+                    </Menu>
+                    <MenuItem onAction="#chart" text="chart" />
+                </items>
+            </Menu>
             <Menu text="Help">
                 <items>
                     <MenuItem disable="true" text="Search" />

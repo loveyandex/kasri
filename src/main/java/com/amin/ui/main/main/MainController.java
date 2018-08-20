@@ -350,4 +350,16 @@ public class MainController implements Initializable {
 
 
     }
+
+    public void ondayAllHeight(ActionEvent actionEvent) throws IOException {
+        Stage stage = new StageOverride();
+        stage.setResizable(true);
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/allheight/antiheight.fxml"));
+        Scene scene = new SceneJson<>(root, 750, 600);
+        stage.setScene(scene);
+        stage.initOwner(rootme.getScene().getWindow());
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+
+    }
 }

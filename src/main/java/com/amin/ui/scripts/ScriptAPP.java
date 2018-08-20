@@ -183,7 +183,7 @@ public class ScriptAPP extends Application {
         closeButton.setMinWidth(30);
         Button oth = new Button("scripting");
         oth.setStyle("-fx-background-radius: 0;-fx-border-radius: 0;"+
-                "-fx-background-color: #353533;" +
+                "-fx-background-color: #8d8d89;" +
                 "-fx-text-fill: #ffffff;");
 
 

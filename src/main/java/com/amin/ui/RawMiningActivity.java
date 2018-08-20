@@ -29,6 +29,7 @@ import java.util.List;
 /**
  * is created by aMIN on 5/31/2018 at 06:50
  */
+
 public class RawMiningActivity extends Application implements Runnable {
     public Button okBtn;
     public Button chooseDir;
