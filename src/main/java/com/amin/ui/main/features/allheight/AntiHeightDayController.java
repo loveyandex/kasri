@@ -71,7 +71,7 @@ public class AntiHeightDayController implements Initializable {
     private Map<String, String> stationNumTOCities;
 
 
-    private ArrayList<ArrayList<Object>> AllfeatureAndYear = new ArrayList<>();
+    private ArrayList<ArrayList<ArrayList<Double>>> AllfeatureAndYear = new ArrayList<ArrayList<ArrayList<Double>>>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -289,7 +289,6 @@ public class AntiHeightDayController implements Initializable {
 
         });
 
-//        stationsCombo.setPromptText("select station");
         stationsCombo.setMinWidth(200);
         countriesCombo.setMinWidth(200);
 
@@ -367,7 +366,6 @@ public class AntiHeightDayController implements Initializable {
 
         String country = formInfo.getCountry();
         String stationNumber = formInfo.getStationNumber();
-        String height = formInfo.getHeight();
 
 
         double lowrange = Double.parseDouble(getfeatureIndex(featureName).getLow_range());
@@ -400,27 +398,20 @@ public class AntiHeightDayController implements Initializable {
                 String rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + monthInt + File.separator + stationNumber;
                 String fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + i + ".csv";
                 ArrayList<ArrayList<Double>> heightAndFeature;
+                ArrayList<ArrayList<Double>> yearsUseful = new ArrayList<ArrayList<Double>>();
                 try {
-//
-//                    heightAndFeature = charting.addSeriesToChart(featureName
-//                            , fileName.replaceAll(".csv", ""),
-//                            rootDir + File.separator + fileName, 1, featureIndexCSV);
-
 
                     heightAndFeature = charting.addSeriesToChart(featureName
                             , fileName.replaceAll(".csv", ""),
                             rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
 
+                    int finalI = i;
+                    yearsUseful.add(new ArrayList<Double>() {{
+                        add((double) finalI);
+                    }});
 
-                    Double intrapolatedKnot = intrapolateFeature(height, heightAndFeature);
-                    if (intrapolatedKnot != null) {
-
-                        knotslist.add(intrapolatedKnot);
-                        featureAndYear.add(((Double) intrapolatedKnot));
-                        featureAndYear.add(i);
-                        yearsofFeature.add(i);
-                        AllfeatureAndYear.add(featureAndYear);
-                    }
+                    AllfeatureAndYear.add(yearsUseful);
+                    AllfeatureAndYear.add(heightAndFeature);
 
 
                 } catch (IOException e) {
@@ -442,10 +433,6 @@ public class AntiHeightDayController implements Initializable {
 
         try {
 
-            Charting charting2 = new Charting(fromYear, toYear, 1,
-                    invokelowrange, invokehighrange, ytickUnit, "years", featureName + "(" + unit + ")", Charting.LINE_CHART);
-            charting2.interpolateChart("interpolate years for " + featureName + " in " + height + " m",
-                    "interpolate", knotslist, yearsofFeature, "avg line val is on ", unit);
 
 
             final VBox vbox = new VBox();
@@ -453,10 +440,10 @@ public class AntiHeightDayController implements Initializable {
             vbox.setLayoutY(300);
             vbox.setLayoutX(400);
             vbox.setStyle("-fx-background-color: #fff");
-            vbox.getChildren().addAll(sc, charting2.getSc());
+            vbox.getChildren().addAll(sc);
             hbox.setPadding(new Insets(10, 10,
                     03.10, 10));
-            Parent root = FXMLLoader.load(AntiHeightDayController.class.getResource("/chart.fxml"));
+            Parent root = FXMLLoader.load(AntiHeightDayController.class.getResource("/com/amin/ui/main/features/allheight/chart.fxml"));
             ((VBox) root).getChildren().add(vbox);
             StageOverride stage = new StageOverride();
             stage.setTitle("statistical analysis");
@@ -504,78 +491,8 @@ public class AntiHeightDayController implements Initializable {
 
     }
 
-
-    private Double intrapolateFeature(String height, ArrayList<ArrayList<Double>> heightAndFeature) {
-
-        Double knotdesire = null;
-        double heightdesire = Double.parseDouble(height);
-        final Vector<Double> heigthsVector = new Vector<>();
-        final Vector<Double> knotsVector = new Vector<>();
-
-        heightAndFeature.forEach(doubles -> {
-
-            double h = (doubles.get(0));
-            double knot = (doubles.get(1));
-            heigthsVector.add(h);
-            knotsVector.add(knot);
-
-        });
-
-        for (int i = 0; i < heigthsVector.size() - 1; i++) {
-            double hi = heigthsVector.get(i);
-            double hiplus = heigthsVector.get(i + 1);
-            double knoti = knotsVector.get(i);
-            double knotiplus = knotsVector.get(i + 1);
-            if ((heightdesire - hi) * (heightdesire - hiplus) <= 0) {
-                knotdesire = (knotiplus - knoti) * (heightdesire - hi) / (hiplus - hi) + (knoti);
-                break;
-            }
-
-        }
-        return knotdesire;
-    }
-
-
-    private double intrapolateKnot(String height, ArrayList<ArrayList<String>> heightAndKnotAll) {
-        double knotdesire = -1;
-        double heightdesire = Double.parseDouble(height);
-        final Vector<Double> heigthsVector = new Vector<>();
-        final Vector<Double> knotsVector = new Vector<>();
-
-        heightAndKnotAll.forEach(strings -> {
-            if (!strings.get(0).equals("HGHT")
-                    && !strings.get(1).equals("SKNT")
-                    && !strings.get(0).equals("m")
-                    && !strings.get(1).equals("knot")
-                    && !strings.get(0).equals("NULL")
-                    && !strings.get(1).equals("NULL")
-
-
-            ) {
-                double h = Double.parseDouble(strings.get(0));
-                double knot = Double.parseDouble(strings.get(1));
-                heigthsVector.add(h);
-                knotsVector.add(knot);
-            }
-        });
-
-        for (int i = 0; i < heigthsVector.size() - 1; i++) {
-            double hi = heigthsVector.get(i);
-            double hiplus = heigthsVector.get(i + 1);
-            double knoti = knotsVector.get(i);
-            double knotiplus = knotsVector.get(i + 1);
-            if ((heightdesire - hi) * (heightdesire - hiplus) <= 0) {
-                knotdesire = (knotiplus - knoti) * (heightdesire - hi) / (hiplus - hi) + (knoti);
-                break;
-            }
-
-        }
-        return knotdesire;
-    }
-
-
     private boolean isReadyToFire(FormInfo formInfo) {
-        if (formInfo.getFeatureUnit() == null || formInfo.getFeaureName() == null || formInfo.getLowerYear() == null || formInfo.getHighYear() == null || formInfo.getDate() == null || formInfo.getStationNumber() == null || formInfo.getCountry() == null || formInfo.getHeight() == null) {
+        if (formInfo.getFeatureUnit() == null || formInfo.getFeaureName() == null || formInfo.getLowerYear() == null || formInfo.getHighYear() == null || formInfo.getDate() == null || formInfo.getStationNumber() == null || formInfo.getCountry() == null) {
             Gobtn.setDisable(true);
             return false;
         } else

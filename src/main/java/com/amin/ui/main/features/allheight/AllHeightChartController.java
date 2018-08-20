@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 
 public class AllHeightChartController implements Initializable, Runnable {
 
-    private ArrayList<ArrayList<Object>> allfeatureandyear;
+    private ArrayList<ArrayList<ArrayList<Double>>> allfeatureandyear;
     @FXML
     private VBox rootme;
 
@@ -45,7 +45,7 @@ public class AllHeightChartController implements Initializable, Runnable {
 
     public void statisticalModels(ActionEvent actionEvent) throws IOException {
         Stage primaryStage=new StageOverride();
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/statistic.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/allheight/statistic.fxml"));
         root.setStyle("-fx-padding: 30 30 30 30 ");
 
         SceneJson sceneJson = new SceneJson<>(root);
