@@ -4,9 +4,9 @@ import com.amin.analysis.wind.WindMining;
 import com.amin.getdata.Starter;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
+import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.map.LatLongMainApp;
 import com.amin.ui.scripts.ScriptAPP;
-import com.amin.ui.dialogs.Dialog;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -96,10 +96,11 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         rootme.setOnKeyPressed(event -> {
-             if (event.getCode()== KeyCode.D &&  event.isControlDown())
-            {
-                onday(null);
-            }
+             if (event.getCode()== KeyCode.D &&  event.isControlDown()) {
+                 onday(null);
+             } else if (event.getCode() == KeyCode.M && event.isControlDown()) {
+                 onMap(null);
+             }
         });
 
     }
@@ -329,13 +330,13 @@ public class MainController implements Initializable {
         }
     }
 
-    public void loadSettings(ActionEvent actionEvent) {
+    public void onMap(ActionEvent actionEvent) {
         try {
             new LatLongMainApp().start(new StageOverride());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Dialog.SnackBar.showSnack(rootme,"comming sooon...");
+//        Dialog.SnackBar.showSnack(rootme,"comming sooon...");
     }
 
 

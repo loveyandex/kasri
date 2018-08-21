@@ -15,7 +15,7 @@ public class LatLongMainApp extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/map/Scene.fxml"));
         
-        Scene scene = new Scene(root);
+        Scene scene = new SceneJson<>(root);
         scene.getStylesheets().add("/styles/Styles.css");
 
         stage.setTitle("JavaFX and Maven");

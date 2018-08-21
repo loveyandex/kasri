@@ -120,7 +120,7 @@
 
                 </JFXButton>
                 <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="223.0" mnemonicParsing="false"
-                           onAction="#loadSettings" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
+                           onAction="#onMap" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
                            text="Map" textAlignment="CENTER">
                     <graphic>
                         <FontAwesomeIconView glyphName="COG" size="25"/>
@@ -129,14 +129,14 @@
             </VBox>
 
 
-            <HBox style="-fx-font-size: 20; -fx-font-style: italic;-fx-font-family: 'Times New Roman';">
+            <HBox style="-fx-font-size: 20; -fx-font-style: italic;">
 
                 <VBox>
 
                     <HBox>
 
                         <HBox>
-                            <Label layoutX="200" style="-fx-text-fill: #b3b3b3;"       text="${'one day    '}"/>
+                            <Label layoutX="200" style="-fx-text-fill: #b3b3b3;"       text="${'one day  '}"/>
                             <HBox.margin>
                                 <Insets>
                                     <right>20</right>
@@ -145,6 +145,21 @@
                         </HBox>
                         <HBox>
                             <Label style="-fx-text-fill: #0295f7; -fx-font-size: 18;">Ctrl D</Label>
+                        </HBox>
+
+                    </HBox>
+                    <HBox>
+
+                        <HBox>
+                            <Label layoutX="200" style="-fx-text-fill: #b3b3b3;"       text="${'one map '}"/>
+                            <HBox.margin>
+                                <Insets>
+                                    <right>20</right>
+                                </Insets>
+                            </HBox.margin>
+                        </HBox>
+                        <HBox>
+                            <Label style="-fx-text-fill: #0295f7; -fx-font-size: 18;">Ctrl M</Label>
                         </HBox>
 
                     </HBox>
@@ -172,6 +187,7 @@
                     </Insets>
                 </HBox.margin>
             </HBox>
+
         </HBox>
 
     </children>
