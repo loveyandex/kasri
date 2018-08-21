@@ -1,6 +1,8 @@
 package com.amin.ui.main.main;
 
 import com.amin.config.C;
+import com.amin.ui.SceneJson;
+import com.amin.ui.SceneMainActivity;
 import com.amin.ui.dialogs.Dialog;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +24,7 @@ public class MainActivity extends Application  {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/main/main_activity.fxml"));
-        Scene scene = new Scene(root, 1000, 500);
+        Scene scene = new SceneMainActivity<>(root, 1000, 500);
         primaryStage.setOnCloseRequest(event -> {
             scene.getWindow().hide();
             System.exit(0);

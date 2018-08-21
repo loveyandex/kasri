@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
  * is created by aMIN on 7/18/2018 at 21:57
  */
 
-public class AllHeightChartController implements Initializable, Runnable {
+public class AllHeightChartController implements Initializable {
 
     private ArrayList<ArrayList<ArrayList<Double>>> allfeatureandyear;
     @FXML
@@ -30,17 +30,13 @@ public class AllHeightChartController implements Initializable, Runnable {
     @PostConstruct
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Platform.runLater(this);
+        Platform.runLater(runnable);
 
     }
 
-    @Override
-    public void run() {
-        allfeatureandyear = (ArrayList) ((SceneJson) rootme.getScene()).getJson();
-//        allfeatureandyear.forEach(objects -> {
-////            System.out.println("obj size"+objects.size());
-//        });
-    }
+
+    Runnable runnable = () -> allfeatureandyear = (ArrayList) ((SceneJson) rootme.getScene()).getJson();
+
 
 
     public void statisticalModels(ActionEvent actionEvent) throws IOException {
