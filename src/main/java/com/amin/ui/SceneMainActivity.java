@@ -7,7 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -82,6 +84,10 @@ public class SceneMainActivity<T> extends Scene implements EventHandler<KeyEvent
             } catch (IOException e) {
                 Dialog.createExceptionDialog(e);
             }
+
+        }else if (event.getCode()==KeyCode.D &&  event.isControlDown())
+        {
+
         }
     }
 

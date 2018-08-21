@@ -37,10 +37,10 @@ public class MainActivity extends Application  {
         primaryStage.toBack();
         primaryStage.show();
         primaryStage.getIcons().add(new Image(getClass().getResource("/logo.png").toURI().toString()));
-        String image = MainController.class.getResource("/logo.png").toURI().toString();
-        root.setStyle("-fx-background-image: url('" + image + "'); " +
-                "-fx-background-position: center center; " +
-                "-fx-background-repeat: stretch ;");
+//        String image = MainController.class.getResource("/logo.png").toURI().toString();
+//        root.setStyle("-fx-background-image: url('" + image + "'); " +
+//                "-fx-background-position: center center; " +
+//                "-fx-background-repeat: stretch ;");
 
         if (C.DATA_PATH.isEmpty())
             Dialog.createDataDirChooser("data_path");

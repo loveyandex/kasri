@@ -25,6 +25,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -93,6 +94,13 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        rootme.setOnKeyPressed(event -> {
+             if (event.getCode()== KeyCode.D &&  event.isControlDown())
+            {
+                onday(null);
+            }
+        });
 
     }
 
@@ -258,7 +266,7 @@ public class MainController implements Initializable {
 
 
 
-    public void loadAddMember(ActionEvent actionEvent) {
+    public void onday(ActionEvent actionEvent) {
         try {
             dayFeature(actionEvent);
         } catch (IOException e) {

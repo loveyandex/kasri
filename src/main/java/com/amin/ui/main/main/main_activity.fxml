@@ -2,12 +2,13 @@
 
 <?language JavaScript?>
 <?import com.jfoenix.controls.*?>
-<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.weathericons.WeatherIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
 <VBox fx:id="rootme" prefHeight="400" prefWidth="800" xmlns="http://javafx.com/javafx/8.0.1"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amin.ui.main.main.MainController"
       stylesheets="/dark-theme.css"
@@ -69,7 +70,7 @@
 
                 <JFXButton contentDisplay="TOP"
                            mnemonicParsing="false"
-                           onAction="#loadAddMember" prefHeight="400.0"
+                           onAction="#onday" prefHeight="400.0"
                            prefWidth="160.0"
                            styleClass="toolbar-button"
                            text="features in Day" textAlignment="CENTER">
@@ -127,6 +128,51 @@
                 </JFXButton>
             </VBox>
 
+
+            <HBox style="-fx-font-size: 20; -fx-font-style: italic;-fx-font-family: 'Times New Roman';">
+
+                <VBox>
+
+                    <HBox>
+
+                        <HBox>
+                            <Label layoutX="200" style="-fx-text-fill: #b3b3b3;"       text="${'one day    '}"/>
+                            <HBox.margin>
+                                <Insets>
+                                    <right>20</right>
+                                </Insets>
+                            </HBox.margin>
+                        </HBox>
+                        <HBox>
+                            <Label style="-fx-text-fill: #0295f7; -fx-font-size: 18;">Ctrl D</Label>
+                        </HBox>
+
+                    </HBox>
+
+                    <HBox>
+                        <HBox>
+                            <Label layoutX="200" style="-fx-text-fill: #b3b3b3;">close App</Label>
+                            <HBox.margin>
+                                <Insets>
+                                    <right>20</right>
+                                </Insets>
+                            </HBox.margin>
+                        </HBox>
+                        <HBox>
+                            <Label style="-fx-text-fill: #0295f7">(Double) ESC</Label>
+                        </HBox>
+                    </HBox>
+                </VBox>
+
+
+                <HBox.margin>
+                    <Insets>
+                        <left>280</left>
+                        <top>250</top>
+                    </Insets>
+                </HBox.margin>
+            </HBox>
         </HBox>
+
     </children>
 </VBox>
