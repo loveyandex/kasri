@@ -87,9 +87,7 @@ public class StatisticalController implements Initializable, Runnable {
 
     private void calculatItem(String newValue) {
         ArrayList<Double> doubles = new ArrayList<>();
-        allfeatureandyear.forEach(objects -> {
-            doubles.add((Double) objects.get(1));
-        });
+        allfeatureandyear.forEach(objects -> doubles.add((Double) objects.get(1)));
 
         Vec vec = new Vec() {
             @Override
@@ -133,6 +131,12 @@ public class StatisticalController implements Initializable, Runnable {
             } else if (newValue.equals(MathTerminology.STANDARDDEVIATION)) {
                 calcSD(vec);
             }
+            final String text = valueLable.getText();
+            if (!valueLable.getText().isEmpty())
+                allfeatureandyear.stream()
+                        .filter(doubles1 -> doubles1.get(1).doubleValue() == Double.parseDouble(text))
+                        .forEach(doubles1 -> valueLable.setText(valueLable.getText() +" in "+ doubles1.get(0)));
+
 
         } catch (IndexOutOfBoundsException e) {
             Dialog.createExceptionDialog(e);
