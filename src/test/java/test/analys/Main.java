@@ -1,4 +1,4 @@
-package com.amin.config;
+package test.analys;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
