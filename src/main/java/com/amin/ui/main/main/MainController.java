@@ -100,6 +100,8 @@ public class MainController implements Initializable {
                  onday(null);
              } else if (event.getCode() == KeyCode.M && event.isControlDown()) {
                  onMap(null);
+             } else if (event.getCode() == KeyCode.S && event.isControlDown()) {
+                 openscript(null);
              }
         });
 
@@ -309,11 +311,11 @@ public class MainController implements Initializable {
         stage.showAndWait();
     }
 
-    public void loadBookTable(ActionEvent actionEvent) throws IOException {
+    public void wholestationsallyear(ActionEvent actionEvent) throws IOException {
         Stage stage = new StageOverride();
         stage.setTitle("whole of the year in all stations of a country");
         stage.setResizable(true);
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/wholeyear/wholeyearallstationsofcountry.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/wholeyear2/wholeyear/wholeyearallstationsofcountry.fxml"));
         Scene scene = new SceneJson<>(root, 750, 600);
         stage.setScene(scene);
         stage.initOwner(rootme.getScene().getWindow());
@@ -322,7 +324,7 @@ public class MainController implements Initializable {
 
     }
 
-    public void loadIssuedBookList(ActionEvent actionEvent) {
+    public void openscript(ActionEvent actionEvent) {
         try {
             new ScriptAPP().start(new StageOverride());
         } catch (Exception e) {

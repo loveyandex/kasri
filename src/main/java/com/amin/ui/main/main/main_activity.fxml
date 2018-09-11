@@ -54,15 +54,16 @@
         </menus>
     </MenuBar>
     <children>
-        <HBox>
+        <VBox>
 
 
-            <VBox>
+            <HBox>
 
 
                 <JFXButton contentDisplay="TOP"
                            mnemonicParsing="false"
-                           onAction="#onday" prefHeight="400.0"
+                           onAction="#onday"
+                           prefHeight="100.0"
                            prefWidth="160.0"
                            styleClass="toolbar-button"
                            text="features in Day" textAlignment="CENTER">
@@ -71,8 +72,13 @@
                         <!--<FontAwesomeIconView glyphName="AT"  size="25" />-->
                     </graphic>
                 </JFXButton>
-                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
-                           onAction="#latlong" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
+                <JFXButton contentDisplay="TOP"
+                           layoutX="10.0" layoutY="10.0"
+                           mnemonicParsing="false"
+                           onAction="#latlong"
+                           prefHeight="100.0"
+                           prefWidth="160.0"
+                           styleClass="toolbar-button"
                            text="lat &amp; long" textAlignment="CENTER">
                     <graphic>
                         <ImageView   >
@@ -83,22 +89,29 @@
 
                     </graphic>
                 </JFXButton>
-                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
-                           onAction="#loadMemberTable" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
+                <JFXButton contentDisplay="TOP"
+                           layoutX="10.0" layoutY="10.0"
+                           mnemonicParsing="false"
+                           onAction="#loadMemberTable"
+                           prefHeight="100.0"
+                           prefWidth="160.0"
+                           styleClass="toolbar-button"
                            text="${'all stations \n in one day'}" textAlignment="CENTER">
                     <graphic>
                         <FontAwesomeIconView glyphName="TABLE" size="25"/>
                     </graphic>
                 </JFXButton>
-                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="81.0" mnemonicParsing="false"
-                           onAction="#loadBookTable" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
+                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="81.0"
+                           mnemonicParsing="false"
+                           onAction="#wholestationsallyear"
+                           prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
                            text="in whole of year" textAlignment="CENTER">
                     <graphic>
                         <FontAwesomeIconView glyphName="TABLE" size="25"/>
                     </graphic>
                 </JFXButton>
-                <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#loadIssuedBookList"
-                           prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button" text="scripts"
+                <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#openscript"
+                           prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button" text="scripts"
                            textAlignment="CENTER">
                     <graphic>
                         <ImageView   >
@@ -112,13 +125,13 @@
 
                 </JFXButton>
                 <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="223.0" mnemonicParsing="false"
-                           onAction="#onMap" prefHeight="400.0" prefWidth="160.0" styleClass="toolbar-button"
+                           onAction="#onMap" prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
                            text="Map" textAlignment="CENTER">
                     <graphic>
                         <FontAwesomeIconView glyphName="COG" size="25"/>
                     </graphic>
                 </JFXButton>
-            </VBox>
+            </HBox>
 
 
             <HBox style="-fx-font-size: 20; -fx-font-style: italic;">
@@ -157,6 +170,22 @@
                     </HBox>
 
                     <HBox>
+
+                        <HBox>
+                            <Label layoutX="200" style="-fx-text-fill: #b3b3b3;"       text="${'open script '}"/>
+                            <HBox.margin>
+                                <Insets>
+                                    <right>20</right>
+                                </Insets>
+                            </HBox.margin>
+                        </HBox>
+                        <HBox>
+                            <Label style="-fx-text-fill: #0295f7; -fx-font-size: 18;">Ctrl S</Label>
+                        </HBox>
+
+                    </HBox>
+
+                    <HBox>
                         <HBox>
                             <Label layoutX="200" style="-fx-text-fill: #b3b3b3;">close App</Label>
                             <HBox.margin>
@@ -180,7 +209,7 @@
                 </HBox.margin>
             </HBox>
 
-        </HBox>
+        </VBox>
 
     </children>
 </VBox>

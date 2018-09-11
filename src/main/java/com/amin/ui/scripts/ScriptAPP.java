@@ -5,14 +5,13 @@ import com.amin.jsons.Date;
 import com.amin.jsons.FormInfo;
 import com.amin.jsons.OtherFormInfo;
 import com.amin.scripting.Funsctions;
+import com.amin.ui.SceneJson;
 import com.amin.ui.dialogs.Dialog;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -39,6 +38,7 @@ public class ScriptAPP extends Application {
 
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
+
         primaryStage.getIcons().add(new Image(getClass().getResource("/logo.png").toURI().toString()));
         MenuBar file = new MenuBar();
         file.setId("file");
@@ -100,7 +100,7 @@ public class ScriptAPP extends Application {
         TextArea console = new TextArea(">>onday 40800 10 26 PRES hPa 8999 1999 2017 iran__islamic_rep\n>>");
         console.setMinSize(900, 220);
         console.setStyle("-fx-base: #fff3f8;\n" +
-                " -fx-control-inner-background: #effff2");
+                " -fx-control-inner-background: #2A2E37");
 
 
         wind_speed.setOnAction(event -> {
@@ -183,7 +183,7 @@ public class ScriptAPP extends Application {
         closeButton.setMinWidth(30);
         Button oth = new Button("scripting");
         oth.setStyle("-fx-background-radius: 0;-fx-border-radius: 0;"+
-                "-fx-background-color: #8d8d89;" +
+                "-fx-background-color: #2A2E37;" +
                 "-fx-text-fill: #ffffff;");
 
 
@@ -225,7 +225,10 @@ public class ScriptAPP extends Application {
         layout.setTop(vBox);
         ;
 
-        Scene scene = new Scene(layout, 900, 450, Color.rgb(75, 75, 69));
+        Scene scene = new SceneJson<>(layout, 900, 450, Color.rgb(75, 75, 69));
+        layout.getStylesheets().add("/scripting.css");
+
+
         oth.setMinWidth(scene.getWidth() - 30 - 25);
 
         window.setScene(scene);
@@ -238,19 +241,13 @@ public class ScriptAPP extends Application {
 
         });
 
-        oth.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                xOffset = event.getSceneX();
-                yOffset = event.getSceneY();
-            }
+        oth.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
         });
-        oth.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                primaryStage.setX(event.getScreenX() - xOffset);
-                primaryStage.setY(event.getScreenY() - yOffset);
-            }
+        oth.setOnMouseDragged(event -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
         });
         oth.setFocusTraversable(false);
 //        closeButton.setFocusTraversable(false);
