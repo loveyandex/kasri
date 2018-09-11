@@ -541,7 +541,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
 
                 long time = System.nanoTime() - start;
                 double t = time / 1e9d;
-                System.out.printf("Each process took an average of %f s%n  in thread of %s", t,endofFileName) ;
+                System.out.printf("Each process took an average of %f s  in thread of %s %n", t,endofFileName) ;
 
             }
 
@@ -550,7 +550,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
         writerw.close();
         long time = System.nanoTime() - start;
         double t = time / 1e9d;
-        System.out.printf("took time %f s%n in thread of %s", t,endofFileName);
+        System.out.printf("took time %f s in thread of %s %n", t,endofFileName);
 
         ArrayList<ArrayList<String>> colsData = Mapping.LatLong.getColsData(
                 pathDirToSave + File.separator + childFileName, ","
