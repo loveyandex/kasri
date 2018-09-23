@@ -4,9 +4,9 @@ import com.amin.analysis.wind.WindMining;
 import com.amin.getdata.Starter;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
+import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.map.LatLongMainApp;
 import com.amin.ui.scripts.ScriptAPP;
-import com.amin.ui.dialogs.Dialog;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,6 +25,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -93,6 +94,16 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        rootme.setOnKeyPressed(event -> {
+             if (event.getCode()== KeyCode.D &&  event.isControlDown()) {
+                 onday(null);
+             } else if (event.getCode() == KeyCode.M && event.isControlDown()) {
+                 onMap(null);
+             } else if (event.getCode() == KeyCode.S && event.isControlDown()) {
+                 openscript(null);
+             }
+        });
 
     }
 
@@ -258,7 +269,7 @@ public class MainController implements Initializable {
 
 
 
-    public void loadAddMember(ActionEvent actionEvent) {
+    public void onday(ActionEvent actionEvent) {
         try {
             dayFeature(actionEvent);
         } catch (IOException e) {
@@ -300,11 +311,11 @@ public class MainController implements Initializable {
         stage.showAndWait();
     }
 
-    public void loadBookTable(ActionEvent actionEvent) throws IOException {
+    public void wholestationsallyear(ActionEvent actionEvent) throws IOException {
         Stage stage = new StageOverride();
         stage.setTitle("whole of the year in all stations of a country");
         stage.setResizable(true);
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/wholeyear/wholeyearallstationsofcountry.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/wholeyear2/wholeyear/wholeyearallstationsofcountry.fxml"));
         Scene scene = new SceneJson<>(root, 750, 600);
         stage.setScene(scene);
         stage.initOwner(rootme.getScene().getWindow());
@@ -313,7 +324,7 @@ public class MainController implements Initializable {
 
     }
 
-    public void loadIssuedBookList(ActionEvent actionEvent) {
+    public void openscript(ActionEvent actionEvent) {
         try {
             new ScriptAPP().start(new StageOverride());
         } catch (Exception e) {
@@ -321,13 +332,13 @@ public class MainController implements Initializable {
         }
     }
 
-    public void loadSettings(ActionEvent actionEvent) {
+    public void onMap(ActionEvent actionEvent) {
         try {
             new LatLongMainApp().start(new StageOverride());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Dialog.SnackBar.showSnack(rootme,"comming sooon...");
+//        Dialog.SnackBar.showSnack(rootme,"comming sooon...");
     }
 
 
@@ -348,6 +359,18 @@ public class MainController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
 
+
+    }
+
+    public void ondayAllHeight(ActionEvent actionEvent) throws IOException {
+        Stage stage = new StageOverride();
+        stage.setResizable(true);
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/allheight/antiheight.fxml"));
+        Scene scene = new SceneJson<>(root, 750, 600);
+        stage.setScene(scene);
+        stage.initOwner(rootme.getScene().getWindow());
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
 
     }
 }

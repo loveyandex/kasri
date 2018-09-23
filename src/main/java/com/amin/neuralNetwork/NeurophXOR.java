@@ -5,7 +5,7 @@ import org.neuroph.core.NeuralNetwork;
 import org.neuroph.core.Neuron;
 import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
-import org.neuroph.nnet.learning.BackPropagation;
+import org.neuroph.nnet.learning.SigmoidDeltaRule;
 import org.neuroph.util.ConnectionFactory;
 import org.neuroph.util.NeuralNetworkType;
 
@@ -22,8 +22,16 @@ public class NeurophXOR {
         hiddenLayerOne.addNeuron(new Neuron());
         hiddenLayerOne.addNeuron(new Neuron());
         hiddenLayerOne.addNeuron(new Neuron());
+        hiddenLayerOne.addNeuron(new Neuron());
+        hiddenLayerOne.addNeuron(new Neuron());
+        hiddenLayerOne.addNeuron(new Neuron());
+        hiddenLayerOne.addNeuron(new Neuron());
+        hiddenLayerOne.addNeuron(new Neuron());
 
         Layer hiddenLayerTwo = new Layer();
+        hiddenLayerTwo.addNeuron(new Neuron());
+        hiddenLayerTwo.addNeuron(new Neuron());
+        hiddenLayerTwo.addNeuron(new Neuron());
         hiddenLayerTwo.addNeuron(new Neuron());
         hiddenLayerTwo.addNeuron(new Neuron());
         hiddenLayerTwo.addNeuron(new Neuron());
@@ -56,19 +64,25 @@ public class NeurophXOR {
         int outputSize = 1;
         DataSet ds = new DataSet(inputSize, outputSize);
 
-        DataSetRow rOne = new DataSetRow(new double[]{0, 1}, new double[]{1});
+        DataSetRow rOne = new DataSetRow(new double[]{0, 1}, new double[]{0.51});
         ds.addRow(rOne);
-        DataSetRow rTwo = new DataSetRow(new double[]{1, 1}, new double[]{2});
+        DataSetRow rTwo = new DataSetRow(new double[]{0.5, 1}, new double[]{0.25});
         ds.addRow(rTwo);
-        DataSetRow rThree = new DataSetRow(new double[]{0, 0}, new double[]{0});
+        DataSetRow rThree = new DataSetRow(new double[]{0.25, 0.25}, new double[]{0.42});
         ds.addRow(rThree);
-        DataSetRow rFour = new DataSetRow(new double[]{1, 0}, new double[]{1});
+        DataSetRow rFour = new DataSetRow(new double[]{0.25, 0.1}, new double[]{0.91});
         ds.addRow(rFour);
+        DataSetRow rFour2 = new DataSetRow(new double[]{0.85, 0.2}, new double[]{0.63});
+        ds.addRow(rFour2);
+        DataSetRow rFour22 = new DataSetRow(new double[]{0.59, 0.36}, new double[]{0.52});
+        ds.addRow(rFour22);
+        DataSetRow rFour222 = new DataSetRow(new double[]{1, 0}, new double[]{0.31});
+        ds.addRow(rFour222);
 
-        BackPropagation backPropagation = new BackPropagation();
-        backPropagation.setMaxIterations(1000);
+        SigmoidDeltaRule sigmoidDeltaRule = new SigmoidDeltaRule();
+        sigmoidDeltaRule.setMaxIterations(12000);
 
-        ann.learn(ds, backPropagation);
+        ann.learn(ds, sigmoidDeltaRule);
 
         return ann;
 
@@ -78,14 +92,12 @@ public class NeurophXOR {
     public static void main(String[] args) {
         NeuralNetwork neuralNetwork = NeurophXOR.assembleNeuralNetwork();
         neuralNetwork = NeurophXOR.trainNeuralNetwork(neuralNetwork);
-        for (int i = 0; i < 2; i++) {
 
-
-            neuralNetwork.setInput(Math.random(), Math.random());
+            neuralNetwork.setInput(0.0000001,0.0000001);
             neuralNetwork.calculate();
             final double[] output = neuralNetwork.getOutput();
             System.out.println(output[0]);
 
-        }
+
     }
 }

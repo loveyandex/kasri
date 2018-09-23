@@ -6,17 +6,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.RangeSlider?>
-<VBox fx:id="vvv" stylesheets="/light-theme.css" xmlns="http://javafx.com/javafx/8.0.121"
+<VBox fx:id="vvv" stylesheets="/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.121"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.amin.ui.main.features.FormDayController">
+      fx:controller="com.amin.ui.main.features.allheight.AntiHeightDayController">
 
 
     <JFXTabPane fx:id="jfxtab" style="-fx-alignment: center">
         <Tab text="req1">
-            <GridPane fx:id="rootNode" alignment="TOP_CENTER" prefHeight="2500.0" prefWidth="600.0" style="-fx-padding: 40px 0px 0px 0px" >
+            <GridPane fx:id="rootNode" alignment="TOP_CENTER" prefHeight="2500.0" prefWidth="600.0" style="-fx-padding: 40px 0px 0px 0px" stylesheets="/dark-theme.css">
                 <Label focusTraversable="true"
                        stylesheets="/stage.css"
                        text="choose a feature"
+                       textFill="#d5b02c"
                        GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
                 <JFXComboBox fx:id="featuresCombo"
@@ -33,6 +34,7 @@
                 <Label focusTraversable="true"
                        stylesheets="/stage.css"
                        text="choose month"
+                       textFill="#d5b02c"
                        GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
 
@@ -43,6 +45,7 @@
                 </JFXComboBox>
 
                 <Label text="choose a day of month"
+                       textFill="#d5b02c"
                        GridPane.columnIndex="0" GridPane.rowIndex="2" />
                 <JFXComboBox fx:id="dayofMonthCombo" minWidth="200"
                              stylesheets="/combo.css"
@@ -55,6 +58,7 @@
                 </JFXComboBox>
 
                 <Label text="choose a country"
+                       textFill="#d5b02c"
                        GridPane.columnIndex="0" GridPane.rowIndex="5" />
 
                 <JFXComboBox id="fancytext" fx:id="countriesCombo" minWidth="200"
@@ -68,6 +72,7 @@
                 </JFXComboBox>
 
                 <Label text="choose a station"
+                       textFill="#d5b02c"
                        GridPane.columnIndex="0" GridPane.rowIndex="7" />
 
                 <JFXComboBox id="fancytext" fx:id="stationsCombo" minWidth="200"
@@ -82,6 +87,7 @@
                 </JFXComboBox>
 
                 <Label text="change unit(SI &amp; NonSI)"
+                       textFill="#d5b02c"
 
                        GridPane.columnIndex="0" GridPane.rowIndex="9" >
 
@@ -111,10 +117,10 @@
         </Tab>
         <Tab text="req2">
             <VBox fx:id="rootNodetab2" alignment="TOP_CENTER"
-                  style="-fx-padding: 40px 0px 0px 0px" >
+                  style="-fx-padding: 40px 0px 0px 0px" stylesheets="/dark-theme.css">
                 <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
                     <Label text="time zones: " minWidth="100"
-                           style="-fx-padding: 0px 30px 0px 0px;"/>
+                           style="-fx-padding: 0px 30px 0px 0px;-fx-text-fill: white"/>
                     <JFXCheckBox fx:id="z00" checkedColor="#949c10"
                                  selected="true" disable="true" contentDisplay="CENTER"
                                  style="-fx-padding: 0px 20px 0px 0px" text="00Z"
@@ -129,15 +135,10 @@
                                      GridPane.columnIndex="0" GridPane.rowIndex="1"/>
                     </HBox>
                 </HBox>
-                <!--<HBox alignment="TOP_CENTER"  minWidth="300"  style="-fx-padding: 20px 0px 0px 0px" >-->
-                <!--<RangeSlider fx:id="yearsSlider" minWidth="300" max="2018" min="1973"  lowValue="1973" highValue="2018"-->
-                <!--showTickLabels="true" showTickMarks="true" blockIncrement="1"-->
 
-                <!--/>-->
-                <!--</HBox>-->
                 <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
                     <Label text="from year: " minWidth="100"
-                           style="-fx-padding: 0px 40px 0px 0px;"/>
+                           style="-fx-padding: 0px 40px 0px 0px;-fx-text-fill:#d5b02c"/>
                     <JFXSlider fx:id="lowYearjfxslider"
                                minWidth="300" showTickMarks="true"
                                showTickLabels="true"
@@ -149,7 +150,7 @@
                 <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
                     <Label text="to year: "
                            minWidth="100"
-                           style="-fx-padding: 0px 30px 0px 0px;"
+                           style="-fx-padding: 0px 30px 0px 0px;-fx-text-fill:#d5b02c"
                     />
                     <JFXSlider fx:id="highYearjfxslider"
                                stylesheets="/combo.css"
@@ -158,43 +159,6 @@
                                showTickLabels="true"
                                min="1973"
                                max="2018"/>
-                </HBox>
-
-                <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
-                    <Label text="height(m)"
-                           minWidth="100"
-                           style="-fx-padding: 0px 40px 0px 0px"/>
-
-                    <JFXTextField alignment="BASELINE_LEFT"
-                                  fx:id="height"
-                                  promptText="height"
-
-                                  style="-fx-background-color: white"
-                                  minWidth="300"
-                    >
-                        <font>
-                            <Font size="9.0"/>
-                        </font>
-
-                    </JFXTextField>
-                </HBox>
-                <HBox alignment="BASELINE_CENTER"
-
-                      style="-fx-padding: 30px 00px 0px 100px;-fx-text-fill:#d5b02c"
-                >
-
-                    <RangeSlider
-                            stylesheets="/combo.css"
-                            fx:id="hSlider"
-                            min="900"
-                            max="35000"
-                            lowValue="1000"
-                            highValue="350000"
-                            maxWidth="300"
-                            minWidth="300"
-
-                    ></RangeSlider>
-
                 </HBox>
 
 

@@ -8,6 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/jre" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -99,7 +100,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.slf4j:slf4j-nop:1.7.22" level="project" />
     <orderEntry type="library" name="Maven: com.lynden:GMapsFX:2.12.0" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.neuroph:neuroph-core:2.92" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.2.3" level="project" />
+    <orderEntry type="library" name="Maven: org.beykery:neuroph:2.92" level="project" />
   </component>
 </module>

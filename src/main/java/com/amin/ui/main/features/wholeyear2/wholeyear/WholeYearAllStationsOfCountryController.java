@@ -1,8 +1,8 @@
-package com.amin.ui.main.features.wholeyear;
+package com.amin.ui.main.features.wholeyear2.wholeyear;
 
-import com.amin.io.MyWriter;
 import com.amin.analysis.Mapping;
 import com.amin.config.C;
+import com.amin.io.MyWriter;
 import com.amin.jsons.Features;
 import com.amin.jsons.OtherFormInfo;
 import com.amin.jsons.UnitConvertor;
@@ -341,7 +341,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                     try {
                         Gobtn.setDisable(true);
                         progressbar.setVisible(true);
-                        showChartAndAna();
+                        showChartAndAna(1, 3,"_first_season");
                         Gobtn.setDisable(false);
                         progressbar.setVisible(false);
 
@@ -357,6 +357,73 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                         e.printStackTrace();
                     }
                 }).start();
+
+                new Thread(() -> {
+                    try {
+                        Gobtn.setDisable(true);
+                        progressbar.setVisible(true);
+                        showChartAndAna(4, 6,"_second_season");
+                        Gobtn.setDisable(false);
+                        progressbar.setVisible(false);
+
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (FileNotFoundException e) {
+                        Dialog.createExceptionDialog(e);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+                  new Thread(() -> {
+                    try {
+                        Gobtn.setDisable(true);
+                        progressbar.setVisible(true);
+                        showChartAndAna(7 ,9,"_third_season");
+                        Gobtn.setDisable(false);
+                        progressbar.setVisible(false);
+
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (FileNotFoundException e) {
+                        Dialog.createExceptionDialog(e);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+                  new Thread(() -> {
+                    try {
+                        Gobtn.setDisable(true);
+                        progressbar.setVisible(true);
+                        showChartAndAna(10, 12,"_forth_season");
+                        Gobtn.setDisable(false);
+                        progressbar.setVisible(false);
+
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (FileNotFoundException e) {
+                        Dialog.createExceptionDialog(e);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+
+
+
+
+
+
 
             }
 
@@ -389,7 +456,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
     }
 
 
-    private void showChartAndAna() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, IOException {
+    private void showChartAndAna(int initmonth, int endmonth,String endofFileName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, IOException {
         String childFileName = "";
         String pathDirToSave = System.getProperty("user.home") + "/Desktop/data";
         if (formInfo.getDirTOSave() != null)
@@ -407,7 +474,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
         String height = formInfo.getHeight();
 
 
-        childFileName = formInfo.getFeaureName() + "_" + height + "_" + formInfo.getCountry() + ".csv";
+        childFileName = formInfo.getFeaureName() + "_" + height + "_" + formInfo.getCountry()+endofFileName + ".csv";
         File file = new File(pathDirToSave, childFileName);
         if (file.exists())
             file.delete();
@@ -426,7 +493,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
         MyWriter writerw = new MyWriter(pathDirToSave, childFileName, true);
 
 
-        for (int monthInt = 1; monthInt <= 12; monthInt++) {
+        for (int monthInt = initmonth; monthInt <= endmonth; monthInt++) {
 //        for (int monthInt = 12; monthInt >= 1; monthInt--) {
             month = Month.of(monthInt);
             monthDisp = month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
@@ -474,7 +541,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
 
                 long time = System.nanoTime() - start;
                 double t = time / 1e9d;
-                System.out.printf("Each XXXXX took an average of %f s%n", t);
+                System.out.printf("Each process took an average of %f s  in thread of %s %n", t,endofFileName) ;
 
             }
 
@@ -483,7 +550,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
         writerw.close();
         long time = System.nanoTime() - start;
         double t = time / 1e9d;
-        System.out.printf("took time %f s%n", t);
+        System.out.printf("took time %f s in thread of %s %n", t,endofFileName);
 
         ArrayList<ArrayList<String>> colsData = Mapping.LatLong.getColsData(
                 pathDirToSave + File.separator + childFileName, ","

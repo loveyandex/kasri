@@ -1,10 +1,10 @@
-package com.amin.ui.main.features.wholeyear;
+package com.amin.ui.main.features.allheight;
 
-import com.amin.io.MyWriter;
 import com.amin.analysis.Mapping;
 import com.amin.config.C;
+import com.amin.jsons.Date;
 import com.amin.jsons.Features;
-import com.amin.jsons.OtherFormInfo;
+import com.amin.jsons.FormInfo;
 import com.amin.jsons.UnitConvertor;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
@@ -17,24 +17,21 @@ import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
 import net.time4j.PlainDate;
 import net.time4j.calendar.PersianCalendar;
 import net.time4j.ui.javafx.CalendarPicker;
-import org.controlsfx.control.RangeSlider;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.time.Month;
 import java.time.format.TextStyle;
@@ -43,16 +40,13 @@ import java.util.*;
 /**
  * is created by aMIN on 6/1/2018 at 05:50
  */
+public class AntiHeightDayController implements Initializable {
 
-public class WholeYearAllStationsOfCountryController implements Initializable {
-
-    public RangeSlider yearsSlider;
     public JFXSlider lowYearjfxslider;
     public JFXSlider highYearjfxslider;
+    public HBox topOfgobtn;
     public JFXComboBox featuresCombo;
     public JFXComboBox unitsCombo;
-    public JFXButton savebtn;
-    public ProgressIndicator progressbar;
     private ArrayList<IOException> ioExceptions = new ArrayList<>();
 
     public GridPane rootNode;
@@ -64,7 +58,6 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
     public JFXButton cancelBtn;
     public JFXButton Gobtn;
 
-    public TextField height;
     public VBox vvv;
     public JFXComboBox monthCombo;
     public JFXComboBox dayofMonthCombo;
@@ -74,32 +67,15 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
 
-    public OtherFormInfo formInfo;
+    public FormInfo formInfo;
     private Map<String, String> stationNumTOCities;
 
-    @FXML
-    private RangeSlider hSlider;
 
+    private ArrayList<ArrayList<ArrayList<Double>>> AllfeatureAndYear = new ArrayList<ArrayList<ArrayList<Double>>>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        formInfo = new OtherFormInfo();
-
-        savebtn.setOnMouseClicked(event -> {
-            final DirectoryChooser directoryChooser =
-                    new DirectoryChooser();
-            final File kasriDate =
-                    directoryChooser.showDialog(rootNode.getScene().getWindow());
-            if (kasriDate != null) {
-                formInfo.setDirTOSave(kasriDate.getAbsolutePath());
-            }
-        });
-
-
-
-
-
-
+        formInfo = new FormInfo();
 
         String[] featursName = {"PRES", "HGHT", "TEMP", "DWPT", "RELH", "MIXR", "DRCT", Features.SKNT.getName(), "THTA", "THTE", "THTV"};
         for (int i = 0; i < featursName.length; i++) {
@@ -137,7 +113,9 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                     || feaureName.equals(Features.THTE.getName())
                     || feaureName.equals(Features.THTV.getName())) {
                 UnitConvertor.TEMP units = UnitConvertor.TEMP.units;
-                formInfo.setFeatureUnit(units.getCelsius().toString());
+                final String featureUnit = units.getCelsius().toString();
+                System.out.println(featureUnit);
+                formInfo.setFeatureUnit(featureUnit);
 
                 unitsCombo.getItems().add(new Label(units.getCelsius().toString()));
                 unitsCombo.getItems().add(new Label(units.getKelvin().getSymbol()));
@@ -159,6 +137,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
             } else if (feaureName.equals(Features.DRCT.getName())) {
                 UnitConvertor.DRCT units = UnitConvertor.DRCT.units;
                 formInfo.setFeatureUnit(units.getDegreeAngle().toString());
+                System.out.println(units.getDegreeAngle().toString());
 
                 unitsCombo.getItems().add(new Label(units.getDegreeAngle().toString()));
                 unitsCombo.getItems().add(new Label(units.getRadian().getSymbol()));
@@ -197,8 +176,6 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
         });
 
 
-
-
         lowYearjfxslider.valueProperty().addListener((observable, oldValue, newValue) -> {
             int a = (int) Math.round((Double) newValue);
             formInfo.setLowerYear(a);
@@ -217,9 +194,9 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
         });
 
 
-        GridPane.setMargin(monthCombo,new Insets(0,0,30,0));
+        GridPane.setMargin(monthCombo, new Insets(0, 0, 30, 0));
 
-        ArrayList<String> persianMonths=new ArrayList<String>( Arrays.asList("فروردین", "اردیبهشت", "خرداد","تیر","مرداد","شهریور","مهر","ابان","اذر","دی","بهمن","اسفند"));
+        ArrayList<String> persianMonths = new ArrayList<String>(Arrays.asList("فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "ابان", "اذر", "دی", "بهمن", "اسفند"));
         Map<String, Integer> persianMapMonth = new HashMap<>();
 
         for (int j = 0; j < persianMonths.size(); j++) {
@@ -228,19 +205,23 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
         }
 
 
-
         monthCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
+            formInfo.setDate(null);
             dayofMonthCombo.getItems().clear();
-            int[] days={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
+            int[] days = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
             for (int i = 1; i <= 31; i++) {
-                    dayofMonthCombo.getItems().add(new Label(String.valueOf(i)));
+                dayofMonthCombo.getItems().add(new Label(String.valueOf(i)));
             }
-
+            if (isReadyToFire(formInfo))
+                Gobtn.setDisable(false);
+            else
+                Gobtn.setDisable(true);
 
         });
         dayofMonthCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
 
+                formInfo.setDate(null);
                 persianCalendarCalendarPicker = CalendarPicker.persianWithSystemDefaults();
                 String text = ((Label) monthCombo.getValue()).getText();
                 Integer intmonth = persianMapMonth.get(text);
@@ -249,14 +230,18 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                     persianCalendarCalendarPicker.valueProperty().setValue(PersianCalendar.of(1372, intmonth, (Integer.parseInt(((Label) newValue).getText()))));
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
-                }catch (IllegalArgumentException ex){
+                } catch (IllegalArgumentException ex) {
                     Dialog.createExceptionDialog(ex);
                 }
 //                System.out.println(persianCalendarCalendarPicker.valueProperty().getValue().getMonth());
-            PersianCalendar persianCalendar = persianCalendarCalendarPicker.valueProperty().getValue();
-            PlainDate plainDate = persianCalendar.transform(PlainDate.class);
+                PersianCalendar persianCalendar = persianCalendarCalendarPicker.valueProperty().getValue();
+                PlainDate plainDate = persianCalendar.transform(PlainDate.class);
                 System.out.println(String.format("%s-%s-%s", plainDate.getDayOfMonth(), plainDate.getMonth(), plainDate.getYear()));
+                formInfo.setDate(new Date(plainDate.getMonth(), plainDate.getDayOfMonth(), plainDate.getYear()));
             }
+
+            if (isReadyToFire(formInfo))
+                Gobtn.setDisable(false);
 
         });
 
@@ -268,12 +253,11 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
             e.printStackTrace();
         }
 
-        formInfo.setStationNamesList(new ArrayList<>());
-        formInfo.setStationNumbersList(new ArrayList<>());
+
         countriesCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
-            formInfo.getStationNamesList().clear();
-            formInfo.getStationNumbersList().clear();
+            stationsCombo.getItems().clear();
             try {
+                formInfo.setStationNumber(null);
                 formInfo.setCountry(newValue.getText());
 
                 String dirpath = "config/old-stations";
@@ -289,12 +273,9 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                         MapStationNumTOCities("config/old-stations/" + newValue.getText() + ".conf.csv");
 
 
-
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
-                    if (!station.getValue().equals("&")) {
-                        formInfo.getStationNamesList().add(station.getKey());
-                        formInfo.getStationNumbersList().add(station.getValue());
-                    }
+                    if (!station.getValue().equals("&"))
+                        stationsCombo.getItems().add(new Label(station.getKey()));
                 }
 
             } catch (IOException e) {
@@ -308,10 +289,23 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
 
         });
 
-//        stationsCombo.setPromptText("select station");
         stationsCombo.setMinWidth(200);
         countriesCombo.setMinWidth(200);
 
+        stationsCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
+
+            if (newValue != null) {
+                for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
+                    if (station.getKey().equals(newValue.getText()))
+                        formInfo.setStationNumber(station.getValue());
+
+                }
+                formInfo.setStationName(newValue.getText());
+
+                if (isReadyToFire(formInfo))
+                    Gobtn.setDisable(false);
+            }
+        });
 
         GridPane.setHalignment(stationsCombo, HPos.CENTER);
 
@@ -323,197 +317,148 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
 
         });
         cancelBtn.setOnKeyPressed(event -> {
-            if(event.getCode()==KeyCode.ENTER)
+            if (event.getCode() == KeyCode.ENTER)
                 cancelBtn.getOnAction().handle(null);
         });
 
         Gobtn.setOnKeyPressed(event -> {
-            if(event.getCode()==KeyCode.ENTER)
+            if (event.getCode() == KeyCode.ENTER)
                 Gobtn.getOnAction().handle(null);
         });
 
 
         Gobtn.setOnAction(event -> {
             if (formInfo.getHighYear().intValue() < formInfo.getLowerYear().intValue())
-                Dialog.SnackBar.showSnack(rootNode, "high year is lower than low year!!");
+                Dialog.SnackBar.showSnack(rootNode, "high year is lower than low year");
             else {
-                new Thread(() -> {
-                    try {
-                        Gobtn.setDisable(true);
-                        progressbar.setVisible(true);
-                        showChartAndAna();
-                        Gobtn.setDisable(false);
-                        progressbar.setVisible(false);
-
-                    } catch (NoSuchMethodException e) {
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    } catch (FileNotFoundException e) {
-                        Dialog.createExceptionDialog(e);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }).start();
-
+                try {
+                    showChartAndAna();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
 
 
         });
 
 
-        height.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.equals(""))
-                formInfo.setHeight(null);
-            else
-                formInfo.setHeight(newValue);
-            if (isReadyToFire(formInfo))
-                Gobtn.setDisable(false);
-        });
-
-
-
-        hSlider.lowValueProperty().addListener((observable, oldValue, newValue) -> {
-            height.textProperty().setValue(String.valueOf(Math.round(newValue.doubleValue())));
-        });
-
-        height.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (isReadyToFire(formInfo))
-                Gobtn.setDisable(false);
-        });
-
-
-
     }
 
 
-    private void showChartAndAna() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, IOException {
-        String childFileName = "";
-        String pathDirToSave = System.getProperty("user.home") + "/Desktop/data";
-        if (formInfo.getDirTOSave() != null)
-            pathDirToSave = formInfo.getDirTOSave();
-
+    private void showChartAndAna() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        if (!AllfeatureAndYear.isEmpty()) AllfeatureAndYear.clear();
         int fromYear = formInfo.getLowerYear().intValue();
         int toYear = formInfo.getHighYear().intValue();
         String featureName = formInfo.getFeaureName();
         int featureIndexCSV = getfeatureIndex(featureName).getLevelCode() - 1;
         String unit = formInfo.getFeatureUnit();
 
+
+        int numDay = formInfo.getDate().Day;
+        String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
+        int monthInt = formInfo.getDate().Month;
+        Month month = Month.of(monthInt);
+        String monthDisp = month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+
         String country = formInfo.getCountry();
-        ArrayList<String> stationNumberslist = formInfo.getStationNumbersList();
-        ArrayList<String> stationNamesList = formInfo.getStationNamesList();
-        String height = formInfo.getHeight();
+        String stationNumber = formInfo.getStationNumber();
 
 
-        childFileName = formInfo.getFeaureName() + "_" + height + "_" + formInfo.getCountry() + ".csv";
-        File file = new File(pathDirToSave, childFileName);
-        if (file.exists())
-            file.delete();
-        long start = 0;
-        start = System.nanoTime();
+        double lowrange = Double.parseDouble(getfeatureIndex(featureName).getLow_range());
+        double highrange = Double.parseDouble(getfeatureIndex(featureName).getHigh_range());
+
+        Charting charting123 = new Charting();
+        int cti = charting123.convertTogether(featureName, unit);
+
+        Method method;
+        method = Charting.class.getMethod("conv" + cti, double.class);
+
+        Double invokelowrange = ((Double) method.invoke(charting123, lowrange));
+        Double invokehighrange = ((Double) method.invoke(charting123, highrange));
+        double ytickUnit = ((Double) method.invoke(charting123, 10));
+
+        Charting charting = new Charting(900, 33000, 1000,
+                invokelowrange, invokehighrange, ytickUnit, "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
+        final XYChart<Number, Number> sc = charting.getSc();
+
+
+        ArrayList<Double> knotslist = new ArrayList<>();
+        ArrayList<Integer> yearsofFeature = new ArrayList<>();
+
         String[] z = {"00Z", "12Z"};
-        String Z;
-        String dayOfMonth;
-        Month month;
-        String monthDisp;
-        String rootDir;
-        String fileName;
-        int counterforStations;
-        ArrayList<ArrayList<Double>> heightAndFeature;
-        Charting charting = new Charting(featureName, unit);
-        MyWriter writerw = new MyWriter(pathDirToSave, childFileName, true);
+        for (int id = 0; id < 2; id++) {
 
-
-        for (int monthInt = 1; monthInt <= 12; monthInt++) {
-//        for (int monthInt = 12; monthInt >= 1; monthInt--) {
-            month = Month.of(monthInt);
-            monthDisp = month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
-
-            for (int day = 1; day <= 31; day++) {
-                dayOfMonth = (day < 10 ? "0" : "") + day;
-
-
-                counterforStations = -1;
-                for (String stationNumber : stationNumberslist) {
-                    counterforStations++;
-
-                    for (int id = 0; id < 2; id++) {
-                        Z = z[id];
-                        for (int year = fromYear; year <= toYear; year++) {
-
-                            rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + year + File.separator + "month_" + monthInt + File.separator + stationNumber;
-                            fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + year + ".csv";
-
-                            try {
-                                heightAndFeature = charting.getcol1col2daydata(rootDir + File.separator + fileName
-                                        , 1, featureIndexCSV);
-
-                                Double intrapolateFeature = intrapolateFeature(height, heightAndFeature);
-                                if (intrapolateFeature != null)
-                                    writerw.appendStringInFile(String.format(
-                                            "%d,%s,%s,%s,%f,%s,%s,%s,%s\n", year, Z, stationNamesList.get(counterforStations)
-                                            , stationNumber, intrapolateFeature, unit,String.valueOf(year), monthDisp, dayOfMonth));
-
-
-                            } catch (IOException e) {
-                                ioExceptions.add(e);
-                            } catch (NoSuchMethodException e) {
-                                e.printStackTrace();
-                            } catch (InvocationTargetException e) {
-                                e.printStackTrace();
-                            } catch (IllegalAccessException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-
-                    }
-                }
-
-                long time = System.nanoTime() - start;
-                double t = time / 1e9d;
-                System.out.printf("Each XXXXX took an average of %f s%n", t);
-
-            }
-
-        }
-
-        writerw.close();
-        long time = System.nanoTime() - start;
-        double t = time / 1e9d;
-        System.out.printf("took time %f s%n", t);
-
-        ArrayList<ArrayList<String>> colsData = Mapping.LatLong.getColsData(
-                pathDirToSave + File.separator + childFileName, ","
-                , 0, 1, 2, 3, 4, 5);
-
-        javafx.application.Platform.runLater(() -> {
-
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("success");
-            alert.setHeaderText("valid stations data saved in your path");
-            alert.show();
-            alert.setOnHiding(event -> {
-                Stage primaryStage = new StageOverride();
-                Parent root = null;
+            String Z = z[id];
+            for (int i = fromYear; i <= toYear; i++) {
+                ArrayList<Object> featureAndYear = new ArrayList<>();
+                String rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + monthInt + File.separator + stationNumber;
+                String fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + i + ".csv";
+                ArrayList<ArrayList<Double>> heightAndFeature;
+                ArrayList<ArrayList<Double>> yearsUseful = new ArrayList<ArrayList<Double>>();
                 try {
-                    root = FXMLLoader.load(WholeYearAllStationsOfCountryController.this.getClass().getResource("/com/amin/ui/main/features/allstationsstatistic.fxml"));
+
+                    heightAndFeature = charting.addSeriesToChart(featureName
+                            , fileName.replaceAll(".csv", ""),
+                            rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
+
+                    int finalI = i;
+                    yearsUseful.add(new ArrayList<Double>() {{
+                        add((double) finalI);
+                    }});
+
+                    AllfeatureAndYear.add(yearsUseful);
+                    AllfeatureAndYear.add(heightAndFeature);
+
+
                 } catch (IOException e) {
+                    ioExceptions.add(e);
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
-                root.setStyle("-fx-padding: 30 30 30 30 ");
 
-                SceneJson sceneJson = new SceneJson<>(root);
-                sceneJson.setJson(colsData);
-                primaryStage.setScene(sceneJson);
+            }
+        }
+        if (!ioExceptions.isEmpty()) {
+            Dialog.createIOExceptionDialog(ioExceptions);
+            ioExceptions.clear();
+        }
 
-                primaryStage.setResizable(false);
-                primaryStage.show();
-            });
-        });
+        try {
+
+
+
+            final VBox vbox = new VBox();
+            final HBox hbox = new HBox();
+            vbox.setLayoutY(300);
+            vbox.setLayoutX(400);
+            vbox.setStyle("-fx-background-color: #fff");
+            vbox.getChildren().addAll(sc);
+            hbox.setPadding(new Insets(10, 10,
+                    03.10, 10));
+            Parent root = FXMLLoader.load(AntiHeightDayController.class.getResource("/com/amin/ui/main/features/allheight/chart.fxml"));
+            ((VBox) root).getChildren().add(vbox);
+            StageOverride stage = new StageOverride();
+            stage.setTitle("statistical analysis");
+
+            SceneJson sceneJson = new SceneJson<ArrayList>(root, 450, 450);
+
+
+            sceneJson.setJson(AllfeatureAndYear);
+
+            stage.setScene(sceneJson);
+            stage.show();
+
+        } catch (IOException e) {
+            Dialog.createExceptionDialog(e);
+        }
 
 
     }
@@ -546,90 +491,13 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
 
     }
 
-
-    private Double intrapolateFeature(String height, ArrayList<ArrayList<Double>> heightAndFeature) {
-
-        Double knotdesire = null;
-        double heightdesire = Double.parseDouble(height);
-        final Vector<Double> heigthsVector = new Vector<>();
-        final Vector<Double> knotsVector = new Vector<>();
-
-        heightAndFeature.forEach(doubles -> {
-
-            double h = (doubles.get(0));
-            double knot = (doubles.get(1));
-                heigthsVector.add(h);
-                knotsVector.add(knot);
-
-        });
-
-        for (int i = 0; i < heigthsVector.size() - 1; i++) {
-            double hi = heigthsVector.get(i);
-            double hiplus = heigthsVector.get(i + 1);
-            double knoti = knotsVector.get(i);
-            double knotiplus = knotsVector.get(i + 1);
-            if ((heightdesire - hi) * (heightdesire - hiplus) <= 0) {
-                knotdesire = (knotiplus - knoti) * (heightdesire - hi) / (hiplus - hi) + (knoti);
-                break;
-            }
-
-        }
-        return knotdesire;
-    }
-
-
-    private double intrapolateKnot(String height, ArrayList<ArrayList<String>> heightAndKnotAll) {
-        double knotdesire = -1;
-        double heightdesire = Double.parseDouble(height);
-        final Vector<Double> heigthsVector = new Vector<>();
-        final Vector<Double> knotsVector = new Vector<>();
-
-        heightAndKnotAll.forEach(strings -> {
-            if (!strings.get(0).equals("HGHT")
-                    && !strings.get(1).equals("SKNT")
-                    && !strings.get(0).equals("m")
-                    && !strings.get(1).equals("knot")
-                    && !strings.get(0).equals("NULL")
-                    && !strings.get(1).equals("NULL")
-
-
-                    ) {
-                double h = Double.parseDouble(strings.get(0));
-                double knot = Double.parseDouble(strings.get(1));
-                heigthsVector.add(h);
-                knotsVector.add(knot);
-            }
-        });
-
-        for (int i = 0; i < heigthsVector.size() - 1; i++) {
-            double hi = heigthsVector.get(i);
-            double hiplus = heigthsVector.get(i + 1);
-            double knoti = knotsVector.get(i);
-            double knotiplus = knotsVector.get(i + 1);
-            if ((heightdesire - hi) * (heightdesire - hiplus) <= 0) {
-                knotdesire = (knotiplus - knoti) * (heightdesire - hi) / (hiplus - hi) + (knoti);
-                break;
-            }
-
-        }
-        return knotdesire;
-    }
-
-
-
-
-
-
-
-    private boolean isReadyToFire(OtherFormInfo formInfo) {
-        if (formInfo.getFeatureUnit() == null || formInfo.getFeaureName() == null || formInfo.getLowerYear() == null || formInfo.getHighYear() == null || formInfo.getStationNamesList().isEmpty() || formInfo.getCountry() == null || formInfo.getHeight() == null) {
+    private boolean isReadyToFire(FormInfo formInfo) {
+        if (formInfo.getFeatureUnit() == null || formInfo.getFeaureName() == null || formInfo.getLowerYear() == null || formInfo.getHighYear() == null || formInfo.getDate() == null || formInfo.getStationNumber() == null || formInfo.getCountry() == null) {
             Gobtn.setDisable(true);
             return false;
         } else
             return true;
     }
-
-
 
 
 }

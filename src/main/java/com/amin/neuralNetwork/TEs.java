@@ -12,7 +12,10 @@ import org.neuroph.util.ConnectionFactory;
  * is created by aMIN on 8/18/2018 at 10:29 PM
  */
 public class TEs {
-    public static void main(String[] args) {
+    public static void main(String[] args) {}
+
+
+    public static NeuralNetwork net(int itr){
         Layer inputLayer = new Layer();
         inputLayer.addNeuron(new Neuron());
         inputLayer.addNeuron(new Neuron());
@@ -58,28 +61,21 @@ public class TEs {
                 = new DataSetRow(new double[]{00.0, 1.0}, new double[]{1.0});
         ds.addRow(rOne);
         DataSetRow rTwo
-                = new DataSetRow(new double[]{1, 1}, new double[]{0});
+                = new DataSetRow(new double[]{1, 1}, new double[]{0.0});
         ds.addRow(rTwo);
         DataSetRow rThree
-                = new DataSetRow(new double[]{0, 0}, new double[]{0});
+                = new DataSetRow(new double[]{0, 0}, new double[]{0.0});
         ds.addRow(rThree);
         DataSetRow rFour
-                = new DataSetRow(new double[]{1, 0}, new double[]{1});
+                = new DataSetRow(new double[]{1, 0}, new double[]{1.0});
         ds.addRow(rFour);
 
 
         BackPropagation backPropagation = new BackPropagation();
-        backPropagation.setMaxIterations(10000);
+        backPropagation.setMaxIterations(itr);
         ann.learn(ds, backPropagation);
 
-
-        ann.setInput(0.0,0.99);
-        ann.calculate();
-        double[] networkOutputOne = ann.getOutput();
-
-        System.out.println(networkOutputOne[0]);
-
-
+        return ann;
 
     }
 }

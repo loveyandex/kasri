@@ -5,6 +5,7 @@ import com.amin.database.Driver;
 import com.amin.ui.dialogs.Dialog;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -260,12 +261,12 @@ public class Mapping {
             File fileTosave = new File(dir, childFileName);
             fileTosave.createNewFile();
             FileOutputStream fileOutputStream = new FileOutputStream(fileTosave, append);
-            OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream);
+            OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8);
             writer.write(s);
             writer.flush();
             writer.close();
             fileOutputStream.close();
-            System.out.println("written in " + fileTosave.getPath());
+            System.out.println("king write in " + fileTosave.getPath());
         }
 
         public void delimiteCSVColsWriteFile(boolean append, String pathDirToSave, String childFileName, String... colsvalue) throws IOException {

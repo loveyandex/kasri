@@ -36,7 +36,7 @@ import java.util.Vector;
 public class Funsctions {
     private static Funsctions ourInstance = new Funsctions();
 
-    public static Funsctions getInstance() {
+    public static Funsctions  getInstance() {
         return ourInstance;
     }
 
