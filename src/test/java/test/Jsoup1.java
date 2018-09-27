@@ -29,22 +29,7 @@ public class Jsoup1 {
         Element knowledge = body.getElementById("knowledge-currency__tgt-amount");
         String eu = knowledge.text();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        try (
-                Writer writer = Files.newBufferedWriter(Paths.get(STRING_ARRAY_SAMPLE), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+        try (Writer writer = Files.newBufferedWriter(Paths.get(STRING_ARRAY_SAMPLE), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
 
                 CSVWriter csvWriter = new CSVWriter(writer,
                         CSVWriter.DEFAULT_SEPARATOR,
@@ -52,18 +37,13 @@ public class Jsoup1 {
                         CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                         CSVWriter.DEFAULT_LINE_END);
         ) {
-            csvWriter.writeNext(new String[]{eu});
+            csvWriter.writeNext(new String[]{eu.replaceAll("\\\"", "").replaceAll(",", "")});
         }
-
         Dia.infoBox("5K$ to Euro", eu);
-
-
     }
 }
 
-
 class Dia {
-
     public static void infoBox(String infoMessage, String titleBar) {
         JOptionPane.showMessageDialog(null, infoMessage, titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
