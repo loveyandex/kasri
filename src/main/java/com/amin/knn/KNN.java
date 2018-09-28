@@ -81,16 +81,10 @@ public class KNN {
             System.out.println(long1 + dellongang);
 
 //            System.err.println(alfa);
-
-
         }
 
 
     }
-
-
-
-
 
 
 }

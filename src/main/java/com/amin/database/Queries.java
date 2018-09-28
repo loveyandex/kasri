@@ -33,10 +33,11 @@ public class Queries {
             "  THTE varchar(20) null,\n" +
             "  THTV varchar(20) null\n" +
             ");";
+
     public static String CRT_TBL_CSV_NUMERIC = "create table aminTable" +
             "(\n" +
-            "  PRES float null primary key,\n" +
-            "  HGHT float null,\n" +
+            "  PRES float null ,\n" +
+            "  HGHT float null primary key,\n" +
             "  TEMP float null,\n" +
             "  DWPT float null,\n" +
             "  RELH float null,\n" +
@@ -47,5 +48,46 @@ public class Queries {
             "  THTE float null,\n" +
             "  THTV float null\n" +
             ");";
+
+
+    public static String CRT_ONE_TBL_FOR_ALL_CSV_NUMERIC = "create table aminTable" +
+            "(\n" +
+            "station int(5) not null,\n" +
+            "col_date DATE not null, \n" +
+            "  PRES float null ,\n" +
+            "  HGHT float null,\n" +
+            "  TEMP float null,\n" +
+            "  DWPT float null,\n" +
+            "  RELH float null,\n" +
+            "  MIXR float null,\n" +
+            "  DRCT float null,\n" +
+            "  SKNT float null,\n" +
+            "  THTA float null,\n" +
+            "  THTE float null,\n" +
+            "  THTV float null,\n" +
+            "PRIMARY KEY (station,col_date,HGHT)" +
+            ");";
+
+
+
+
+
+
+    public static String load_set_them_with_your_own_dataInto = "LOAD DATA LOCAL INFILE \'" + CSV_FILE + "\'\n" +
+            "INTO TABLE " + TABLE_NAME_CSV + " \n" +
+            "FIELDS TERMINATED BY ';'\n" +
+            "ENCLOSED BY '\"'\n" +
+            "LINES TERMINATED BY '\\r\\n'\n" +
+            "IGNORE 2 LINES\n" +
+            "(@ignore,@ignore,PRES,HGHT,TEMP,DWPT,RELH,MIXR,DRCT,SKNT,THTA,THTE,THTV);\n" +
+            "\n"
+            ;
+
+
+
+    public static String insertAllTableToOne="insert into %s\n" +
+            "select %s,'%4d-%02d-%02d','%s' ,\n" +
+            "         PRES, HGHT, TEMP, DWPT, RELH, MIXR, DRCT, SKNT, THTA, THTE, THTV\n" +
+            "    from %s;";
 
 }
