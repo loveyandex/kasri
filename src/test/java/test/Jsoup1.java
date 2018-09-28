@@ -13,6 +13,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * is created by aMIN on 7/16/2018 at 21:10
@@ -37,7 +39,13 @@ public class Jsoup1 {
                         CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                         CSVWriter.DEFAULT_LINE_END);
         ) {
-            csvWriter.writeNext(new String[]{eu.replaceAll("\\\"", "").replaceAll(",", "")});
+            Date dNow = new Date( );
+            SimpleDateFormat datee = new SimpleDateFormat (" HH:mm:ss");
+            SimpleDateFormat time = new SimpleDateFormat ("yyyy-MM-dd");
+
+
+            final String s = eu.replaceAll("\\\"", "").replaceAll(",", "");
+            csvWriter.writeNext(new String[]{s, time.format(dNow), datee.format(dNow)});
         }
         Dia.infoBox("5K$ to Euro", eu);
     }
