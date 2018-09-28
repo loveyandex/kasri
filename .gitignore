@@ -1,9 +1,9 @@
-.ideaDataSources/
-asas/**
-kasri.iws
-target/
-jre/
 *.ipr
 *.iws
 *.iml
 kasri.ipr
+kasri.iws
+.ideaDataSources/
+asas/**
+target/
+jre/
