@@ -18,4 +18,4 @@ create table armenia
   primary key (station, col_date, zone, HGHT)
 );
 
-DELETE FROM armenia
+DELETE FROM iran__islamic_rep

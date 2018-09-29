@@ -86,8 +86,15 @@ public class Queries {
 
 
     public static String insertAllTableToOne="insert into %s\n" +
-            "select %s,'%4d-%02d-%02d','%s' ,\n" +
+            "select %s,'%4d-%02d-%02d','%s' ," +
             "         PRES, HGHT, TEMP, DWPT, RELH, MIXR, DRCT, SKNT, THTA, THTE, THTV\n" +
             "    from %s;";
+
+    public static String deleteAllTable=
+            " delete   from %s;";
+
+
+    public static String dropAlltable=
+            " drop table %s;";
 
 }
