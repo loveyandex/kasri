@@ -13,6 +13,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * is created by aMIN on 7/16/2018 at 21:10
@@ -29,22 +31,7 @@ public class Jsoup1 {
         Element knowledge = body.getElementById("knowledge-currency__tgt-amount");
         String eu = knowledge.text();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        try (
-                Writer writer = Files.newBufferedWriter(Paths.get(STRING_ARRAY_SAMPLE), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+        try (Writer writer = Files.newBufferedWriter(Paths.get(STRING_ARRAY_SAMPLE), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
 
                 CSVWriter csvWriter = new CSVWriter(writer,
                         CSVWriter.DEFAULT_SEPARATOR,
@@ -52,18 +39,19 @@ public class Jsoup1 {
                         CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                         CSVWriter.DEFAULT_LINE_END);
         ) {
-            csvWriter.writeNext(new String[]{eu});
+            Date dNow = new Date( );
+            SimpleDateFormat datee = new SimpleDateFormat (" HH:mm:ss");
+            SimpleDateFormat time = new SimpleDateFormat ("yyyy-MM-dd");
+
+
+            final String s = eu.replaceAll("\\\"", "").replaceAll(",", "");
+            csvWriter.writeNext(new String[]{s, time.format(dNow), datee.format(dNow)});
         }
-
         Dia.infoBox("5K$ to Euro", eu);
-
-
     }
 }
 
-
 class Dia {
-
     public static void infoBox(String infoMessage, String titleBar) {
         JOptionPane.showMessageDialog(null, infoMessage, titleBar, JOptionPane.INFORMATION_MESSAGE);
     }

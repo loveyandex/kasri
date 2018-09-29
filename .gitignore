@@ -1,9 +1,9 @@
-.ideaDataSources/
-asas/**
-kasri.iws
-target/
-dollar-euro.csv
-jre/
 *.ipr
 *.iws
 *.iml
+kasri.ipr
+kasri.iws
+.ideaDataSources/
+asas/**
+target/
+jre/

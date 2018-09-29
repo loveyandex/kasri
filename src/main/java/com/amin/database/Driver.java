@@ -14,7 +14,7 @@ import java.sql.Statement;
  * is created by aMIN on 6/11/2018 at 22:14
  */
 public class Driver extends Application {
-    private static Driver driver;
+   final private static Driver driver= new Driver();;
     private  Connection connection;
     private Driver() {
         try {
@@ -62,7 +62,7 @@ public class Driver extends Application {
     }
 
     public static Driver getDriver() {
-        return new Driver();
+        return driver;
     }
 
     public int createCSVTable(String query) throws SQLException {
