@@ -124,8 +124,6 @@ public class KNN {
                 "from station_latlong\n" +
                 "where station!='null' and country like 'iran%' ;");
         return executeQuery;
-
-
     }
 
 
