@@ -1,5 +1,11 @@
 package com.amin.knn;
 
+import com.amin.database.Driver;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import static java.lang.Math.*;
 
 /**
@@ -54,7 +60,8 @@ public class KNN {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+        long start = System.nanoTime();;
         final double lat1 = 31.883674;
         final double long1 = 54.368775 ;
 
@@ -65,23 +72,58 @@ public class KNN {
 
 
         final double delalf = 360 / 999d;
-        double disradius = 1000;
-        for (int i = 0; i < 1000; i++) {
-            System.out.println("--------------------");
-            double alfa = delalf * i;
-            final double dellong = disradius * cos(Math.toRadians(alfa));
-            final double dellat = disradius * sin(Math.toRadians(alfa));
+        double disradius = 100;
 
-            final double dellongang = Math.toDegrees(dellong / (R * sin(Math.toRadians(90 - lat1))));
-            final double dellatang = Math.toDegrees(dellat / (R));
 
-//            System.out.println(real_distance(lat1, long1, lat1 + dellatang, long1 + dellongang));
+        final ResultSet resultSet = exeing();
 
-            System.out.println(lat1 + dellatang);
-            System.out.println(long1 + dellongang);
+        while (resultSet.next()) {
+            final String station = resultSet.getString(1);
+            final String country = resultSet.getString(2);
+            final String stacitinametion = resultSet.getString(3);
+            final String lati = resultSet.getString(4);
+            final String longi = resultSet.getString(5);
+//            System.out.println(lat1);
+//            System.out.print(long1);
+            final double real_distance = real_distance(lat1, long1, Double.parseDouble(lati), Double.parseDouble(longi));
+            if (real_distance<10){
+                System.err.println(real_distance);
+                System.out.println(stacitinametion + "...." + lati + "  " + longi);
 
-//            System.err.println(alfa);
+            }
+
         }
+        long time = System.nanoTime() - start;
+        System.out.printf("Each XXXXX took an average of %f ms%n", time/1e6d);
+
+
+//        for (int i = 0; i < 100; i++) {
+//            System.out.println("--------------------");
+//            double alfa = delalf * i;
+//            final double dellong = disradius * cos(Math.toRadians(alfa));
+//            final double dellat = disradius * sin(Math.toRadians(alfa));
+//
+//            final double dellongang = Math.toDegrees(dellong / (R * sin(Math.toRadians(90 - lat1))));
+//            final double dellatang = Math.toDegrees(dellat / (R));
+//
+////            System.out.println(real_distance(lat1, long1, lat1 + dellatang, long1 + dellongang));
+//
+//            System.out.println(lat1 + dellatang);
+//            System.out.println(long1 + dellongang);
+//
+////            System.err.println(alfa);
+//        }
+
+
+    }
+
+
+    public static ResultSet exeing() throws SQLException {
+        final Statement statement = Driver.getDriver().getConnection().createStatement();
+        final ResultSet executeQuery = statement.executeQuery("select *\n" +
+                "from station_latlong\n" +
+                "where station!='null' and country like 'iran%' ;");
+        return executeQuery;
 
 
     }

@@ -332,15 +332,16 @@ public class Mapping {
 
         String abspathfile = "config/countries.configfile.conf";
         final ArrayList<String> fileLines = getFileLines(abspathfile);
-        fileLines.forEach(Mapping::map);
+        fileLines.forEach(Mapping::mapForOldFolder);
 
     }
 
     final static Connection connection = Driver.getDriver().getConnection();
 
-    static void map(String fn) {
+    static void map(String rootparent, String fn) {
         final ArrayList<ArrayList<String>> latLongForAContryCities;
-        latLongForAContryCities = LatLong.getLatLongForAContryCities("config/old-stations", fn);
+
+        latLongForAContryCities = LatLong.getLatLongForAContryCities(rootparent, fn);
         latLongForAContryCities
                 .forEach(strings -> {
                     try {
@@ -361,5 +362,10 @@ public class Mapping {
                 });
     }
 
+
+    static void mapForOldFolder(String fn){
+        map( "config/old-stations",fn);
+
+    }
 
 }
