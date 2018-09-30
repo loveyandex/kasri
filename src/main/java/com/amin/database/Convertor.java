@@ -51,14 +51,15 @@ public class Convertor {
 
     public static void main(String[] args){
 
-        follan();
+        follan("iran__islamic_rep");
     }
 
 
-    public static void follan() {
+    public static void follan(String country) {
 
         try {
-            File folder = new File("G:/lastdir/armenia");
+
+            File folder = new File("G:/lastdir/"+ country);
 
             final File[] yearsfolder = folder.listFiles();
             for (File yearfolder : yearsfolder) {
@@ -82,7 +83,7 @@ public class Convertor {
 
                                 final String namefile = dataFile.getName().replaceAll(".csv", "");
 
-                                final String tablename = "armenia_" + stationFolder.getName() + "_" + namefile;
+                                final String tablename = country+"_" + stationFolder.getName() + "_" + namefile;
 
 
                                 String sql = Queries.load_dataInto.replaceAll("aminTable",
@@ -115,94 +116,6 @@ public class Convertor {
 
             }
 
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-    public static void loadinOneTable() {
-
-        try {
-            File folder = new File("G:/lastdir/armenia");
-
-            String CRT_TBL_CSV_NUMERIC = Queries.CRT_ONE_TBL_FOR_ALL_CSV_NUMERIC
-                    .replaceAll("aminTable", "armenia");
-
-
-//            Driver.getDriver().getConnection().createStatement().execute(CRT_TBL_CSV_NUMERIC);
-            final File[] yearsfolder = folder.listFiles();
-            for (File yearfolder : yearsfolder) {
-
-                final File[] monthesfolder = yearfolder.listFiles();
-
-                for (File monthfolder : monthesfolder) {
-
-                    final File[] stationsfolder = monthfolder.listFiles();
-
-                    for (File stationFolder : stationsfolder) {
-
-                        final File[] datas = stationFolder.listFiles();
-                        ;
-
-                        for (File dataFile : datas) {
-
-                            if (dataFile.isFile()) {
-                                final String namefile = dataFile.getName().replaceAll(".csv", "");
-                                System.out.println(namefile);
-                                final String tablename = "armenia_" + stationFolder.getName() + "_" + namefile;
-
-
-                                String month_ = monthfolder.getName().replaceAll("month_", "");
-                                month_ = String.format("%02d", Integer.parseInt(month_));
-                                String sql = String.format(Queries.load_dataInto.replaceAll("aminTable",
-                                        "armenia")
-                                                .replaceAll("aminFile", dataFile.getAbsolutePath().replaceAll("\\\\", "/"))
-                                                + " SET station=%s; SET col_data=%s-%s-%s"
-                                        , stationFolder, yearfolder.getName().replaceAll("year_", ""),
-                                        month_
-                                        , namefile.substring(4, 6));
-
-                                ;
-//
-//                                String CRT_TBL_CSV_NUMERIC = Queries.CRT_TBL_CSV_NUMERIC
-//                                        .replaceAll("aminTable", tablename);
-
-                                try {
-
-                                    Driver.getDriver().getConnection().createStatement().executeQuery(sql);
-
-                                } catch (MySQLSyntaxErrorException e) {
-                                    System.out.println(e);
-
-                                }
-
-                            }
-
-                        }
-                    }
-
-                }
-
-
-            }
-
-//            String fil = "G:/lastdir/armenia/year_1973/month_1/37789/00Z_05_Jan_1973.csv";
-//            String sql = Queries.load_dataInto.replaceAll("aminTable", "armenia_37789_00Z_05_Jan_1973")
-//                    .replaceAll("aminFile", fil);
-//
-//
-//            String CRT_TBL_CSV_NUMERIC = Queries.CRT_TBL_CSV_NUMERIC
-//                    .replaceAll("aminTable", "armenia_37789_00Z_05_Jan_1973");
-//
-//
-//            Driver.getDriver().getConnection().createStatement().execute(CRT_TBL_CSV_NUMERIC);
-//
-//            Driver.getDriver().getConnection().createStatement().executeQuery(sql);
-
-//            throw new SQLException();
 
         } catch (SQLException e) {
             e.printStackTrace();
