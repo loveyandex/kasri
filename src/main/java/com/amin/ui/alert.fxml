@@ -16,7 +16,7 @@
         </HBox>
 
         <HBox alignment="BASELINE_RIGHT">
-            <JFXButton onAction="#exit">exit</JFXButton>
+            <JFXButton fx:id="exit" onAction="#exit">exit</JFXButton>
             <JFXButton fx:id="cancel" onAction="#cancel">cancel</JFXButton>
         </HBox>
     </VBox>
