@@ -1,6 +1,8 @@
 package com.amin.ui.map;
 
 import com.amin.database.Driver;
+import com.amin.knn.KNN;
+import com.amin.pojos.LatLon;
 import com.amin.ui.scripts.ScriptAPP;
 import com.jfoenix.controls.JFXSnackbar;
 import com.lynden.gmapsfx.GoogleMapView;
@@ -102,18 +104,30 @@ public class LatLongFXMLController implements Initializable {
 
 
         map.addMouseEventHandler(UIEventType.click, (GMapMouseEvent event) -> {
-            final LatLong latLong = event.getLatLong();
+            final com.lynden.gmapsfx.javascript.object.LatLong latLong = event.getLatLong();
             marker.setPosition(latLong);
             marker.setTitle("first");
             marker.setVisible(true);
             map.addMarker(marker);
-            SnackBar.showSnackwithAction(anchorroot,actionEvent -> {
-                calcFeaute(stations,latLong);
-            },latLong.toString(),5000);
+//
+//            SnackBar.showSnackwithAction(anchorroot,
+//                    actionEvent -> calcFeaute(stations,latLong),latLong.toString(), 5000);
+            SnackBar.showSnackwithActionKNN(anchorroot,
+                    actionEvent -> {
+                        try {
+                            SnackBar.jfxSnackbar.unregisterSnackbarContainer(anchorroot);
+                            final double nearst = KNN.nearst(300, new LatLon(latLong.getLatitude(), latLong.getLongitude()));
+                            System.out.println(nearst);
+                            SnackBar.showSnack(anchorroot, String.valueOf(nearst), 2333 );
 
-            SnackBar.showSnackwithAction(anchorroot, actionEvent -> calcFeaute(stations,latLong),latLong.toString(), 5000);
+
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }, latLong.toString(), 5000);
+
+
         });
-
 
     }
 
@@ -187,7 +201,7 @@ public class LatLongFXMLController implements Initializable {
 
             jfxSnackbar.getStyleClass().add("jfx-snackbar-content");
 
-            jfxSnackbar.show(msg, "Got it", timeout, eh);
+            jfxSnackbar.show(msg, "Get it", timeout, eh);
         }
 
         public static void showSnackwithAction(Pane snackbarContainer, EventHandler<ActionEvent> eventHandler, String msg, long timeout) {
@@ -196,6 +210,14 @@ public class LatLongFXMLController implements Initializable {
             jfxSnackbar.getStyleClass().add("jfx-snackbar-content");
 
             jfxSnackbar.show(msg, "Got it", timeout, eventHandler);
+        }
+     static    JFXSnackbar jfxSnackbar;
+
+        public static void showSnackwithActionKNN(Pane snackbarContainer, EventHandler<ActionEvent> eventHandler, String msg, long timeout) {
+            jfxSnackbar  = new JFXSnackbar(snackbarContainer);
+            jfxSnackbar.getStyleClass().add("jfx-snackbar-content");
+
+            jfxSnackbar.show(msg, "KNN", timeout, eventHandler);
         }
 
 
