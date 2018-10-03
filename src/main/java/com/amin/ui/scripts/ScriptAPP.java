@@ -283,6 +283,25 @@ public class ScriptAPP extends Application {
 
     }
 
+    public static double scripting2(String cmd) {
+        s = cmd;
+        rem();
+        cmd = s;
+        System.out.println("f:\n" + cmd);
+        final String[] args = cmd.split(" ");
+
+        final String func = args[0];
+        if (func.equals("onday")) {
+            final double arrayLists = runFopen2(args);
+            return arrayLists;
+        }
+        else if (func.equals("ondaystations"))
+            runAllDay(args);
+
+
+        return 0.0;
+    }
+
    static private Map<String, String> stationNumTOCities;
 
     private  static void runAllDay(String[] args) {
@@ -372,6 +391,40 @@ public class ScriptAPP extends Application {
                 Dialog.createExceptionDialog(new RuntimeException(X.toString()));
             }
         }
+    }
+
+    private static double runFopen2(String[] args) {
+        if (args.length == 1)
+            Dialog.createExceptionDialog(new RuntimeException("not arrgumet assigned"));
+        else {
+            try {
+
+
+                final String stationNumber = args[1];
+                final int month = Integer.parseInt(args[2]);
+                final int day = Integer.parseInt(args[3]);
+
+                final String featurename = args[4];
+                final String unit = args[5];
+                final String height = args[6];
+                int loweryear = Integer.parseInt(args[7]);
+                int highyear = Integer.parseInt(args[8]);
+                final String country = args[9];
+//            final FormInfo formInfo = new FormInfo(new Date(1,1,2017), Features.SKNT.getName(),
+//                    "40800","",
+//                    "iran__islamic_rep","9899",2017,2017
+//                    , UnitConvertor.SPEED.units.getMetersPerSecond().toString());
+                final FormInfo formInfo = new FormInfo(new Date(month, day, 1999), featurename,
+                        stationNumber, "",
+                        country, height, loweryear, highyear, unit);
+                final double fopen2 = Funsctions.getInstance().fopen2(formInfo);
+                return fopen2;
+
+            } catch (Exception X) {
+                Dialog.createExceptionDialog(new RuntimeException(X.toString()));
+            }
+        }
+        return 0.0;
     }
 
 

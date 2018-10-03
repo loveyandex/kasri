@@ -7,6 +7,10 @@ import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.map.LatLongMainApp;
 import com.amin.ui.scripts.ScriptAPP;
+import com.jfoenix.controls.JFXAlert;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,6 +31,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -48,7 +53,13 @@ public class MainController implements Initializable {
     public Label outputLbl;
 
     public MenuBar menuBar;
+    public JFXButton alertButton;
+    public JFXButton bottombtn;
+    public StackPane stackpane;
+    public JFXButton acceptButton;
 
+    @FXML
+    private JFXDialog dialog;
     @FXML
     private TextArea textArea;
 
@@ -88,9 +99,6 @@ public class MainController implements Initializable {
     }
 
 
-    public void chart(ActionEvent actionEvent) {
-        charting();
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -105,100 +113,11 @@ public class MainController implements Initializable {
              }
         });
 
-    }
-
-
-    public void charting() {
-        final NumberAxis xAxis = new NumberAxis(1000, 30000, 1000);
-        final NumberAxis yAxis = new NumberAxis(0, 100, 10);
-//        final ScatterChart<Number, Number> sc = new ScatterChart<Number, Number>(xAxis, yAxis);
-        final LineChart<Number, Number> sc = new LineChart<Number, Number>(xAxis, yAxis);
-        xAxis.setLabel("height");
-        yAxis.setLabel("knot");
-        sc.setTitle("windyear-knot-m");
-
-        XYChart.Series series1 = new XYChart.Series();
-        XYChart.Series series11 = new XYChart.Series();
-        series1.setName("windspeed");
-        series11.setName("d");
-
-        try {
-
-            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol(
-                    "G:\\lastdir\\afghanistan\\year_1976\\month_4\\40948",
-                    "00Z_03_Apr_1976.csv");
-            for (int j = 2; j < windSpeedCol.size() - 1; j++) {
-                if (!windSpeedCol.get(j).get(0).equals("NULL") && !windSpeedCol.get(j).get(1).equals("NULL")) {
-                    double v0 = Double.parseDouble(windSpeedCol.get(j).get(0));
-                    double v00 = Double.parseDouble(windSpeedCol.get(j).get(0));
-                    double v1 = Double.parseDouble(windSpeedCol.get(j).get(1));
-                    double v11 = Double.parseDouble(windSpeedCol.get(j).get(1)) + 20.0;
-                    series1.getData().add(new XYChart.Data(v0, v1));
-                    ;
-                    series11.getData().add(new XYChart.Data(v00, v11));
-
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-//        sc.setPrefSize(500, 400);
-        sc.getData().addAll(series1,series11);
-        final VBox vbox = new VBox();
-        final HBox hbox = new HBox();
-        vbox.setLayoutY(300);
-        vbox.setLayoutX(400);
-        vbox.setStyle("-fx-background-color: #fff");
-
-        final Button add = new Button("Add Series");
 
 
 
-        final Button remove = new Button("Remove Series");
-        remove.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                if (!sc.getData().isEmpty())
-                    sc.getData().remove((int) (Math.random() * (sc.getData().size() - 1)));
-            }
-        });
 
-        final DropShadow shadow = new DropShadow();
-        shadow.setOffsetX(2);
-        shadow.setColor(Color.GREY);
-        sc.setEffect(shadow);
-        sc.setStyle("-fx-background-color: #fff;");
-        hbox.setSpacing(10);
-        hbox.getChildren().addAll(add, remove);
-        vbox.getChildren().addAll(sc, hbox);
-        hbox.setPadding(new Insets(10, 10, 10, 50));
-
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/chart.fxml"));
-            ((VBox) root).getChildren().add(vbox);
-
-
-            Stage stage = new Stage();
-            stage.setTitle("Title");
-            root.setStyle("-fx-background-color: #ffb087");
-            stage.setScene(new Scene(root, 450, 450));
-            stage.show();
-
-            add.setOnAction(event -> {
-                stage.hide();
-            });
-
-
-            // Hide this current window (if this is what you want)
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
+        acceptButton.setOnAction(action -> dialog.close());
 
     }
 
@@ -371,6 +290,13 @@ public class MainController implements Initializable {
         stage.initOwner(rootme.getScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+
+    }
+
+    public void about(ActionEvent actionEvent) {
+        dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM
+        );
+        dialog.show(stackpane);
 
     }
 }

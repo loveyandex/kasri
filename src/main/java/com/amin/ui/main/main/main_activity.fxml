@@ -4,7 +4,7 @@
 <?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.weathericons.WeatherIconView?>
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -47,7 +47,7 @@
             </Menu>
             <Menu text="Help">
                 <items>
-                    <MenuItem text="About" />
+                    <MenuItem text="About" onAction="#about" />
 
                 </items>
             </Menu>
@@ -134,9 +134,9 @@
             </HBox>
 
 
-            <HBox style="-fx-font-size: 20; -fx-font-style: italic;">
+            <HBox style="-fx-font-size: 20; -fx-font-style: italic;" alignment="BASELINE_CENTER">
 
-                <VBox>
+                <VBox alignment="CENTER">
 
                     <HBox>
 
@@ -194,16 +194,40 @@
                                 </Insets>
                             </HBox.margin>
                         </HBox>
-                        <HBox>
-                            <Label style="-fx-text-fill: #0295f7">(Double) ESC</Label>
-                        </HBox>
                     </HBox>
+                    <HBox>
+                        <Label style="-fx-text-fill: #0295f7">(Double) ESC</Label>
+                    </HBox>
+
                 </VBox>
 
+                <StackPane fx:id="stackpane">
+
+                    <JFXDialog fx:id="dialog">
+                        <JFXDialogLayout>
+                            <heading>
+                                <Label>JFoenix Dialog AMin</Label>
+                            </heading>
+                            <body>
+                                <Label>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                                    do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                                    enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                                    nisi ut aliquip ex ea commodo consequat.
+                                </Label>
+                            </body>
+                            <actions>
+                                <JFXButton fx:id="acceptButton" styleClass="dialog-accept">ACCEPT
+                                </JFXButton>
+                            </actions>
+                        </JFXDialogLayout>
+                    </JFXDialog>
+
+
+                </StackPane>
 
                 <HBox.margin>
                     <Insets>
-                        <left>280</left>
+                        <!--<left>280</left>-->
                         <top>250</top>
                     </Insets>
                 </HBox.margin>

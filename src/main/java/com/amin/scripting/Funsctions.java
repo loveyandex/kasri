@@ -8,7 +8,6 @@ import com.amin.jsons.OtherFormInfo;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
-import com.amin.ui.main.features.AllStationsOfCountryController;
 import com.amin.ui.main.features.FormDayController;
 import com.amin.ui.main.main.Charting;
 import javafx.fxml.FXMLLoader;
@@ -53,6 +52,20 @@ public class Funsctions {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+    }
+
+    public double fopen2(FormInfo formInfo) {
+        try {
+            final double arrayLists = returnInterapulate(formInfo);
+            return arrayLists;
+        } catch (NoSuchMethodException e) {
+            Dialog.createExceptionDialog(new RuntimeException("choose the right unit"));
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return 0.0;
     }
 
     public void fAllstationsonDay(OtherFormInfo otherFormInfo){
@@ -335,6 +348,113 @@ public class Funsctions {
 
 
     }
+
+
+    private double returnInterapulate(FormInfo formInfo) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        boolean haveever = false;
+        int fromYear = formInfo.getLowerYear().intValue();
+        int toYear = formInfo.getHighYear().intValue();
+        String featureName = formInfo.getFeaureName();
+        int featureIndexCSV = getfeatureIndex(featureName).getLevelCode() - 1;
+        String unit = formInfo.getFeatureUnit();
+
+
+        int numDay = formInfo.getDate().Day;
+        String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
+        int monthInt = formInfo.getDate().Month;
+        Month month = Month.of(monthInt);
+        String monthDisp = month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+
+        String country = formInfo.getCountry();
+        String stationNumber = formInfo.getStationNumber();
+        String height = formInfo.getHeight();
+
+
+        double lowrange = Double.parseDouble(getfeatureIndex(featureName).getLow_range());
+        double highrange = Double.parseDouble(getfeatureIndex(featureName).getHigh_range());
+
+        Charting charting123 = new Charting();
+        int cti = charting123.convertTogether(featureName, unit);
+
+        Method method;
+        method = Charting.class.getMethod("conv" + cti, double.class);
+
+        Double invokelowrange = ((Double) method.invoke(charting123, lowrange));
+        Double invokehighrange = ((Double) method.invoke(charting123, highrange));
+        double ytickUnit = ((Double) method.invoke(charting123, 10));
+
+        Charting charting = new Charting(900, 33000, 1000,
+                invokelowrange, invokehighrange, ytickUnit, "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
+
+        ArrayList<ArrayList<Object>> featureAndYears = new ArrayList<>();
+
+        String[] z = {"00Z", "12Z"};
+
+        String Z = z[0];
+        double sum = 0.0;
+        int intt = 0;
+        for (int i = fromYear; i <= toYear; i++) {
+            ArrayList<Object> featureAndYear = new ArrayList<>();
+            String rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + monthInt + File.separator + stationNumber;
+            String fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + i + ".csv";
+            ArrayList<ArrayList<Double>> heightAndFeature;
+            try {
+                heightAndFeature = charting.addSeriesToChart(featureName
+                        , fileName.replaceAll(".csv", ""),
+                        rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
+
+
+                Double intrapolateFeature = intrapolateFeature(height, heightAndFeature);
+                if (intrapolateFeature != null) {
+                    haveever = true;
+                    sum += intrapolateFeature;
+                    intt++;
+                    featureAndYear.add(intrapolateFeature);
+                    featureAndYear.add(i);
+                    featureAndYears.add(featureAndYear);
+                }
+
+
+            } catch (IOException e) {
+//
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        if (haveever)
+            return sum / intt;
+        else
+            return -1000000;
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     private Features getfeatureIndex(String featureName) {

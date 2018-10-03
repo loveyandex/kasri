@@ -27,7 +27,7 @@ public class RegressionSum {
     //Random number generator seed, for reproducability
     public static final int seed = 12345;
     //Number of epochs (full passes of the data)
-    public static final int nEpochs = 200;
+    public static final int nEpochs = 2000;
     //Number of data points
     public static final int nSamples = 1000;
     //Batch size: i.e., each epoch has nSamples/batchSize parameter updates
@@ -37,7 +37,7 @@ public class RegressionSum {
     // The range of the sample data, data in range (0-1 is sensitive for NN, you can try other ranges and see how it effects the results
     // also try changing the range along with changing the activation function
     public static int MIN_RANGE = 0;
-    public static int MAX_RANGE = 3;
+    public static int MAX_RANGE = 1;
 
     public static final Random rng = new Random(seed);
 

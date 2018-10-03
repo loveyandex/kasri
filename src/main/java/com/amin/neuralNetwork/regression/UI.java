@@ -7,6 +7,7 @@ import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -22,6 +23,7 @@ public class UI extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        stage.getIcons().add(new Image(getClass().getResource("/drawable/wind_white.png").toURI().toString()));
 
         final VBox pane = new VBox();
         pane.setSpacing(30);

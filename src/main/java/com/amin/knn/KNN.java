@@ -1,10 +1,14 @@
 package com.amin.knn;
 
 import com.amin.database.Driver;
+import com.amin.pojos.LatLon;
+import com.amin.pojos.Station;
+import com.amin.ui.scripts.ScriptAPP;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import static java.lang.Math.*;
 
@@ -90,11 +94,101 @@ public class KNN {
                 System.err.println(real_distance);
                 System.out.println(stacitinametion + "...." + lati + "  " + longi);
 
+
             }
 
         }
         long time = System.nanoTime() - start;
         System.out.printf("Each XXXXX took an average of %f ms%n", time/1e6d);
+
+
+    }
+
+
+    public static ResultSet exeing() throws SQLException {
+        final Statement statement = Driver.getDriver().getConnection().createStatement();
+        final ResultSet executeQuery = statement.executeQuery("select *\n" +
+                "from station_latlong\n" +
+                "where station!='null' and country like 'iran%' ;");
+        return executeQuery;
+    }
+
+
+    public static double nearst(double maximum_distance_km, LatLon latLong) throws SQLException {
+
+        final double lat1 = latLong.getLat();
+        final double long1 = latLong.getLogn();
+
+        Station station = null;
+        ArrayList<Station> stations = new ArrayList<>();
+
+        final ResultSet resultSet = exeing();
+        double sum_distance = 0.0;
+        double expection = 0.0;
+        while (resultSet.next()) {
+            final String stationnumber = resultSet.getString(1);
+            final String country = resultSet.getString(2);
+            final String stacitinametion = resultSet.getString(3);
+            final String lati = resultSet.getString(4);
+            final String longi = resultSet.getString(5);
+//            System.out.println(lat1);
+//            System.out.print(long1);
+            final double real_distance = real_distance(lat1, long1, Double.parseDouble(lati), Double.parseDouble(longi));
+            if (real_distance < maximum_distance_km) {
+                station = new Station(stationnumber, country, stacitinametion,
+                        true, new LatLon(Double.parseDouble(lati), Double.parseDouble(longi))
+                        , real_distance);
+                final double temp = temp(stationnumber, country);
+                if (temp == -1000000)
+                    continue;
+                else {
+                    expection += real_distance * temp;
+                    sum_distance += real_distance;
+                    stations.add(station);
+                    System.err.println(real_distance);
+                    System.err.println(stacitinametion + "...." + lati + "  " + longi);
+                }
+
+
+            }
+
+        }
+
+        if (sum_distance!=0.0)
+            return expection / sum_distance;
+        else
+            return -3000000000000000.0;
+
+    }
+
+    private static double temp(String stationnumber, String country) {
+        final double v = ScriptAPP.scripting2(String.format("onday %s 10 26 WIND_SPEED m/s 5000 1973 2017 %s", stationnumber, country));
+
+        return v;
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //        for (int i = 0; i < 100; i++) {
@@ -113,20 +207,3 @@ public class KNN {
 //
 ////            System.err.println(alfa);
 //        }
-
-
-    }
-
-
-    public static ResultSet exeing() throws SQLException {
-        final Statement statement = Driver.getDriver().getConnection().createStatement();
-        final ResultSet executeQuery = statement.executeQuery("select *\n" +
-                "from station_latlong\n" +
-                "where station!='null' and country like 'iran%' ;");
-        return executeQuery;
-
-
-    }
-
-
-}
