@@ -102,7 +102,13 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Platform.runLater(() -> {
+            dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM
+            );
+            dialog.show(stackpane);
+            dialog.close();
 
+        });
         rootme.setOnKeyPressed(event -> {
              if (event.getCode()== KeyCode.D &&  event.isControlDown()) {
                  onday(null);

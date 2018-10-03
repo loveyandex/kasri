@@ -201,39 +201,39 @@
 
                 </VBox>
 
-                <StackPane fx:id="stackpane">
-
-                    <JFXDialog fx:id="dialog">
-                        <JFXDialogLayout>
-                            <heading>
-                                <Label>JFoenix Dialog AMin</Label>
-                            </heading>
-                            <body>
-                                <Label>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                    do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                    enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                    nisi ut aliquip ex ea commodo consequat.
-                                </Label>
-                            </body>
-                            <actions>
-                                <JFXButton fx:id="acceptButton" styleClass="dialog-accept">ACCEPT
-                                </JFXButton>
-                            </actions>
-                        </JFXDialogLayout>
-                    </JFXDialog>
-
-
-                </StackPane>
-
                 <HBox.margin>
                     <Insets>
                         <!--<left>280</left>-->
-                        <top>250</top>
+                        <top>380</top>
                     </Insets>
                 </HBox.margin>
             </HBox>
 
         </VBox>
+
+        <StackPane fx:id="stackpane">
+
+            <JFXDialog fx:id="dialog">
+                <JFXDialogLayout>
+                    <heading>
+                        <Label>JFoenix Dialog AMin</Label>
+                    </heading>
+                    <body>
+                        <Label>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                            do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                            enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                            nisi ut aliquip ex ea commodo consequat.
+                        </Label>
+                    </body>
+                    <actions>
+                        <JFXButton fx:id="acceptButton" styleClass="dialog-accept">ACCEPT
+                        </JFXButton>
+                    </actions>
+                </JFXDialogLayout>
+            </JFXDialog>
+
+
+        </StackPane>
 
     </children>
 </VBox>
