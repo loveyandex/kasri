@@ -4,17 +4,22 @@ import com.amin.database.Driver;
 import com.amin.knn.KNN;
 import com.amin.pojos.LatLon;
 import com.amin.ui.scripts.ScriptAPP;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXSnackbar;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.javascript.event.GMapMouseEvent;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -33,6 +38,10 @@ public class LatLongFXMLController implements Initializable {
 
 
     public AnchorPane anchorroot;
+    public StackPane stackpane;
+    public JFXDialog dialog;
+    public JFXButton acceptButton;
+    public Label descrip;
 
 
     @FXML
@@ -45,7 +54,13 @@ public class LatLongFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         googleMapView.setKey("AIzaSyAjh0Sl5vljWmzKnR5n_7xwI1L-1zAtARc");
+        Platform.runLater(() -> {
+            dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM
+            );
+            dialog.show(stackpane);
+            dialog.close();
 
+        });
         googleMapView.addMapInializedListener(() -> {
             try {
                 configureMap();
@@ -54,8 +69,14 @@ public class LatLongFXMLController implements Initializable {
             }
         });
 
+        acceptButton.setOnAction(action -> dialog.close());
 
-        anchorroot.widthProperty().addListener((observable, oldValue, newValue) -> googleMapView.setPrefWidth(newValue.doubleValue()));
+
+        anchorroot.widthProperty().addListener((observable, oldValue, newValue) -> {
+            googleMapView.setPrefWidth(newValue.doubleValue());
+            AnchorPane.setLeftAnchor(stackpane,anchorroot.getWidth()/2.0-dialog.getWidth()/2.0);
+
+        });
         anchorroot.heightProperty().addListener((observable, oldValue, newValue) -> googleMapView.setPrefHeight(newValue.doubleValue()));
 
     }
@@ -118,8 +139,15 @@ public class LatLongFXMLController implements Initializable {
                             SnackBar.jfxSnackbar.unregisterSnackbarContainer(anchorroot);
                             final double nearst = KNN.nearst(300, new LatLon(latLong.getLatitude(), latLong.getLongitude()));
                             System.out.println(nearst);
-                            SnackBar.showSnack(anchorroot, String.valueOf(nearst), 2333 );
+                            final String msg = String.valueOf(nearst);
+                            SnackBar.showSnack(anchorroot, msg, 2333 );
+                            descrip.setText(msg);
 
+                            AnchorPane.setLeftAnchor(stackpane,anchorroot.getWidth()/2.0-dialog.getWidth()/2.0);
+
+                            dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM
+                            );
+                            dialog.show(stackpane);
 
                         } catch (SQLException e) {
                             e.printStackTrace();
