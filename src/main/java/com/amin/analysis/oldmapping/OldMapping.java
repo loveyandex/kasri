@@ -1,4 +1,4 @@
-package com.amin.analysis.wind;
+package com.amin.analysis.oldmapping;
 
 import java.io.File;
 import java.io.FileReader;
@@ -37,7 +37,7 @@ public class OldMapping {
     }
 
 
-    public static ArrayList<ArrayList<String>> getWindSpeedCol(String dayfilePAth,int col1,int col2) throws IOException {
+    public static ArrayList<ArrayList<String>> getCol1Col2(String dayfilePAth, int col1, int col2) throws IOException {
 
         FileReader reader = new FileReader(dayfilePAth);
         Scanner scanner = new Scanner(reader);

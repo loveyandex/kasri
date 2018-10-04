@@ -1,6 +1,6 @@
 package com.amin.ui.main.main;
 
-import com.amin.analysis.wind.OldMapping;
+import com.amin.analysis.oldmapping.OldMapping;
 import com.amin.jsons.Features;
 import com.amin.jsons.UnitConvertor;
 import com.amin.ui.dialogs.Dialog;
@@ -60,7 +60,7 @@ public class Charting {
         sc.setTitle(title);
         XYChart.Series series1 = new XYChart.Series();
         series1.setName(seriesName);
-        ArrayList<ArrayList<String>> windSpeedCol = OldMapping.getWindSpeedCol(dayfilePath, col1, col2);
+        ArrayList<ArrayList<String>> windSpeedCol = OldMapping.getCol1Col2(dayfilePath, col1, col2);
         for (int j = 2; j < windSpeedCol.size() - 1; j++) {
             if (!windSpeedCol.get(j).get(0).equals("NULL") && !windSpeedCol.get(j).get(1).equals("NULL")) {
                 double v0 = Double.parseDouble(windSpeedCol.get(j).get(0));
@@ -84,7 +84,7 @@ public class Charting {
         sc.setTitle(title);
         XYChart.Series series1 = new XYChart.Series();
         series1.setName(seriesName);
-        ArrayList<ArrayList<String>> windSpeedCol = OldMapping.getWindSpeedCol(dayfilePath, col1, col2);
+        ArrayList<ArrayList<String>> windSpeedCol = OldMapping.getCol1Col2(dayfilePath, col1, col2);
         for (int j = 2; j < windSpeedCol.size() - 1; j++) {
             if (!windSpeedCol.get(j).get(0).equals("NULL") && !windSpeedCol.get(j).get(1).equals("NULL")) {
                 ArrayList<Double> doubleArrayList = new ArrayList<>(2);
@@ -125,7 +125,7 @@ public class Charting {
     public ArrayList<ArrayList<Double>> getcol1col2daydata(String dayfilePath, int col1, int col2) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         arrayListArrayList.clear();
         windSpeedCol.clear();
-        windSpeedCol = OldMapping.getWindSpeedCol(dayfilePath, col1, col2);
+        windSpeedCol = OldMapping.getCol1Col2(dayfilePath, col1, col2);
 
         for (int j = 2; j < windSpeedCol.size() - 1; j++) {
             if (!windSpeedCol.get(j).get(0).equals("NULL") && !windSpeedCol.get(j).get(1).equals("NULL")) {

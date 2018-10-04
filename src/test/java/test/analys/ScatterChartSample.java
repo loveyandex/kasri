@@ -4,7 +4,7 @@ package test.analys;
  * is created by aMIN on 5/26/2018 at 02:04
  */
 
-import com.amin.analysis.wind.OldMapping;
+import com.amin.analysis.oldmapping.OldMapping;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
