@@ -10,7 +10,7 @@ import java.util.Scanner;
  * is created by aMIN on 5/25/2018 at 21:38
  */
 
-public class WindMining {
+public class OldMapping {
 
     public static ArrayList<ArrayList<String>> getWindSpeedCol(String dayDir, String fileName) throws IOException {
 
@@ -57,7 +57,7 @@ public class WindMining {
 
     public static void main(String[] args) {
         try {
-            WindMining.getWindSpeedCol("assets/data", "00Z_01_Jan_2017.csv");
+            OldMapping.getWindSpeedCol("assets/data", "00Z_01_Jan_2017.csv");
         } catch (IOException e) {
             e.printStackTrace();
         }

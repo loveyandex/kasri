@@ -216,17 +216,22 @@
             <JFXDialog fx:id="dialog">
                 <JFXDialogLayout>
                     <heading>
-                        <Label>JFoenix Dialog AMin</Label>
+                        <Label>Wafsi</Label>
                     </heading>
                     <body>
-                        <Label>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                            do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                            enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                            nisi ut aliquip ex ea commodo consequat.
-                        </Label>
+                        <VBox>
+                            <Label>Weather Analysis &amp; Flight Simulation internationally
+                            </Label>
+                            <HBox>
+                                <Label>Developer :  </Label>
+                                <Label style="-fx-text-fill: green">Abolfazl Ghahremani</Label>
+
+                            </HBox>
+                        </VBox>
+
                     </body>
                     <actions>
-                        <JFXButton fx:id="acceptButton" styleClass="dialog-accept">ACCEPT
+                        <JFXButton fx:id="acceptButton" styleClass="dialog-accept">Close
                         </JFXButton>
                     </actions>
                 </JFXDialogLayout>

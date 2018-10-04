@@ -4,7 +4,7 @@ package test;
  * is created by aMIN on 5/26/2018 at 02:04
  */
 
-import com.amin.analysis.wind.WindMining;
+import com.amin.analysis.wind.OldMapping;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -41,7 +41,7 @@ public class ScatterChartSample extends Application {
         series1.setName("Option 1");
 
         try {
-            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
+            ArrayList<ArrayList<String>> windSpeedCol = OldMapping.getWindSpeedCol("assets/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
 
             for (int j = 2; j < windSpeedCol.size()-1; j++)
                 series1.getData().add(new XYChart.Data(( Double.parseDouble(windSpeedCol.get(j).get(0))),Double.parseDouble( windSpeedCol.get(j).get(1))));

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
@@ -22,9 +23,6 @@
 
                 <Button fx:id="chooseDir2" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false"
                         onAction="#secondMining" text=" choose a country for second csv" textAlignment="CENTER"/>
-
-                <Button fx:id="okBtn" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false"
-                        onAction="#choosoe" text="choose a country for  wind mining" textAlignment="CENTER"/>
             </HBox>
 
             <Button fx:id="allinon" alignment="BOTTOM_CENTER" contentDisplay="CENTER" mnemonicParsing="false"

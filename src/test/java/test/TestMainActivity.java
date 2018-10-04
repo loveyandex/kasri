@@ -4,7 +4,7 @@ package test;
  * is created by aMIN on 5/26/2018 at 05:00
  */
 
-import com.amin.analysis.wind.WindMining;
+import com.amin.analysis.wind.OldMapping;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.ULocale;
@@ -89,7 +89,7 @@ public class TestMainActivity extends Application implements Initializable {
 //        textArea.textProperty().addListener((observable, oldValue, newValue) -> {
 //        });
         try {
-            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/data/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
+            ArrayList<ArrayList<String>> windSpeedCol = OldMapping.getWindSpeedCol("assets/data/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
 
             for (int j = 0; j < windSpeedCol.size(); j++)
                 textArea.appendText(windSpeedCol.get(j).get(0) + ";" + windSpeedCol.get(j).get(1) + "\r\n");
