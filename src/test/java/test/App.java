@@ -1,5 +1,7 @@
 package test;
 
+import com.amin.io.MyWriter;
+import com.amin.io.Waching;
 import com.amin.ui.scripts.ScriptAPP;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -14,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.nio.file.StandardWatchEventKinds;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +32,23 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         primaryStage.setTitle("weather");
+        new Thread(() -> {
+            Waching.changeFileLisnter(System.getProperty("user.dir"), "config", pathInChanging -> {
+                if (pathInChanging.endsWith("parallel.txt")) {
+                    System.out.println(pathInChanging.toFile().getAbsolutePath());
+                    System.exit(0);
+                }
+
+            }, StandardWatchEventKinds.ENTRY_MODIFY);
+        }).start();
+
+
+        Thread.sleep(2323);
+
+        new MyWriter("config/", "parallel.txt", true)
+                .appendStringInNewLine("ll");
+
+
 
         ScriptAPP.scripting("onday 40800 10 26 WIND_SPEED m/s 20000 1973 2017 iran__islamic_rep");
 

@@ -49,6 +49,10 @@ public class Run {
         try {
             final String nameoffile = args[3];
             showChartAndAna(mOtherFormInfo, initmonth, lastmonth, nameoffile);
+            new MyWriter(System.getProperty("user.dir") + "/../config",
+                    "parallel.txt", true)
+                    .appendStringInFile(args[1]).close();
+
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {

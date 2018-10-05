@@ -2,7 +2,9 @@ package com.amin.ui.main.features.wholeyear;
 
 import com.amin.analysis.Mapping;
 import com.amin.config.C;
+import com.amin.io.MyReader;
 import com.amin.io.MyWriter;
+import com.amin.io.Waching;
 import com.amin.jsons.CMD;
 import com.amin.jsons.Features;
 import com.amin.jsons.OtherFormInfo;
@@ -38,6 +40,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.nio.file.StandardWatchEventKinds;
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.*;
@@ -81,8 +84,8 @@ public class parallelContrller implements Initializable {
 
     @FXML
     private RangeSlider hSlider;
-
-    boolean[] reducedPaarall = new boolean[]{false, false, false, false, false, false};
+//
+//    boolean[] reducedPaarall = new boolean[]{false, false, false, false, false, false};
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -361,9 +364,6 @@ public class parallelContrller implements Initializable {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    //TODO for listening to begin reducing maps
-                    reducedPaarall[0]=true;
-                    parallelContrller.this.reduceListener(reducedPaarall);
 
                     Gobtn.setDisable(false);
                     progressbar.setVisible(false);
@@ -497,6 +497,29 @@ public class parallelContrller implements Initializable {
                     Gobtn.setDisable(false);
                     progressbar.setVisible(false);
 
+                }).start();
+
+                new Thread(() -> {
+
+                    Waching.changeFileLisnter(System.getProperty("user.dir"), "config", pathInChanging -> {
+                        if (pathInChanging.endsWith("parallel.txt")) {
+                            final File toFile = pathInChanging.toFile();
+                            System.out.println(toFile.getAbsolutePath());
+                            MyReader myReader = new MyReader(toFile.getAbsolutePath());
+                            final String firstLine = myReader.readFirstLine();
+                            if (firstLine.contains("1") &&
+                                    firstLine.contains("3") &&
+                                    firstLine.contains("5") &&
+                                    firstLine.contains("7") &&
+                                    firstLine.contains("9") &&
+                                    firstLine.contains("11")) {
+
+                                System.exit(0);
+                            }
+
+                        }
+
+                    }, StandardWatchEventKinds.ENTRY_MODIFY);
                 }).start();
 
 

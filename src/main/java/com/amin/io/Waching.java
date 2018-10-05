@@ -1,5 +1,6 @@
 package com.amin.io;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 
@@ -38,18 +39,38 @@ public class Waching {
     }
 
     public static void main(String[] args) {
-        //todo i was satistified this code here love object oriented and functinal programming
+        //todo i was satistified in this code here love (unified object) Event programming
+//        Waching.changeFileLisnter(System.getProperty("user.home"), "Desktop", pathInChanging -> {
+//
+//            final File file = pathInChanging.toFile();
+//            System.out.println(file.getAbsolutePath());
+//            if (pathInChanging.endsWith("god.txt"))
+//                System.out.println("god is changing");
+//
+//        }, StandardWatchEventKinds.ENTRY_MODIFY);
 
-        Waching.changeFileLisnter(System.getProperty("user.home"), "Desktop", changed -> {
-            if (changed.endsWith("god.txt"))
+
+        Waching.changeFileLisnter(System.getProperty("user.home"), "Desktop", pathInChanging -> {
+
+            final File file = pathInChanging.toFile();
+            System.out.println(file.getAbsolutePath());
+            if (pathInChanging.endsWith("god.txt"))
                 System.out.println("god is changing");
 
-        }, StandardWatchEventKinds.ENTRY_MODIFY);
+        }, StandardWatchEventKinds.ENTRY_DELETE);
+
+
+
+
+
+
+
     }
 
 
+    public interface Do {
+        void doNow(Path pathInChanging);
+
+    }
 }
 
-interface Do {
-    void doNow(Path changed);
-}

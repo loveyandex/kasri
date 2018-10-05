@@ -16,7 +16,10 @@ public class MyWriter {
             File dir = new File(pathDirToSave);
             dir.mkdirs();
             File fileTosave = new File(dir, childFileName);
-            fileTosave.createNewFile();
+            if (!fileTosave.exists())
+                fileTosave.createNewFile();
+            else System.out.println("file is existed");
+
              fileOutputStream = new FileOutputStream(fileTosave, append);
              outputStreamWriter = new OutputStreamWriter(fileOutputStream);
         } catch (FileNotFoundException e) {
@@ -27,16 +30,16 @@ public class MyWriter {
     }
 
 
-    public void appendStringInFile(String s) throws IOException {
+    public MyWriter appendStringInFile(String s) throws IOException {
         outputStreamWriter.write(s);
         outputStreamWriter.flush();
-
+        return this;
     }
 
-    public void appendStringInNewLine(String s) throws IOException {
+    public MyWriter appendStringInNewLine(String s) throws IOException {
         outputStreamWriter.write(s+"\r\n");
         outputStreamWriter.flush();
-
+        return this;
     }
 
     public void close() {
