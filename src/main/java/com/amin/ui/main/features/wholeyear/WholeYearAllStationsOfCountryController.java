@@ -345,10 +345,137 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                     progressbar.setVisible(true);
 //                        showChartAndAna();
 //                    Run.main(new String[]{new Gson().toJson(formInfo), "1", "12"});
-                    final String cmd = "cmd /c start cmd.exe /K \"cd target/classes && java com.amin.ui.main.main.Run %s %s %s && ping localhost\"";
-                    String command = String.format(cmd, new Gson().toJson(formInfo), "1", "12");
+//                    final String cmd = "cmd /c start cmd.exe /K \"cd target/classes && java com.amin.ui.main.main.Run %s %s %s && ping localhost\"";
+                    String s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s\" \"";
+                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\" \"";
+                    final String toJson = new Gson().toJson(formInfo);
+                    final String proxy = toJson.replaceAll("\"", ";");
+                    System.out.println(toJson);
+                    System.out.println(proxy);
+
+                    String command = String.format(s, proxy, "1", "2","_1");
                     try {
-                        CMD.run(cmd);
+                        CMD.run(command);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Gobtn.setDisable(false);
+                    progressbar.setVisible(false);
+
+                }).start();
+                new Thread(() -> {
+                    Gobtn.setDisable(true);
+                    progressbar.setVisible(true);
+//                        showChartAndAna();
+//                    Run.main(new String[]{new Gson().toJson(formInfo), "1", "12"});
+//                    final String cmd = "cmd /c start cmd.exe /K \"cd target/classes && java com.amin.ui.main.main.Run %s %s %s && ping localhost\"";
+                    String s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s\" \"";
+                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\" \"";
+                    final String toJson = new Gson().toJson(formInfo);
+                    final String proxy = toJson.replaceAll("\"", ";");
+                    System.out.println(toJson);
+                    System.out.println(proxy);
+
+                    String command = String.format(s, proxy, "3", "4","_2");
+                    try {
+                        CMD.run(command);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Gobtn.setDisable(false);
+                    progressbar.setVisible(false);
+
+                }).start();
+                new Thread(() -> {
+                    Gobtn.setDisable(true);
+                    progressbar.setVisible(true);
+//                        showChartAndAna();
+//                    Run.main(new String[]{new Gson().toJson(formInfo), "1", "12"});
+//                    final String cmd = "cmd /c start cmd.exe /K \"cd target/classes && java com.amin.ui.main.main.Run %s %s %s && ping localhost\"";
+                    String s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s\" \"";
+                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\" \"";
+                    final String toJson = new Gson().toJson(formInfo);
+                    final String proxy = toJson.replaceAll("\"", ";");
+                    System.out.println(toJson);
+                    System.out.println(proxy);
+
+                    String command = String.format(s, proxy, "5", "6","_3");
+                    try {
+                        CMD.run(command);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Gobtn.setDisable(false);
+                    progressbar.setVisible(false);
+
+                }).start();
+                new Thread(() -> {
+                    Gobtn.setDisable(true);
+                    progressbar.setVisible(true);
+//                        showChartAndAna();
+//                    Run.main(new String[]{new Gson().toJson(formInfo), "1", "12"});
+//                    final String cmd = "cmd /c start cmd.exe /K \"cd target/classes && java com.amin.ui.main.main.Run %s %s %s && ping localhost\"";
+                    String s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s\" \"";
+                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\" \"";
+                    final String toJson = new Gson().toJson(formInfo);
+                    final String proxy = toJson.replaceAll("\"", ";");
+                    System.out.println(toJson);
+                    System.out.println(proxy);
+
+                    String command = String.format(s, proxy, "7", "8","_4");
+                    try {
+                        CMD.run(command);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Gobtn.setDisable(false);
+                    progressbar.setVisible(false);
+
+                }).start();
+                new Thread(() -> {
+                    Gobtn.setDisable(true);
+                    progressbar.setVisible(true);
+//                        showChartAndAna();
+//                    Run.main(new String[]{new Gson().toJson(formInfo), "1", "12"});
+//                    final String cmd = "cmd /c start cmd.exe /K \"cd target/classes && java com.amin.ui.main.main.Run %s %s %s && ping localhost\"";
+                    String s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s\" \"";
+                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\" \"";
+                    final String toJson = new Gson().toJson(formInfo);
+                    final String proxy = toJson.replaceAll("\"", ";");
+                    System.out.println(toJson);
+                    System.out.println(proxy);
+
+                    String command = String.format(s, proxy, "9", "10","_5");
+                    try {
+                        CMD.run(command);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Gobtn.setDisable(false);
+                    progressbar.setVisible(false);
+
+                }).start();
+                new Thread(() -> {
+                    Gobtn.setDisable(true);
+                    progressbar.setVisible(true);
+//                        showChartAndAna();
+//                    Run.main(new String[]{new Gson().toJson(formInfo), "1", "12"});
+//                    final String cmd = "cmd /c start cmd.exe /K \"cd target/classes && java com.amin.ui.main.main.Run %s %s %s && ping localhost\"";
+                    String s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s\" \"";
+                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\" \"";
+                    final String toJson = new Gson().toJson(formInfo);
+                    final String proxy = toJson.replaceAll("\"", ";");
+                    System.out.println(toJson);
+                    System.out.println(proxy);
+
+                    String command = String.format(s, proxy, "11", "12","_6");
+                    try {
+                        CMD.run(command);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -358,8 +485,8 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
 
                 }).start();
 
-            }
 
+        }
 
         });
 
