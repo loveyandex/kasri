@@ -50,15 +50,15 @@ public class Waching {
 //        }, StandardWatchEventKinds.ENTRY_MODIFY);
 
 
-        Waching.changeFileLisnter(System.getProperty("user.home"), "Desktop", pathInChanging -> {
-
-            final File file = pathInChanging.toFile();
-            System.out.println(file.getAbsolutePath());
-            if (pathInChanging.endsWith("god.txt"))
-                System.out.println("god is changing");
-
-        }, StandardWatchEventKinds.ENTRY_DELETE);
-
+//
+//        Waching.changeFileLisnter(System.getProperty("user.home"), "Desktop", pathInChanging -> {
+//
+//            final File file = pathInChanging.toFile();
+//            System.out.println(file.getAbsolutePath());
+//            if (pathInChanging.endsWith("god.txt"))
+//                System.out.println("god is changing");
+//
+//        }, StandardWatchEventKinds.ENTRY_DELETE);
 
 
 

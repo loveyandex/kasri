@@ -350,7 +350,7 @@ public class parallelContrller implements Initializable {
 //                    Run.main(new String[]{new Gson().toJson(formInfo), "1", "12"});
 //                    final String cmd = "cmd /c start cmd.exe /K \"cd target/classes && java com.amin.ui.main.main.Run %s %s %s && ping localhost\"";
                     String s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s\" \"";
-                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\" \"";
+                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\"  && timeout 3 && exit\"";
                     final String toJson = new Gson().toJson(formInfo);
                     final String proxy = toJson.replaceAll("\"", ";");
                     System.out.println(toJson);
@@ -376,7 +376,7 @@ public class parallelContrller implements Initializable {
 //                    Run.main(new String[]{new Gson().toJson(formInfo), "1", "12"});
 //                    final String cmd = "cmd /c start cmd.exe /K \"cd target/classes && java com.amin.ui.main.main.Run %s %s %s && ping localhost\"";
                     String s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s\" \"";
-                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\" \"";
+                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\"  && timeout 3 && exit\"";
                     final String toJson = new Gson().toJson(formInfo);
                     final String proxy = toJson.replaceAll("\"", ";");
                     System.out.println(toJson);
@@ -402,7 +402,7 @@ public class parallelContrller implements Initializable {
 //                    Run.main(new String[]{new Gson().toJson(formInfo), "1", "12"});
 //                    final String cmd = "cmd /c start cmd.exe /K \"cd target/classes && java com.amin.ui.main.main.Run %s %s %s && ping localhost\"";
                     String s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s\" \"";
-                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\" \"";
+                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\"  && timeout 3 && exit\"";
                     final String toJson = new Gson().toJson(formInfo);
                     final String proxy = toJson.replaceAll("\"", ";");
                     System.out.println(toJson);
@@ -428,7 +428,7 @@ public class parallelContrller implements Initializable {
 //                    Run.main(new String[]{new Gson().toJson(formInfo), "1", "12"});
 //                    final String cmd = "cmd /c start cmd.exe /K \"cd target/classes && java com.amin.ui.main.main.Run %s %s %s && ping localhost\"";
                     String s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s\" \"";
-                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\" \"";
+                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\"  && timeout 3 && exit\"";
                     final String toJson = new Gson().toJson(formInfo);
                     final String proxy = toJson.replaceAll("\"", ";");
                     System.out.println(toJson);
@@ -454,7 +454,7 @@ public class parallelContrller implements Initializable {
 //                    Run.main(new String[]{new Gson().toJson(formInfo), "1", "12"});
 //                    final String cmd = "cmd /c start cmd.exe /K \"cd target/classes && java com.amin.ui.main.main.Run %s %s %s && ping localhost\"";
                     String s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s\" \"";
-                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\" \"";
+                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\"  && timeout 3 && exit\"";
                     final String toJson = new Gson().toJson(formInfo);
                     final String proxy = toJson.replaceAll("\"", ";");
                     System.out.println(toJson);
@@ -479,7 +479,7 @@ public class parallelContrller implements Initializable {
 //                    Run.main(new String[]{new Gson().toJson(formInfo), "1", "12"});
 //                    final String cmd = "cmd /c start cmd.exe /K \"cd target/classes && java com.amin.ui.main.main.Run %s %s %s && ping localhost\"";
                     String s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s\" \"";
-                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\" \"";
+                    s = "cmd /c start cmd /k  \"cd run-parallel && gradlew run  --args=\"'%s' %s %s %s\" && timeout 3 && exit\"";
                     final String toJson = new Gson().toJson(formInfo);
                     final String proxy = toJson.replaceAll("\"", ";");
                     System.out.println(toJson);
@@ -505,7 +505,8 @@ public class parallelContrller implements Initializable {
                         if (pathInChanging.endsWith("parallel.txt")) {
                             final File toFile = pathInChanging.toFile();
                             System.out.println(toFile.getAbsolutePath());
-                            MyReader myReader = new MyReader(toFile.getAbsolutePath());
+                            MyReader myReader = new MyReader(System.getProperty("user.dir") + "/config/" + "parallel.txt");
+
                             final String firstLine = myReader.readFirstLine();
                             if (firstLine.contains("1") &&
                                     firstLine.contains("3") &&
@@ -513,6 +514,12 @@ public class parallelContrller implements Initializable {
                                     firstLine.contains("7") &&
                                     firstLine.contains("9") &&
                                     firstLine.contains("11")) {
+                                try {
+                                    new MyWriter(System.getProperty("user.dir") + "/config/", "parallel.txt", false)
+                                            .appendStringInFile("");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
 
                                 System.exit(0);
                             }
@@ -521,7 +528,6 @@ public class parallelContrller implements Initializable {
 
                     }, StandardWatchEventKinds.ENTRY_MODIFY);
                 }).start();
-
 
         }
 
