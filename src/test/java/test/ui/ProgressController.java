@@ -1,4 +1,4 @@
-package com.amin.ui.main.features.wholeyear;
+package test.ui;
 
 import javafx.application.Platform;
 import javafx.fxml.Initializable;

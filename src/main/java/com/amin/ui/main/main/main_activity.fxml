@@ -103,6 +103,15 @@
                 </JFXButton>
                 <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="81.0"
                            mnemonicParsing="false"
+                           onAction="#wholestationsallyearmthread"
+                           prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
+                           text="in whole of year multithred" textAlignment="CENTER">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="TABLE" size="25"/>
+                    </graphic>
+                </JFXButton>
+                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="81.0"
+                           mnemonicParsing="false"
                            onAction="#wholestationsallyear"
                            prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
                            text="in whole of year" textAlignment="CENTER">

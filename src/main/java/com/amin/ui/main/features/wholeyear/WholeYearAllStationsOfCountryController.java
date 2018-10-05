@@ -1,8 +1,9 @@
 package com.amin.ui.main.features.wholeyear;
 
-import com.amin.io.MyWriter;
 import com.amin.analysis.Mapping;
 import com.amin.config.C;
+import com.amin.io.MyWriter;
+import com.amin.jsons.CMD;
 import com.amin.jsons.Features;
 import com.amin.jsons.OtherFormInfo;
 import com.amin.jsons.UnitConvertor;
@@ -10,6 +11,8 @@ import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.main.main.Charting;
+import com.amin.ui.main.main.Run;
+import com.google.gson.Gson;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -338,24 +341,21 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                 Dialog.SnackBar.showSnack(rootNode, "high year is lower than low year!!");
             else {
                 new Thread(() -> {
+                    Gobtn.setDisable(true);
+                    progressbar.setVisible(true);
+//                        showChartAndAna();
+//                    Run.main(new String[]{new Gson().toJson(formInfo), "1", "12"});
+                    final String cmd = "cmd /c start cmd.exe /K \"cd target/classes && java com.amin.ui.main.main.Run %s %s %s && ping localhost\"";
+                    String command = String.format(cmd, new Gson().toJson(formInfo), "1", "12");
                     try {
-                        Gobtn.setDisable(true);
-                        progressbar.setVisible(true);
-                        showChartAndAna();
-                        Gobtn.setDisable(false);
-                        progressbar.setVisible(false);
-
-                    } catch (NoSuchMethodException e) {
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    } catch (FileNotFoundException e) {
-                        Dialog.createExceptionDialog(e);
+                        CMD.run(cmd);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
+                    Gobtn.setDisable(false);
+                    progressbar.setVisible(false);
+
                 }).start();
 
             }
@@ -518,7 +518,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
 
     }
 
-    private Features getfeatureIndex(String featureName) {
+    public static Features getfeatureIndex(String featureName) {
         if (featureName.equals(Features.PRES.getName()))
             return Features.PRES;
         else if (featureName.equals(Features.HGHT.getName()))
@@ -547,7 +547,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
     }
 
 
-    private Double intrapolateFeature(String height, ArrayList<ArrayList<Double>> heightAndFeature) {
+    public static Double intrapolateFeature(String height, ArrayList<ArrayList<Double>> heightAndFeature) {
 
         Double knotdesire = null;
         double heightdesire = Double.parseDouble(height);

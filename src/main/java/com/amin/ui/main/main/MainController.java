@@ -213,11 +213,24 @@ public class MainController implements Initializable {
         stage.showAndWait();
     }
 
-    public void wholestationsallyear(ActionEvent actionEvent) throws IOException {
+    public void wholestationsallyearmthread(ActionEvent actionEvent) throws IOException {
         Stage stage = new StageOverride();
         stage.setTitle("whole of the year in all stations of a country");
         stage.setResizable(true);
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/wholeyear2/wholeyear/wholeyearallstationsofcountry.fxml"));
+        Scene scene = new SceneJson<>(root, 750, 600);
+        stage.setScene(scene);
+        stage.initOwner(rootme.getScene().getWindow());
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+
+    }
+
+    public void wholestationsallyear(ActionEvent actionEvent) throws IOException {
+        Stage stage = new StageOverride();
+        stage.setTitle("whole of the year in all stations of a country");
+        stage.setResizable(true);
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/wholeyear/wholeyearallstationsofcountry.fxml"));
         Scene scene = new SceneJson<>(root, 750, 600);
         stage.setScene(scene);
         stage.initOwner(rootme.getScene().getWindow());
