@@ -11,7 +11,6 @@ import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.main.main.Charting;
-import com.amin.ui.main.main.Run;
 import com.google.gson.Gson;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
@@ -47,7 +46,7 @@ import java.util.*;
  * is created by aMIN on 6/1/2018 at 05:50
  */
 
-public class WholeYearAllStationsOfCountryController implements Initializable {
+public class parallelContrller implements Initializable {
 
     public RangeSlider yearsSlider;
     public JFXSlider lowYearjfxslider;
@@ -83,6 +82,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
     @FXML
     private RangeSlider hSlider;
 
+    boolean[] reducedPaarall = new boolean[]{false, false, false, false, false, false};
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -356,9 +356,14 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                     String command = String.format(s, proxy, "1", "2","_1");
                     try {
                         CMD.run(command);
+                        System.out.println("finished");
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    //TODO for listening to begin reducing maps
+                    reducedPaarall[0]=true;
+                    parallelContrller.this.reduceListener(reducedPaarall);
 
                     Gobtn.setDisable(false);
                     progressbar.setVisible(false);
@@ -380,6 +385,8 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                     String command = String.format(s, proxy, "3", "4","_2");
                     try {
                         CMD.run(command);
+                        System.out.println("finished");
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -404,6 +411,8 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                     String command = String.format(s, proxy, "5", "6","_3");
                     try {
                         CMD.run(command);
+                        System.out.println("finished");
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -428,6 +437,8 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                     String command = String.format(s, proxy, "7", "8","_4");
                     try {
                         CMD.run(command);
+                        System.out.println("finished");
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -452,6 +463,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                     String command = String.format(s, proxy, "9", "10","_5");
                     try {
                         CMD.run(command);
+                        System.out.println("finished");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -476,6 +488,8 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                     String command = String.format(s, proxy, "11", "12","_6");
                     try {
                         CMD.run(command);
+                        System.out.println("finished");
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -512,6 +526,10 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
         });
 
 
+
+    }
+
+    private void reduceListener(boolean[] reducedPaarall) {
 
     }
 
@@ -627,7 +645,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                 Stage primaryStage = new StageOverride();
                 Parent root = null;
                 try {
-                    root = FXMLLoader.load(WholeYearAllStationsOfCountryController.this.getClass().getResource("/com/amin/ui/main/features/allstationsstatistic.fxml"));
+                    root = FXMLLoader.load(parallelContrller.this.getClass().getResource("/com/amin/ui/main/features/allstationsstatistic.fxml"));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
