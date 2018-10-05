@@ -1,5 +1,7 @@
 package com.amin.io;
 
+import lombok.Getter;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,9 +11,11 @@ import java.util.Scanner;
 /**
  * is created by aMIN on 8/6/2018 at 1:41 AM
  */
+
+@Getter
 public class MyReader {
-    FileReader reader;
-    Scanner scanner;
+   private FileReader reader;
+   private Scanner scanner;
 
     public MyReader(FileReader reader, Scanner scanner) {
         this.reader = reader;
@@ -53,7 +57,7 @@ public class MyReader {
         try {
             reader = new FileReader(path);
 
-            Scanner scanner = new Scanner(reader);
+            Scanner scanner = new Scanner(reader );
             s = scanner.nextLine();
             scanner.close();
             reader.close();

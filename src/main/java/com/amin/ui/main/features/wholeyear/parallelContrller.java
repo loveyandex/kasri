@@ -4,6 +4,7 @@ import com.amin.analysis.Mapping;
 import com.amin.config.C;
 import com.amin.io.MyReader;
 import com.amin.io.MyWriter;
+import com.amin.io.UTF8Reader;
 import com.amin.io.Waching;
 import com.amin.jsons.CMD;
 import com.amin.jsons.Features;
@@ -35,6 +36,7 @@ import net.time4j.calendar.PersianCalendar;
 import net.time4j.ui.javafx.CalendarPicker;
 import org.controlsfx.control.RangeSlider;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -44,6 +46,7 @@ import java.nio.file.StandardWatchEventKinds;
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * is created by aMIN on 6/1/2018 at 05:50
@@ -337,12 +340,18 @@ public class parallelContrller implements Initializable {
             if(event.getCode()==KeyCode.ENTER)
                 Gobtn.getOnAction().handle(null);
         });
-
+        formInfo.setDirTOSave(System.getProperty("user.home") + "/Desktop/data");
 
         Gobtn.setOnAction(event -> {
             if (formInfo.getHighYear().intValue() < formInfo.getLowerYear().intValue())
                 Dialog.SnackBar.showSnack(rootNode, "high year is lower than low year!!");
+
             else {
+                System.out.println(formInfo.getDirTOSave());
+                formInfo.setChildFileName(formInfo.getFeaureName() + "_" + formInfo.getHeight() + "_" + formInfo.getCountry() + ".csv");
+                System.out.println(formInfo.getChildFileName());
+//                System.exit(0);
+
                 new Thread(() -> {
                     Gobtn.setDisable(true);
                     progressbar.setVisible(true);
@@ -517,6 +526,77 @@ public class parallelContrller implements Initializable {
                                 try {
                                     new MyWriter(System.getProperty("user.dir") + "/config/", "parallel.txt", false)
                                             .appendStringInFile("");
+                                    MyWriter mainfile = new MyWriter(formInfo.getDirTOSave() + File.separator, formInfo.getChildFileName(), true);
+
+
+                                    UTF8Reader firstfile = new UTF8Reader(formInfo.getDirTOSave() + File.separator + formInfo.getChildFileName().replaceAll(".csv", "_1.csv"));
+                                    BufferedReader bf = firstfile.getIn();
+                                    Stream<String> lines = bf.lines();
+                                    lines.forEach(s -> {
+                                        try {
+                                            mainfile.appendStringInNewLine(s);
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    });
+
+                                    UTF8Reader firstfile2 = new UTF8Reader(formInfo.getDirTOSave() + File.separator + formInfo.getChildFileName().replaceAll(".csv", "_2.csv"));
+                                    bf = firstfile2.getIn();
+                                    lines = bf.lines();
+                                    lines.forEach(s -> {
+                                        try {
+                                            mainfile.appendStringInNewLine(s);
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    });
+
+                                    UTF8Reader firstfile3 = new UTF8Reader(formInfo.getDirTOSave() + File.separator + formInfo.getChildFileName().replaceAll(".csv", "_3.csv"));
+                                    bf = firstfile3.getIn();
+                                    lines = bf.lines();
+                                    lines.forEach(s -> {
+                                        try {
+                                            mainfile.appendStringInNewLine(s);
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    });
+
+                                    UTF8Reader firstfile4 = new UTF8Reader(formInfo.getDirTOSave() + File.separator + formInfo.getChildFileName().replaceAll(".csv", "_4.csv"));
+                                    bf = firstfile4.getIn();
+                                    lines = bf.lines();
+                                    lines.forEach(s -> {
+                                        try {
+                                            mainfile.appendStringInNewLine(s);
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    });
+
+                                    UTF8Reader firstfile41 = new UTF8Reader(formInfo.getDirTOSave() + File.separator + formInfo.getChildFileName().replaceAll(".csv", "_5.csv"));
+                                    bf = firstfile41.getIn();
+                                    lines = bf.lines();
+                                    lines.forEach(s -> {
+                                        try {
+                                            mainfile.appendStringInNewLine(s);
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    });
+
+
+                                    UTF8Reader firstfile411 = new UTF8Reader(formInfo.getDirTOSave() + File.separator + formInfo.getChildFileName().replaceAll(".csv", "_6.csv"));
+                                    bf = firstfile411.getIn();
+                                    lines = bf.lines();
+                                    lines.forEach(s -> {
+                                        try {
+                                            mainfile.appendStringInNewLine(s);
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    });
+
+
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -581,7 +661,7 @@ public class parallelContrller implements Initializable {
         String height = formInfo.getHeight();
 
 
-        childFileName = formInfo.getFeaureName() + "_" + height + "_" + formInfo.getCountry() + ".csv";
+        childFileName = formInfo.getChildFileName();
         File file = new File(pathDirToSave, childFileName);
         if (file.exists())
             file.delete();
