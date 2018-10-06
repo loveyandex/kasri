@@ -1,4 +1,4 @@
-package com.amin.ui.main.features;
+package com.amin.ui.main.features.day;
 
 import com.amin.analysis.Mapping;
 import com.amin.config.C;
@@ -489,7 +489,7 @@ public class FormDayController implements Initializable {
             vbox.getChildren().addAll(sc, charting2.getSc());
             hbox.setPadding(new Insets(10, 10,
                     03.10, 10));
-            Parent root = FXMLLoader.load(FormDayController.class.getResource("/chart.fxml"));
+            Parent root = FXMLLoader.load(FormDayController.class.getResource("/com/amin/ui/main/features/day/chart.fxml"));
             ((VBox) root).getChildren().add(vbox);
             StageOverride stage = new StageOverride();
             stage.setTitle("statistical analysis");

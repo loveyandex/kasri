@@ -9,6 +9,7 @@ import com.amin.jsons.UnitConvertor;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
+import com.amin.ui.main.features.day.FormDayController;
 import com.amin.ui.main.main.Charting;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXML;

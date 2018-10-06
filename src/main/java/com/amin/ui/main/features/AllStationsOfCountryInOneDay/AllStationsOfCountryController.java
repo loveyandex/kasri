@@ -1,4 +1,4 @@
-package com.amin.ui.main.features;
+package com.amin.ui.main.features.AllStationsOfCountryInOneDay;
 
 import com.amin.analysis.Mapping;
 import com.amin.config.C;
@@ -516,7 +516,7 @@ public class AllStationsOfCountryController implements Initializable {
             Stage primaryStage = new StageOverride();
             Parent root = null;
             try {
-                root = FXMLLoader.load(AllStationsOfCountryController.this.getClass().getResource("/com/amin/ui/main/features/allstationsstatistic.fxml"));
+                root = FXMLLoader.load(AllStationsOfCountryController.this.getClass().getResource("/com/amin/ui/main/features/AllStationsOfCountryInOneDay/allstationsstatistic.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
             }

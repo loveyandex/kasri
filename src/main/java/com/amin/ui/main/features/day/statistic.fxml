@@ -5,17 +5,16 @@
 <?import com.jfoenix.controls.JFXDialogLayout?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
 <StackPane fx:id="rootstackpane" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.amin.ui.main.features.allStationsStatisticalController"
+           fx:controller="com.amin.ui.main.features.day.StatisticalController"
            xmlns="http://javafx.com/javafx/2.2"
-           stylesheets="/statistic.css"
->
-    <VBox maxWidth="400" maxHeight="300" spacing="20"
+           stylesheets="/statistic.css">
+    <VBox maxWidth="600" maxHeight="450" spacing="20"
           alignment="CENTER">
         <children>
             <HBox>
@@ -44,11 +43,12 @@
                     >
                         <items>
                             <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="max value" />
-                                <String fx:value="min value"  />
-                                <String fx:value="average" />
-                                <String fx:value="Varience" />
-                                <String fx:value="Standard deviation" />
+                                <String fx:value="All"/>
+                                <String fx:value="max value"/>
+                                <String fx:value="min value"/>
+                                <String fx:value="average"/>
+                                <String fx:value="Varience"/>
+                                <String fx:value="Standard deviation"/>
                             </FXCollections>
                         </items>
                     </JFXComboBox>
@@ -62,8 +62,7 @@
             </HBox>
             <JFXDialogLayout fx:id="content"
                              style="-fx-background-color: WHITE; -fx-background-radius: 3"
-                             minWidth="-Infinity"
-                             minHeight="-Infinity"
+
             >
                 <heading>
                     <Label fx:id="mathematicLable" textFill="#03A9F4"
@@ -71,26 +70,44 @@
                     </Label>
                 </heading>
                 <body>
-                    <Label fx:id="valueLable">
-                    </Label>
+                    <VBox>
+                        <Label fx:id="valueLable">
+                        </Label>
+                        <VBox fx:id="allvbox">
+                            <HBox>
+                                <Label textFill="#03A9F4" fx:id="maxtext"/>
+                                <Label fx:id="maxvalue"/>
+                            </HBox>
+
+                            <HBox>
+                                <Label textFill="#03A9F4">Min Value:</Label>
+                                <Label fx:id="minvalue"/>
+                            </HBox>
+
+                            <HBox>
+                                <Label textFill="#03A9F4">Mean Value:</Label>
+                                <Label fx:id="meanvalue"/>
+                            </HBox>
+
+                            <HBox>
+                                <Label textFill="#03A9F4">Variance Value:</Label>
+                                <Label fx:id="variencevalue"/>
+                            </HBox>
+
+                            <HBox>
+                                <Label textFill="#03A9F4">Standard deviation Value:</Label>
+                                <Label fx:id="sdvalue"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+
                 </body>
                 <actions>
-                    <JFXButton fx:id="acceptButton" styleClass="dialog-accept"  onMouseClicked="#copied">Copy value
+                    <JFXButton fx:id="acceptButton" styleClass="dialog-accept" onMouseClicked="#copied">Copy value
                         <graphic>
-                            <ImageView   >
-                                <image >
-                                    <Image  url="/baseline_file_copy_black_18dp.png"  />
-                                </image>
-                            </ImageView>
-                        </graphic>
-                    </JFXButton>
-                    <JFXButton fx:id="showinexplorer" styleClass="dialog-showin"
-                               onMouseClicked="#showinexplorer">show in folder
-                        <graphic>
-                            <ImageView
-                            >
-                                <image >
-                                    <Image  url="/drawable/1x/baseline_folder_open_white_18dp.png"  />
+                            <ImageView>
+                                <image>
+                                    <Image url="/baseline_file_copy_black_18dp.png"/>
                                 </image>
                             </ImageView>
                         </graphic>

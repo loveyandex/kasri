@@ -1,4 +1,4 @@
-package com.amin.ui.main.features;
+package com.amin.ui.main.features.AllStationsOfCountryInOneDay;
 
 import com.amin.config.MathTerminology;
 import com.amin.ui.SceneJson;

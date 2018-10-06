@@ -567,7 +567,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                 Stage primaryStage = new StageOverride();
                 Parent root = null;
                 try {
-                    root = FXMLLoader.load(WholeYearAllStationsOfCountryController.this.getClass().getResource("/com/amin/ui/main/features/allstationsstatistic.fxml"));
+                    root = FXMLLoader.load(WholeYearAllStationsOfCountryController.this.getClass().getResource("/com/amin/ui/main/features/AllStationsOfCountryInOneDay/allstationsstatistic.fxml"));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

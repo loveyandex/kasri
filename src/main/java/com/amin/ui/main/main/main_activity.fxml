@@ -92,7 +92,7 @@
                 <JFXButton contentDisplay="TOP"
                            layoutX="10.0" layoutY="10.0"
                            mnemonicParsing="false"
-                           onAction="#loadMemberTable"
+                           onAction="#allstationsinone"
                            prefHeight="100.0"
                            prefWidth="160.0"
                            styleClass="toolbar-button"

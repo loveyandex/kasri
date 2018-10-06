@@ -8,7 +8,7 @@ import com.amin.jsons.OtherFormInfo;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
-import com.amin.ui.main.features.FormDayController;
+import com.amin.ui.main.features.day.FormDayController;
 import com.amin.ui.main.main.Charting;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -207,7 +207,7 @@ public class Funsctions {
             Stage primaryStage = new StageOverride();
             Parent root = null;
             try {
-                root = FXMLLoader.load(this.getClass().getResource("/com/amin/ui/main/features/allstationsstatistic.fxml"));
+                root = FXMLLoader.load(this.getClass().getResource("/com/amin/ui/main/features/AllStationsOfCountryInOneDay/allstationsstatistic.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -329,7 +329,7 @@ public class Funsctions {
             vbox.getChildren().addAll(sc, charting2.getSc());
             hbox.setPadding(new Insets(10, 10,
                     03.10, 10));
-            Parent root = FXMLLoader.load(FormDayController.class.getResource("/chart.fxml"));
+            Parent root = FXMLLoader.load(FormDayController.class.getResource("/com/amin/ui/main/features/day/chart.fxml"));
             ((VBox) root).getChildren().add(vbox);
             StageOverride stage = new StageOverride();
             stage.setTitle("statistical analysis");
