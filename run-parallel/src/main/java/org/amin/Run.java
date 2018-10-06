@@ -1,7 +1,6 @@
 package org.amin;
 
 
-
 import com.google.gson.Gson;
 import org.amin.config.C;
 import org.amin.io.MyWriter;
@@ -29,9 +28,10 @@ public class Run {
         Gson gson = new Gson();
 //        String json = gson.toJson(obj);
         final String proxy = args[0];
-        System.out.println(proxy);
+//        System.out.println(proxy);
 
-        final String json = proxy.replaceAll(";", "\"");
+        String json = proxy.replaceAll(";", "\"");
+
         System.out.println(json);
 
 
@@ -39,7 +39,11 @@ public class Run {
 
         // Deserialization
         System.out.println("\n after arg0");
+
         OtherFormInfo mOtherFormInfo = gson.fromJson(json, OtherFormInfo.class);
+
+
+        System.out.println(mOtherFormInfo.getFeatureUnit());
 
         final int initmonth = Integer.parseInt(args[1]);
         final int lastmonth = Integer.parseInt(args[2]);
@@ -48,10 +52,13 @@ public class Run {
 
         try {
             final String nameoffile = args[3];
-            showChartAndAna(mOtherFormInfo, initmonth, lastmonth, nameoffile);
+            synchronized (Run.class) {
+                showChartAndAna(mOtherFormInfo, initmonth, lastmonth, nameoffile);
+            }
             new MyWriter(System.getProperty("user.dir") + "/../config",
                     "parallel.txt", true)
-                    .appendStringInFile(args[1]).close();
+                    .appendStringInFile(args[1])
+                    .close();
 
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
@@ -62,9 +69,6 @@ public class Run {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-        System.out.println(mOtherFormInfo.getStationNamesList());
 
     }
 
@@ -80,6 +84,7 @@ public class Run {
         String featureName = formInfo.getFeaureName();
         int featureIndexCSV = getfeatureIndex(featureName).getLevelCode() - 1;
         String unit = formInfo.getFeatureUnit();
+        ;
 
         String country = formInfo.getCountry();
         ArrayList<String> stationNumberslist = formInfo.getStationNumbersList();

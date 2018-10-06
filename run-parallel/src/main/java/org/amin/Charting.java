@@ -1,10 +1,8 @@
 package org.amin;
 
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import org.amin.jsons.Features;
+import org.amin.jsons.TEMP;
 import org.amin.jsons.UnitConvertor;
 import org.amin.oldmapping.OldMapping;
 
@@ -37,71 +35,10 @@ public class Charting {
 
     private XYChart<Number, Number> sc;
 
-    public Charting(double XlowerBound, double XupperBound, double XtickUnit,
-                    double YlowerBound, double YupperBound, double YtickUnit,
-                    String Xlabel, String Ylabel, String chartType) {
-        NumberAxis xAxis = new NumberAxis(XlowerBound, XupperBound, XtickUnit);
-        NumberAxis yAxis = new NumberAxis(YlowerBound, YupperBound, YtickUnit);
-        xAxis.setLabel(Xlabel);
-        yAxis.setLabel(Ylabel);
-        if (chartType.equals(SCATTER_CHART)) {
-            sc = new ScatterChart<Number, Number>(xAxis, yAxis);
 
-        } else {
-            sc = new LineChart<>(xAxis, yAxis);
-
-        }
-
-    }
-
-
-    public ArrayList<ArrayList<String>> addSeriesToChart(String title, String seriesName, String dayfilePath, int col1, int col2) throws IOException {
-        sc.setTitle(title);
-        XYChart.Series series1 = new XYChart.Series();
-        series1.setName(seriesName);
-        ArrayList<ArrayList<String>> windSpeedCol = OldMapping.getCol1Col2(dayfilePath, col1, col2);
-        for (int j = 2; j < windSpeedCol.size() - 1; j++) {
-            if (!windSpeedCol.get(j).get(0).equals("NULL") && !windSpeedCol.get(j).get(1).equals("NULL")) {
-                double v0 = Double.parseDouble(windSpeedCol.get(j).get(0));
-                double v1 = Double.parseDouble(windSpeedCol.get(j).get(1));
-                series1.getData().add(new XYChart.Data(v0, v1));
-            }
-        }
-        sc.getData().addAll(series1);
-        return windSpeedCol;
-    }
-
-
-    public ArrayList<ArrayList<Double>> addSeriesToChart(String title, String seriesName, String dayfilePath, int col1, int col2
-            , String featurename, String unitname) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException
-
-    {
-        ArrayList<ArrayList<Double>> arrayListArrayList = new ArrayList<>();
-        int cti = convertTogether(featurename, unitname);
-        Method method;
-        method = Charting.class.getMethod("conv" + cti, double.class);
-        sc.setTitle(title);
-        XYChart.Series series1 = new XYChart.Series();
-        series1.setName(seriesName);
-        ArrayList<ArrayList<String>> windSpeedCol = OldMapping.getCol1Col2(dayfilePath, col1, col2);
-        for (int j = 2; j < windSpeedCol.size() - 1; j++) {
-            if (!windSpeedCol.get(j).get(0).equals("NULL") && !windSpeedCol.get(j).get(1).equals("NULL")) {
-                ArrayList<Double> doubleArrayList = new ArrayList<>(2);
-                double v0 = Double.parseDouble(windSpeedCol.get(j).get(0));
-                double v1 = Double.parseDouble(windSpeedCol.get(j).get(1));
-                Double invokeDouble = ((Double) method.invoke(this, v1));
-                doubleArrayList.add(v0);
-                doubleArrayList.add(invokeDouble);
-
-                series1.getData().add(new XYChart.Data(v0, ((double) invokeDouble)));
-                arrayListArrayList.add(doubleArrayList);
-
-            }
-        }
-        sc.getData().addAll(series1);
-        return arrayListArrayList;
-    }
-
+    private Method method;
+    private ArrayList<ArrayList<Double>> arrayListArrayList;
+    private ArrayList<ArrayList<String>> windSpeedCol;
 
     public Charting(String featurename, String unitname) {
         arrayListArrayList = new ArrayList<>();
@@ -111,15 +48,10 @@ public class Charting {
         try {
             method = Charting.class.getMethod("conv" + cti, double.class);
         } catch (NoSuchMethodException e) {
-//            Dialog.createExceptionDialog(e);
+            System.out.println(e);
         }
 
     }
-
-    private Method method;
-    private ArrayList<ArrayList<Double>> arrayListArrayList;
-
-    private ArrayList<ArrayList<String>> windSpeedCol;
 
     public ArrayList<ArrayList<Double>> getcol1col2daydata(String dayfilePath, int col1, int col2) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         arrayListArrayList.clear();
@@ -127,7 +59,7 @@ public class Charting {
         windSpeedCol = OldMapping.getCol1Col2(dayfilePath, col1, col2);
 
         for (int j = 2; j < windSpeedCol.size() - 1; j++) {
-            if (!windSpeedCol.get(j).get(0).equals("NULL") && !windSpeedCol.get(j).get(1).equals("NULL")) {
+            if (!windSpeedCol.get(j).get(0).toUpperCase().equals("NULL") && !windSpeedCol.get(j).get(1).toUpperCase().equals("NULL")) {
                 try {
                     ArrayList<Double> doubleArrayList=new ArrayList<>(2);
                     double v0 = Double.parseDouble(windSpeedCol.get(j).get(0));
@@ -203,14 +135,14 @@ public class Charting {
             }
 
         } else if (featurename.equals(Features.TEMP.getName()) || featurename.equals(Features.DWPT.getName())) {
-            if (unitname.equals(UnitConvertor.TEMP.units.getCelsius().toString())) {
+            if (unitname.equals(TEMP.Celsius.getName())) {
                 return 18;
 
-            } else if (unitname.equals(UnitConvertor.TEMP.units.getKelvin().toString())) {
+            } else if (unitname.equals(TEMP.Kelvin.getName())) {
                 return 19;
-            } else if (unitname.equals(UnitConvertor.TEMP.units.getFahrenheit().toString())) {
+            } else if (unitname.equals(TEMP.Fahrenheit.getName())) {
                 return 20;
-            } else if (unitname.equals(UnitConvertor.TEMP.units.getRankine().toString())) {
+            } else if (unitname.equals(TEMP.Rankine.getName())) {
                 return 21;
             }
         } else if (featurename.equals(Features.HGHT.getName())) {

@@ -6,10 +6,7 @@ import com.amin.io.MyReader;
 import com.amin.io.MyWriter;
 import com.amin.io.UTF8Reader;
 import com.amin.io.Waching;
-import com.amin.jsons.CMD;
-import com.amin.jsons.Features;
-import com.amin.jsons.OtherFormInfo;
-import com.amin.jsons.UnitConvertor;
+import com.amin.jsons.*;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
@@ -123,6 +120,7 @@ public class parallelContrller implements Initializable {
             if (feaureName.equals(Features.PRES.getName())) {
                 UnitConvertor.PRES units = UnitConvertor.PRES.units;
                 formInfo.setFeatureUnit("hPa");
+                ;
                 unitsCombo.getItems().add(new Label("hPa"));
                 unitsCombo.getItems().add(new Label(units.getPascal().getSymbol()));
                 unitsCombo.getItems().add(new Label(units.getAtmosphere().toString()));
@@ -145,13 +143,13 @@ public class parallelContrller implements Initializable {
                     || feaureName.equals(Features.THTA.getName())
                     || feaureName.equals(Features.THTE.getName())
                     || feaureName.equals(Features.THTV.getName())) {
-                UnitConvertor.TEMP units = UnitConvertor.TEMP.units;
-                formInfo.setFeatureUnit(units.getCelsius().toString());
 
-                unitsCombo.getItems().add(new Label(units.getCelsius().toString()));
-                unitsCombo.getItems().add(new Label(units.getKelvin().getSymbol()));
-                unitsCombo.getItems().add(new Label(units.getFahrenheit().toString()));
-                unitsCombo.getItems().add(new Label(units.getRankine().toString()));
+                formInfo.setFeatureUnit(TEMP.Celsius.getName());
+
+                unitsCombo.getItems().add(new Label(TEMP.Celsius.getName()));
+                unitsCombo.getItems().add(new Label(TEMP.Kelvin.getName()));
+                unitsCombo.getItems().add(new Label(TEMP.Fahrenheit.getName()));
+                unitsCombo.getItems().add(new Label(TEMP.Rankine.getName()));
                 unitsCombo.valueProperty().setValue(unitsCombo.getItems().get(0));
 
             } else if (feaureName.equals(Features.SKNT.getName())) {
@@ -186,6 +184,7 @@ public class parallelContrller implements Initializable {
                 formInfo.setFeatureUnit("g/kg");
                 unitsCombo.getItems().add(new Label("g/kg"));
                 unitsCombo.valueProperty().setValue(unitsCombo.getItems().get(0));
+                ;
 
             }
 
@@ -515,9 +514,10 @@ public class parallelContrller implements Initializable {
                             final File toFile = pathInChanging.toFile();
                             System.out.println(toFile.getAbsolutePath());
                             MyReader myReader = new MyReader(System.getProperty("user.dir") + "/config/" + "parallel.txt");
-
                             final String firstLine = myReader.readFirstLine();
-                            if (firstLine.contains("1") &&
+                            myReader.close();
+                            if (firstLine != null &&
+                                    firstLine.contains("1") &&
                                     firstLine.contains("3") &&
                                     firstLine.contains("5") &&
                                     firstLine.contains("7") &&
@@ -596,19 +596,21 @@ public class parallelContrller implements Initializable {
                                         }
                                     });
 
+                                    mainfile.close();
+
 
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
 
-                                System.exit(0);
+
+//                                System.exit(0);
                             }
 
                         }
 
                     }, StandardWatchEventKinds.ENTRY_MODIFY);
                 }).start();
-
         }
 
         });

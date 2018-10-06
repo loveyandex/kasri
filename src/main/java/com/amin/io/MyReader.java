@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -68,15 +69,14 @@ public class MyReader {
     }
 
     public String readFirstLine() {
-        String s;
-        s = scanner.nextLine();
-        scanner.close();
+        String s = null;
         try {
-            this.reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            s = scanner.nextLine();
+
+        } catch (NoSuchElementException noSuchElementException) {
+        } finally {
+            return s;
         }
-        return s;
     }
 
     public void close(){

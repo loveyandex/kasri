@@ -233,7 +233,7 @@
                             </Label>
                             <HBox>
                                 <Label>Developer :  </Label>
-                                <Label style="-fx-text-fill: green">Abolfazl Ghahremani</Label>
+                                <Label style="-fx-text-fill: #7d8049">Abolfazl Ghahremani</Label>
 
                             </HBox>
                         </VBox>

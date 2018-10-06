@@ -205,4 +205,7 @@ public enum UnitConvertor {
     }
 
 
+    public static void main(String[] args) {
+        System.out.println(TEMP.units.celsius.toString());
+    }
 }

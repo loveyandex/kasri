@@ -1,3 +1,4 @@
+import org.amin.Run;
 import org.junit.Test;
 
 import java.io.File;
@@ -12,6 +13,10 @@ public class usrdir {
         File file=new File(s);
         System.out.println(file.isDirectory());
         System.out.println(s);
+    }
+
+    @Test
+    public void test2(){
     }
 
 }
