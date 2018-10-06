@@ -262,6 +262,7 @@ public class MainController implements Initializable {
             JFXTooltip jfxTooltip=new JFXTooltip("god is great kijng ",rootme);
             jfxTooltip.show(rootme.getScene().getWindow());
         });
+
     }
 
     public void latlong(ActionEvent actionEvent) throws IOException {

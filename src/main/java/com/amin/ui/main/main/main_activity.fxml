@@ -66,7 +66,7 @@
                            prefHeight="100.0"
                            prefWidth="160.0"
                            styleClass="toolbar-button"
-                           text="features in Day" textAlignment="CENTER">
+                           text="on day in height" textAlignment="CENTER">
                     <graphic>
                         <WeatherIconView glyphName="CLOUD"/>
                         <!--<FontAwesomeIconView glyphName="AT"  size="25" />-->
@@ -75,11 +75,12 @@
                 <JFXButton contentDisplay="TOP"
                            layoutX="10.0" layoutY="10.0"
                            mnemonicParsing="false"
-                           onAction="#latlong"
+                           onAction="#ondayAllHeight"
                            prefHeight="100.0"
                            prefWidth="160.0"
                            styleClass="toolbar-button"
-                           text="lat &amp; long" textAlignment="CENTER">
+                           style=" -fx-font-size: 12;"
+                           text="on day All Heights" textAlignment="CENTER">
                     <graphic>
                         <ImageView   >
                             <image >
@@ -199,7 +200,7 @@
                             <Label layoutX="200" style="-fx-text-fill: #b3b3b3;">close App</Label>
                             <HBox.margin>
                                 <Insets>
-                                    <right>20</right>
+                                    <right>10</right>
                                 </Insets>
                             </HBox.margin>
                         </HBox>
@@ -208,14 +209,13 @@
                         <Label style="-fx-text-fill: #0295f7">(Double) ESC</Label>
                     </HBox>
 
+                    <VBox.margin>
+                        <Insets>
+                            <top>252</top>
+                        </Insets>
+                    </VBox.margin>
                 </VBox>
 
-                <HBox.margin>
-                    <Insets>
-                        <!--<left>280</left>-->
-                        <top>380</top>
-                    </Insets>
-                </HBox.margin>
             </HBox>
 
         </VBox>
