@@ -54,14 +54,6 @@ public class allStationsStatisticalController implements Initializable, Runnable
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(this);
-
-        ColorAdjust blackout = new ColorAdjust();
-        blackout.setBrightness(-0.776);
-
-        openfileimage.setEffect(blackout);
-//        openfileimage2.setFitWidth(openfileimage.getFitWidth());
-        final double height = openfileimage.getImage().getHeight();
-        System.out.println(height);
     }
 
     public void copied(MouseEvent mouseEvent) {
