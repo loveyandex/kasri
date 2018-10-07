@@ -44,6 +44,7 @@
                     >
                         <items>
                             <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="All"/>
                                 <String fx:value="max value" />
                                 <String fx:value="min value"  />
                                 <String fx:value="average" />
@@ -71,8 +72,36 @@
                     </Label>
                 </heading>
                 <body>
-                    <Label fx:id="valueLable">
-                    </Label>
+                    <VBox>
+                        <Label fx:id="valueLable">
+                        </Label>
+                        <VBox fx:id="allvbox">
+                            <HBox>
+                                <Label textFill="#03A9F4" fx:id="maxtext"/>
+                                <Label fx:id="maxvalue"/>
+                            </HBox>
+
+                            <HBox>
+                                <Label textFill="#03A9F4">Min Value:</Label>
+                                <Label fx:id="minvalue"/>
+                            </HBox>
+
+                            <HBox>
+                                <Label textFill="#03A9F4">Mean Value:</Label>
+                                <Label fx:id="meanvalue"/>
+                            </HBox>
+
+                            <HBox>
+                                <Label textFill="#03A9F4">Variance Value:</Label>
+                                <Label fx:id="variencevalue"/>
+                            </HBox>
+
+                            <HBox>
+                                <Label textFill="#03A9F4">Standard deviation Value:</Label>
+                                <Label fx:id="sdvalue"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
                 </body>
                 <actions>
                     <JFXButton fx:id="acceptButton" styleClass="dialog-accept"  onMouseClicked="#copied">Copy value
@@ -87,7 +116,18 @@
                     <JFXButton fx:id="showinexplorer" styleClass="dialog-showin"
                                onMouseClicked="#showinexplorer">show in folder
                         <graphic>
-                            <ImageView
+                            <ImageView fx:id="openfileimage"
+                            >
+                                <image >
+                                    <Image  url="/drawable/1x/baseline_folder_open_white_18dp.png"  />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </JFXButton>
+                    <JFXButton  styleClass="dialog-showin"
+                               onMouseClicked="#opencsv">open csv file
+                        <graphic>
+                            <ImageView  fx:id="openfileimage2"
                             >
                                 <image >
                                     <Image  url="/drawable/1x/baseline_folder_open_white_18dp.png"  />

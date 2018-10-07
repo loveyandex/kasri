@@ -33,7 +33,6 @@ public class StatisticalController implements Initializable, Runnable {
     public Label maxvalue;
     public Label minvalue;
     public VBox allvbox;
-    public HBox hbox1;
     public Label maxtext;
     public Label meanvalue;
     public Label variencevalue;

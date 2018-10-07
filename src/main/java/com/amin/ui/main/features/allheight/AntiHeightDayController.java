@@ -464,6 +464,11 @@ public class AntiHeightDayController implements Initializable {
     }
 
     private Features getfeatureIndex(String featureName) {
+        return getFeatures(featureName);
+
+    }
+
+    public static Features getFeatures(String featureName) {
         if (featureName.equals(Features.PRES.getName()))
             return Features.PRES;
         else if (featureName.equals(Features.HGHT.getName()))
@@ -488,7 +493,6 @@ public class AntiHeightDayController implements Initializable {
             return Features.THTV;
         else
             return null;
-
     }
 
     private boolean isReadyToFire(FormInfo formInfo) {

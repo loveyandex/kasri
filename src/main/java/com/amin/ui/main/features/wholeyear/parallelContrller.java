@@ -45,6 +45,8 @@ import java.time.format.TextStyle;
 import java.util.*;
 import java.util.stream.Stream;
 
+import static com.amin.ui.main.features.allheight.AntiHeightDayController.getFeatures;
+
 /**
  * is created by aMIN on 6/1/2018 at 05:50
  */
@@ -775,30 +777,7 @@ public class parallelContrller implements Initializable {
     }
 
     public static Features getfeatureIndex(String featureName) {
-        if (featureName.equals(Features.PRES.getName()))
-            return Features.PRES;
-        else if (featureName.equals(Features.HGHT.getName()))
-            return Features.HGHT;
-        else if (featureName.equals(Features.TEMP.getName()))
-            return Features.TEMP;
-        else if (featureName.equals(Features.DWPT.getName()))
-            return Features.DWPT;
-        else if (featureName.equals(Features.RELH.getName()))
-            return Features.RELH;
-        else if (featureName.equals(Features.MIXR.getName()))
-            return Features.MIXR;
-        else if (featureName.equals(Features.DRCT.getName()))
-            return Features.DRCT;
-        else if (featureName.equals(Features.SKNT.getName()))
-            return Features.SKNT;
-        else if (featureName.equals(Features.THTA.getName()))
-            return Features.THTA;
-        else if (featureName.equals(Features.THTE.getName()))
-            return Features.THTE;
-        else if (featureName.equals(Features.THTV.getName()))
-            return Features.THTV;
-        else
-            return null;
+        return getFeatures(featureName);
 
     }
 

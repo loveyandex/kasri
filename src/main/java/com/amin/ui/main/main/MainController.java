@@ -137,38 +137,11 @@ public class MainController implements Initializable {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public void getDataFromInternet(ActionEvent actionEvent) {
         Starter starter=new Starter();
         Stage stage=new Stage();
         starter.start(stage);
     }
-
-
-
-
 
 
     public void onday(ActionEvent actionEvent) {
