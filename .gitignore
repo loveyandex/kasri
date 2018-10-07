@@ -6,3 +6,7 @@ kasri.iws
 .ideaDataSources/
 target/
 jre/
+samples-data
+!samples-data/mmpk
+ run-parallel/.gradle/
+ run-parallel/build/
