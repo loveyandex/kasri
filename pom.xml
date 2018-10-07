@@ -80,7 +80,7 @@
             <url>http://neuroph.sourceforge.net/maven2/</url>
         </repository>
         <repository>
-            <id>maven</id>
+            <id>my</id>
             <url>https://esri.bintray.com/arcgis</url>
         </repository>
 
@@ -437,6 +437,17 @@
             <groupId>com.esri.arcgisruntime</groupId>
             <artifactId>arcgis-java-toolkit</artifactId>
             <version>100.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.esri.arcgisruntime</groupId>
+            <artifactId>arcgis-java</artifactId>
+            <version>100.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.esri.arcgisruntime</groupId>
+            <artifactId>gradle-arcgis-java-plugin</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
 
