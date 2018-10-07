@@ -119,7 +119,7 @@
                             <ImageView fx:id="openfileimage"
                             >
                                 <image >
-                                    <Image  url="/drawable/1x/baseline_folder_open_white_18dp.png"  />
+                                    <Image preserveRatio="true" smooth="true" requestedWidth="18.0" requestedHeight="18.0" url="/drawable/1x/sd.png"  />
                                 </image>
                             </ImageView>
                         </graphic>
@@ -129,8 +129,9 @@
                         <graphic>
                             <ImageView  fx:id="openfileimage2"
                             >
-                                <image >
-                                    <Image  url="/drawable/1x/baseline_folder_open_white_18dp.png"  />
+                                <image  >
+                                    <Image preserveRatio="true" smooth="true" requestedWidth="18.0" requestedHeight="18.0" url="/drawable/1x/sd.png"  />
+
                                 </image>
                             </ImageView>
                         </graphic>

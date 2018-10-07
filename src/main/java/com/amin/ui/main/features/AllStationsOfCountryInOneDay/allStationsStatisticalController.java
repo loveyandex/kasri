@@ -8,17 +8,14 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialogLayout;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.CacheHint;
 import javafx.scene.control.Label;
-import javafx.scene.effect.*;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import jsat.linear.Vec;
 
 import java.awt.*;
@@ -62,9 +59,9 @@ public class allStationsStatisticalController implements Initializable, Runnable
         blackout.setBrightness(-0.776);
 
         openfileimage.setEffect(blackout);
-        openfileimage2.setEffect(blackout);
-
-
+//        openfileimage2.setFitWidth(openfileimage.getFitWidth());
+        final double height = openfileimage.getImage().getHeight();
+        System.out.println(height);
     }
 
     public void copied(MouseEvent mouseEvent) {
