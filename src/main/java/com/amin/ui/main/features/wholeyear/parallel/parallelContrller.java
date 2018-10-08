@@ -1,4 +1,4 @@
-package com.amin.ui.main.features.wholeyear;
+package com.amin.ui.main.features.wholeyear.parallel;
 
 import com.amin.analysis.Mapping;
 import com.amin.config.C;
@@ -7,19 +7,13 @@ import com.amin.io.MyWriter;
 import com.amin.io.UTF8Reader;
 import com.amin.io.Waching;
 import com.amin.jsons.*;
-import com.amin.ui.SceneJson;
-import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
-import com.amin.ui.main.main.Charting;
 import com.google.gson.Gson;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
@@ -27,7 +21,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
 import net.time4j.PlainDate;
 import net.time4j.calendar.PersianCalendar;
 import net.time4j.ui.javafx.CalendarPicker;
@@ -37,15 +30,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.nio.file.StandardWatchEventKinds;
-import java.time.Month;
-import java.time.format.TextStyle;
 import java.util.*;
 import java.util.stream.Stream;
-
-import static com.amin.ui.main.features.allheight.AntiHeightDayController.getFeatures;
 
 /**
  * is created by aMIN on 6/1/2018 at 05:50
@@ -60,7 +48,6 @@ public class parallelContrller implements Initializable {
     public JFXComboBox unitsCombo;
     public JFXButton savebtn;
     public ProgressIndicator progressbar;
-    private ArrayList<IOException> ioExceptions = new ArrayList<>();
 
     public GridPane rootNode;
 
@@ -641,215 +628,6 @@ public class parallelContrller implements Initializable {
 
 
     }
-
-    private void reduceListener(boolean[] reducedPaarall) {
-
-    }
-
-
-    private void showChartAndAna() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, IOException {
-        String childFileName = "";
-        String pathDirToSave = System.getProperty("user.home") + "/Desktop/data";
-        if (formInfo.getDirTOSave() != null)
-            pathDirToSave = formInfo.getDirTOSave();
-
-        int fromYear = formInfo.getLowerYear().intValue();
-        int toYear = formInfo.getHighYear().intValue();
-        String featureName = formInfo.getFeaureName();
-        int featureIndexCSV = getfeatureIndex(featureName).getLevelCode() - 1;
-        String unit = formInfo.getFeatureUnit();
-
-        String country = formInfo.getCountry();
-        ArrayList<String> stationNumberslist = formInfo.getStationNumbersList();
-        ArrayList<String> stationNamesList = formInfo.getStationNamesList();
-        String height = formInfo.getHeight();
-
-
-        childFileName = formInfo.getChildFileName();
-        File file = new File(pathDirToSave, childFileName);
-        if (file.exists())
-            file.delete();
-        long start = 0;
-        start = System.nanoTime();
-        String[] z = {"00Z", "12Z"};
-        String Z;
-        String dayOfMonth;
-        Month month;
-        String monthDisp;
-        String rootDir;
-        String fileName;
-        int counterforStations;
-        ArrayList<ArrayList<Double>> heightAndFeature;
-        Charting charting = new Charting(featureName, unit);
-        MyWriter writerw = new MyWriter(pathDirToSave, childFileName, true);
-
-
-        for (int monthInt = 1; monthInt <= 12; monthInt++) {
-//        for (int monthInt = 12; monthInt >= 1; monthInt--) {
-            month = Month.of(monthInt);
-            monthDisp = month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
-
-            for (int day = 1; day <= 31; day++) {
-                dayOfMonth = (day < 10 ? "0" : "") + day;
-
-
-                counterforStations = -1;
-                for (String stationNumber : stationNumberslist) {
-                    counterforStations++;
-
-                    for (int id = 0; id < 2; id++) {
-                        Z = z[id];
-                        for (int year = fromYear; year <= toYear; year++) {
-
-                            rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + year + File.separator + "month_" + monthInt + File.separator + stationNumber;
-                            fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + year + ".csv";
-
-                            try {
-                                heightAndFeature = charting.getcol1col2daydata(rootDir + File.separator + fileName
-                                        , 1, featureIndexCSV);
-
-                                Double intrapolateFeature = intrapolateFeature(height, heightAndFeature);
-                                if (intrapolateFeature != null)
-                                    writerw.appendStringInFile(String.format(
-                                            "%d,%s,%s,%s,%f,%s,%s,%s,%s\n", year, Z, stationNamesList.get(counterforStations)
-                                            , stationNumber, intrapolateFeature, unit,String.valueOf(year), monthDisp, dayOfMonth));
-
-
-                            } catch (IOException e) {
-                                ioExceptions.add(e);
-                            } catch (NoSuchMethodException e) {
-                                e.printStackTrace();
-                            } catch (InvocationTargetException e) {
-                                e.printStackTrace();
-                            } catch (IllegalAccessException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-
-                    }
-                }
-
-                long time = System.nanoTime() - start;
-                double t = time / 1e9d;
-                System.out.printf("Each XXXXX took an average of %f s%n", t);
-
-            }
-
-        }
-
-        writerw.close();
-        long time = System.nanoTime() - start;
-        double t = time / 1e9d;
-        System.out.printf("took time %f s%n", t);
-
-        ArrayList<ArrayList<String>> colsData = Mapping.LatLong.getColsData(
-                pathDirToSave + File.separator + childFileName, ","
-                , 0, 1, 2, 3, 4, 5);
-
-        javafx.application.Platform.runLater(() -> {
-
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("success");
-            alert.setHeaderText("valid stations data saved in your path");
-            alert.show();
-            alert.setOnHiding(event -> {
-                Stage primaryStage = new StageOverride();
-                Parent root = null;
-                try {
-                    root = FXMLLoader.load(parallelContrller.this.getClass().getResource("/com/amin/ui/main/features/AllStationsOfCountryInOneDay/allstationsstatistic.fxml"));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                root.setStyle("-fx-padding: 30 30 30 30 ");
-
-                SceneJson sceneJson = new SceneJson<>(root);
-                sceneJson.setJson(colsData);
-                primaryStage.setScene(sceneJson);
-
-                primaryStage.setResizable(false);
-                primaryStage.show();
-            });
-        });
-
-
-    }
-
-    public static Features getfeatureIndex(String featureName) {
-        return getFeatures(featureName);
-
-    }
-
-
-    public static Double intrapolateFeature(String height, ArrayList<ArrayList<Double>> heightAndFeature) {
-
-        Double knotdesire = null;
-        double heightdesire = Double.parseDouble(height);
-        final Vector<Double> heigthsVector = new Vector<>();
-        final Vector<Double> knotsVector = new Vector<>();
-
-        heightAndFeature.forEach(doubles -> {
-
-            double h = (doubles.get(0));
-            double knot = (doubles.get(1));
-                heigthsVector.add(h);
-                knotsVector.add(knot);
-
-        });
-
-        for (int i = 0; i < heigthsVector.size() - 1; i++) {
-            double hi = heigthsVector.get(i);
-            double hiplus = heigthsVector.get(i + 1);
-            double knoti = knotsVector.get(i);
-            double knotiplus = knotsVector.get(i + 1);
-            if ((heightdesire - hi) * (heightdesire - hiplus) <= 0) {
-                knotdesire = (knotiplus - knoti) * (heightdesire - hi) / (hiplus - hi) + (knoti);
-                break;
-            }
-
-        }
-        return knotdesire;
-    }
-
-
-    private double intrapolateKnot(String height, ArrayList<ArrayList<String>> heightAndKnotAll) {
-        double knotdesire = -1;
-        double heightdesire = Double.parseDouble(height);
-        final Vector<Double> heigthsVector = new Vector<>();
-        final Vector<Double> knotsVector = new Vector<>();
-
-        heightAndKnotAll.forEach(strings -> {
-            if (!strings.get(0).equals("HGHT")
-                    && !strings.get(1).equals("SKNT")
-                    && !strings.get(0).equals("m")
-                    && !strings.get(1).equals("knot")
-                    && !strings.get(0).equals("NULL")
-                    && !strings.get(1).equals("NULL")
-
-
-                    ) {
-                double h = Double.parseDouble(strings.get(0));
-                double knot = Double.parseDouble(strings.get(1));
-                heigthsVector.add(h);
-                knotsVector.add(knot);
-            }
-        });
-
-        for (int i = 0; i < heigthsVector.size() - 1; i++) {
-            double hi = heigthsVector.get(i);
-            double hiplus = heigthsVector.get(i + 1);
-            double knoti = knotsVector.get(i);
-            double knotiplus = knotsVector.get(i + 1);
-            if ((heightdesire - hi) * (heightdesire - hiplus) <= 0) {
-                knotdesire = (knotiplus - knoti) * (heightdesire - hi) / (hiplus - hi) + (knoti);
-                break;
-            }
-
-        }
-        return knotdesire;
-    }
-
 
 
 

@@ -1,23 +1,19 @@
-package com.amin.ui.main.features.wholeyear2.wholeyear;
+package com.amin.ui.main.features.wholeyear.concurent;
 
 import com.amin.analysis.Mapping;
 import com.amin.config.C;
 import com.amin.io.MyWriter;
+import com.amin.io.UTF8Reader;
 import com.amin.jsons.Features;
 import com.amin.jsons.OtherFormInfo;
 import com.amin.jsons.UnitConvertor;
-import com.amin.ui.SceneJson;
-import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.main.main.Charting;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
@@ -25,12 +21,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
 import net.time4j.PlainDate;
 import net.time4j.calendar.PersianCalendar;
 import net.time4j.ui.javafx.CalendarPicker;
 import org.controlsfx.control.RangeSlider;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -39,6 +35,7 @@ import java.net.URL;
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static com.amin.ui.main.features.allheight.AntiHeightDayController.getFeatures;
 
@@ -46,7 +43,7 @@ import static com.amin.ui.main.features.allheight.AntiHeightDayController.getFea
  * is created by aMIN on 6/1/2018 at 05:50
  */
 
-public class WholeYearAllStationsOfCountryController implements Initializable {
+public class ConcurentController implements Initializable {
 
     public RangeSlider yearsSlider;
     public JFXSlider lowYearjfxslider;
@@ -72,6 +69,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
     public JFXComboBox dayofMonthCombo;
     public JFXCheckBox z00;
     public JFXTabPane jfxtab;
+    boolean[] concurentFinished = new boolean[]{false, false, false, false};
 
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
@@ -339,35 +337,21 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
             if (formInfo.getHighYear().intValue() < formInfo.getLowerYear().intValue())
                 Dialog.SnackBar.showSnack(rootNode, "high year is lower than low year!!");
             else {
-                new Thread(() -> {
-                    try {
-                        Gobtn.setDisable(true);
-                        progressbar.setVisible(true);
-                        showChartAndAna(1, 3,"_first_season");
-                        Gobtn.setDisable(false);
-                        progressbar.setVisible(false);
-
-                    } catch (NoSuchMethodException e) {
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    } catch (FileNotFoundException e) {
-                        Dialog.createExceptionDialog(e);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }).start();
+                System.out.println("starting");
 
                 new Thread(() -> {
                     try {
                         Gobtn.setDisable(true);
                         progressbar.setVisible(true);
-                        showChartAndAna(4, 6,"_second_season");
+                        showChartAndAna(1, 3, "_1", 1);
                         Gobtn.setDisable(false);
                         progressbar.setVisible(false);
-
+                        if (concurentFinished[0] && concurentFinished[1]
+                                && concurentFinished[2] && concurentFinished[3]) {
+                            synchronized (this) {
+                                notify();
+                            }
+                        }
                     } catch (NoSuchMethodException e) {
                         e.printStackTrace();
                     } catch (InvocationTargetException e) {
@@ -380,14 +364,19 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                         e.printStackTrace();
                     }
                 }).start();
-                  new Thread(() -> {
+                new Thread(() -> {
                     try {
                         Gobtn.setDisable(true);
                         progressbar.setVisible(true);
-                        showChartAndAna(7 ,9,"_third_season");
+                        showChartAndAna(4, 6, "_2", 2);
                         Gobtn.setDisable(false);
                         progressbar.setVisible(false);
-
+                        if (concurentFinished[0] && concurentFinished[1]
+                                && concurentFinished[2] && concurentFinished[3]) {
+                            synchronized (this) {
+                                notify();
+                            }
+                        }
                     } catch (NoSuchMethodException e) {
                         e.printStackTrace();
                     } catch (InvocationTargetException e) {
@@ -400,13 +389,19 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                         e.printStackTrace();
                     }
                 }).start();
-                  new Thread(() -> {
+                new Thread(() -> {
                     try {
                         Gobtn.setDisable(true);
                         progressbar.setVisible(true);
-                        showChartAndAna(10, 12,"_forth_season");
+                        showChartAndAna(7, 9, "_3", 3);
                         Gobtn.setDisable(false);
                         progressbar.setVisible(false);
+                        if (concurentFinished[0] && concurentFinished[1]
+                                && concurentFinished[2] && concurentFinished[3]) {
+                            synchronized (this) {
+                                notify();
+                            }
+                        }
 
                     } catch (NoSuchMethodException e) {
                         e.printStackTrace();
@@ -420,11 +415,113 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
                         e.printStackTrace();
                     }
                 }).start();
+                new Thread(() -> {
+                    try {
+                        Gobtn.setDisable(true);
+                        progressbar.setVisible(true);
+                        showChartAndAna(10, 12, "_4", 4);
+                        Gobtn.setDisable(false);
+                        progressbar.setVisible(false);
+                        if (concurentFinished[0] && concurentFinished[1]
+                                && concurentFinished[2] && concurentFinished[3]) {
+                            synchronized (this) {
+                                notify();
+                            }
+                        }
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (FileNotFoundException e) {
+                        Dialog.createExceptionDialog(e);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+
+                // last thread for reducing map
+                new Thread(() -> {
+//                    while (true)
+//                        if (concurentFinished[0] && concurentFinished[1]
+//                                && concurentFinished[2] && concurentFinished[3]){
+                    System.out.println("king abolfazl thread manager and horn that");
+                    synchronized (this) {
+                        try {
+                            wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            System.out.println("king abolfazl thread manager and horn that 2");
+
+                            String childFileName = formInfo.getFeaureName() + "_" + formInfo.getHeight() + "_" + formInfo.getCountry() + ".csv";
+                            formInfo.setChildFileName(childFileName);
+                            MyWriter mainfile = new MyWriter(formInfo.getDirTOSave() + File.separator, formInfo.getChildFileName(), true);
 
 
+                            UTF8Reader firstfile = new UTF8Reader(formInfo.getDirTOSave() + File.separator + formInfo.getChildFileName().replaceAll(".csv", "_1.csv"));
+                            BufferedReader bf = firstfile.getIn();
+                            Stream<String> lines = bf.lines();
+                            lines.forEach(s -> {
+                                try {
+                                    mainfile.appendStringInNewLine(s);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            });
+
+                            UTF8Reader firstfile2 = new UTF8Reader(formInfo.getDirTOSave() + File.separator + formInfo.getChildFileName().replaceAll(".csv", "_2.csv"));
+                            bf = firstfile2.getIn();
+                            lines = bf.lines();
+                            lines.forEach(s -> {
+                                try {
+                                    mainfile.appendStringInNewLine(s);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            });
+
+                            UTF8Reader firstfile3 = new UTF8Reader(formInfo.getDirTOSave() + File.separator + formInfo.getChildFileName().replaceAll(".csv", "_3.csv"));
+                            bf = firstfile3.getIn();
+                            lines = bf.lines();
+                            lines.forEach(s -> {
+                                try {
+                                    mainfile.appendStringInNewLine(s);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            });
+
+                            UTF8Reader firstfile4 = new UTF8Reader(formInfo.getDirTOSave() + File.separator + formInfo.getChildFileName().replaceAll(".csv", "_4.csv"));
+                            bf = firstfile4.getIn();
+                            lines = bf.lines();
+                            lines.forEach(s -> {
+                                try {
+                                    mainfile.appendStringInNewLine(s);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            });
+
+                            mainfile.close();
+                            System.err.println("mainfile closed:))");
 
 
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+//                    }else{
+//                        try {
+//                            Thread.sleep(1000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
 
+                    }
+                }).start();
 
 
             }
@@ -458,11 +555,13 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
     }
 
 
-    private void showChartAndAna(int initmonth, int endmonth,String endofFileName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, IOException {
+    private void showChartAndAna(int initmonth, int endmonth, String endofFileName, int threadNumber) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, IOException {
         String childFileName = "";
         String pathDirToSave = System.getProperty("user.home") + "/Desktop/data";
         if (formInfo.getDirTOSave() != null)
             pathDirToSave = formInfo.getDirTOSave();
+        else
+            formInfo.setDirTOSave(pathDirToSave);
 
         int fromYear = formInfo.getLowerYear().intValue();
         int toYear = formInfo.getHighYear().intValue();
@@ -477,6 +576,7 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
 
 
         childFileName = formInfo.getFeaureName() + "_" + height + "_" + formInfo.getCountry()+endofFileName + ".csv";
+        formInfo.setChildFileName(childFileName);
         File file = new File(pathDirToSave, childFileName);
         if (file.exists())
             file.delete();
@@ -550,42 +650,53 @@ public class WholeYearAllStationsOfCountryController implements Initializable {
         }
 
         writerw.close();
+        concurentFinished[threadNumber - 1] = true;
         long time = System.nanoTime() - start;
         double t = time / 1e9d;
-        System.out.printf("took time %f s in thread of %s %n", t,endofFileName);
+        System.err.printf("took time %f s in thread of %s %n", t, endofFileName);
 
-        ArrayList<ArrayList<String>> colsData = Mapping.LatLong.getColsData(
-                pathDirToSave + File.separator + childFileName, ","
-                , 0, 1, 2, 3, 4, 5);
-
-        javafx.application.Platform.runLater(() -> {
-
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("success");
-            alert.setHeaderText("valid stations data saved in your path");
-            alert.show();
-            alert.setOnHiding(event -> {
-                Stage primaryStage = new StageOverride();
-                Parent root = null;
-                try {
-                    root = FXMLLoader.load(WholeYearAllStationsOfCountryController.this.getClass().getResource("/com/amin/ui/main/features/AllStationsOfCountryInOneDay/allstationsstatistic.fxml"));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                root.setStyle("-fx-padding: 30 30 30 30 ");
-
-                SceneJson sceneJson = new SceneJson<>(root);
-                sceneJson.setJson(colsData);
-                primaryStage.setScene(sceneJson);
-
-                primaryStage.setResizable(false);
-                primaryStage.show();
-            });
-        });
-
+//
+//        ArrayList<ArrayList<String>> colsData = Mapping.LatLong.getColsData(
+//                pathDirToSave + File.separator + childFileName, ","
+//                , 0, 1, 2, 3, 4, 5);
+//
+//        javafx.application.Platform.runLater(() -> {
+//
+//
+//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//            alert.setTitle("success");
+//            alert.setHeaderText("valid stations data saved in your path");
+//            alert.show();
+//            alert.setOnHiding(event -> {
+//                Stage primaryStage = new StageOverride();
+//                Parent root = null;
+//                try {
+//                    root = FXMLLoader.load(ConcurentController.this.getClass().getResource("/com/amin/ui/main/features/AllStationsOfCountryInOneDay/allstationsstatistic.fxml"));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                root.setStyle("-fx-padding: 30 30 30 30 ");
+//
+//                SceneJson sceneJson = new SceneJson<>(root);
+//                sceneJson.setJson(colsData);
+//                primaryStage.setScene(sceneJson);
+//
+//                primaryStage.setResizable(false);
+//                primaryStage.show();
+//            });
+//        });
 
     }
+
+
+
+
+
+
+
+
+
+
 
     private Features getfeatureIndex(String featureName) {
         return getFeatures(featureName);

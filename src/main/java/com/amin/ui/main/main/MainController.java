@@ -190,7 +190,7 @@ public class MainController implements Initializable {
         Stage stage = new StageOverride();
         stage.setTitle("whole of the year in all stations of a country");
         stage.setResizable(true);
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/wholeyear2/wholeyear/wholeyearallstationsofcountry.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/wholeyear/concurent/wholeyearallstationsofcountry.fxml"));
         Scene scene = new SceneJson<>(root, 750, 600);
         stage.setScene(scene);
         stage.initOwner(rootme.getScene().getWindow());
@@ -203,7 +203,7 @@ public class MainController implements Initializable {
         Stage stage = new StageOverride();
         stage.setTitle("whole of the year in all stations of a country");
         stage.setResizable(true);
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/wholeyear/wholeyearallstationsofcountry.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/wholeyear/parallel/wholeyearallstationsofcountry.fxml"));
         Scene scene = new SceneJson<>(root, 750, 600);
         stage.setScene(scene);
         stage.initOwner(rootme.getScene().getWindow());
