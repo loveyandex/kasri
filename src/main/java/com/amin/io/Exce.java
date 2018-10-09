@@ -13,9 +13,9 @@ public class Exce {
         MyWriter myWriter = new MyWriter("config", "old-exception-stations.conf", true);
         File file = new File("config/old-stations");
         if (file.isDirectory()) {
-            val files = file.listFiles();
+            File[] files = file.listFiles();
             for (int i = 0; i < files.length; i++) {
-                final val file1 = files[i];
+                final File file1 = files[i];
                 if (file1.getName().contains(".conf.csv"))
                 {
                     final String x = file1.getName().replaceAll(".conf.csv", "");
