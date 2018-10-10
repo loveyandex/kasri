@@ -2,7 +2,7 @@ package com.amin.ui;
 
 import com.amin.analysis.RawMining;
 import com.amin.analysis.SecondMining;
-import com.amin.analysis.wind.WindMining;
+import com.amin.analysis.oldmapping.OldMapping;
 import com.amin.config.C;
 import com.amin.getdata.Methods;
 import javafx.application.Application;
@@ -67,7 +67,7 @@ public class RawMiningActivity extends Application implements Runnable {
         if (list != null) {
             for (File file : list) {
                 try {
-                    WindMining.getWindSpeedCol(file.getParent(), file.getName());
+                    OldMapping.getWindSpeedCol(file.getParent(), file.getName());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

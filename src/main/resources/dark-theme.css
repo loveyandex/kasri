@@ -4,7 +4,8 @@
 */
 
 * {
-    -fx-primary : #2A2E37;
+    /*-fx-primary : #63613a;*/
+    -fx-primary : #56542d;
     -fx-secondary : #6e7d60;
     -fx-primarytext : #B2B2B2;
     -fx-blue: #1976D2;

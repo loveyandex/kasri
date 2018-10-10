@@ -16,7 +16,10 @@ public class MyWriter {
             File dir = new File(pathDirToSave);
             dir.mkdirs();
             File fileTosave = new File(dir, childFileName);
-            fileTosave.createNewFile();
+            if (!fileTosave.exists())
+                fileTosave.createNewFile();
+            else System.out.println("file is existed");
+
              fileOutputStream = new FileOutputStream(fileTosave, append);
              outputStreamWriter = new OutputStreamWriter(fileOutputStream);
         } catch (FileNotFoundException e) {

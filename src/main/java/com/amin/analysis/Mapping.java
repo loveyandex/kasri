@@ -227,6 +227,8 @@ public class Mapping {
                 }
                 points.add(point);
             }
+            scanner.close();
+            reader.close();
             return points;
         }
 
@@ -321,9 +323,6 @@ public class Mapping {
 
 
         }
-
-
-
 
     }
 

@@ -20,6 +20,7 @@
     <Menu text="data analysis">
     <items>
     <MenuItem  text="statistical models "  onAction="#statisticalModels"/>
+    <MenuItem  text="new models "  onAction="#statisticalModels"/>
     </items>
     </Menu>
     </menus>

@@ -57,7 +57,7 @@
         <VBox>
 
 
-            <HBox>
+            <HBox alignment="CENTER">
 
 
                 <JFXButton contentDisplay="TOP"
@@ -66,7 +66,7 @@
                            prefHeight="100.0"
                            prefWidth="160.0"
                            styleClass="toolbar-button"
-                           text="features in Day" textAlignment="CENTER">
+                           text="on day in height" textAlignment="CENTER">
                     <graphic>
                         <WeatherIconView glyphName="CLOUD"/>
                         <!--<FontAwesomeIconView glyphName="AT"  size="25" />-->
@@ -75,11 +75,12 @@
                 <JFXButton contentDisplay="TOP"
                            layoutX="10.0" layoutY="10.0"
                            mnemonicParsing="false"
-                           onAction="#latlong"
+                           onAction="#ondayAllHeight"
                            prefHeight="100.0"
                            prefWidth="160.0"
                            styleClass="toolbar-button"
-                           text="lat &amp; long" textAlignment="CENTER">
+                           style=" -fx-font-size: 12;"
+                           text="on day All Heights" textAlignment="CENTER">
                     <graphic>
                         <ImageView   >
                             <image >
@@ -92,11 +93,20 @@
                 <JFXButton contentDisplay="TOP"
                            layoutX="10.0" layoutY="10.0"
                            mnemonicParsing="false"
-                           onAction="#loadMemberTable"
+                           onAction="#allstationsinone"
                            prefHeight="100.0"
                            prefWidth="160.0"
                            styleClass="toolbar-button"
                            text="${'all stations \n in one day'}" textAlignment="CENTER">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="TABLE" size="25"/>
+                    </graphic>
+                </JFXButton>
+                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="81.0"
+                           mnemonicParsing="false"
+                           onAction="#wholestationsallyearmthread"
+                           prefHeight="100.0" styleClass="toolbar-button"
+                           text="in whole of year multithred" textAlignment="CENTER">
                     <graphic>
                         <FontAwesomeIconView glyphName="TABLE" size="25"/>
                     </graphic>
@@ -190,7 +200,7 @@
                             <Label layoutX="200" style="-fx-text-fill: #b3b3b3;">close App</Label>
                             <HBox.margin>
                                 <Insets>
-                                    <right>20</right>
+                                    <right>10</right>
                                 </Insets>
                             </HBox.margin>
                         </HBox>
@@ -199,41 +209,45 @@
                         <Label style="-fx-text-fill: #0295f7">(Double) ESC</Label>
                     </HBox>
 
+                    <VBox.margin>
+                        <Insets>
+                            <top>252</top>
+                        </Insets>
+                    </VBox.margin>
                 </VBox>
 
-                <StackPane fx:id="stackpane">
-
-                    <JFXDialog fx:id="dialog">
-                        <JFXDialogLayout>
-                            <heading>
-                                <Label>JFoenix Dialog AMin</Label>
-                            </heading>
-                            <body>
-                                <Label>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                    do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                    enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                    nisi ut aliquip ex ea commodo consequat.
-                                </Label>
-                            </body>
-                            <actions>
-                                <JFXButton fx:id="acceptButton" styleClass="dialog-accept">ACCEPT
-                                </JFXButton>
-                            </actions>
-                        </JFXDialogLayout>
-                    </JFXDialog>
-
-
-                </StackPane>
-
-                <HBox.margin>
-                    <Insets>
-                        <!--<left>280</left>-->
-                        <top>250</top>
-                    </Insets>
-                </HBox.margin>
             </HBox>
 
         </VBox>
+
+        <StackPane fx:id="stackpane">
+
+            <JFXDialog fx:id="dialog">
+                <JFXDialogLayout>
+                    <heading>
+                        <Label>Wafsi</Label>
+                    </heading>
+                    <body>
+                        <VBox>
+                            <Label>Weather Analysis &amp; Flight Simulation internationally
+                            </Label>
+                            <HBox>
+                                <Label>Developer :  </Label>
+                                <Label style="-fx-text-fill: #7d8049">Abolfazl Ghahremani</Label>
+
+                            </HBox>
+                        </VBox>
+
+                    </body>
+                    <actions>
+                        <JFXButton fx:id="acceptButton" styleClass="dialog-accept">Close
+                        </JFXButton>
+                    </actions>
+                </JFXDialogLayout>
+            </JFXDialog>
+
+
+        </StackPane>
 
     </children>
 </VBox>

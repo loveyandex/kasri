@@ -8,7 +8,7 @@ import com.amin.jsons.OtherFormInfo;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
-import com.amin.ui.main.features.FormDayController;
+import com.amin.ui.main.features.day.FormDayController;
 import com.amin.ui.main.main.Charting;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -28,6 +28,8 @@ import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Vector;
+
+import static com.amin.ui.main.features.allheight.AntiHeightDayController.getFeatures;
 
 /**
  * is created by aMIN on 8/6/2018 at 8:17 PM
@@ -164,14 +166,11 @@ public class Funsctions {
 
                         Double intrapolateFeature = intrapolateFeature(height, heightAndFeature);
                         if (intrapolateFeature != null) {
-
                             featurelist.add(intrapolateFeature);
-
                             featureAndYear.add(((Double) intrapolateFeature));
                             featureAndYear.add(i);
                             yearsofFeature.add(i);
                             AllfeatureAndYear.add(featureAndYear);
-
                             Mapping.LatLong.writeStringInFile(pathDirToSave, childFileName
                                     , String.format("%d,%s,%s,%s,%f,%s\n", i, Z, stationNamesList.get(counterforStations)
                                             , stationNumber, intrapolateFeature, unit), true);
@@ -194,10 +193,17 @@ public class Funsctions {
 
         }
 
+        final String absfilepathSaved = pathDirToSave + File.separator + childFileName;
         ArrayList<ArrayList<String>> colsData = Mapping.LatLong.getColsData(
-                pathDirToSave + File.separator + childFileName, ","
+                absfilepathSaved, ","
                 , 0, 1, 2, 3, 4, 5);
 
+
+        final String finalPathDirToSave = pathDirToSave;
+        colsData.add(new ArrayList<String>() {{
+            add(absfilepathSaved);
+            add(finalPathDirToSave);
+        }});
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("success");
@@ -207,7 +213,7 @@ public class Funsctions {
             Stage primaryStage = new StageOverride();
             Parent root = null;
             try {
-                root = FXMLLoader.load(this.getClass().getResource("/com/amin/ui/main/features/allstationsstatistic.fxml"));
+                root = FXMLLoader.load(this.getClass().getResource("/com/amin/ui/main/features/AllStationsOfCountryInOneDay/allstationsstatistic.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -329,7 +335,7 @@ public class Funsctions {
             vbox.getChildren().addAll(sc, charting2.getSc());
             hbox.setPadding(new Insets(10, 10,
                     03.10, 10));
-            Parent root = FXMLLoader.load(FormDayController.class.getResource("/chart.fxml"));
+            Parent root = FXMLLoader.load(FormDayController.class.getResource("/com/amin/ui/main/features/day/chart.fxml"));
             ((VBox) root).getChildren().add(vbox);
             StageOverride stage = new StageOverride();
             stage.setTitle("statistical analysis");
@@ -458,30 +464,7 @@ public class Funsctions {
 
 
     private Features getfeatureIndex(String featureName) {
-        if (featureName.equals(Features.PRES.getName()))
-            return Features.PRES;
-        else if (featureName.equals(Features.HGHT.getName()))
-            return Features.HGHT;
-        else if (featureName.equals(Features.TEMP.getName()))
-            return Features.TEMP;
-        else if (featureName.equals(Features.DWPT.getName()))
-            return Features.DWPT;
-        else if (featureName.equals(Features.RELH.getName()))
-            return Features.RELH;
-        else if (featureName.equals(Features.MIXR.getName()))
-            return Features.MIXR;
-        else if (featureName.equals(Features.DRCT.getName()))
-            return Features.DRCT;
-        else if (featureName.equals(Features.SKNT.getName()))
-            return Features.SKNT;
-        else if (featureName.equals(Features.THTA.getName()))
-            return Features.THTA;
-        else if (featureName.equals(Features.THTE.getName()))
-            return Features.THTE;
-        else if (featureName.equals(Features.THTV.getName()))
-            return Features.THTV;
-        else
-            return null;
+        return getFeatures(featureName);
 
     }
 

@@ -25,6 +25,7 @@ public class OtherFormInfo {
     private Number highYear;
     private String featureUnit;
     private String dirTOSave;
+    private String childFileName;
 
 }
 

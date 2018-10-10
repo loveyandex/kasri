@@ -9,6 +9,7 @@ public class MathTerminology {
     public static final String VARIENCE = "Varience";
     public static final String STANDARDDEVIATION = "Standard deviation";
     public static final String AVARAGE = "average";
+    public static final String ALL = "All";
 
     public static double min(double... vals) {
         double m = +1.0D / 0.0;

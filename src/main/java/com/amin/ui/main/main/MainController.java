@@ -1,39 +1,27 @@
 package com.amin.ui.main.main;
 
-import com.amin.analysis.wind.WindMining;
 import com.amin.getdata.Starter;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.map.LatLongMainApp;
 import com.amin.ui.scripts.ScriptAPP;
-import com.jfoenix.controls.JFXAlert;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextArea;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -48,7 +36,7 @@ import java.util.ResourceBundle;
  */
 public class MainController implements Initializable {
     @FXML
-    public VBox rootme;
+    private VBox rootme;
 
     public Label outputLbl;
 
@@ -85,24 +73,19 @@ public class MainController implements Initializable {
         System.exit(0);
     }
 
-    @FXML
-    private void fetch() {
-        try {
-            ArrayList<ArrayList<String>> windSpeedCol = WindMining.getWindSpeedCol("assets/data/00Z_08 _Jan _2017.csv", "00Z_08 _Jan _2017");
-            ;
-            for (int j = 0; j < windSpeedCol.size(); j++)
-                textArea.appendText(windSpeedCol.get(j).get(0) + ";" + windSpeedCol.get(j).get(1) + "\r\n");
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Platform.runLater(() -> {
+            dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM
+            );
+            dialog.show(stackpane);
+            dialog.close();
 
+        });
         rootme.setOnKeyPressed(event -> {
              if (event.getCode()== KeyCode.D &&  event.isControlDown()) {
                  onday(null);
@@ -145,7 +128,7 @@ public class MainController implements Initializable {
     public void dayFeature(ActionEvent actionEvent) throws IOException, URISyntaxException {
         Stage stage = new StageOverride();
         stage.setResizable(true);
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/day.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/day/day.fxml"));
         Scene scene = new SceneJson<>(root, 750, 600);
         stage.setScene(scene);
         stage.initOwner(rootme.getScene().getWindow());
@@ -154,38 +137,11 @@ public class MainController implements Initializable {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public void getDataFromInternet(ActionEvent actionEvent) {
         Starter starter=new Starter();
         Stage stage=new Stage();
         starter.start(stage);
     }
-
-
-
-
 
 
     public void onday(ActionEvent actionEvent) {
@@ -218,11 +174,11 @@ public class MainController implements Initializable {
         primaryStage.show();
     }
 
-    public void loadMemberTable(ActionEvent actionEvent) throws IOException {
+    public void allstationsinone(ActionEvent actionEvent) throws IOException {
         Stage stage = new StageOverride();
         stage.setTitle("all stations of a country");
         stage.setResizable(true);
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/allstationsofcountry.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/AllStationsOfCountryInOneDay/allstationsofcountry.fxml"));
         Scene scene = new SceneJson<>(root, 750, 600);
         stage.setScene(scene);
         stage.initOwner(rootme.getScene().getWindow());
@@ -230,11 +186,24 @@ public class MainController implements Initializable {
         stage.showAndWait();
     }
 
+    public void wholestationsallyearmthread(ActionEvent actionEvent) throws IOException {
+        Stage stage = new StageOverride();
+        stage.setTitle("whole of the year in all stations of a country");
+        stage.setResizable(true);
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/wholeyear/concurent/wholeyearallstationsofcountry.fxml"));
+        Scene scene = new SceneJson<>(root, 750, 600);
+        stage.setScene(scene);
+        stage.initOwner(rootme.getScene().getWindow());
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+
+    }
+
     public void wholestationsallyear(ActionEvent actionEvent) throws IOException {
         Stage stage = new StageOverride();
         stage.setTitle("whole of the year in all stations of a country");
         stage.setResizable(true);
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/wholeyear2/wholeyear/wholeyearallstationsofcountry.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/wholeyear/parallel/wholeyearallstationsofcountry.fxml"));
         Scene scene = new SceneJson<>(root, 750, 600);
         stage.setScene(scene);
         stage.initOwner(rootme.getScene().getWindow());
@@ -266,6 +235,7 @@ public class MainController implements Initializable {
             JFXTooltip jfxTooltip=new JFXTooltip("god is great kijng ",rootme);
             jfxTooltip.show(rootme.getScene().getWindow());
         });
+
     }
 
     public void latlong(ActionEvent actionEvent) throws IOException {

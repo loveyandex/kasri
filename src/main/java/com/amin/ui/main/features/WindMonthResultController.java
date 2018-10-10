@@ -59,7 +59,7 @@ public class WindMonthResultController implements Initializable, Runnable {
     private void getBack(Stage stage) throws IOException, URISyntaxException {
         stage.getIcons().add(new Image(getClass().getResource("/fav.jpg").toURI().toString()));
         stage.setResizable(true);
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/day.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/day/day.fxml"));
         Scene scene = new Scene(root, 550, 400);
         String image = MainController.class.getResource("/loginWind.jpg").toURI().toString();
         root.setStyle("-fx-background-image: url('" + image + "'); " +
