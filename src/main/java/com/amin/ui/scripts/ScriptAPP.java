@@ -277,7 +277,10 @@ public class ScriptAPP extends Application {
 
         final String func = args[0];
         if (func.equals("onday"))
-            runFopen(args);
+            runFopen(args, Funsctions.getInstance()::fopen);
+        else if (func.equals("crosswind"))
+            runFopen(args, Wind.getInstance()::crossWindOnDayOnStation);
+
         else if (func.equals("ondaystations"))
             runAllDay(args);
 
@@ -362,7 +365,7 @@ public class ScriptAPP extends Application {
         }
     }
 
-    private static void runFopen(String[] args) {
+    private static void runFopen(String[] args, Run run) {
         if (args.length == 1)
             Dialog.createExceptionDialog(new RuntimeException("not arrgumet assigned"));
         else {
@@ -387,12 +390,17 @@ public class ScriptAPP extends Application {
                         stationNumber, "",
                         country, height, loweryear, highyear, unit);
 //                Funsctions.getInstance().fopen(formInfo);
-                Wind.getInstance().crossWindOnDayOnStation(formInfo);
+//                Wind.getInstance().crossWindOnDayOnStation(formInfo);
+                run.run(formInfo);
 
             } catch (Exception X) {
                 Dialog.createExceptionDialog(new RuntimeException(X.toString()));
             }
         }
+    }
+
+    interface Run {
+        void run(FormInfo formInfo);
     }
 
     private static double runFopen2(String[] args) {
