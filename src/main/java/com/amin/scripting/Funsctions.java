@@ -302,7 +302,10 @@ public class Funsctions {
                         knotslist.add(intrapolatedKnot);
                         featureAndYear.add(((Double) intrapolatedKnot));
                         featureAndYear.add(i);
+                        featureAndYear.add(unit);
+
                         yearsofFeature.add(i);
+
                         AllfeatureAndYear.add(featureAndYear);
                     }
 

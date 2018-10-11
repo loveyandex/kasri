@@ -39,7 +39,21 @@ public class ChartController implements Initializable {
         primaryStage.show();
     }
 
-    public void crossing(ActionEvent actionEvent) {
+    public void crossing(ActionEvent actionEvent) throws IOException {
+
+        Stage primaryStage = new StageOverride();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/crosswind/crosswindagainst.fxml"));
+        root.setStyle("-fx-padding: 30 30 30 30 ");
+
+        SceneJson sceneJson = new SceneJson<>(root);
+        sceneJson.setJson(allfeatureandyear);
+        primaryStage.setScene(sceneJson);
+
+        primaryStage.setResizable(false);
+        primaryStage.show();
+
+
+
 
     }
 

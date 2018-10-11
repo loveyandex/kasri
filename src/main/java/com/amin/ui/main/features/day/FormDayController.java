@@ -425,6 +425,7 @@ public class FormDayController implements Initializable {
 
         ArrayList<Double> knotslist = new ArrayList<>();
         ArrayList<Integer> yearsofFeature = new ArrayList<>();
+        ArrayList<String> unitforsend = new ArrayList<>();
 
         String[] z = {"00Z", "12Z"};
         for (int id = 0; id < 2; id++) {
@@ -453,8 +454,10 @@ public class FormDayController implements Initializable {
                         knotslist.add(intrapolatedKnot);
                         featureAndYear.add(((Double) intrapolatedKnot));
                         featureAndYear.add(i);
-                        yearsofFeature.add(i);
+                        featureAndYear.add(unit);
                         AllfeatureAndYear.add(featureAndYear);
+
+                        yearsofFeature.add(i);
                     }
 
 

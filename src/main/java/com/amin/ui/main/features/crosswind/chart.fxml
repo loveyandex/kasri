@@ -19,7 +19,7 @@
             <Menu text="data analysis">
                 <items>
                     <MenuItem text="statistical models " onAction="#statisticalModels"/>
-                    <MenuItem text="statistical models " onAction="#crossing"/>
+                    <MenuItem text="Cross wind against" onAction="#crossing"/>
 
                 </items>
             </Menu>

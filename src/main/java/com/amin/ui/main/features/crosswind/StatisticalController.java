@@ -3,6 +3,7 @@ package com.amin.ui.main.features.crosswind;
 import com.amin.config.MathTerminology;
 import com.amin.ui.SceneJson;
 import com.amin.ui.dialogs.Dialog;
+import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -51,7 +52,6 @@ public class StatisticalController implements Initializable, Runnable {
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(this);
 
-
     }
 
     public void copied(MouseEvent mouseEvent) {
@@ -66,6 +66,9 @@ public class StatisticalController implements Initializable, Runnable {
     @Override
     public void run() {
         allfeatureandyear = (ArrayList) ((SceneJson) rootstackpane.getScene()).getJson();
+
+        System.out.println(new Gson().toJson(allfeatureandyear));
+
         allfeatureandyear.forEach(objects -> {
             objects.forEach(o -> {
                 System.out.println(objects.size());

@@ -123,7 +123,7 @@ public class ScriptAPP extends Application {
         TextArea console = new TextArea(">>onday 40800 10 26 PRES hPa 8999 1999 2017 iran__islamic_rep\n>>");
         console.setMinSize(900, 220);
         console.setStyle("-fx-base: #fff3f8;\n" +
-                " -fx-control-inner-background: #2A2E37");
+                " -fx-control-inner-background: #f8fbee");
 
 
         wind_speed.setOnAction(event -> {
@@ -235,8 +235,8 @@ public class ScriptAPP extends Application {
         closeButton.setMinWidth(30);
         Button oth = new Button("scripting");
         oth.setStyle("-fx-background-radius: 0;-fx-border-radius: 0;"+
-                "-fx-background-color: #2A2E37;" +
-                "-fx-text-fill: #ffffff;");
+                "-fx-background-color: #f8fbee;" +
+                "-fx-text-fill: #B2B2B2;");
 
 
 
