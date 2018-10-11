@@ -2,6 +2,7 @@ package com.amin.scripting.wind;
 
 import com.amin.analysis.Mapping;
 import com.amin.config.C;
+import com.amin.config.MathTerminology;
 import com.amin.jsons.FormInfo;
 import com.amin.scripting.Do;
 import com.amin.scripting.Function;
@@ -10,6 +11,7 @@ import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.main.features.day.FormDayController;
 import com.amin.ui.main.main.Charting;
+import com.google.gson.Gson;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
@@ -73,6 +75,16 @@ public class Wind implements Function {
                         }
                     return arrayLists;
                 }
+
+                @Override
+                public double maxValue(ArrayList<Double> doubles) {
+                    return   MathTerminology.max(doubles);
+                }
+
+                @Override
+                public double minValue(ArrayList<Double> doubles) {
+                    return MathTerminology.min(doubles);
+                }
             });
 
 
@@ -122,7 +134,7 @@ public class Wind implements Function {
         double ytickUnit = ((Double) method.invoke(charting123, 10));
 
         Charting charting = new Charting(900, 33000, 1000,
-                -20, 20, ytickUnit, "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
+                -50, 50, ytickUnit, "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
         final XYChart<Number, Number> sc = charting.getSc();
 
 
@@ -142,8 +154,10 @@ public class Wind implements Function {
 
 
                     ArrayList<ArrayList<Double>> heightAndFeature = aDo.filterAndDo(dayfilePath, 0, 0/*not important*/);
+
+                    final String seriesName = fileName.replaceAll(".csv", "");
                     charting.addSeriesToChart(heightAndFeature, featureName
-                            , fileName.replaceAll(".csv", ""),
+                            , seriesName,
                             featureName, unit);
 
                     ;
@@ -172,9 +186,10 @@ public class Wind implements Function {
         }
 
         try {
+            System.out.println(new Gson().toJson(knotslist));
 
-            Charting charting2 = new Charting(fromYear, toYear, 1,
-                    invokelowrange, invokehighrange, ytickUnit, "years", featureName + "(" + unit + ")", Charting.LINE_CHART);
+            Charting charting2 = new Charting(yearsofFeature.get(0)-1, yearsofFeature.get(yearsofFeature.size()-1)+1, 1,
+                    Math.floor(aDo.minValue(knotslist)), Math.ceil(aDo.maxValue(knotslist)), ytickUnit, "years", featureName + "(" + unit + ")", Charting.LINE_CHART);
             charting2.interpolateChart("interpolate years for " + featureName + " in " + heightDesire + " m",
                     "interpolate", knotslist, yearsofFeature, "avg line val is on ", unit);
 

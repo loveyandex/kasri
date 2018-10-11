@@ -53,7 +53,9 @@ public class ScriptAPP extends Application {
 
         Menu editMenu = new Menu("samples");
         Menu onday = new Menu("samples onday");
+        Menu crosswindmenu = new Menu("cross wind onday");
         Menu ondaystations = new Menu("samples onday over the state");
+
         final MenuItem wind_speed = new MenuItem("wind speed");
         final MenuItem temp = new MenuItem("temp");
         final MenuItem DWPT = new MenuItem("DWPT");
@@ -89,9 +91,29 @@ public class ScriptAPP extends Application {
                 mixr1,
                 drct1
         );
+
         editMenu.getItems().add(ondaystations);
 
 
+        final MenuItem qwind_speed1 = new MenuItem("wind speed");
+        final MenuItem qtemp1 = new MenuItem("temp");
+        final MenuItem qDWPT1 = new MenuItem("DWPT");
+        final MenuItem qpress1 = new MenuItem("press");
+        final MenuItem qrelh1 = new MenuItem("RELH");
+        final MenuItem qmixr1 = new MenuItem("MIXR");
+        final MenuItem qdrct1 = new MenuItem("DRCT");
+
+        crosswindmenu.getItems().addAll(
+                qwind_speed1/*,
+                qtemp1,
+                qDWPT1,
+                qpress1,
+                qrelh1,
+                qmixr1,
+                qdrct1*/
+        );
+
+        editMenu.getItems().add(crosswindmenu);
 
 
 
@@ -130,6 +152,35 @@ public class ScriptAPP extends Application {
         drct.setOnAction(event -> {
             console.appendText("onday 40800 10 26 DRCT ° 20000 1973 2017           iran__islamic_rep ");
         });
+
+
+
+        qwind_speed1.setOnAction(event -> {
+            console.appendText("crosswind 40800 10 26 WIND_SPEED m/s 20000 1973 2017 iran__islamic_rep");
+        });
+//
+//        qtemp1.setOnAction(event -> {
+//            console.appendText("crosswind 40800 10 26 TEMP ℃ 20000 1973 2017 iran__islamic_rep");
+//        });
+//        qDWPT1.setOnAction(event -> {
+//            console.appendText("crosswind 40800 10 26 DWPT ℃ 20000 1973 2017 iran__islamic_rep");
+//        });
+//
+//        qpress1.setOnAction(event -> {
+//            console.appendText("crosswind 40800 10 26 PRES atm 20000 1973 2017 iran__islamic_rep");
+//        });
+//
+//        qrelh1.setOnAction(event -> {
+//            console.appendText("crosswind 40800 10 26 RELH % 20000 1973 2017 iran__islamic_rep");
+//        });
+//
+//        qmixr1.setOnAction(event -> {
+//            console.appendText("crosswind 40800 10 26 MIXR g/kg 20000 1973 2017 iran__islamic_rep");
+//        });
+//
+//        qdrct1.setOnAction(event -> {
+//            console.appendText("crosswind 40800 10 26 DRCT ° 20000 1973 2017           iran__islamic_rep ");
+//        });
 
 
 

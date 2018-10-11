@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?language JavaScript?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox fx:id="rootme" fx:controller="com.amin.ui.main.features.crosswind.ChartController" prefHeight="400"
+      prefWidth="800"
+      xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx/2.2">
+
+    <MenuBar fx:id="menuBar" focusTraversable="true">
+        <menus>
+            <Menu text="File">
+                <items>
+                    <MenuItem text=""/>
+                    <MenuItem text=""/>
+                </items>
+            </Menu>
+            <Menu text="data analysis">
+                <items>
+                    <MenuItem text="statistical models " onAction="#statisticalModels"/>
+                    <MenuItem text="statistical models " onAction="#crossing"/>
+
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
+
+
+</VBox>

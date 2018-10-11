@@ -1,4 +1,4 @@
-package com.amin.ui.main.features.day;
+package com.amin.ui.main.features.crosswind;
 
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
@@ -11,37 +11,23 @@ import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * is created by aMIN on 7/18/2018 at 21:57
+ * is created by aMIN on 10/11/2018 at 8:45 PM
  */
-
-public class ChartController implements Initializable, Runnable {
+public class ChartController implements Initializable {
 
     private ArrayList<ArrayList<Object>> allfeatureandyear;
     @FXML
     private VBox rootme;
 
-    @PostConstruct
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        Platform.runLater(this);
-
-    }
-
-    @Override
-    public void run() {
-        allfeatureandyear = (ArrayList) ((SceneJson) rootme.getScene()).getJson();
-    }
-
 
     public void statisticalModels(ActionEvent actionEvent) throws IOException {
-        Stage primaryStage=new StageOverride();
+        Stage primaryStage = new StageOverride();
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/day/statistic.fxml"));
         root.setStyle("-fx-padding: 30 30 30 30 ");
 
@@ -53,5 +39,12 @@ public class ChartController implements Initializable, Runnable {
         primaryStage.show();
     }
 
+    public void crossing(ActionEvent actionEvent) {
 
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Platform.runLater(() -> allfeatureandyear = (ArrayList) ((SceneJson) rootme.getScene()).getJson());
+    }
 }
