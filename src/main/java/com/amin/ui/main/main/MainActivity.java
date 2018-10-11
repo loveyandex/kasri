@@ -40,7 +40,7 @@ public class MainActivity extends Application  {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/main/main_activity.fxml"));
-        Scene scene = new SceneMainActivity<>(root, 1000, 600);
+        Scene scene = new SceneMainActivity<>(root, 1100, 600);
 
         primaryStage.setOnCloseRequest(event -> {
             event.consume();

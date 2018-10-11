@@ -9,7 +9,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<VBox fx:id="rootme" prefHeight="400" prefWidth="800" xmlns="http://javafx.com/javafx/8.0.1"
+<VBox fx:id="rootme" prefHeight="400" prefWidth="1150" xmlns="http://javafx.com/javafx/8.0.1"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amin.ui.main.main.MainController"
       stylesheets="/dark-theme.css"
 >
@@ -77,9 +77,8 @@
                            mnemonicParsing="false"
                            onAction="#ondayAllHeight"
                            prefHeight="100.0"
-                           prefWidth="160.0"
+                           prefWidth="190.0"
                            styleClass="toolbar-button"
-                           style=" -fx-font-size: 12;"
                            text="on day All Heights" textAlignment="CENTER">
                     <graphic>
                         <ImageView   >
@@ -121,7 +120,8 @@
                     </graphic>
                 </JFXButton>
                 <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#openscript"
-                           prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button" text="scripts"
+                           prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
+                           text="script functions"
                            textAlignment="CENTER">
                     <graphic>
                         <ImageView   >

@@ -5,6 +5,7 @@ import com.amin.jsons.Date;
 import com.amin.jsons.FormInfo;
 import com.amin.jsons.OtherFormInfo;
 import com.amin.scripting.Funsctions;
+import com.amin.scripting.wind.Wind;
 import com.amin.ui.SceneJson;
 import com.amin.ui.dialogs.Dialog;
 import javafx.application.Application;
@@ -385,7 +386,8 @@ public class ScriptAPP extends Application {
                 final FormInfo formInfo = new FormInfo(new Date(month, day, 1999), featurename,
                         stationNumber, "",
                         country, height, loweryear, highyear, unit);
-                Funsctions.getInstance().fopen(formInfo);
+//                Funsctions.getInstance().fopen(formInfo);
+                Wind.getInstance().crossWindOnDayOnStation(formInfo);
 
             } catch (Exception X) {
                 Dialog.createExceptionDialog(new RuntimeException(X.toString()));

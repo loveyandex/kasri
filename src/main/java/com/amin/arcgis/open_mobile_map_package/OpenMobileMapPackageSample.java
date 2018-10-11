@@ -56,7 +56,7 @@ public class OpenMobileMapPackageSample extends Application {
       mapView = new MapView();
 
       //load a mobile map package
-      final String mmpkPath = new File("./samples-data/mmpk/SanFrancisco.mmpk").getAbsolutePath();
+        final String mmpkPath = new File("samples-data/mmpk/Yellowstone.mmpk").getAbsolutePath();
       MobileMapPackage mobileMapPackage = new MobileMapPackage(mmpkPath);
 
       mobileMapPackage.loadAsync();
@@ -83,11 +83,6 @@ public class OpenMobileMapPackageSample extends Application {
             }
         });
 
-
-
-
-
-
         // add the map view to stack pane
       stackPane.getChildren().add(mapView);
     } catch (Exception e) {
@@ -97,7 +92,7 @@ public class OpenMobileMapPackageSample extends Application {
   }
 
 
-
+//todo RUNTIMELOCALSERVER_100_3=...
 
 
 
