@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
 <StackPane fx:id="rootstackpane" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.amin.ui.main.features.day.StatisticalController"
+           fx:controller="com.amin.ui.main.features.day.crosswind.CrossingContrller"
            xmlns="http://javafx.com/javafx/2.2"
            stylesheets="/statistic.css">
     <VBox maxWidth="600" maxHeight="450" spacing="20"

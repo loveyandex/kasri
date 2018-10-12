@@ -204,7 +204,7 @@ public class Wind implements Function {
             vbox.getChildren().addAll(sc, charting2.getSc());
             hbox.setPadding(new Insets(10, 10,
                     03.10, 10));
-            Parent root = FXMLLoader.load(FormDayController.class.getResource("/com/amin/ui/main/features/crosswind/chart.fxml"));
+            Parent root = FXMLLoader.load(FormDayController.class.getResource("/com/amin/ui/main/features/day/crosswind/chart.fxml"));
             ((VBox) root).getChildren().add(vbox);
             StageOverride stage = new StageOverride();
             stage.setTitle("statistical analysis");
