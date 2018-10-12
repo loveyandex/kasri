@@ -18,12 +18,12 @@ public class F {
         System.out.println(new Gson().toJson(osm));
         MapDataDao mapDao = new MapDataDao(osm);
 
-        double LONGITUDE_START = 48.833744;
-        double LATITUDE_START = 55.693307;
+        double LONGITUDE_START = 35.6892;
+        double LATITUDE_START = 51.3890;
 
 
-        double LONGITUDE_STOP = 49.261698;
-        double LATITUDE_STOP = 55.897801;
+        double LONGITUDE_STOP = 36.261698;
+        double LATITUDE_STOP = 51.897801;
 
         double currentLong = LONGITUDE_START;
         double currentLat = LATITUDE_START;
