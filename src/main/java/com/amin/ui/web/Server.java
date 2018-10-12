@@ -32,6 +32,7 @@ public class Server extends Application {
                     }
                 }); // addListener()
         webEngine.load("http://127.0.0.1:8080");
+//        webEngine.load("https://www.w3schools.com/");
 
         browser.setContextMenuEnabled(false);
         createContextMenu(browser);
