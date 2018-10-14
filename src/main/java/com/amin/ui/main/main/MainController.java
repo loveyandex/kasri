@@ -269,4 +269,16 @@ public class MainController implements Initializable {
         dialog.show(stackpane);
 
     }
+
+    public void onMapless(ActionEvent actionEvent) throws IOException {
+        Stage stage = new StageOverride();
+        stage.setResizable(true);
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/mappless/mapless.fxml"));
+        Scene scene = new SceneJson<>(root);
+        stage.setScene(scene);
+        stage.initOwner(rootme.getScene().getWindow());
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+
+    }
 }
