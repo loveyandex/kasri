@@ -72,7 +72,9 @@ public class UI extends Application {
         final MultiLayerNetwork[] net = new MultiLayerNetwork[1];
         jfxButton.setOnMouseClicked(event -> {
             gett.setDisable(true);
-            net[0] = RegressionSum.net();
+
+
+            net[0] = RegressionSum.net(RegressionSum.getTrainingData(RegressionSum.batchSize, RegressionSum.rng));
             results.setText("no result");
             gett.setDisable(false);
         });

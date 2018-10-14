@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
 <StackPane fx:id="rootstackpane" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.amin.ui.main.features.day.crosswind.CrossingContrller"
+           fx:controller="com.amin.ui.main.features.day.crosswind.CrossingController"
            xmlns="http://javafx.com/javafx/2.2"
            stylesheets="/statistic.css">
     <VBox maxWidth="600" maxHeight="450" spacing="20"
@@ -23,7 +23,7 @@
 
                     <Label focusTraversable="true"
                            stylesheets="/stage.css"
-                           text="choose a feature"
+                           text="feature"
                            textFill="#03A9F4"
 
                     />
@@ -37,21 +37,6 @@
                 </HBox>
                 <HBox alignment="BASELINE_RIGHT">
 
-                    <JFXComboBox fx:id="feturesCombo"
-                                 stylesheets="/combo.css"
-                                 minWidth="300"
-                    >
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="All"/>
-                                <String fx:value="max value"/>
-                                <String fx:value="min value"/>
-                                <String fx:value="average"/>
-                                <String fx:value="Varience"/>
-                                <String fx:value="Standard deviation"/>
-                            </FXCollections>
-                        </items>
-                    </JFXComboBox>
                     <HBox.margin>
                         <Insets>
                             <left>5</left>
@@ -70,40 +55,10 @@
                     </Label>
                 </heading>
                 <body>
-                    <VBox>
-                        <Label fx:id="valueLable">
-                        </Label>
-                        <VBox fx:id="allvbox">
-                            <HBox>
-                                <Label textFill="#03A9F4" fx:id="maxtext"/>
-                                <Label fx:id="maxvalue"/>
-                            </HBox>
-
-                            <HBox>
-                                <Label textFill="#03A9F4">Min Value:</Label>
-                                <Label fx:id="minvalue"/>
-                            </HBox>
-
-                            <HBox>
-                                <Label textFill="#03A9F4">Mean Value:</Label>
-                                <Label fx:id="meanvalue"/>
-                            </HBox>
-
-                            <HBox>
-                                <Label textFill="#03A9F4">Variance Value:</Label>
-                                <Label fx:id="variencevalue"/>
-                            </HBox>
-
-                            <HBox>
-                                <Label textFill="#03A9F4">Standard deviation Value:</Label>
-                                <Label fx:id="sdvalue"/>
-                            </HBox>
-                        </VBox>
-                    </VBox>
 
                 </body>
                 <actions>
-                    <JFXButton fx:id="acceptButton" styleClass="dialog-accept" onMouseClicked="#copied">Copy value
+                    <JFXButton fx:id="acceptButton" styleClass="dialog-accept">Copy value
                         <graphic>
                             <ImageView>
                                 <image>

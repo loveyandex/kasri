@@ -551,45 +551,6 @@ public class FormDayController implements Initializable {
     }
 
 
-    private double intrapolateKnot(String height, ArrayList<ArrayList<String>> heightAndKnotAll) {
-        double knotdesire = -1;
-        double heightdesire = Double.parseDouble(height);
-        final Vector<Double> heigthsVector = new Vector<>();
-        final Vector<Double> knotsVector = new Vector<>();
-
-        heightAndKnotAll.forEach(strings -> {
-            if (!strings.get(0).equals("HGHT")
-                    && !strings.get(1).equals("SKNT")
-                    && !strings.get(0).equals("m")
-                    && !strings.get(1).equals("knot")
-                    && !strings.get(0).equals("NULL")
-                    && !strings.get(1).equals("NULL")
-
-
-                    ) {
-                double h = Double.parseDouble(strings.get(0));
-                double knot = Double.parseDouble(strings.get(1));
-                heigthsVector.add(h);
-                knotsVector.add(knot);
-            }
-        });
-
-        for (int i = 0; i < heigthsVector.size() - 1; i++) {
-            double hi = heigthsVector.get(i);
-            double hiplus = heigthsVector.get(i + 1);
-            double knoti = knotsVector.get(i);
-            double knotiplus = knotsVector.get(i + 1);
-            if ((heightdesire - hi) * (heightdesire - hiplus) <= 0) {
-                knotdesire = (knotiplus - knoti) * (heightdesire - hi) / (hiplus - hi) + (knoti);
-                break;
-            }
-
-        }
-        return knotdesire;
-    }
-
-
-
 
 
 

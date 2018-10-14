@@ -68,18 +68,13 @@ public class StatisticalController implements Initializable, Runnable {
     public void run() {
         allfeatureandyear = (ArrayList) ((SceneJson) rootstackpane.getScene()).getJson();
         unit = ((String) allfeatureandyear.get(0).get(2));
-
         allvbox.managedProperty().bind(allvbox.visibleProperty());
         feturesCombo.valueProperty().setValue(MathTerminology.ALL);
-
         calcAll();
-
         feturesCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             mathematicLable.setText((String) newValue);
             calculatItem((String) newValue);
         });
-
-
     }
 
     private void calculatItem(String newValue) {

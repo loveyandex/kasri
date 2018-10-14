@@ -99,11 +99,11 @@ public class Wind implements Function {
     }
 
 
-    private ArrayList<ArrayList<Object>> AllfeatureAndYear = new ArrayList<>();
+    private ArrayList<Object> allfeatureAndYear = new ArrayList<>();
 
 
     private void showChartAndAna(FormInfo formInfo, Do aDo) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        if (!AllfeatureAndYear.isEmpty()) AllfeatureAndYear.clear();
+        if (!allfeatureAndYear.isEmpty()) allfeatureAndYear.clear();
         int fromYear = formInfo.getLowerYear().intValue();
         int toYear = formInfo.getHighYear().intValue();
         String featureName = formInfo.getFeaureName();
@@ -154,7 +154,7 @@ public class Wind implements Function {
 
 
                     ArrayList<ArrayList<Double>> heightAndFeature = aDo.filterAndDo(dayfilePath, 0, 0/*not important*/);
-
+                    allfeatureAndYear.add(heightAndFeature);
                     final String seriesName = fileName.replaceAll(".csv", "");
                     charting.addSeriesToChart(heightAndFeature, featureName
                             , seriesName,
@@ -170,7 +170,10 @@ public class Wind implements Function {
                         yearsofFeature.add(i);
 
                         featureAndYear.add(unit);
-                        AllfeatureAndYear.add(featureAndYear);
+                        allfeatureAndYear.add(featureAndYear);
+                    }
+                    else {
+                        allfeatureAndYear.add(null);
                     }
 
 
@@ -212,7 +215,7 @@ public class Wind implements Function {
             SceneJson sceneJson = new SceneJson<ArrayList>(root, 450, 450);
 
 
-            sceneJson.setJson(AllfeatureAndYear);
+            sceneJson.setJson(allfeatureAndYear);
 
             stage.setScene(sceneJson);
             stage.show();

@@ -36,6 +36,7 @@ public class ChartController implements Initializable, Runnable {
 
     @Override
     public void run() {
+
         allfeatureandyear = (ArrayList) ((SceneJson) rootme.getScene()).getJson();
     }
 

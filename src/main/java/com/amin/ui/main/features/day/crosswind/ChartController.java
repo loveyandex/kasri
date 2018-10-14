@@ -15,13 +15,15 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.stream.IntStream;
 
 /**
  * is created by aMIN on 10/11/2018 at 8:45 PM
  */
 public class ChartController implements Initializable {
 
-    private ArrayList<ArrayList<Object>> allfeatureandyear;
+    private ArrayList<ArrayList<Object>> allfeatureandyear = new ArrayList<>();
+    private ArrayList<Object> godObj;
     @FXML
     private VBox rootme;
 
@@ -30,6 +32,11 @@ public class ChartController implements Initializable {
         Stage primaryStage = new StageOverride();
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/day/statistic.fxml"));
         root.setStyle("-fx-padding: 30 30 30 30 ");
+
+        IntStream.range(0, godObj.size() - 1).filter(value -> (value % 2 == 1 && godObj.get(value) != null))
+                .forEach(value -> {
+                    allfeatureandyear.add((ArrayList<Object>) godObj.get(value));
+                });
 
         SceneJson sceneJson = new SceneJson<>(root);
         sceneJson.setJson(allfeatureandyear);
@@ -45,8 +52,9 @@ public class ChartController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/day/crosswind/crosswindagainst.fxml"));
         root.setStyle("-fx-padding: 30 30 30 30 ");
 
+
         SceneJson sceneJson = new SceneJson<>(root);
-        sceneJson.setJson(allfeatureandyear);
+        sceneJson.setJson(godObj);
         primaryStage.setScene(sceneJson);
 
         primaryStage.setResizable(false);
@@ -56,6 +64,8 @@ public class ChartController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Platform.runLater(() -> allfeatureandyear = (ArrayList) ((SceneJson) rootme.getScene()).getJson());
+        Platform.runLater(() -> godObj = (ArrayList) ((SceneJson) rootme.getScene()).getJson());
     }
+
+
 }
