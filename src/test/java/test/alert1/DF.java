@@ -7,6 +7,8 @@ import com.amin.jsons.Country;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -22,9 +24,23 @@ import static test.alert1.FD.abrtoName;
 public class DF {
 
     public static void main(String[] args) throws FileNotFoundException, SQLException {
+        final JFrame jFrame = new JFrame();
+        jFrame.setResizable(false); //Disable the Resize Button
+        jFrame.setSize(1444,744);
+        jFrame.getContentPane().setBackground(Color.BLACK);
+        jFrame.setLocation(333,333);
+        jFrame.setUndecorated(true);
+        jFrame.setVisible(true);
+
+
+
+
+
+
+
         Gson gson = new Gson();
-        JsonReader reader = new JsonReader(new FileReader(new File("config/jsons/","cities.json")));
-        JsonReader reader2 = new JsonReader(new FileReader("F:\\apps\\jvm\\kasri\\config\\jsons\\country-by-abbreviation.json"));
+        JsonReader reader = new JsonReader(new FileReader(new File("../jsons/","cities.json")));
+        JsonReader reader2 = new JsonReader(new FileReader("../jsons/country-by-abbreviation.json"));
         City[] cities = gson.fromJson(reader, City[].class); // contains the whole reviews list
         Country[] countries = gson.fromJson(reader2, Country[].class); // contains the whole reviews list
 
