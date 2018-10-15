@@ -94,7 +94,8 @@ public class ListViewExperiments extends Application {
                 primaryStage.hide();
             else if (event.getCode() == KeyCode.UP && listView.getSelectionModel().getSelectedIndices().get(0).equals(0)) {
                 searchbox.requestFocus();
-            }else if (event.getCode()==KeyCode.ENTER && listView.getItems().size()>0){
+            }else if ((event.getCode()==KeyCode.ENTER && listView.getItems().size()>0)||
+                    (event.getCode()==KeyCode.ENTER && listView.getItems().size()>0)){
                 SnackBar.showSnack(vBox, String.valueOf(listView.getSelectionModel().getSelectedItems().get(0)));
             }
         });
