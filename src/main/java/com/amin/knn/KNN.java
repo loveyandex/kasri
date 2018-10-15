@@ -163,10 +163,8 @@ public class KNN {
 
     private static double temp(String stationnumber, String country) {
         final double v = ScriptAPP.scripting2(String.format("onday %s 10 26 WIND_SPEED m/s 5000 1973 2017 %s", stationnumber, country));
-
         return v;
     }
-
 
 }
 

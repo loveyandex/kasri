@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  *
  * @author Jens Deters
  */
-public class FontAwesomeIconView2 extends GlyphIcon<FontAwesomeIcon> {
+public class FontAwesomeIconView2 extends GlyphIcon<FontAwesomeIcon2> {
 
     public final static String TTF_PATH = "/com/amin/ui/theme/fontawesome-webfont.ttf";
 
@@ -36,19 +36,19 @@ public class FontAwesomeIconView2 extends GlyphIcon<FontAwesomeIcon> {
         }
     }
 
-    public FontAwesomeIconView2(FontAwesomeIcon icon) {
-        super(FontAwesomeIcon.class);
+    public FontAwesomeIconView2(FontAwesomeIcon2 icon) {
+        super(FontAwesomeIcon2.class);
         setFont(new Font("FontAwesome", DEFAULT_ICON_SIZE));
         setIcon(icon);
     }
 
     public FontAwesomeIconView2() {
-        this(FontAwesomeIcon.ANCHOR);
+        this(FontAwesomeIcon2.ANCHOR);
     }
 
     @Override
-    public FontAwesomeIcon getDefaultGlyph() {
-        return FontAwesomeIcon.ANCHOR;
+    public FontAwesomeIcon2 getDefaultGlyph() {
+        return FontAwesomeIcon2.ANCHOR;
     }
 
     

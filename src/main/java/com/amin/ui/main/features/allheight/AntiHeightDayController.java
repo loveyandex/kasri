@@ -313,7 +313,7 @@ public class AntiHeightDayController implements Initializable {
         });
 
         cancelBtn.setOnAction(event -> {
-            ((cancelBtn)).getParent().getScene().getWindow().hide();
+            cancelBtn.getParent().getScene().getWindow().hide();
 
         });
         cancelBtn.setOnKeyPressed(event -> {

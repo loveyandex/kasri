@@ -4,7 +4,7 @@ import com.amin.analysis.Mapping;
 import com.amin.jsons.Date;
 import com.amin.jsons.FormInfo;
 import com.amin.jsons.OtherFormInfo;
-import com.amin.scripting.Funsctions;
+import com.amin.scripting.Functions;
 import com.amin.scripting.wind.Wind;
 import com.amin.ui.SceneJson;
 import com.amin.ui.dialogs.Dialog;
@@ -25,6 +25,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+
+import static com.amin.scripting.RestFuns.toFormInfo;
 
 /**
  * is created by aMIN on 6/8/2018 at 04:43
@@ -328,7 +330,7 @@ public class ScriptAPP extends Application {
 
         final String func = args[0];
         if (func.equals("onday"))
-            runFopen(args, Funsctions.getInstance()::fopen);
+            runFopen(args, Functions.getInstance()::fopen);
         else if (func.equals("crosswind"))
             runFopen(args, Wind.getInstance()::crossWindOnDayOnStation);
 
@@ -405,7 +407,7 @@ public class ScriptAPP extends Application {
                     }
                 }
 
-                Funsctions.getInstance().fAllstationsonDay(otherFormInfo);
+                Functions.getInstance().fAllstationsonDay(otherFormInfo);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -421,28 +423,7 @@ public class ScriptAPP extends Application {
             Dialog.createExceptionDialog(new RuntimeException("not arrgumet assigned"));
         else {
             try {
-
-
-                final String stationNumber = args[1];
-                final int month = Integer.parseInt(args[2]);
-                final int day = Integer.parseInt(args[3]);
-
-                final String featurename = args[4];
-                final String unit = args[5];
-                final String height = args[6];
-                int loweryear = Integer.parseInt(args[7]);
-                int highyear = Integer.parseInt(args[8]);
-                final String country = args[9];
-//            final FormInfo formInfo = new FormInfo(new Date(1,1,2017), Features.SKNT.getName(),
-//                    "40800","",
-//                    "iran__islamic_rep","9899",2017,2017
-//                    , UnitConvertor.SPEED.units.getMetersPerSecond().toString());
-                final FormInfo formInfo = new FormInfo(new Date(month, day, 1999), featurename,
-                        stationNumber, "",
-                        country, height, loweryear, highyear, unit);
-//                Funsctions.getInstance().fopen(formInfo);
-//                Wind.getInstance().crossWindOnDayOnStation(formInfo);
-                run.run(formInfo);
+                run.run(toFormInfo(args));
 
             } catch (Exception X) {
                 Dialog.createExceptionDialog(new RuntimeException(X.toString()));
@@ -478,7 +459,7 @@ public class ScriptAPP extends Application {
                 final FormInfo formInfo = new FormInfo(new Date(month, day, 1999), featurename,
                         stationNumber, "",
                         country, height, loweryear, highyear, unit);
-                final double fopen2 = Funsctions.getInstance().fopen2(formInfo);
+                final double fopen2 = Functions.getInstance().fopen2(formInfo);
                 return fopen2;
 
             } catch (Exception X) {
@@ -494,4 +475,6 @@ public class ScriptAPP extends Application {
         super.stop();
         System.out.println("g");
     }
+
+
 }

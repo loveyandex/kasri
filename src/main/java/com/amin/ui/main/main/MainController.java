@@ -278,7 +278,7 @@ public class MainController implements Initializable {
         stage.setScene(scene);
         stage.initOwner(rootme.getScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
+        stage.show();
 
     }
 }
