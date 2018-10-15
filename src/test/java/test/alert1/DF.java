@@ -32,7 +32,7 @@ public class DF {
             final City city = cities[i];
             final String abbr = city.getCountry();
             final String countryname = abrtoName(countries, abbr);
-            if (countryname!=null && countryname.contains("Iran") && city.getName().toLowerCase().contains("fas") )
+            if (countryname!=null && city.getName().equalsIgnoreCase("madrid") )
                 System.err.println(gson.toJson(city)+",");
         }
 
