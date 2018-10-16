@@ -12,13 +12,33 @@ public  class SnackBar {
                 @Override
                 public void handle(ActionEvent event) {
                     jfxSnackbar.unregisterSnackbarContainer(snackbarContainer);
-
+                    ;
                 }
             };
             jfxSnackbar.getStyleClass().add("jfx-snackbar-content");
             jfxSnackbar.setPrefWidth(200);
             jfxSnackbar.show(msg, "got it", 3000, eh);
         }
+
+
+    public static void showSnack(Pane snackbarContainer, String msg, EventHandler<ActionEvent> eventHandler, String actionText, long longtimr) {
+        JFXSnackbar jfxSnackbar = new JFXSnackbar(snackbarContainer);
+        jfxSnackbar.getStyleClass().add("jfx-snackbar-content");
+        EventHandler eh = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                jfxSnackbar.unregisterSnackbarContainer(snackbarContainer);
+                eventHandler.handle(event);
+            }
+        };
+        jfxSnackbar.setPrefWidth(320);
+        jfxSnackbar.show(msg, actionText, longtimr, eh);
+
+    }
+
+
+
+
 
         public static void showSnackwithAction(Pane snackbarContainer, String msg, long timeout) {
             JFXSnackbar jfxSnackbar = new JFXSnackbar(snackbarContainer);
