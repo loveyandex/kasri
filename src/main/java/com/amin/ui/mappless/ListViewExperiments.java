@@ -80,9 +80,7 @@ public class ListViewExperiments extends Application {
                 for (int i = 0; i < cities.length; i++) {
                     final City city = cities[i];
                     if (city.getName().toLowerCase().contains(searchbox.getText().toLowerCase())) {
-
                         final String s = gson.toJson(city);
-                        System.out.println(s);
                         listView.getItems().add(s);
                         listView.refresh();
                     }
@@ -207,7 +205,6 @@ public class ListViewExperiments extends Application {
             if (city.getName().toLowerCase().contains(probablyname.toLowerCase())) {
 
                 final String s = gson.toJson(city);
-                System.out.println(s);
                 listView.getItems().add(s);
                 listView.refresh();
             }
