@@ -11,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import jsat.linear.Vec;
@@ -64,24 +63,18 @@ public class StatisticalController implements Initializable, Runnable {
 
     }
 
+    private String unit;
     @Override
     public void run() {
         allfeatureandyear = (ArrayList) ((SceneJson) rootstackpane.getScene()).getJson();
-        allfeatureandyear.forEach(objects -> {
-            objects.forEach(o -> {
-                System.out.println(objects.size());
-            });
-        });
+        unit = ((String) allfeatureandyear.get(0).get(2));
         allvbox.managedProperty().bind(allvbox.visibleProperty());
         feturesCombo.valueProperty().setValue(MathTerminology.ALL);
         calcAll();
-
         feturesCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             mathematicLable.setText((String) newValue);
             calculatItem((String) newValue);
         });
-
-
     }
 
     private void calculatItem(String newValue) {
@@ -121,25 +114,26 @@ public class StatisticalController implements Initializable, Runnable {
         try {
 
             if (newValue.equals(MathTerminology.MAXVALUE)) {
-                valueLable.setText(String.format("%.4f", (calcMax(vec))));
-                ;
+                System.out.println("god is great");
+                valueLable.setText(String.format("%.4f %s", (calcMax(vec)), unit));
             } else if (newValue.equals(MathTerminology.MINVALUE)) {
-                valueLable.setText(String.format("%.4f", (calcMin(vec))));
+                valueLable.setText(String.format("%.4f %s", (calcMin(vec)), unit));
             } else if (newValue.equals(MathTerminology.ALL)) {
                 maxtext.visibleProperty().setValue(true);
                 maxtext.setText("Max Value: ");
-                maxvalue.setText(String.format("%.4f", (calcMax(vec))));
-                minvalue.setText(String.format("%.4f", (calcMin(vec))));
-                meanvalue.setText(String.format("%.4f", (calcAvg(vec))));
+                maxvalue.setText(String.format("%.4f %s", (calcMax(vec)), unit));
+                minvalue.setText(String.format("%.4f %s", (calcMin(vec)), unit));
+                meanvalue.setText(String.format("%.4f %s", (calcAvg(vec)), unit));
                 variencevalue.setText(String.format("%.4f", (calcVar(vec))));
-                sdvalue.setText(String.format("%.4f", (calcSD(vec))));
+                sdvalue.setText(String.format("%.4f %s", (calcSD(vec)), unit));
             } else if (newValue.equals(MathTerminology.AVARAGE)) {
-                valueLable.setText(String.format("%.4f", (calcAvg(vec))));
+                valueLable.setText(String.format("%.4f %s", (calcAvg(vec)), unit));
             } else if (newValue.equals(MathTerminology.VARIENCE)) {
                 valueLable.setText(String.format("%.4f", (calcVar(vec))));
             } else if (newValue.equals(MathTerminology.STANDARDDEVIATION)) {
-                valueLable.setText(String.format("%.4f", (calcSD(vec))));
+                valueLable.setText(String.format("%.4f %s", (calcSD(vec)), unit));
             }
+
 
         } catch (IndexOutOfBoundsException e) {
             Dialog.createExceptionDialog(e);
@@ -185,11 +179,11 @@ public class StatisticalController implements Initializable, Runnable {
         allvbox.setVisible(true);
         maxtext.visibleProperty().setValue(true);
         maxtext.setText("Max Value: ");
-        maxvalue.setText(String.format("%.4f", (calcMax(vec))));
-        minvalue.setText(String.format("%.4f", (calcMin(vec))));
-        meanvalue.setText(String.format("%.4f", (calcAvg(vec))));
+        maxvalue.setText(String.format("%.4f %s", (calcMax(vec)), unit));
+        minvalue.setText(String.format("%.4f %s", (calcMin(vec)), unit));
+        meanvalue.setText(String.format("%.4f %s", (calcAvg(vec)), unit));
         variencevalue.setText(String.format("%.4f", (calcVar(vec))));
-        sdvalue.setText(String.format("%.4f", (calcSD(vec))));
+        sdvalue.setText(String.format("%.4f %s", (calcSD(vec)), unit));
 
     }
 

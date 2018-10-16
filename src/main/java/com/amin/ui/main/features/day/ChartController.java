@@ -36,10 +36,8 @@ public class ChartController implements Initializable, Runnable {
 
     @Override
     public void run() {
+
         allfeatureandyear = (ArrayList) ((SceneJson) rootme.getScene()).getJson();
-//        allfeatureandyear.forEach(objects -> {
-////            System.out.println("obj size"+objects.size());
-//        });
     }
 
 
@@ -55,5 +53,6 @@ public class ChartController implements Initializable, Runnable {
         primaryStage.setResizable(false);
         primaryStage.show();
     }
+
 
 }

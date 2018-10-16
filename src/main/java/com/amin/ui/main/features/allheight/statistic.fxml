@@ -85,7 +85,7 @@
                         <graphic>
                             <ImageView>
                                 <image>
-                                    <Image url="/baseline_file_copy_black_18dp.png"/>
+                                    <Image url="/drawable/baseline_file_copy_black_18dp.png"/>
                                 </image>
                             </ImageView>
                         </graphic>

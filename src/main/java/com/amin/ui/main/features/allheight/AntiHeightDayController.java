@@ -313,7 +313,7 @@ public class AntiHeightDayController implements Initializable {
         });
 
         cancelBtn.setOnAction(event -> {
-            ((cancelBtn)).getParent().getScene().getWindow().hide();
+            cancelBtn.getParent().getScene().getWindow().hide();
 
         });
         cancelBtn.setOnKeyPressed(event -> {
@@ -436,19 +436,17 @@ public class AntiHeightDayController implements Initializable {
 
 
             final VBox vbox = new VBox();
-            final HBox hbox = new HBox();
             vbox.setLayoutY(300);
             vbox.setLayoutX(400);
             vbox.setStyle("-fx-background-color: #fff");
             vbox.getChildren().addAll(sc);
-            hbox.setPadding(new Insets(10, 10,
-                    03.10, 10));
+
             Parent root = FXMLLoader.load(AntiHeightDayController.class.getResource("/com/amin/ui/main/features/allheight/chart.fxml"));
             ((VBox) root).getChildren().add(vbox);
             StageOverride stage = new StageOverride();
             stage.setTitle("statistical analysis");
 
-            SceneJson sceneJson = new SceneJson<ArrayList>(root, 450, 450);
+            SceneJson sceneJson = new SceneJson<ArrayList>(root, 400, 300);
 
 
             sceneJson.setJson(AllfeatureAndYear);

@@ -4,7 +4,8 @@ import com.amin.analysis.Mapping;
 import com.amin.jsons.Date;
 import com.amin.jsons.FormInfo;
 import com.amin.jsons.OtherFormInfo;
-import com.amin.scripting.Funsctions;
+import com.amin.scripting.Functions;
+import com.amin.scripting.wind.Wind;
 import com.amin.ui.SceneJson;
 import com.amin.ui.dialogs.Dialog;
 import javafx.application.Application;
@@ -24,6 +25,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+
+import static com.amin.scripting.RestFuns.toFormInfo;
 
 /**
  * is created by aMIN on 6/8/2018 at 04:43
@@ -52,7 +55,9 @@ public class ScriptAPP extends Application {
 
         Menu editMenu = new Menu("samples");
         Menu onday = new Menu("samples onday");
+        Menu crosswindmenu = new Menu("cross wind onday");
         Menu ondaystations = new Menu("samples onday over the state");
+
         final MenuItem wind_speed = new MenuItem("wind speed");
         final MenuItem temp = new MenuItem("temp");
         final MenuItem DWPT = new MenuItem("DWPT");
@@ -88,9 +93,29 @@ public class ScriptAPP extends Application {
                 mixr1,
                 drct1
         );
+
         editMenu.getItems().add(ondaystations);
 
 
+        final MenuItem qwind_speed1 = new MenuItem("wind speed");
+        final MenuItem qtemp1 = new MenuItem("temp");
+        final MenuItem qDWPT1 = new MenuItem("DWPT");
+        final MenuItem qpress1 = new MenuItem("press");
+        final MenuItem qrelh1 = new MenuItem("RELH");
+        final MenuItem qmixr1 = new MenuItem("MIXR");
+        final MenuItem qdrct1 = new MenuItem("DRCT");
+
+        crosswindmenu.getItems().addAll(
+                qwind_speed1/*,
+                qtemp1,
+                qDWPT1,
+                qpress1,
+                qrelh1,
+                qmixr1,
+                qdrct1*/
+        );
+
+        editMenu.getItems().add(crosswindmenu);
 
 
 
@@ -100,7 +125,7 @@ public class ScriptAPP extends Application {
         TextArea console = new TextArea(">>onday 40800 10 26 PRES hPa 8999 1999 2017 iran__islamic_rep\n>>");
         console.setMinSize(900, 220);
         console.setStyle("-fx-base: #fff3f8;\n" +
-                " -fx-control-inner-background: #2A2E37");
+                " -fx-control-inner-background: #f8fbee");
 
 
         wind_speed.setOnAction(event -> {
@@ -129,6 +154,35 @@ public class ScriptAPP extends Application {
         drct.setOnAction(event -> {
             console.appendText("onday 40800 10 26 DRCT ° 20000 1973 2017           iran__islamic_rep ");
         });
+
+
+
+        qwind_speed1.setOnAction(event -> {
+            console.appendText("crosswind 40800 10 26 WIND_SPEED m/s 20000 1973 2017 iran__islamic_rep");
+        });
+//
+//        qtemp1.setOnAction(event -> {
+//            console.appendText("crosswind 40800 10 26 TEMP ℃ 20000 1973 2017 iran__islamic_rep");
+//        });
+//        qDWPT1.setOnAction(event -> {
+//            console.appendText("crosswind 40800 10 26 DWPT ℃ 20000 1973 2017 iran__islamic_rep");
+//        });
+//
+//        qpress1.setOnAction(event -> {
+//            console.appendText("crosswind 40800 10 26 PRES atm 20000 1973 2017 iran__islamic_rep");
+//        });
+//
+//        qrelh1.setOnAction(event -> {
+//            console.appendText("crosswind 40800 10 26 RELH % 20000 1973 2017 iran__islamic_rep");
+//        });
+//
+//        qmixr1.setOnAction(event -> {
+//            console.appendText("crosswind 40800 10 26 MIXR g/kg 20000 1973 2017 iran__islamic_rep");
+//        });
+//
+//        qdrct1.setOnAction(event -> {
+//            console.appendText("crosswind 40800 10 26 DRCT ° 20000 1973 2017           iran__islamic_rep ");
+//        });
 
 
 
@@ -183,8 +237,8 @@ public class ScriptAPP extends Application {
         closeButton.setMinWidth(30);
         Button oth = new Button("scripting");
         oth.setStyle("-fx-background-radius: 0;-fx-border-radius: 0;"+
-                "-fx-background-color: #2A2E37;" +
-                "-fx-text-fill: #ffffff;");
+                "-fx-background-color: #f8fbee;" +
+                "-fx-text-fill: #B2B2B2;");
 
 
 
@@ -276,7 +330,10 @@ public class ScriptAPP extends Application {
 
         final String func = args[0];
         if (func.equals("onday"))
-            runFopen(args);
+            runFopen(args, Functions.getInstance()::fopen);
+        else if (func.equals("crosswind"))
+            runFopen(args, Wind.getInstance()::crossWindOnDayOnStation);
+
         else if (func.equals("ondaystations"))
             runAllDay(args);
 
@@ -350,7 +407,7 @@ public class ScriptAPP extends Application {
                     }
                 }
 
-                Funsctions.getInstance().fAllstationsonDay(otherFormInfo);
+                Functions.getInstance().fAllstationsonDay(otherFormInfo);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -361,36 +418,21 @@ public class ScriptAPP extends Application {
         }
     }
 
-    private static void runFopen(String[] args) {
+    private static void runFopen(String[] args, Run run) {
         if (args.length == 1)
             Dialog.createExceptionDialog(new RuntimeException("not arrgumet assigned"));
         else {
             try {
-
-
-                final String stationNumber = args[1];
-                final int month = Integer.parseInt(args[2]);
-                final int day = Integer.parseInt(args[3]);
-
-                final String featurename = args[4];
-                final String unit = args[5];
-                final String height = args[6];
-                int loweryear = Integer.parseInt(args[7]);
-                int highyear = Integer.parseInt(args[8]);
-                final String country = args[9];
-//            final FormInfo formInfo = new FormInfo(new Date(1,1,2017), Features.SKNT.getName(),
-//                    "40800","",
-//                    "iran__islamic_rep","9899",2017,2017
-//                    , UnitConvertor.SPEED.units.getMetersPerSecond().toString());
-                final FormInfo formInfo = new FormInfo(new Date(month, day, 1999), featurename,
-                        stationNumber, "",
-                        country, height, loweryear, highyear, unit);
-                Funsctions.getInstance().fopen(formInfo);
+                run.run(toFormInfo(args));
 
             } catch (Exception X) {
                 Dialog.createExceptionDialog(new RuntimeException(X.toString()));
             }
         }
+    }
+
+    interface Run {
+        void run(FormInfo formInfo);
     }
 
     private static double runFopen2(String[] args) {
@@ -417,7 +459,7 @@ public class ScriptAPP extends Application {
                 final FormInfo formInfo = new FormInfo(new Date(month, day, 1999), featurename,
                         stationNumber, "",
                         country, height, loweryear, highyear, unit);
-                final double fopen2 = Funsctions.getInstance().fopen2(formInfo);
+                final double fopen2 = Functions.getInstance().fopen2(formInfo);
                 return fopen2;
 
             } catch (Exception X) {
@@ -433,4 +475,6 @@ public class ScriptAPP extends Application {
         super.stop();
         System.out.println("g");
     }
+
+
 }

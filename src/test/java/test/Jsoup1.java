@@ -45,7 +45,7 @@ public class Jsoup1 {
 
 
             final String s = eu.replaceAll("\\\"", "").replaceAll(",", "");
-            csvWriter.writeNext(new String[]{s, time.format(dNow), datee.format(dNow)});
+            csvWriter.writeNext(new String[]{s, String.valueOf((Double.parseDouble(s)) / 5000), time.format(dNow), datee.format(dNow)});
         }
         Dia.infoBox("5K$ to Euro", eu);
     }

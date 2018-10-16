@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -35,9 +36,14 @@ public class AllHeightChartController implements Initializable {
     }
 
 
-    Runnable runnable = () -> allfeatureandyear = (ArrayList) ((SceneJson) rootme.getScene()).getJson();
+    Runnable runnable = () -> {
+        allfeatureandyear = (ArrayList) ((SceneJson) rootme.getScene()).getJson();
+        rootme.heightProperty().addListener((observable, oldValue, newValue) -> {
+            ((VBox) rootme.getChildren().get(1)).getChildren().get(0).minHeight(newValue.doubleValue());
 
+        });
 
+    };
 
     public void statisticalModels(ActionEvent actionEvent) throws IOException {
         Stage primaryStage=new StageOverride();

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDialogLayout?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<StackPane fx:id="rootstackpane" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.amin.ui.main.features.day.crosswind.CrossingController"
+           xmlns="http://javafx.com/javafx/2.2"
+           stylesheets="/statistic.css">
+    <VBox maxWidth="600" maxHeight="450" spacing="20"
+          alignment="CENTER">
+        <children>
+            <HBox>
+
+                <HBox alignment="BASELINE_LEFT">
+
+                    <Label focusTraversable="true"
+                           stylesheets="/stage.css"
+                           text="feature"
+                           textFill="#03A9F4"
+
+                    />
+                    <HBox.margin>
+                        <Insets>
+                            <left>0</left>
+                            <right>10</right>
+                        </Insets>
+                    </HBox.margin>
+
+                </HBox>
+                <HBox alignment="BASELINE_RIGHT">
+
+                    <HBox.margin>
+                        <Insets>
+                            <left>5</left>
+                            <right>0</right>
+                        </Insets>
+                    </HBox.margin>
+                </HBox>
+            </HBox>
+            <JFXDialogLayout fx:id="content"
+                             style="-fx-background-color: WHITE; -fx-background-radius: 3"
+
+            >
+                <heading>
+                    <Label fx:id="mathematicLable" textFill="#03A9F4"
+                    >Mathematical concepts
+                    </Label>
+                </heading>
+                <body>
+
+                </body>
+                <actions>
+                    <JFXButton fx:id="acceptButton" styleClass="dialog-accept">Copy value
+                        <graphic>
+                            <ImageView>
+                                <image>
+                                    <Image url="/drawable/baseline_file_copy_black_18dp.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </JFXButton>
+                </actions>
+            </JFXDialogLayout>
+
+        </children>
+    </VBox>
+</StackPane>

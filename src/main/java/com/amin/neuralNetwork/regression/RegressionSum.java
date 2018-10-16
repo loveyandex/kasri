@@ -80,10 +80,8 @@ public class RegressionSum {
     }
 
 
-    public static MultiLayerNetwork net() {
+    public static MultiLayerNetwork net(DataSetIterator iterator) {
 
-        //Generate the training data
-        DataSetIterator iterator = getTrainingData(batchSize, rng);
 
         //Create the network
         int numInput = 2;
@@ -116,7 +114,37 @@ public class RegressionSum {
     }
 
 
-    private static DataSetIterator getTrainingData(int batchSize, Random rand) {
+    public static MultiLayerNetwork net(DataSetIterator iterator,
+                                        int numInput, int numOutputs, int nHidden,double learningRate,int nEpochs) {
+
+        MultiLayerNetwork net = new MultiLayerNetwork(new NeuralNetConfiguration.Builder()
+                .seed(seed)
+                .weightInit(WeightInit.XAVIER)
+                .updater(new Nesterovs(learningRate, 0.9))
+                .list()
+                .layer(0, new DenseLayer.Builder().nIn(numInput).nOut(nHidden)
+                        .activation(Activation.TANH)
+                        .build())
+                .layer(1, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                        .activation(Activation.IDENTITY)
+                        .nIn(nHidden).nOut(numOutputs).build())
+                .pretrain(false).backprop(true).build()
+        );
+        net.init();
+        net.setListeners(new ScoreIterationListener(1));
+
+
+        //Train the network on the full data set, and evaluate in periodically
+        for (int i = 0; i < nEpochs; i++) {
+            iterator.reset();
+            net.fit(iterator);
+        }
+        return net;
+
+    }
+
+
+    public static DataSetIterator getTrainingData(int batchSize, Random rand) {
         double[] sum = new double[nSamples];
         double[] input1 = new double[nSamples];
         double[] input2 = new double[nSamples];

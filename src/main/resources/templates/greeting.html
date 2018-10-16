@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p th:text="'Hello, ' + ${name} + '!'"/>
+
+<form>
+    <label>search something</label>
+    <input name="searchname" onkeyup="showhint(this.value)">
+
+</form>
+<div style="color: #af6245">
+
+<p >saved your typed this much money: <span id="txtHint"></span>$$</p>
+</div>
+
+<script>
+    function showhint(str) {
+        if (str.length == 0) {
+            document.getElementById("txtHint").innerHTML = "";
+            return;
+        } else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var jsonresp = this.responseText;
+                    var respObj = JSON.parse(jsonresp);
+                    textforshow = respObj.name + ";" + respObj.dollar;
+                    document.getElementById("txtHint").innerHTML = textforshow;
+                }
+            };
+            xmlhttp.open("GET", "/saving?name=" + str, true);
+            xmlhttp.send();
+        }
+    }
+</script>
+</body>
+</html>
