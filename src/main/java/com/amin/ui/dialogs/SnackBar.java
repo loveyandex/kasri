@@ -31,7 +31,7 @@ public  class SnackBar {
                 eventHandler.handle(event);
             }
         };
-        jfxSnackbar.setPrefWidth(320);
+        jfxSnackbar.setPrefWidth(220);
         jfxSnackbar.show(msg, actionText, longtimr, eh);
 
     }

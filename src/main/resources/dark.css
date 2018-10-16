@@ -28,9 +28,9 @@
     -fx-text-fill: -fx-primarytext;
     -fx-background-color: -fx-primary;
     -fx-border-color: -fx-secondary;
-    -fx-border-radius: 20px;
-    -fx-background-radius: 20px;
-    -fx-font-size: 13pt;
+    /*-fx-border-radius: 20px;*/
+    /*-fx-background-radius: 20px;*/
+    -fx-font-size: 11pt;
 }
 
 .button:hover, .button:focused{
@@ -281,17 +281,19 @@
     -fx-cursor: hand;
 }
 
-
-.jfx-snackbar-toast{
-    -fx-text-fill: #f3f3f3;
-    -fx-border-radius: 200px 20px 20px 20px;
+.button {
+    -fx-text-fill: #029ce7;
+    -fx-background-color: rgb(255, 249, 249);
 }
 .jfx-snackbar-content{
-    -fx-background-color: #440a2d;
-    -fx-border-radius: 200px 20px 20px 20px;
+    -fx-background-color: #029ce7;
+
 }
+.jfx-snackbar-toast{
+    -fx-text-fill: white;
+}
+
 .jfx-snackbar{
-    -fx-border-radius: 200px 20px 20px 20px;
 }
 .jfx-snackbar-action{
 

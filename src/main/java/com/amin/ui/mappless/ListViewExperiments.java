@@ -89,7 +89,7 @@ public class ListViewExperiments extends Application {
                 if (listView.getItems().size() == 0)
                     SnackBar.showSnack(((Pane) primaryStage.getScene().getRoot()), "No such city found", event1 -> {
                         nlp(searchbox.getText().toLowerCase());
-                    }, "do you Know?", 5500);
+                    }, "did you mean?", 5500);
             }
         });
 
