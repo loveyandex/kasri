@@ -9,8 +9,14 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -20,6 +26,7 @@ public class MaplessController implements Initializable {
     public AnchorPane root;
     public JFXButton cancelbtn;
     public JFXTextField distanceradius;
+    public Hyperlink hyperlink;
 
     @FXML
     private JFXTextField longitude;
@@ -50,4 +57,20 @@ public class MaplessController implements Initializable {
 
     }
 
+    public void hypring(ActionEvent actionEvent) throws Exception {
+        OkHttpClient client = new OkHttpClient();
+        class Http {
+            String run(String url) throws IOException {
+                Request request = new Request.Builder()
+                        .url(url)
+                        .build();
+
+                Response response = client.newCall(request).execute();
+                return response.body().string();
+            }
+        }
+        System.out.println(new Http().run("http://localhost:8080/car"));
+        new ListViewExperiments().start(new Stage());
+
+    }
 }

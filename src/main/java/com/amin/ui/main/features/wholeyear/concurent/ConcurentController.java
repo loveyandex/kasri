@@ -444,9 +444,6 @@ public class ConcurentController extends StaticFunctions implements Initializabl
 
                 // last thread for reducing map
                 new Thread(() -> {
-//                    while (true)
-//                        if (concurentFinished[0] && concurentFinished[1]
-//                                && concurentFinished[2] && concurentFinished[3]){
                     System.out.println("king abolfazl thread manager and horn that");
                     synchronized (this) {
                         try {
@@ -615,6 +612,8 @@ public class ConcurentController extends StaticFunctions implements Initializabl
 
                             rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + year + File.separator + "month_" + monthInt + File.separator + stationNumber;
                             fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + year + ".csv";
+                            if (!new File(rootDir, fileName).exists())
+                                continue;
 
                             try {
                                 heightAndFeature = charting.getcol1col2daydata(rootDir + File.separator + fileName

@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import com.amin.ui.theme.FontAwesomeIconView2?>
+<?import javafx.scene.control.Hyperlink?>
 <AnchorPane id="AnchorPane" prefHeight="367.0"
             fx:id="root"
             prefWidth="419.0"
@@ -27,6 +28,9 @@
                 <Font size="17.0"/>
             </font>
         </JFXTextField>
+        <Hyperlink fx:id="hyperlink"  layoutX="85.0" layoutY="242.0"
+                   onAction="#hypring">i know city name</Hyperlink>
+
         <JFXButton layoutX="106.0" layoutY="278.0" onAction="#handleCancelButtonAction" prefHeight="40.0"
                    prefWidth="90.0" styleClass="login-button" text="Cancel"/>
         <JFXButton layoutX="239.0" layoutY="278.0" onAction="#handleLoginButtonAction" prefHeight="40.0"
@@ -34,5 +38,6 @@
         <FontAwesomeIconView2 glyphName="APPLE" layoutX="200.0" layoutY="79.0" size="25"/>
         <FontAwesomeIconView glyphName="USER" layoutX="64.0" layoutY="149.0" size="25"/>
         <FontAwesomeIconView glyphName="KEY" layoutX="64.0" layoutY="224.0" size="25"/>
+
     </children>
 </AnchorPane>

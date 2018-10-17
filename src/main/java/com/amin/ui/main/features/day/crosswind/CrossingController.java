@@ -93,7 +93,7 @@ public class CrossingController extends StaticFunctions implements Initializable
 //                    1, 0.01, 1300);
 //
 //            try {
-//                final File f = new File("assets/", "kir");
+//                final File f = new File("assets/", "gh");
 //                f.createNewFile();
 //                net.save(f);
 //            } catch (IOException e) {

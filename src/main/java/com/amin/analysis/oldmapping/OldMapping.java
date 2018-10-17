@@ -43,13 +43,21 @@ public class OldMapping {
         Scanner scanner = new Scanner(reader);
 
         ArrayList<ArrayList<String>> points=new ArrayList<>();
+        String line="";
         while (scanner.hasNextLine()) {
-            ArrayList<String> point=new ArrayList<>();
-            String line = scanner.nextLine();
-            String[] split = line.split(";");
-            point.add(split[col1]);
-            point.add(split[col2] );
-            points.add(point);
+            try {
+                ArrayList<String> point = new ArrayList<>();
+              line = scanner.nextLine();
+                String[] split = line.split(";");
+                point.add(split[col1]);
+                point.add(split[col2]);
+                points.add(point);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.err.println(dayfilePAth);
+                System.out.println(line);
+                continue;
+            }
+
         }
         return points;
     }
