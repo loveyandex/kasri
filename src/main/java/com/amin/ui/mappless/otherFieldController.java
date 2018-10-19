@@ -277,7 +277,7 @@ public class otherFieldController implements Initializable {
                         final double v = ScriptAPP.scripting2(function);
                         return v;
                     });
-                    SnackBar.showSnack(vvv, String.valueOf(nearst),2323);
+                    SnackBar.showSnack(vvv, String.format("%.4f %s",nearst,formInfo.getFeatureUnit()),4323);
 
                 } catch (SQLException e) {
                     e.printStackTrace();

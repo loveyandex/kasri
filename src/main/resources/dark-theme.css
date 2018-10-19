@@ -296,3 +296,7 @@
 .jfx-snackbar-action{
 
 }
+
+.hyperlink:visited{
+    -fx-text-fill: rgb(244,211,244);
+}

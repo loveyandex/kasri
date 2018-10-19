@@ -18,14 +18,13 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import static com.amin.ui.StageOverride.shiftToEnterEvent;
 
 public class MaplessController implements Initializable {
 
@@ -33,6 +32,7 @@ public class MaplessController implements Initializable {
     public JFXButton cancelbtn;
     public JFXTextField distanceradius;
     public Hyperlink hyperlink;
+    public JFXButton nextbtn;
 
     @FXML
     private JFXTextField longitude;
@@ -42,7 +42,10 @@ public class MaplessController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        shiftToEnterEvent(hyperlink, cancelbtn, nextbtn);
+
     }
+
 
     @FXML
     private void handleLoginButtonAction(ActionEvent event) throws SQLException {
@@ -50,20 +53,23 @@ public class MaplessController implements Initializable {
             LatLon latLon = new LatLon(Double.parseDouble(latitude.getText()), Double.parseDouble(longitude.getText()));
             final double nearst = KNN.nearst(300, new LatLon(latLon.getLat(), latLon.getLogn()));
             System.out.println(nearst);
-            LatLongFXMLController.SnackBar.showSnack(root, String.valueOf(nearst), 2333);
+            if (nearst == -3.0E15d) {
+                LatLongFXMLController.SnackBar.showSnack(root, "Data not found for this pos", 2333);
 
-            Stage stage = new StageOverride();
+            } else {
+
+                Stage stage = new StageOverride();
             stage.setResizable(true);
             Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/mappless/otherfield.fxml"));
-            Scene scene = new SceneJson<>(root, 750, 600);
+                Scene scene = new SceneJson<>(root, 650, 480);
             ((SceneJson) scene).setJson(latLon);
 
             stage.setScene(scene);
-//            stage.initOwner(root.getScene().getRoot().getScene().getWindow());
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
 
-        }catch (NumberFormatException v){
+            }
+        } catch (NumberFormatException v) {
             Dialog.SnackBar.showSnack(root,v.getLocalizedMessage(),3000);
         } catch (IOException e) {
             e.printStackTrace();
@@ -83,7 +89,8 @@ public class MaplessController implements Initializable {
             final double nearst = KNN.nearst(300, latLon);
             System.out.println(nearst);
             LatLongFXMLController.SnackBar.showSnack(root, String.valueOf(nearst), 2333);
-
+            longitude.setText(String.valueOf(latLon.getLogn()));
+            latitude.setText(String.valueOf(latLon.getLat()));
         }).start(new Stage());
 
     }

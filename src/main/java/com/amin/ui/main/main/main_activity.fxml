@@ -2,7 +2,7 @@
 
 <?language JavaScript?>
 <?import com.jfoenix.controls.*?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import de.jensd.fx.glyphs.weathericons.WeatherIconView?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -60,7 +60,7 @@
             <HBox alignment="CENTER">
 
 
-                <JFXButton contentDisplay="TOP"
+                <JFXButton fx:id="ondayoneheight" contentDisplay="TOP"
                            mnemonicParsing="false"
                            onAction="#onday"
                            prefHeight="100.0"
@@ -72,7 +72,7 @@
                         <!--<FontAwesomeIconView glyphName="AT"  size="25" />-->
                     </graphic>
                 </JFXButton>
-                <JFXButton contentDisplay="TOP"
+                <JFXButton fx:id="ondayallheights" contentDisplay="TOP"
                            layoutX="10.0" layoutY="10.0"
                            mnemonicParsing="false"
                            onAction="#ondayAllHeight"
@@ -89,7 +89,7 @@
 
                     </graphic>
                 </JFXButton>
-                <JFXButton contentDisplay="TOP"
+                <JFXButton fx:id="allstninoneday" contentDisplay="TOP"
                            layoutX="10.0" layoutY="10.0"
                            mnemonicParsing="false"
                            onAction="#allstationsinone"
@@ -101,7 +101,7 @@
                         <FontAwesomeIconView glyphName="TABLE" size="25"/>
                     </graphic>
                 </JFXButton>
-                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="81.0"
+                <JFXButton fx:id="wholeconcurrent" contentDisplay="TOP" layoutX="10.0" layoutY="81.0"
                            mnemonicParsing="false"
                            onAction="#wholestationsallyearmthread"
                            prefHeight="100.0" styleClass="toolbar-button"
@@ -110,7 +110,7 @@
                         <FontAwesomeIconView glyphName="TABLE" size="25"/>
                     </graphic>
                 </JFXButton>
-                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="81.0"
+                <JFXButton fx:id="wholeparallel" contentDisplay="TOP" layoutX="10.0" layoutY="81.0"
                            mnemonicParsing="false"
                            onAction="#wholestationsallyear"
                            prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
@@ -119,7 +119,7 @@
                         <FontAwesomeIconView glyphName="TABLE" size="25"/>
                     </graphic>
                 </JFXButton>
-                <JFXButton contentDisplay="TOP" mnemonicParsing="false" onAction="#openscript"
+                <JFXButton fx:id="scriptbtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#openscript"
                            prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
                            text="script functions"
                            textAlignment="CENTER">
@@ -134,14 +134,15 @@
 
 
                 </JFXButton>
-                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="223.0" mnemonicParsing="false"
+                <JFXButton fx:id="mapbtn" contentDisplay="TOP" layoutX="10.0" layoutY="223.0" mnemonicParsing="false"
                            onAction="#onMap" prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
                            text="Map" textAlignment="CENTER">
                     <graphic>
                         <FontAwesomeIconView glyphName="COG" size="25"/>
                     </graphic>
                 </JFXButton>
-                <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="223.0" mnemonicParsing="false"
+                <JFXButton fx:id="maplessbtn" contentDisplay="TOP" layoutX="10.0" layoutY="223.0"
+                           mnemonicParsing="false"
                            onAction="#onMapless" prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
                            text="MapLess" textAlignment="CENTER">
                     <graphic>
@@ -150,80 +151,102 @@
                 </JFXButton>
             </HBox>
 
+            <VBox>
 
-            <HBox style="-fx-font-size: 20; -fx-font-style: italic;" alignment="BASELINE_CENTER">
+                <HBox style="-fx-font-size: 20; -fx-font-style: italic;" alignment="BASELINE_CENTER">
 
-                <VBox alignment="CENTER">
-
-                    <HBox>
-
-                        <HBox>
-                            <Label layoutX="200" style="-fx-text-fill: #b3b3b3;"       text="${'one day  '}"/>
-                            <HBox.margin>
-                                <Insets>
-                                    <right>20</right>
-                                </Insets>
-                            </HBox.margin>
-                        </HBox>
-                        <HBox>
-                            <Label style="-fx-text-fill: #0295f7; -fx-font-size: 18;">Ctrl D</Label>
-                        </HBox>
-
-                    </HBox>
-                    <HBox>
+                    <VBox alignment="CENTER">
 
                         <HBox>
-                            <Label layoutX="200" style="-fx-text-fill: #b3b3b3;"       text="${'on  map '}"/>
-                            <HBox.margin>
-                                <Insets>
-                                    <right>20</right>
-                                </Insets>
-                            </HBox.margin>
+
+                            <HBox>
+                                <Label layoutX="200" style="-fx-text-fill: #b3b3b3;" text="${'one day  '}"/>
+                                <HBox.margin>
+                                    <Insets>
+                                        <right>20</right>
+                                    </Insets>
+                                </HBox.margin>
+                            </HBox>
+                            <HBox>
+                                <Label style="-fx-text-fill: #0295f7; -fx-font-size: 18;">Ctrl D</Label>
+                            </HBox>
+
                         </HBox>
                         <HBox>
-                            <Label style="-fx-text-fill: #0295f7; -fx-font-size: 18;">Ctrl M</Label>
+
+                            <HBox>
+                                <Label layoutX="200" style="-fx-text-fill: #b3b3b3;" text="${'on  map '}"/>
+                                <HBox.margin>
+                                    <Insets>
+                                        <right>20</right>
+                                    </Insets>
+                                </HBox.margin>
+                            </HBox>
+                            <HBox>
+                                <Label style="-fx-text-fill: #0295f7; -fx-font-size: 18;">Ctrl M</Label>
+                            </HBox>
+
                         </HBox>
-
-                    </HBox>
-
-                    <HBox>
 
                         <HBox>
-                            <Label layoutX="200" style="-fx-text-fill: #b3b3b3;"       text="${'open script '}"/>
-                            <HBox.margin>
-                                <Insets>
-                                    <right>20</right>
-                                </Insets>
-                            </HBox.margin>
+
+                            <HBox>
+                                <Label layoutX="200" style="-fx-text-fill: #b3b3b3;" text="${'open script '}"/>
+                                <HBox.margin>
+                                    <Insets>
+                                        <right>20</right>
+                                    </Insets>
+                                </HBox.margin>
+                            </HBox>
+                            <HBox>
+                                <Label style="-fx-text-fill: #0295f7; -fx-font-size: 18;">Ctrl S</Label>
+                            </HBox>
+
                         </HBox>
+
                         <HBox>
-                            <Label style="-fx-text-fill: #0295f7; -fx-font-size: 18;">Ctrl S</Label>
+                            <HBox>
+                                <Label layoutX="200" style="-fx-text-fill: #b3b3b3;" text="${'open Mapless'}"/>
+                                <HBox.margin>
+                                    <Insets>
+                                        <right>10</right>
+                                    </Insets>
+                                </HBox.margin>
+                            </HBox>
+                            <HBox>
+                                <Label style="-fx-text-fill: #0295f7">Ctrl L</Label>
+                            </HBox>
                         </HBox>
 
-                    </HBox>
-
-                    <HBox>
                         <HBox>
-                            <Label layoutX="200" style="-fx-text-fill: #b3b3b3;">close App</Label>
-                            <HBox.margin>
-                                <Insets>
-                                    <right>10</right>
-                                </Insets>
-                            </HBox.margin>
+                            <HBox>
+                                <Label layoutX="200" style="-fx-text-fill: #b3b3b3;">close App</Label>
+                                <HBox.margin>
+                                    <Insets>
+                                        <right>10</right>
+                                    </Insets>
+                                </HBox.margin>
+                            </HBox>
+                            <HBox>
+                                <Label style="-fx-text-fill: #0295f7">(Double) ESC</Label>
+                            </HBox>
                         </HBox>
-                    </HBox>
-                    <HBox>
-                        <Label style="-fx-text-fill: #0295f7">(Double) ESC</Label>
-                    </HBox>
 
-                    <VBox.margin>
-                        <Insets>
-                            <top>252</top>
-                        </Insets>
-                    </VBox.margin>
-                </VBox>
 
-            </HBox>
+                    </VBox>
+
+
+                </HBox>
+
+
+                <VBox.margin>
+                    <Insets>
+                        <top>100</top>
+                    </Insets>
+                </VBox.margin>
+
+            </VBox>
+
 
         </VBox>
 

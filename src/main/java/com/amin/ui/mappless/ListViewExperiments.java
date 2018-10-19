@@ -77,6 +77,8 @@ public class ListViewExperiments extends Application {
         searchbox.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.DOWN) {
                 listView.requestFocus();
+                if (listView.getItems().size()>0)
+                    listView.getSelectionModel().selectFirst();
             } else if (event.getCode() == KeyCode.ENTER) {
                 listView.getItems().clear();
                 for (int i = 0; i < cities.length; i++) {
