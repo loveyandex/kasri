@@ -19,6 +19,8 @@ import java.util.Scanner;
  */
 public class Mapping {
 
+    final static Connection connection = Driver.getDriver().getConnection();
+
     static public void createCSVFILEFORStations(String Dirpath, String fileName) throws IOException {
 
         FileReader reader = new FileReader(Dirpath + File.separator + fileName);
@@ -78,7 +80,6 @@ public class Mapping {
         RawMining.writeInFileInOnce(Dirpath, fileName + ".csv", new StringBuilder(total), true);
     }
 
-
     static public Map<String, String> MapStationNumTOCities(String pathConfigCSV) throws FileNotFoundException {
         Map<String, String> mapStationNumberName = new HashMap<>();
         FileReader reader = new FileReader(pathConfigCSV);
@@ -95,7 +96,6 @@ public class Mapping {
 
         return mapStationNumberName;
     }
-
 
     static public Map<String, String> MapLatLongToNearestCities(String pathConfigCSV) throws FileNotFoundException {
         Map<String, String> mapStationNumberName = new HashMap<>();
@@ -118,10 +118,6 @@ public class Mapping {
         return mapStationNumberName;
     }
 
-
-
-
-
     public static ArrayList<String> readFileLines(String path) throws FileNotFoundException {
         ArrayList<String> lines = new ArrayList<>();
         FileReader reader = new FileReader(path);
@@ -136,29 +132,44 @@ public class Mapping {
         return readFileLines(path);
     }
 
+    public static void main(String[] args) throws IOException {
+
+        String abspathfile = "config/countries.configfile.conf";
+        final ArrayList<String> fileLines = getFileLines(abspathfile);
+        fileLines.forEach(Mapping::mapForOldFolder);
+
+    }
+
+    static void map(String rootparent, String fn) {
+        final ArrayList<ArrayList<String>> latLongForAContryCities;
+
+        latLongForAContryCities = LatLong.getLatLongForAContryCities(rootparent, fn);
+        latLongForAContryCities
+                .forEach(strings -> {
+                    try {
+
+                        final PreparedStatement preparedStatement = connection.prepareStatement("insert into station_latlong (station,country, citiname, lati ,longi) values (?,?,?,?,?);");
+
+                        preparedStatement.setString(1, strings.get(0));
+                        preparedStatement.setString(2, strings.get(1));
+                        preparedStatement.setString(3, strings.get(2));
+                        preparedStatement.setString(4, strings.get(3));
+                        preparedStatement.setString(5, strings.get(4));
+                        preparedStatement.executeUpdate();
+
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
+    }
+
+    static void mapForOldFolder(String fn) {
+        map("config/old-stations", fn);
+
+    }
 
     public static class LatLong {
-
-        public void createBigConfigFile() {
-
-            File file = new File("config");
-            file.mkdirs();
-            File[] files = file.listFiles();
-
-            for (File f:files) {
-                if (f.isFile()) {
-                    if (f.getName().contains(".conf.csv")) {
-                        try {
-                            writeStringInFile("config", "countries.configfile.conf", new StringBuilder(f.getName() + "\r\n"), true);
-                        } catch (IOException e) {
-                            Dialog.createExceptionDialog(e);
-                        }
-                    }
-
-                }
-            }
-        }
-
 
         public static ArrayList<ArrayList<String>> getCol1Col2Data(String absfilepath, int col1, int col2) throws IOException {
 
@@ -176,7 +187,8 @@ public class Mapping {
             }
             return points;
         }
-        public static ArrayList<ArrayList<String>> getCol1Col2Data(String absfilepath, int col1, int col2,String sparate) throws IOException {
+
+        public static ArrayList<ArrayList<String>> getCol1Col2Data(String absfilepath, int col1, int col2, String sparate) throws IOException {
 
             FileReader reader = new FileReader(absfilepath);
             Scanner scanner = new Scanner(reader);
@@ -192,7 +204,6 @@ public class Mapping {
             }
             return points;
         }
-
 
         public static ArrayList<ArrayList<String>> getColsData(String absfilepath, int... cols) throws IOException {
 
@@ -212,7 +223,7 @@ public class Mapping {
             return points;
         }
 
-        public static ArrayList<ArrayList<String>> getColsData(String absfilepath,String sep, int... cols) throws IOException {
+        public static ArrayList<ArrayList<String>> getColsData(String absfilepath, String sep, int... cols) throws IOException {
 
             FileReader reader = new FileReader(absfilepath);
             Scanner scanner = new Scanner(reader);
@@ -271,18 +282,6 @@ public class Mapping {
             System.out.println("king write in " + fileTosave.getPath());
         }
 
-        public void delimiteCSVColsWriteFile(boolean append, String pathDirToSave, String childFileName, String... colsvalue) throws IOException {
-            File dir = new File(pathDirToSave);
-            dir.mkdirs();
-            File fileTosave = new File(dir, childFileName);
-            System.out.println("saved in " + fileTosave.getPath());
-            fileTosave.createNewFile();
-            OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(fileTosave, append));
-            writer.write(String.join(";", colsvalue)+"\r\n");
-            writer.flush();
-        }
-
-
         public static ArrayList<ArrayList<String>> getLatLongForAContryCities(final String rootparent, String countryconfigfilename) {
             ArrayList<ArrayList<String>> colsData = null;
             try {
@@ -292,78 +291,68 @@ public class Mapping {
             }
             ArrayList<ArrayList<String>> output = new ArrayList<>();
 
-                for (int j = 0; j < colsData.size(); j++) {
-                    String citiname = colsData.get(j).get(0).replaceAll("\\^", " ");
-                    String citistationnumber = colsData.get(j).get(1);
-                    System.out.println(citiname);
-                    double citiLat = Double.parseDouble(colsData.get(j).get(2))
-                            + (Double.parseDouble(colsData.get(j).get(3).replaceAll("N", ""))) / 60.0d;
-                    double citiLong = Double.parseDouble(colsData.get(j).get(4))
-                            + (Double.parseDouble(colsData.get(j).get(5).replaceAll("E", ""))) / 60.0d;
+            for (int j = 0; j < colsData.size(); j++) {
+                String citiname = colsData.get(j).get(0).replaceAll("\\^", " ");
+                String citistationnumber = colsData.get(j).get(1);
+                System.out.println(citiname);
+                double citiLat = Double.parseDouble(colsData.get(j).get(2))
+                        + (Double.parseDouble(colsData.get(j).get(3).replaceAll("N", ""))) / 60.0d;
+                double citiLong = Double.parseDouble(colsData.get(j).get(4))
+                        + (Double.parseDouble(colsData.get(j).get(5).replaceAll("E", ""))) / 60.0d;
 
 
-                    ArrayList inoutput = new ArrayList() {{
-                        String csn = citistationnumber.replaceAll(" ","_");
-                        if (csn.equals("&"))
-                            csn = "NULL";
-                        add(csn);
-                        add(countryconfigfilename.replaceAll(".conf.csv", ""));
-                        add(citiname);
-                        add(String.valueOf(citiLat));
-                        add(String.valueOf(citiLong));
+                ArrayList inoutput = new ArrayList() {{
+                    String csn = citistationnumber.replaceAll(" ", "_");
+                    if (csn.equals("&"))
+                        csn = "NULL";
+                    add(csn);
+                    add(countryconfigfilename.replaceAll(".conf.csv", ""));
+                    add(citiname);
+                    add(String.valueOf(citiLat));
+                    add(String.valueOf(citiLong));
 
-                    }};
-                    output.add(inoutput);
+                }};
+                output.add(inoutput);
 
-                    System.out.println(citiLat);
-                    System.out.println(citiLong);
+                System.out.println(citiLat);
+                System.out.println(citiLong);
 
-                }
+            }
             return output;
 
 
         }
 
-    }
+        public void createBigConfigFile() {
 
+            File file = new File("config");
+            file.mkdirs();
+            File[] files = file.listFiles();
 
-    public static void main(String[] args) throws IOException {
-
-        String abspathfile = "config/countries.configfile.conf";
-        final ArrayList<String> fileLines = getFileLines(abspathfile);
-        fileLines.forEach(Mapping::mapForOldFolder);
-
-    }
-
-    final static Connection connection = Driver.getDriver().getConnection();
-
-    static void map(String rootparent, String fn) {
-        final ArrayList<ArrayList<String>> latLongForAContryCities;
-
-        latLongForAContryCities = LatLong.getLatLongForAContryCities(rootparent, fn);
-        latLongForAContryCities
-                .forEach(strings -> {
-                    try {
-
-                        final PreparedStatement preparedStatement = connection.prepareStatement("insert into station_latlong (station,country, citiname, lati ,longi) values (?,?,?,?,?);");
-
-                        preparedStatement.setString(1, strings.get(0));
-                        preparedStatement.setString(2, strings.get(1));
-                        preparedStatement.setString(3, strings.get(2));
-                        preparedStatement.setString(4, strings.get(3));
-                        preparedStatement.setString(5, strings.get(4));
-                        preparedStatement.executeUpdate();
-
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
+            for (File f : files) {
+                if (f.isFile()) {
+                    if (f.getName().contains(".conf.csv")) {
+                        try {
+                            writeStringInFile("config", "countries.configfile.conf", new StringBuilder(f.getName() + "\r\n"), true);
+                        } catch (IOException e) {
+                            Dialog.createExceptionDialog(e);
+                        }
                     }
-                });
-    }
 
+                }
+            }
+        }
 
-    static void mapForOldFolder(String fn){
-        map( "config/old-stations",fn);
+        public void delimiteCSVColsWriteFile(boolean append, String pathDirToSave, String childFileName, String... colsvalue) throws IOException {
+            File dir = new File(pathDirToSave);
+            dir.mkdirs();
+            File fileTosave = new File(dir, childFileName);
+            System.out.println("saved in " + fileTosave.getPath());
+            fileTosave.createNewFile();
+            OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(fileTosave, append));
+            writer.write(String.join(";", colsvalue) + "\r\n");
+            writer.flush();
+        }
 
     }
 

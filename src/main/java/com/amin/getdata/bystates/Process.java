@@ -15,6 +15,7 @@ import java.util.Stack;
 public class Process implements Runnable {
 
     public static String baseUrl = "http://weather.uwyo.edu/cgi-bin/sounding?";
+    private static String CrashedCountry = "";
 
     public static void getData(String pathDirToSave, String stationsPath, String year, String mounth) {
         String text = "";
@@ -94,18 +95,15 @@ public class Process implements Runnable {
         }
     }
 
-
     public static String setLasturl(String region, String TYPE, String Year, String Month, String From, String To, String Station) {
         return baseUrl + "region=" + region + "&TYPE=" + TYPE +
                 "&YEAR=" + Year + "&MONTH=" + Month + "&FROM=" + From + "&TO=" + To + "&STNM=" + Station;
     }
 
-
     public static String setLasturl(String TYPE, String Year, String Month, String From, String To, String Station) {
         return baseUrl + "TYPE=" + TYPE +
                 "&YEAR=" + Year + "&MONTH=" + Month + "&FROM=" + From + "&TO=" + To + "&STNM=" + Station;
     }
-
 
     public static Stack<String> getYears() {
         FileReader reader = null;
@@ -122,11 +120,6 @@ public class Process implements Runnable {
         }
         return years;
     }
-
-    private ArrayList<String> getyears() throws FileNotFoundException {
-        return MyReader.readFileLines("config/years.conf");
-    }
-
 
     public static void start() {
         Stack<String> years = getYears();
@@ -174,11 +167,13 @@ public class Process implements Runnable {
 
     }
 
-    private static String CrashedCountry = "";
-
     public static void main(String[] args) {
 //        start();
 //        getData2("G:/alternative/newmew","40745","1997","5");
+    }
+
+    private ArrayList<String> getyears() throws FileNotFoundException {
+        return MyReader.readFileLines("config/years.conf");
     }
 
     @Override

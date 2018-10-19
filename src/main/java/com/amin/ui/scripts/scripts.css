@@ -4,10 +4,11 @@
 }
 
 .text-area .content {
-    -fx-background-color:-fx-control-inner-background;
+    -fx-background-color: -fx-control-inner-background;
 }
+
 .text-area:focused .content {
-    -fx-background-color:-fx-control-inner-background;
+    -fx-background-color: -fx-control-inner-background;
 }
 
 .text-area:focused {

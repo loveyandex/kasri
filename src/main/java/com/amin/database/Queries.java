@@ -69,10 +69,6 @@ public class Queries {
             ");";
 
 
-
-
-
-
     public static String load_set_them_with_your_own_dataInto = "LOAD DATA LOCAL INFILE \'" + CSV_FILE + "\'\n" +
             "INTO TABLE " + TABLE_NAME_CSV + " \n" +
             "FIELDS TERMINATED BY ';'\n" +
@@ -80,21 +76,19 @@ public class Queries {
             "LINES TERMINATED BY '\\r\\n'\n" +
             "IGNORE 2 LINES\n" +
             "(@ignore,@ignore,PRES,HGHT,TEMP,DWPT,RELH,MIXR,DRCT,SKNT,THTA,THTE,THTV);\n" +
-            "\n"
-            ;
+            "\n";
 
 
-
-    public static String insertAllTableToOne="insert into %s\n" +
+    public static String insertAllTableToOne = "insert into %s\n" +
             "select %s,'%4d-%02d-%02d','%s' ," +
             "         PRES, HGHT, TEMP, DWPT, RELH, MIXR, DRCT, SKNT, THTA, THTE, THTV\n" +
             "    from %s;";
 
-    public static String deleteAllTable=
+    public static String deleteAllTable =
             " delete   from %s;";
 
 
-    public static String dropAlltable=
+    public static String dropAlltable =
             " drop table %s;";
 
 }

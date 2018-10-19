@@ -74,7 +74,7 @@ public class LatLongFXMLController implements Initializable {
 
         anchorroot.widthProperty().addListener((observable, oldValue, newValue) -> {
             googleMapView.setPrefWidth(newValue.doubleValue());
-            AnchorPane.setLeftAnchor(stackpane,anchorroot.getWidth()/2.0-dialog.getWidth()/2.0);
+            AnchorPane.setLeftAnchor(stackpane, anchorroot.getWidth() / 2.0 - dialog.getWidth() / 2.0);
 
         });
         anchorroot.heightProperty().addListener((observable, oldValue, newValue) -> googleMapView.setPrefHeight(newValue.doubleValue()));
@@ -108,12 +108,12 @@ public class LatLongFXMLController implements Initializable {
                 final String longitude = resultSet.getString(5);
                 final String country = resultSet.getString(2);
 
-                stations.add(new ArrayList<String>(){{
-                add(stnm);
-                add(country);
-                add(latitude);
-                add(longitude);
-            }});
+                stations.add(new ArrayList<String>() {{
+                    add(stnm);
+                    add(country);
+                    add(latitude);
+                    add(longitude);
+                }});
 
 
                 marker2.setPosition(new LatLong(Double.parseDouble(latitude), Double.parseDouble(longitude)));
@@ -140,10 +140,10 @@ public class LatLongFXMLController implements Initializable {
                             final double nearst = KNN.nearst(300, new LatLon(latLong.getLatitude(), latLong.getLongitude()));
                             System.out.println(nearst);
                             final String msg = String.valueOf(nearst);
-                            SnackBar.showSnack(anchorroot, msg, 2333 );
+                            SnackBar.showSnack(anchorroot, msg, 2333);
                             descrip.setText(msg);
 
-                            AnchorPane.setLeftAnchor(stackpane,anchorroot.getWidth()/2.0-dialog.getWidth()/2.0);
+                            AnchorPane.setLeftAnchor(stackpane, anchorroot.getWidth() / 2.0 - dialog.getWidth() / 2.0);
 
                             dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM
                             );
@@ -203,6 +203,8 @@ public class LatLongFXMLController implements Initializable {
 
 
     public static class SnackBar {
+        static JFXSnackbar jfxSnackbar;
+
         public static void showSnack(Pane snackbarContainer, String msg) {
             JFXSnackbar jfxSnackbar = new JFXSnackbar(snackbarContainer);
             EventHandler eh = new EventHandler<ActionEvent>() {
@@ -239,10 +241,9 @@ public class LatLongFXMLController implements Initializable {
 
             jfxSnackbar.show(msg, "Got it", timeout, eventHandler);
         }
-     static    JFXSnackbar jfxSnackbar;
 
         public static void showSnackwithActionKNN(Pane snackbarContainer, EventHandler<ActionEvent> eventHandler, String msg, long timeout) {
-            jfxSnackbar  = new JFXSnackbar(snackbarContainer);
+            jfxSnackbar = new JFXSnackbar(snackbarContainer);
             jfxSnackbar.getStyleClass().add("jfx-snackbar-content");
 
             jfxSnackbar.show(msg, "KNN", timeout, eventHandler);

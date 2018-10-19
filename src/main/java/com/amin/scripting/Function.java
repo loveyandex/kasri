@@ -5,5 +5,5 @@ package com.amin.scripting;
  */
 public interface Function {
     @Json
-     String function(Object... o);
+    String function(Object... o);
 }

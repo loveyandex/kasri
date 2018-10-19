@@ -16,19 +16,15 @@ import java.util.ResourceBundle;
  */
 public class Alert implements Initializable {
 
+    public JFXButton exit;
+    public JFXButton cancel;
     @FXMLViewFlowContext
     private ViewFlowContext flowContext;
-    public JFXButton exit;
-
-    public JFXButton cancel;
 
     public void cancel(ActionEvent actionEvent) {
         cancel.getScene().getWindow().hide();
 
     }
-
-
-
 
 
     public void exit(ActionEvent actionEvent) {

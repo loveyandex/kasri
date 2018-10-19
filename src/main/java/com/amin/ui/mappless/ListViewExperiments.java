@@ -30,14 +30,20 @@ import java.io.FileReader;
 import java.sql.SQLException;
 
 
+interface Do {
+    void aDo(LatLon latLon) throws SQLException;
+}
+
 public class ListViewExperiments extends Application {
-    City[] cities;
-    Country[] countries;
-    JsonReader reader;
     final ListView listView = new ListView();
     final JFXTextField searchbox = new JFXTextField();
     final Gson gson = new Gson();
+    City[] cities;
+    Country[] countries;
+    JsonReader reader;
     ;
+    JsonReader reader2;
+    private Do aDo;
 
     {
         try {
@@ -47,14 +53,21 @@ public class ListViewExperiments extends Application {
         }
     }
 
-    JsonReader reader2;
-
     {
         try {
             reader2 = new JsonReader(new FileReader("../jsons/country-by-abbreviation.json"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public ListViewExperiments(Do aDo) {
+        this.aDo = aDo;
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
     }
 
     @Override
@@ -77,7 +90,7 @@ public class ListViewExperiments extends Application {
         searchbox.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.DOWN) {
                 listView.requestFocus();
-                if (listView.getItems().size()>0)
+                if (listView.getItems().size() > 0)
                     listView.getSelectionModel().selectFirst();
             } else if (event.getCode() == KeyCode.ENTER) {
                 listView.getItems().clear();
@@ -198,12 +211,6 @@ public class ListViewExperiments extends Application {
         });
     }
 
-
-    public static void main(String[] args) {
-        Application.launch(args);
-    }
-
-
     private String[] nlp(String text) {
         if (text.contains("oo"))
             text = text.replaceAll("oo", "u");
@@ -215,7 +222,6 @@ public class ListViewExperiments extends Application {
         lookup(text);
         return null;
     }
-
 
     private void lookup(String probablyname) {
 
@@ -235,16 +241,4 @@ public class ListViewExperiments extends Application {
 
 
     }
-
-
-    private Do aDo;
-
-
-    public ListViewExperiments(Do aDo) {
-        this.aDo = aDo;
-    }
-}
-
-interface Do {
-    void aDo(LatLon latLon) throws SQLException;
 }

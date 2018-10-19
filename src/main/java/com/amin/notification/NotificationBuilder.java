@@ -55,22 +55,22 @@ public class NotificationBuilder<B extends NotificationBuilder<B>> {
         properties.put("image", new SimpleObjectProperty<>(IMAGE));
         return (B) this;
     }
-    
+
     public final Notification build() {
         final Notification NOTIFICATION;
         if (properties.keySet().contains("title") && properties.keySet().contains("message") && properties.keySet().contains("image")) {
             NOTIFICATION = new Notification(((StringProperty) properties.get("title")).get(),
-                                            ((StringProperty) properties.get("message")).get(),
-                                            ((ObjectProperty<Image>) properties.get("image")).get());
+                    ((StringProperty) properties.get("message")).get(),
+                    ((ObjectProperty<Image>) properties.get("image")).get());
         } else if (properties.keySet().contains("title") && properties.keySet().contains("message")) {
             NOTIFICATION = new Notification(((StringProperty) properties.get("title")).get(),
-                                            ((StringProperty) properties.get("message")).get());
+                    ((StringProperty) properties.get("message")).get());
         } else if (properties.keySet().contains("message") && properties.keySet().contains("image")) {
             NOTIFICATION = new Notification(((StringProperty) properties.get("message")).get(),
-                                            ((ObjectProperty<Image>) properties.get("image")).get());
+                    ((ObjectProperty<Image>) properties.get("image")).get());
         } else {
             throw new IllegalArgumentException("Wrong or missing parameters.");
-        }               
+        }
         return NOTIFICATION;
     }
 }

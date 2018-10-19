@@ -20,13 +20,24 @@ public class SecondMining {
 
     public SecondMining(String pathDir, String fileName) {
         this.fileName = fileName;
-        this.pathDir=pathDir;
+        this.pathDir = pathDir;
         try {
-            reader = new FileReader(pathDir+File.separator+fileName);
+            reader = new FileReader(pathDir + File.separator + fileName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         scanner = new Scanner(reader);
+    }
+
+    public SecondMining(String pathDir, String fileName, boolean haminjuri) {
+        this.fileName = fileName;
+        this.pathDir = pathDir;
+    }
+
+    public static void main(String[] args) throws IOException {
+        new SecondMining("assets/data", "00Z_01_Jan_2017").createCSV();
+
+
     }
 
     public void createCSV() throws IOException {
@@ -39,29 +50,29 @@ public class SecondMining {
             if (line.contains("--"))
                 continue;
             else {
-                if (counter!=3)
-                for (int i = 0; i < exps.length; i++)
-                    try {
-                        if (line.charAt(exps[i]) == ' ') {
-                            StringBuilder stringBuilder = new StringBuilder(line);
-                            stringBuilder.setCharAt(exps[i], 'N');
-                            line = stringBuilder.toString();
-                        }
-                    } catch (StringIndexOutOfBoundsException e) {
-
-                        for (int j = i; j < exps.length; j++) {
-                            StringBuilder ana = new StringBuilder(line);
-                            int analength = ana.length();
-                            int desire = exps[j];
-                            for (int k = analength; k < desire; k++) {
-                                ana.insert(k, " ");
+                if (counter != 3)
+                    for (int i = 0; i < exps.length; i++)
+                        try {
+                            if (line.charAt(exps[i]) == ' ') {
+                                StringBuilder stringBuilder = new StringBuilder(line);
+                                stringBuilder.setCharAt(exps[i], 'N');
+                                line = stringBuilder.toString();
                             }
-                            ana.insert(ana.length(), "N");
+                        } catch (StringIndexOutOfBoundsException e) {
 
-                            line = ana.toString();
+                            for (int j = i; j < exps.length; j++) {
+                                StringBuilder ana = new StringBuilder(line);
+                                int analength = ana.length();
+                                int desire = exps[j];
+                                for (int k = analength; k < desire; k++) {
+                                    ana.insert(k, " ");
+                                }
+                                ana.insert(ana.length(), "N");
+
+                                line = ana.toString();
+                            }
+                            break;
                         }
-                        break;
-                    }
                 line = line.replace(" ", ";");
                 String s = line;
                 for (; ; )
@@ -141,23 +152,9 @@ public class SecondMining {
 
     }
 
-
-
-
-    public static void main(String[] args) throws IOException {
-        new SecondMining("assets/data", "00Z_01_Jan_2017").createCSV();
-
-
-    }
-    public SecondMining(String pathDir, String fileName,boolean haminjuri){
-        this.fileName = fileName;
-        this.pathDir=pathDir;
-    }
-
-
-    public void allinOneFolder(   String RootpathFile,String newName) throws IOException {
+    public void allinOneFolder(String RootpathFile, String newName) throws IOException {
         FileUtils.copyFile(new File(RootpathFile),
-                new File(C.THIRDY_PATH+File.separator+newName));
+                new File(C.THIRDY_PATH + File.separator + newName));
     }
 
 

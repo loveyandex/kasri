@@ -55,28 +55,23 @@ public class AllStationsOfCountryController implements Initializable {
     public JFXComboBox featuresCombo;
     public JFXComboBox unitsCombo;
     public JFXButton savebtn;
-    private ArrayList<IOException> ioExceptions = new ArrayList<>();
-
     public GridPane rootNode;
-
-    @FXML
-    private JFXComboBox<Label> stationsCombo;
-    @FXML
-    private JFXComboBox<Label> countriesCombo;
     public JFXButton cancelBtn;
     public JFXButton Gobtn;
-
     public TextField height;
     public VBox vvv;
     public JFXComboBox monthCombo;
     public JFXComboBox dayofMonthCombo;
     public JFXCheckBox z00;
     public JFXTabPane jfxtab;
-
+    public OtherFormInfo formInfo;
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
-
-    public OtherFormInfo formInfo;
+    private ArrayList<IOException> ioExceptions = new ArrayList<>();
+    @FXML
+    private JFXComboBox<Label> stationsCombo;
+    @FXML
+    private JFXComboBox<Label> countriesCombo;
     private Map<String, String> stationNumTOCities;
 
     @FXML
@@ -97,11 +92,6 @@ public class AllStationsOfCountryController implements Initializable {
                 formInfo.setDirTOSave(kasriDate.getAbsolutePath());
             }
         });
-
-
-
-
-
 
 
         String[] featursName = {"PRES", "HGHT", "TEMP", "DWPT", "RELH", "MIXR", "DRCT", Features.SKNT.getName(), "THTA", "THTE", "THTV"};
@@ -200,8 +190,6 @@ public class AllStationsOfCountryController implements Initializable {
         });
 
 
-
-
         lowYearjfxslider.valueProperty().addListener((observable, oldValue, newValue) -> {
             int a = (int) Math.round((Double) newValue);
             formInfo.setLowerYear(a);
@@ -220,9 +208,9 @@ public class AllStationsOfCountryController implements Initializable {
         });
 
 
-        GridPane.setMargin(monthCombo,new Insets(0,0,30,0));
+        GridPane.setMargin(monthCombo, new Insets(0, 0, 30, 0));
 
-        ArrayList<String> persianMonths=new ArrayList<String>( Arrays.asList("فروردین", "اردیبهشت", "خرداد","تیر","مرداد","شهریور","مهر","ابان","اذر","دی","بهمن","اسفند"));
+        ArrayList<String> persianMonths = new ArrayList<String>(Arrays.asList("فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "ابان", "اذر", "دی", "بهمن", "اسفند"));
         Map<String, Integer> persianMapMonth = new HashMap<>();
 
         for (int j = 0; j < persianMonths.size(); j++) {
@@ -231,13 +219,12 @@ public class AllStationsOfCountryController implements Initializable {
         }
 
 
-
         monthCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             formInfo.setDate(null);
             dayofMonthCombo.getItems().clear();
-            int[] days={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
+            int[] days = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
             for (int i = 1; i <= 31; i++) {
-                    dayofMonthCombo.getItems().add(new Label(String.valueOf(i)));
+                dayofMonthCombo.getItems().add(new Label(String.valueOf(i)));
             }
             if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
@@ -257,12 +244,12 @@ public class AllStationsOfCountryController implements Initializable {
                     persianCalendarCalendarPicker.valueProperty().setValue(PersianCalendar.of(1372, intmonth, (Integer.parseInt(((Label) newValue).getText()))));
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
-                }catch (IllegalArgumentException ex){
+                } catch (IllegalArgumentException ex) {
                     Dialog.createExceptionDialog(ex);
                 }
 //                System.out.println(persianCalendarCalendarPicker.valueProperty().getValue().getMonth());
-            PersianCalendar persianCalendar = persianCalendarCalendarPicker.valueProperty().getValue();
-            PlainDate plainDate = persianCalendar.transform(PlainDate.class);
+                PersianCalendar persianCalendar = persianCalendarCalendarPicker.valueProperty().getValue();
+                PlainDate plainDate = persianCalendar.transform(PlainDate.class);
                 System.out.println(String.format("%s-%s-%s", plainDate.getDayOfMonth(), plainDate.getMonth(), plainDate.getYear()));
                 formInfo.setDate(new Date(plainDate.getMonth(), plainDate.getDayOfMonth(), plainDate.getYear()));
             }
@@ -301,7 +288,6 @@ public class AllStationsOfCountryController implements Initializable {
                         MapStationNumTOCities("config/old-stations/" + newValue.getText() + ".conf.csv");
 
 
-
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
                     if (!station.getValue().equals("&")) {
                         formInfo.getStationNamesList().add(station.getKey());
@@ -335,12 +321,12 @@ public class AllStationsOfCountryController implements Initializable {
 
         });
         cancelBtn.setOnKeyPressed(event -> {
-            if(event.getCode()==KeyCode.ENTER)
+            if (event.getCode() == KeyCode.ENTER)
                 cancelBtn.getOnAction().handle(null);
         });
 
         Gobtn.setOnKeyPressed(event -> {
-            if(event.getCode()==KeyCode.ENTER)
+            if (event.getCode() == KeyCode.ENTER)
                 Gobtn.getOnAction().handle(null);
         });
 
@@ -379,7 +365,6 @@ public class AllStationsOfCountryController implements Initializable {
         });
 
 
-
         hSlider.lowValueProperty().addListener((observable, oldValue, newValue) -> {
             height.textProperty().setValue(String.valueOf(Math.round(newValue.doubleValue())));
         });
@@ -388,7 +373,6 @@ public class AllStationsOfCountryController implements Initializable {
             if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
         });
-
 
 
     }
@@ -440,7 +424,7 @@ public class AllStationsOfCountryController implements Initializable {
         int counterforStations = -1;
         childFileName = formInfo.getFeaureName() + "_" + height + "_" + formInfo.getCountry() + "_" + dayOfMonth + "_" + monthDisp + "_.csv";
 
-        File file = new File(pathDirToSave,childFileName);
+        File file = new File(pathDirToSave, childFileName);
         if (file.exists())
             file.delete();
 
@@ -557,8 +541,8 @@ public class AllStationsOfCountryController implements Initializable {
 
             double h = (doubles.get(0));
             double knot = (doubles.get(1));
-                heigthsVector.add(h);
-                knotsVector.add(knot);
+            heigthsVector.add(h);
+            knotsVector.add(knot);
 
         });
 
@@ -592,7 +576,7 @@ public class AllStationsOfCountryController implements Initializable {
                     && !strings.get(1).equals("NULL")
 
 
-                    ) {
+            ) {
                 double h = Double.parseDouble(strings.get(0));
                 double knot = Double.parseDouble(strings.get(1));
                 heigthsVector.add(h);
@@ -615,11 +599,6 @@ public class AllStationsOfCountryController implements Initializable {
     }
 
 
-
-
-
-
-
     private boolean isReadyToFire(OtherFormInfo formInfo) {
         if (formInfo.getFeatureUnit() == null || formInfo.getFeaureName() == null || formInfo.getLowerYear() == null || formInfo.getHighYear() == null || formInfo.getDate() == null || formInfo.getStationNamesList().isEmpty() || formInfo.getCountry() == null || formInfo.getHeight() == null) {
             Gobtn.setDisable(true);
@@ -627,8 +606,6 @@ public class AllStationsOfCountryController implements Initializable {
         } else
             return true;
     }
-
-
 
 
 }

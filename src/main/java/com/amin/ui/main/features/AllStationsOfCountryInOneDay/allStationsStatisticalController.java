@@ -11,7 +11,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -34,15 +33,6 @@ public class allStationsStatisticalController implements Initializable, Runnable
     public Label mathematicLable;
     public ImageView openfileimage;
     public ImageView openfileimage2;
-    @FXML
-    private JFXDialogLayout content;
-    @FXML
-    private JFXButton acceptButton;
-    ArrayList<ArrayList<String>> colsData;
-    @FXML
-    private Label valueLable;
-    @FXML
-    private StackPane rootstackpane;
     public Label sdvalue;
     public Label maxvalue;
     public Label minvalue;
@@ -50,6 +40,16 @@ public class allStationsStatisticalController implements Initializable, Runnable
     public Label maxtext;
     public Label meanvalue;
     public Label variencevalue;
+    ArrayList<ArrayList<String>> colsData;
+    @FXML
+    private JFXDialogLayout content;
+    @FXML
+    private JFXButton acceptButton;
+    @FXML
+    private Label valueLable;
+    @FXML
+    private StackPane rootstackpane;
+    private String unit;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -65,7 +65,6 @@ public class allStationsStatisticalController implements Initializable, Runnable
 
     }
 
-    private String unit;
     @Override
     public void run() {
         allvbox.managedProperty().bind(allvbox.visibleProperty());
@@ -119,24 +118,24 @@ public class allStationsStatisticalController implements Initializable, Runnable
         try {
 
             if (newValue.equals(MathTerminology.MAXVALUE)) {
-                valueLable.setText(String.format("%.4f %s", (calcMax(vec)),unit));
+                valueLable.setText(String.format("%.4f %s", (calcMax(vec)), unit));
                 ;
             } else if (newValue.equals(MathTerminology.MINVALUE)) {
-                valueLable.setText(String.format("%.4f %s", (calcMin(vec)),unit));
+                valueLable.setText(String.format("%.4f %s", (calcMin(vec)), unit));
             } else if (newValue.equals(MathTerminology.ALL)) {
                 maxtext.visibleProperty().setValue(true);
                 maxtext.setText("Max Value: ");
-                maxvalue.setText(String.format("%.4f %s", (calcMax(vec)),unit));
-                minvalue.setText(String.format("%.4f %s", (calcMin(vec)),unit));
-                meanvalue.setText(String.format("%.4f %s", (calcAvg(vec)),unit));
+                maxvalue.setText(String.format("%.4f %s", (calcMax(vec)), unit));
+                minvalue.setText(String.format("%.4f %s", (calcMin(vec)), unit));
+                meanvalue.setText(String.format("%.4f %s", (calcAvg(vec)), unit));
                 variencevalue.setText(String.format("%.4f", (calcVar(vec))));
-                sdvalue.setText(String.format("%.4f %s", (calcSD(vec)),unit));
+                sdvalue.setText(String.format("%.4f %s", (calcSD(vec)), unit));
             } else if (newValue.equals(MathTerminology.AVARAGE)) {
-                valueLable.setText(String.format("%.4f %s", (calcAvg(vec)),unit));
+                valueLable.setText(String.format("%.4f %s", (calcAvg(vec)), unit));
             } else if (newValue.equals(MathTerminology.VARIENCE)) {
                 valueLable.setText(String.format("%.4f", (calcVar(vec))));
             } else if (newValue.equals(MathTerminology.STANDARDDEVIATION)) {
-                valueLable.setText(String.format("%.4f %s", (calcSD(vec)),unit));
+                valueLable.setText(String.format("%.4f %s", (calcSD(vec)), unit));
             }
 
         } catch (IndexOutOfBoundsException e) {
@@ -183,11 +182,11 @@ public class allStationsStatisticalController implements Initializable, Runnable
         allvbox.setVisible(true);
         maxtext.visibleProperty().setValue(true);
         maxtext.setText("Max Value: ");
-        maxvalue.setText(String.format("%.4f %s", (calcMax(vec)),unit));
-        minvalue.setText(String.format("%.4f %s", (calcMin(vec)),unit));
-        meanvalue.setText(String.format("%.4f %s", (calcAvg(vec)),unit));
+        maxvalue.setText(String.format("%.4f %s", (calcMax(vec)), unit));
+        minvalue.setText(String.format("%.4f %s", (calcMin(vec)), unit));
+        meanvalue.setText(String.format("%.4f %s", (calcAvg(vec)), unit));
         variencevalue.setText(String.format("%.4f", (calcVar(vec))));
-        sdvalue.setText(String.format("%.4f %s", (calcSD(vec)),unit));
+        sdvalue.setText(String.format("%.4f %s", (calcSD(vec)), unit));
 
     }
 

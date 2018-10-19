@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.RangeSlider?>
-<VBox fx:id="vvv" stylesheets="/light-theme.css" xmlns="http://javafx.com/javafx/8.0.121"
-      xmlns:fx="http://javafx.com/fxml/1"
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vvv" stylesheets="/light-theme.css"
+      xmlns="http://javafx.com/javafx/8.0.121"
       fx:controller="com.amin.ui.mappless.otherFieldController">
 
 
     <JFXTabPane fx:id="jfxtab" style="-fx-alignment: center">
         <Tab text="req1">
-            <GridPane fx:id="rootNode" alignment="TOP_CENTER" prefHeight="2500.0" prefWidth="600.0" style="-fx-padding: 40px 0px 0px 0px" >
+            <GridPane fx:id="rootNode" alignment="TOP_CENTER" prefHeight="2500.0" prefWidth="600.0"
+                      style="-fx-padding: 40px 0px 0px 0px">
                 <Label focusTraversable="true"
                        stylesheets="/stage.css"
                        text="choose a feature"
-                       GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 
                 <JFXComboBox fx:id="featuresCombo"
                              stylesheets="/combo.css"
@@ -33,7 +34,7 @@
                 <Label focusTraversable="true"
                        stylesheets="/stage.css"
                        text="choose month"
-                       GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                       GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
 
                 <JFXComboBox id="fancytext" fx:id="monthCombo" minWidth="200"
@@ -43,7 +44,7 @@
                 </JFXComboBox>
 
                 <Label text="choose a day of month"
-                       GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                       GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                 <JFXComboBox fx:id="dayofMonthCombo" minWidth="200"
                              stylesheets="/combo.css"
                              GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -56,7 +57,7 @@
 
                 <Label text="change unit(SI &amp; NonSI)"
 
-                       GridPane.columnIndex="0" GridPane.rowIndex="9" >
+                       GridPane.columnIndex="0" GridPane.rowIndex="9">
 
                 </Label>
 
@@ -74,9 +75,11 @@
 
                 <HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="12">
 
-                    <JFXButton fx:id="cancelBtn" styleClass="button" stylesheets="/buttons.css" text="Cancel" translateX="50">
+                    <JFXButton fx:id="cancelBtn" styleClass="button" stylesheets="/buttons.css" text="Cancel"
+                               translateX="50">
                     </JFXButton>
-                    <JFXButton fx:id="Gobtn" disable="true" styleClass="button" stylesheets="/buttons.css" text="Get Result" translateX="180">
+                    <JFXButton fx:id="Gobtn" disable="true" styleClass="button" stylesheets="/buttons.css"
+                               text="Get Result" translateX="180">
                     </JFXButton>
                 </HBox>
             </GridPane>
@@ -84,7 +87,7 @@
         </Tab>
         <Tab text="req2">
             <VBox fx:id="rootNodetab2" alignment="TOP_CENTER"
-                  style="-fx-padding: 40px 0px 0px 0px" >
+                  style="-fx-padding: 40px 0px 0px 0px">
                 <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
                     <Label text="time zones: " minWidth="100"
                            style="-fx-padding: 0px 30px 0px 0px;"/>
@@ -93,7 +96,7 @@
                                  style="-fx-padding: 0px 20px 0px 0px" text="00Z"
                                  textAlignment="JUSTIFY"
                                  textFill="WHITE"
-                                 GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                 GridPane.columnIndex="0" GridPane.rowIndex="1"/>
                     <HBox fx:id="topOfgobtn">
                         <JFXCheckBox fx:id="z12" disable="true" checkedColor="#949c10"
                                      selected="true" contentDisplay="CENTER"

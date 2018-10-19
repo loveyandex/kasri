@@ -14,18 +14,29 @@ import java.sql.Statement;
  * is created by aMIN on 6/11/2018 at 22:14
  */
 public class Driver extends Application {
-   final private static Driver driver= new Driver();;
-    private  Connection connection;
+    final private static Driver driver = new Driver();
+    ;
+    private Connection connection;
+
     private Driver() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-             connection=DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/weather","root","");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/weather", "root", "");
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) throws SQLException {
+        launch(args);
+
+    }
+
+    public static Driver getDriver() {
+        return driver;
     }
 
     @Override
@@ -52,17 +63,8 @@ public class Driver extends Application {
 
     }
 
-    public static void main(String[] args) throws SQLException {
-        launch(args);
-
-    }
-
-    public  Connection getConnection() {
+    public Connection getConnection() {
         return connection;
-    }
-
-    public static Driver getDriver() {
-        return driver;
     }
 
     public int createCSVTable(String query) throws SQLException {

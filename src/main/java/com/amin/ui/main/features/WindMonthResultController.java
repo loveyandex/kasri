@@ -37,12 +37,10 @@ public class WindMonthResultController implements Initializable, Runnable {
     }
 
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(this);
     }
-
 
 
     public void back(ActionEvent actionEvent) {

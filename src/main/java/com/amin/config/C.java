@@ -13,17 +13,17 @@ import java.util.Properties;
 public class C {
     public static final String PATH_TO_RAW_DIR_ROOT = System.getProperty("user.dir");
     public static final String PATH_TO_RAW_DIR_MONTH_RANDOM = "";
-    public static final String OTHER="";
+    public static final String OTHER = "";
     public static final String RAW_FMXL_PATH = "/raw_mining_activity.fxml";
-    public static final char INSTEAD_PARAM_LESS='&';
-    public static final String STATION_NAME_SIMBOL="[?^]";
+    public static final char INSTEAD_PARAM_LESS = '&';
+    public static final String STATION_NAME_SIMBOL = "[?^]";
     public static final String SPACE = " ";
     public static final String COUNTRIES_CONFIG_PATH = "config/countries.conf";
 
     public static final String APP_PROP_PATH = "application.properties";
     public static String DATA_PATH;
     public static String SOCANDARY_DATA_PATH;
-    public static String THIRDY_PATH ;
+    public static String THIRDY_PATH;
 
     static {
         try {
@@ -73,7 +73,7 @@ public class C {
     }
 
 
-    public static void writePropertie(String key,String value) throws IOException, URISyntaxException {
+    public static void writePropertie(String key, String value) throws IOException, URISyntaxException {
 
 
         File file = new File(new Load().getload(C.APP_PROP_PATH));

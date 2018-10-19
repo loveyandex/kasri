@@ -9,7 +9,7 @@ public class Examplefordad {
         new Thread(() -> {
             try {
                 synchronized (this) {
-           this.wait();
+                    this.wait();
 
                 }
 
@@ -27,11 +27,11 @@ public class Examplefordad {
         final Examplefordad examplefordad1 = new Examplefordad();
         System.out.println("d");
         Thread.sleep(2323);
-        synchronized (examplefordad){
+        synchronized (examplefordad) {
             examplefordad.notifyAll();
         }
 
-        synchronized (examplefordad1){
+        synchronized (examplefordad1) {
             examplefordad1.notifyAll();
         }
 

@@ -32,12 +32,161 @@ import static com.amin.scripting.RestFuns.toFormInfo;
  * is created by aMIN on 6/8/2018 at 04:43
  */
 public class ScriptAPP extends Application {
+    private static String s;
+    static private Map<String, String> stationNumTOCities;
     public Button titlebtn;
     private BorderPane layout;
     private Stage window;
     private double xOffset = 0;
     private double yOffset = 0;
 
+    private static void rem() {
+        s = s.replaceAll("  ", " ");
+        if (s.contains("  "))
+            rem();
+        else return;
+    }
+
+    public static void scripting(String cmd) {
+        s = cmd;
+        rem();
+        cmd = s;
+        System.out.println("f:\n" + cmd);
+        final String[] args = cmd.split(" ");
+
+        final String func = args[0];
+        if (func.equals("onday"))
+            runFopen(args, Functions.getInstance()::fopen);
+        else if (func.equals("crosswind"))
+            runFopen(args, Wind.getInstance()::crossWindOnDayOnStation);
+
+        else if (func.equals("ondaystations"))
+            runAllDay(args);
+
+
+    }
+
+    public static double scripting2(String cmd) {
+        s = cmd;
+        rem();
+        cmd = s;
+        System.out.println("f:\n" + cmd);
+        final String[] args = cmd.split(" ");
+
+        final String func = args[0];
+        if (func.equals("onday")) {
+            final double arrayLists = runFopen2(args);
+            return arrayLists;
+        } else if (func.equals("ondaystations"))
+            runAllDay(args);
+
+
+        return 0.0;
+    }
+
+    private static void runAllDay(String[] args) {
+
+        if (args.length == 1)
+            Dialog.createExceptionDialog(new RuntimeException("not arrgumet assigned"));
+        else {
+
+            final int month = Integer.parseInt(args[1]);
+            final int day = Integer.parseInt(args[2]);
+            final String featurename = args[3];
+            final String unit = args[4];
+            final String height = args[5];
+            int loweryear = Integer.parseInt(args[6]);
+            int highyear = Integer.parseInt(args[7]);
+            final String country = args[8];
+            OtherFormInfo otherFormInfo = new OtherFormInfo();
+            otherFormInfo.setFeatureUnit(unit)
+                    .setHeight(height).setDate(new Date(month, day, 1994))
+                    .setCountry(country)
+                    .setLowerYear(loweryear)
+                    .setHighYear(highyear)
+                    .setFeaureName(featurename)
+                    .setStationNamesList(new ArrayList<>())
+                    .setStationNumbersList(new ArrayList<>());
+
+            try {
+
+                String dirpath = "config/old-stations";
+                String fileName = country + ".conf";
+
+                File dir = new File(dirpath);
+                dir.mkdirs();
+                File fileTosave = new File(dir, fileName);
+                if (!fileTosave.exists())
+                    Mapping.createCSVFILEFORStations(dirpath, fileName);
+
+                stationNumTOCities = Mapping.
+                        MapStationNumTOCities("config/old-stations/" + country + ".conf.csv");
+
+
+                for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
+                    if (!station.getValue().equals("&")) {
+                        otherFormInfo.getStationNamesList().add(station.getKey());
+                        otherFormInfo.getStationNumbersList().add(station.getValue());
+                    }
+                }
+
+                Functions.getInstance().fAllstationsonDay(otherFormInfo);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    private static void runFopen(String[] args, Run run) {
+        if (args.length == 1)
+            Dialog.createExceptionDialog(new RuntimeException("not arrgumet assigned"));
+        else {
+            try {
+                run.run(toFormInfo(args));
+
+            } catch (Exception X) {
+                Dialog.createExceptionDialog(new RuntimeException(X.toString()));
+            }
+        }
+    }
+
+    private static double runFopen2(String[] args) {
+        if (args.length == 1)
+            Dialog.createExceptionDialog(new RuntimeException("not arrgumet assigned"));
+        else {
+            try {
+
+
+                final String stationNumber = args[1];
+                final int month = Integer.parseInt(args[2]);
+                final int day = Integer.parseInt(args[3]);
+
+                final String featurename = args[4];
+                final String unit = args[5];
+                final String height = args[6];
+                int loweryear = Integer.parseInt(args[7]);
+                int highyear = Integer.parseInt(args[8]);
+                final String country = args[9];
+//            final FormInfo formInfo = new FormInfo(new Date(1,1,2017), Features.SKNT.getName(),
+//                    "40800","",
+//                    "iran__islamic_rep","9899",2017,2017
+//                    , UnitConvertor.SPEED.units.getMetersPerSecond().toString());
+                final FormInfo formInfo = new FormInfo(new Date(month, day, 1999), featurename,
+                        stationNumber, "",
+                        country, height, loweryear, highyear, unit);
+                final double fopen2 = Functions.getInstance().fopen2(formInfo);
+                return fopen2;
+
+            } catch (Exception X) {
+                Dialog.createExceptionDialog(new RuntimeException(X.toString()));
+            }
+        }
+        return 0.0;
+    }
 
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
@@ -118,10 +267,6 @@ public class ScriptAPP extends Application {
         editMenu.getItems().add(crosswindmenu);
 
 
-
-
-
-
         TextArea console = new TextArea(">>onday 40800 10 26 PRES hPa 8999 1999 2017 iran__islamic_rep\n>>");
         console.setMinSize(900, 220);
         console.setStyle("-fx-base: #fff3f8;\n" +
@@ -156,7 +301,6 @@ public class ScriptAPP extends Application {
         });
 
 
-
         qwind_speed1.setOnAction(event -> {
             console.appendText("crosswind 40800 10 26 WIND_SPEED m/s 20000 1973 2017 iran__islamic_rep");
         });
@@ -183,8 +327,6 @@ public class ScriptAPP extends Application {
 //        qdrct1.setOnAction(event -> {
 //            console.appendText("crosswind 40800 10 26 DRCT ° 20000 1973 2017           iran__islamic_rep ");
 //        });
-
-
 
 
         wind_speed1.setOnAction(event -> {
@@ -215,7 +357,6 @@ public class ScriptAPP extends Application {
         });
 
 
-
         Button closeButton = new Button("X");
         closeButton.setStyle("-fx-background-radius: 0;-fx-background-color: #ff667d;-fx-text-fill: white");
 
@@ -236,10 +377,9 @@ public class ScriptAPP extends Application {
 
         closeButton.setMinWidth(30);
         Button oth = new Button("scripting");
-        oth.setStyle("-fx-background-radius: 0;-fx-border-radius: 0;"+
+        oth.setStyle("-fx-background-radius: 0;-fx-border-radius: 0;" +
                 "-fx-background-color: #f8fbee;" +
                 "-fx-text-fill: #B2B2B2;");
-
 
 
         console.setOnKeyPressed(event -> {
@@ -313,167 +453,15 @@ public class ScriptAPP extends Application {
 
     }
 
-    private static String s;
-
-    private static void rem() {
-        s = s.replaceAll("  ", " ");
-        if (s.contains("  "))
-            rem();
-        else return;
-    }
-    public static void scripting(String cmd) {
-        s=cmd;
-        rem();
-        cmd=s;
-        System.out.println("f:\n"+cmd);
-        final String[] args = cmd.split(" ");
-
-        final String func = args[0];
-        if (func.equals("onday"))
-            runFopen(args, Functions.getInstance()::fopen);
-        else if (func.equals("crosswind"))
-            runFopen(args, Wind.getInstance()::crossWindOnDayOnStation);
-
-        else if (func.equals("ondaystations"))
-            runAllDay(args);
-
-
-    }
-
-    public static double scripting2(String cmd) {
-        s = cmd;
-        rem();
-        cmd = s;
-        System.out.println("f:\n" + cmd);
-        final String[] args = cmd.split(" ");
-
-        final String func = args[0];
-        if (func.equals("onday")) {
-            final double arrayLists = runFopen2(args);
-            return arrayLists;
-        }
-        else if (func.equals("ondaystations"))
-            runAllDay(args);
-
-
-        return 0.0;
-    }
-
-   static private Map<String, String> stationNumTOCities;
-
-    private  static void runAllDay(String[] args) {
-
-        if (args.length == 1)
-            Dialog.createExceptionDialog(new RuntimeException("not arrgumet assigned"));
-        else {
-
-            final int month = Integer.parseInt(args[1]);
-            final int day = Integer.parseInt(args[2]);
-            final String featurename = args[3];
-            final String unit = args[4];
-            final String height = args[5];
-            int loweryear = Integer.parseInt(args[6]);
-            int highyear = Integer.parseInt(args[7]);
-            final String country = args[8];
-            OtherFormInfo otherFormInfo = new OtherFormInfo();
-            otherFormInfo.setFeatureUnit(unit)
-                    .setHeight(height).setDate(new Date(month, day, 1994))
-                    .setCountry(country)
-                    .setLowerYear(loweryear)
-                    .setHighYear(highyear)
-                    .setFeaureName(featurename)
-                    .setStationNamesList(new ArrayList<>())
-                    .setStationNumbersList(new ArrayList<>());
-
-            try {
-
-                String dirpath = "config/old-stations";
-                String fileName = country + ".conf";
-
-                File dir = new File(dirpath);
-                dir.mkdirs();
-                File fileTosave = new File(dir, fileName);
-                if (!fileTosave.exists())
-                    Mapping.createCSVFILEFORStations(dirpath, fileName);
-
-                stationNumTOCities = Mapping.
-                        MapStationNumTOCities("config/old-stations/" + country + ".conf.csv");
-
-
-                for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
-                    if (!station.getValue().equals("&")) {
-                        otherFormInfo.getStationNamesList().add(station.getKey());
-                        otherFormInfo.getStationNumbersList().add(station.getValue());
-                    }
-                }
-
-                Functions.getInstance().fAllstationsonDay(otherFormInfo);
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-    }
-
-    private static void runFopen(String[] args, Run run) {
-        if (args.length == 1)
-            Dialog.createExceptionDialog(new RuntimeException("not arrgumet assigned"));
-        else {
-            try {
-                run.run(toFormInfo(args));
-
-            } catch (Exception X) {
-                Dialog.createExceptionDialog(new RuntimeException(X.toString()));
-            }
-        }
-    }
-
-    interface Run {
-        void run(FormInfo formInfo);
-    }
-
-    private static double runFopen2(String[] args) {
-        if (args.length == 1)
-            Dialog.createExceptionDialog(new RuntimeException("not arrgumet assigned"));
-        else {
-            try {
-
-
-                final String stationNumber = args[1];
-                final int month = Integer.parseInt(args[2]);
-                final int day = Integer.parseInt(args[3]);
-
-                final String featurename = args[4];
-                final String unit = args[5];
-                final String height = args[6];
-                int loweryear = Integer.parseInt(args[7]);
-                int highyear = Integer.parseInt(args[8]);
-                final String country = args[9];
-//            final FormInfo formInfo = new FormInfo(new Date(1,1,2017), Features.SKNT.getName(),
-//                    "40800","",
-//                    "iran__islamic_rep","9899",2017,2017
-//                    , UnitConvertor.SPEED.units.getMetersPerSecond().toString());
-                final FormInfo formInfo = new FormInfo(new Date(month, day, 1999), featurename,
-                        stationNumber, "",
-                        country, height, loweryear, highyear, unit);
-                final double fopen2 = Functions.getInstance().fopen2(formInfo);
-                return fopen2;
-
-            } catch (Exception X) {
-                Dialog.createExceptionDialog(new RuntimeException(X.toString()));
-            }
-        }
-        return 0.0;
-    }
-
-
     @Override
     public void stop() throws Exception {
         super.stop();
         System.out.println("g");
+    }
+
+
+    interface Run {
+        void run(FormInfo formInfo);
     }
 
 

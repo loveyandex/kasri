@@ -20,8 +20,8 @@ public class MyWriter {
                 fileTosave.createNewFile();
             else System.out.println("file is existed");
 
-             fileOutputStream = new FileOutputStream(fileTosave, append);
-             outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            fileOutputStream = new FileOutputStream(fileTosave, append);
+            outputStreamWriter = new OutputStreamWriter(fileOutputStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -37,7 +37,7 @@ public class MyWriter {
     }
 
     public void appendStringInNewLine(String s) throws IOException {
-        outputStreamWriter.write(s+"\r\n");
+        outputStreamWriter.write(s + "\r\n");
         outputStreamWriter.flush();
 
     }

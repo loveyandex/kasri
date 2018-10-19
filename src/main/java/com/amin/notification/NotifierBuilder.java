@@ -42,15 +42,15 @@ public class NotifierBuilder<B extends NotifierBuilder<B>> {
     public final static NotifierBuilder create() {
         return new NotifierBuilder();
     }
-    
+
     public final B owner(final Stage OWNER) {
         properties.put("stage", new SimpleObjectProperty<>(OWNER));
-        return (B)this;
+        return (B) this;
     }
 
     public final B popupLocation(Pos LOCATION) {
         properties.put("popupLocation", new SimpleObjectProperty<>(LOCATION));
-        return (B)this;
+        return (B) this;
     }
 
     public final B width(final double WIDTH) {

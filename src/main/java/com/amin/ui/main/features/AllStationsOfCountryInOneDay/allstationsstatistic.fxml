@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDialogLayout?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
-<StackPane fx:id="rootstackpane" xmlns:fx="http://javafx.com/fxml/1"
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="rootstackpane"
            fx:controller="com.amin.ui.main.features.AllStationsOfCountryInOneDay.allStationsStatisticalController"
            xmlns="http://javafx.com/javafx/2.2"
            stylesheets="/statistic.css"
@@ -45,11 +42,11 @@
                         <items>
                             <FXCollections fx:factory="observableArrayList">
                                 <String fx:value="All"/>
-                                <String fx:value="max value" />
-                                <String fx:value="min value"  />
-                                <String fx:value="average" />
-                                <String fx:value="Varience" />
-                                <String fx:value="Standard deviation" />
+                                <String fx:value="max value"/>
+                                <String fx:value="min value"/>
+                                <String fx:value="average"/>
+                                <String fx:value="Varience"/>
+                                <String fx:value="Standard deviation"/>
                             </FXCollections>
                         </items>
                     </JFXComboBox>
@@ -104,11 +101,11 @@
                     </VBox>
                 </body>
                 <actions>
-                    <JFXButton fx:id="acceptButton" styleClass="dialog-accept"  onMouseClicked="#copied">Copy value
+                    <JFXButton fx:id="acceptButton" styleClass="dialog-accept" onMouseClicked="#copied">Copy value
                         <graphic>
-                            <ImageView   >
-                                <image >
-                                    <Image  url="/drawable/baseline_file_copy_black_18dp.png"  />
+                            <ImageView>
+                                <image>
+                                    <Image url="/drawable/baseline_file_copy_black_18dp.png"/>
                                 </image>
                             </ImageView>
                         </graphic>
@@ -118,19 +115,21 @@
                         <graphic>
                             <ImageView fx:id="openfileimage"
                             >
-                                <image >
-                                    <Image preserveRatio="true" smooth="true" requestedWidth="18.0" requestedHeight="18.0" url="/drawable/1x/sd.png"  />
+                                <image>
+                                    <Image preserveRatio="true" smooth="true" requestedWidth="18.0"
+                                           requestedHeight="18.0" url="/drawable/1x/sd.png"/>
                                 </image>
                             </ImageView>
                         </graphic>
                     </JFXButton>
-                    <JFXButton  styleClass="dialog-showin"
+                    <JFXButton styleClass="dialog-showin"
                                onMouseClicked="#opencsv">open csv file
                         <graphic>
-                            <ImageView  fx:id="openfileimage2"
+                            <ImageView fx:id="openfileimage2"
                             >
-                                <image  >
-                                    <Image preserveRatio="true" smooth="true" requestedWidth="18.0" requestedHeight="18.0" url="/drawable/1x/sd.png"  />
+                                <image>
+                                    <Image preserveRatio="true" smooth="true" requestedWidth="18.0"
+                                           requestedHeight="18.0" url="/drawable/1x/sd.png"/>
 
                                 </image>
                             </ImageView>

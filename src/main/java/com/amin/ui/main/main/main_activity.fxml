@@ -9,8 +9,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<VBox fx:id="rootme" prefHeight="400" prefWidth="1150" xmlns="http://javafx.com/javafx/8.0.1"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amin.ui.main.main.MainController"
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="rootme" prefHeight="400" prefWidth="1150"
+      xmlns="http://javafx.com/javafx/8.0.1" fx:controller="com.amin.ui.main.main.MainController"
       stylesheets="/dark-theme.css"
 >
 
@@ -18,19 +18,19 @@
         <menus>
             <Menu text="File">
                 <items>
-                    <MenuItem  onAction="#getDataFromInternet" text="get rawdata from net" />
-                    <SeparatorMenuItem />
-                    <MenuItem onAction="#exit" text="Exit" />
+                    <MenuItem onAction="#getDataFromInternet" text="get rawdata from net"/>
+                    <SeparatorMenuItem/>
+                    <MenuItem onAction="#exit" text="Exit"/>
                 </items>
             </Menu>
             <Menu text="view">
                 <items>
 
-                    <Menu fx:id="openRecentTab" mnemonicParsing="false"  text="Wind">
+                    <Menu fx:id="openRecentTab" mnemonicParsing="false" text="Wind">
                         <items>
-                            <MenuItem mnemonicParsing="false" onAction="#dayFeature" text="wind on month" />
-                            <MenuItem mnemonicParsing="false" onAction="#windyear" text="wind in year" />
-                            <MenuItem mnemonicParsing="false" text="wind in day" />
+                            <MenuItem mnemonicParsing="false" onAction="#dayFeature" text="wind on month"/>
+                            <MenuItem mnemonicParsing="false" onAction="#windyear" text="wind in year"/>
+                            <MenuItem mnemonicParsing="false" text="wind in day"/>
                         </items>
                     </Menu>
                 </items>
@@ -38,16 +38,16 @@
             <Menu text="all heigth">
                 <items>
 
-                    <Menu fx:id="allhigt" mnemonicParsing="false"  text="Wind">
+                    <Menu fx:id="allhigt" mnemonicParsing="false" text="Wind">
                         <items>
-                            <MenuItem mnemonicParsing="false" onAction="#ondayAllHeight" text="on day" />
+                            <MenuItem mnemonicParsing="false" onAction="#ondayAllHeight" text="on day"/>
                         </items>
                     </Menu>
                 </items>
             </Menu>
             <Menu text="Help">
                 <items>
-                    <MenuItem text="About" onAction="#about" />
+                    <MenuItem text="About" onAction="#about"/>
 
                 </items>
             </Menu>
@@ -81,9 +81,9 @@
                            styleClass="toolbar-button"
                            text="on day All Heights" textAlignment="CENTER">
                     <graphic>
-                        <ImageView   >
-                            <image >
-                                <Image url="/drawable/1x/baseline_add_location_white_24dp.png"  />
+                        <ImageView>
+                            <image>
+                                <Image url="/drawable/1x/baseline_add_location_white_24dp.png"/>
                             </image>
                         </ImageView>
 
@@ -124,9 +124,9 @@
                            text="script functions"
                            textAlignment="CENTER">
                     <graphic>
-                        <ImageView   >
-                            <image >
-                                <Image url="/drawable/script_white.png"  />
+                        <ImageView>
+                            <image>
+                                <Image url="/drawable/script_white.png"/>
                             </image>
                         </ImageView>
 
@@ -262,7 +262,7 @@
                             <Label>Weather Analysis &amp; Flight Simulation internationally
                             </Label>
                             <HBox>
-                                <Label>Developer :  </Label>
+                                <Label>Developer :</Label>
                                 <Label style="-fx-text-fill: #7d8049">Abolfazl Ghahremani</Label>
 
                             </HBox>

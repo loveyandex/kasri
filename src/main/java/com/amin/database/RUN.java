@@ -57,7 +57,7 @@ public class RUN {
                                 final String query = String.format(insertAllTableToOne,
                                         country, stationFolderName, Integer.parseInt(year_),
                                         Integer.parseInt(month_), Integer.parseInt(day_)
-                                        , zone, country + "_"+stationFolderName+"_" + namefile);
+                                        , zone, country + "_" + stationFolderName + "_" + namefile);
                                 try {
                                     System.out.println(query);
 
@@ -124,7 +124,7 @@ public class RUN {
                                 final String deleteAllTable = Queries.deleteAllTable;
 
                                 final String zone = namefile.substring(0, 3);
-                                final String query = String.format(deleteAllTable, country + "_"+stationFolderName+"_" + namefile);
+                                final String query = String.format(deleteAllTable, country + "_" + stationFolderName + "_" + namefile);
                                 try {
                                     System.out.println(query);
 
@@ -191,7 +191,7 @@ public class RUN {
                                 final String deleteAllTable = Queries.dropAlltable;
 
                                 final String zone = namefile.substring(0, 3);
-                                final String query = String.format(deleteAllTable, country + "_"+stationFolderName+"_" + namefile);
+                                final String query = String.format(deleteAllTable, country + "_" + stationFolderName + "_" + namefile);
                                 try {
 //                                    System.out.println(query);
 

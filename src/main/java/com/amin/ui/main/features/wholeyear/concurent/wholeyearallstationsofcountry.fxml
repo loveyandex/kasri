@@ -8,10 +8,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.RangeSlider?>
-<VBox fx:id="vvv"
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:id="vvv"
       stylesheets="/dark-theme.css"
       xmlns="http://javafx.com/javafx/8.0.121"
-      xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.amin.ui.main.features.wholeyear.concurent.ConcurentController">
 
     <children>
@@ -22,12 +22,13 @@
             <Tab text="req1">
 
 
-                <GridPane fx:id="rootNode" alignment="TOP_CENTER" prefHeight="2500.0" prefWidth="600.0" style="-fx-padding: 40px 0px 0px 0px" stylesheets="/dark-theme.css">
+                <GridPane fx:id="rootNode" alignment="TOP_CENTER" prefHeight="2500.0" prefWidth="600.0"
+                          style="-fx-padding: 40px 0px 0px 0px" stylesheets="/dark-theme.css">
                     <Label focusTraversable="true"
                            stylesheets="/stage.css"
                            text="choose a feature"
                            textFill="#d58fbd"
-                           GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                           GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 
                     <JFXComboBox fx:id="featuresCombo"
                                  stylesheets="/combo.css"
@@ -45,7 +46,7 @@
                            text="choose month"
                            disable="true"
                            textFill="#d5b02c"
-                           GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                           GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
 
                     <JFXComboBox id="fancytext" fx:id="monthCombo" minWidth="200"
@@ -58,7 +59,7 @@
                     <Label text="choose a day of month"
                            disable="true"
                            textFill="#d5b02c"
-                           GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                           GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                     <JFXComboBox fx:id="dayofMonthCombo" minWidth="200"
                                  disable="true"
                                  stylesheets="/combo.css"
@@ -72,7 +73,7 @@
 
                     <Label text="choose a country"
                            textFill="#d5b02c"
-                           GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                           GridPane.columnIndex="0" GridPane.rowIndex="5"/>
 
                     <JFXComboBox id="fancytext" fx:id="countriesCombo" minWidth="200"
                                  stylesheets="/combo.css"
@@ -87,7 +88,7 @@
                     <Label text="choose a station"
                            disable="true"
                            textFill="#d5b02c"
-                           GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                           GridPane.columnIndex="0" GridPane.rowIndex="7"/>
 
                     <JFXComboBox id="fancytext" fx:id="stationsCombo" minWidth="200"
                                  stylesheets="/combo.css"
@@ -104,7 +105,7 @@
                     <Label text="change unit(SI &amp; NonSI)"
                            textFill="#d5b02c"
 
-                           GridPane.columnIndex="0" GridPane.rowIndex="9" >
+                           GridPane.columnIndex="0" GridPane.rowIndex="9">
 
                     </Label>
 
@@ -122,7 +123,8 @@
 
                     <HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="12">
 
-                        <JFXButton fx:id="cancelBtn" styleClass="button" stylesheets="/buttons.css" text="Cancel" translateX="50">
+                        <JFXButton fx:id="cancelBtn" styleClass="button" stylesheets="/buttons.css" text="Cancel"
+                                   translateX="50">
                         </JFXButton>
 
                         <ProgressIndicator
@@ -133,7 +135,8 @@
                         >
                         </ProgressIndicator>
 
-                        <JFXButton fx:id="Gobtn" disable="true" styleClass="button" stylesheets="/buttons.css" text="Get Result" translateX="200">
+                        <JFXButton fx:id="Gobtn" disable="true" styleClass="button" stylesheets="/buttons.css"
+                                   text="Get Result" translateX="200">
                         </JFXButton>
                     </HBox>
 
@@ -154,7 +157,7 @@
                                      style="-fx-padding: 0px 20px 0px 0px" text="00Z"
                                      textAlignment="JUSTIFY"
                                      textFill="WHITE"
-                                     GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                     GridPane.columnIndex="0" GridPane.rowIndex="1"/>
                         <HBox>
                             <JFXCheckBox fx:id="z12" disable="true" checkedColor="#949c10"
                                          selected="true" contentDisplay="CENTER"

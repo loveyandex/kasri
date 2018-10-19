@@ -14,20 +14,20 @@ public class OldMapping {
 
     public static ArrayList<ArrayList<String>> getWindSpeedCol(String dayDir, String fileName) throws IOException {
 
-        FileReader reader = new FileReader(dayDir+File.separator+fileName);
+        FileReader reader = new FileReader(dayDir + File.separator + fileName);
         Scanner scanner = new Scanner(reader);
 
-        ArrayList<ArrayList<String>> points=new ArrayList<>();
+        ArrayList<ArrayList<String>> points = new ArrayList<>();
 
 
         String total = "";
         while (scanner.hasNextLine()) {
-            ArrayList<String> point=new ArrayList<>();
+            ArrayList<String> point = new ArrayList<>();
             String line = scanner.nextLine();
             String[] split = line.split(";");
-            total += split[1]+";"+split[6] +";"+split[7] + "\r\n";
+            total += split[1] + ";" + split[6] + ";" + split[7] + "\r\n";
             point.add(split[1]);
-            point.add(split[7] );
+            point.add(split[7]);
             points.add(point);
         }
         System.out.println(total);
@@ -42,15 +42,15 @@ public class OldMapping {
         FileReader reader = new FileReader(dayfilePAth);
         Scanner scanner = new Scanner(reader);
 
-        ArrayList<ArrayList<String>> points=new ArrayList<>();
-        String line="";
+        ArrayList<ArrayList<String>> points = new ArrayList<>();
+        String line = "";
         while (scanner.hasNextLine()) {
-                ArrayList<String> point = new ArrayList<>();
-              line = scanner.nextLine();
-                String[] split = line.split(";");
-                point.add(split[col1]);
-                point.add(split[col2]);
-                points.add(point);
+            ArrayList<String> point = new ArrayList<>();
+            line = scanner.nextLine();
+            String[] split = line.split(";");
+            point.add(split[col1]);
+            point.add(split[col2]);
+            points.add(point);
         }
         return points;
     }

@@ -9,7 +9,6 @@ import com.amin.pojos.LatLon;
 import com.amin.ui.SceneJson;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.dialogs.SnackBar;
-import com.amin.ui.map.LatLongFXMLController;
 import com.amin.ui.scripts.ScriptAPP;
 import com.jfoenix.controls.*;
 import javafx.application.Platform;
@@ -55,13 +54,9 @@ public class otherFieldController implements Initializable {
     public JFXComboBox dayofMonthCombo;
     public JFXCheckBox z00;
     public JFXTabPane jfxtab;
-
+    public FormInfo formInfo;
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
-
-    public FormInfo formInfo;
-
-
     @FXML
     private RangeSlider hSlider;
 
@@ -277,7 +272,7 @@ public class otherFieldController implements Initializable {
                         final double v = ScriptAPP.scripting2(function);
                         return v;
                     });
-                    SnackBar.showSnack(vvv, String.format("%.4f %s",nearst,formInfo.getFeatureUnit()),4323);
+                    SnackBar.showSnack(vvv, String.format("%.4f %s", nearst, formInfo.getFeatureUnit()), 4323);
 
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -311,7 +306,7 @@ public class otherFieldController implements Initializable {
     }
 
     private boolean isReadyToFire(FormInfo formInfo) {
-        if (formInfo.getFeatureUnit() == null || formInfo.getFeaureName() == null || formInfo.getLowerYear() == null || formInfo.getHighYear() == null || formInfo.getDate() == null  || formInfo.getHeight() == null) {
+        if (formInfo.getFeatureUnit() == null || formInfo.getFeaureName() == null || formInfo.getLowerYear() == null || formInfo.getHighYear() == null || formInfo.getDate() == null || formInfo.getHeight() == null) {
             Gobtn.setDisable(true);
             return false;
         } else

@@ -36,12 +36,13 @@ import static com.amin.ui.main.main.Run.intrapolateFeature;
  */
 public class Wind implements Function {
     private static Wind ourInstance = new Wind();
+    private ArrayList<Object> allfeatureAndYear = new ArrayList<>();
+
+    private Wind() {
+    }
 
     public static Wind getInstance() {
         return ourInstance;
-    }
-
-    private Wind() {
     }
 
     @Override
@@ -60,25 +61,25 @@ public class Wind implements Function {
                 @Override
                 public ArrayList<ArrayList<Double>> filterAndDo(String dataFilePath, int... cols) throws IOException {
                     ArrayList<ArrayList<Double>> arrayLists = new ArrayList<>();
-                        final ArrayList<ArrayList<String>> col1Col2 = Mapping.LatLong.getColsData(dataFilePath, ";", 1, 6, 7);
-                        for (int j = 2; j < col1Col2.size() - 1; j++) {
-                            if (!col1Col2.get(j).get(0).equals("NULL") && !col1Col2.get(j).get(1).equals("NULL")) {
-                                ArrayList<Double> doubleArrayList = new ArrayList<>(2);
-                                double v0 = Double.parseDouble(col1Col2.get(j).get(0));
-                                double degAngle = Double.parseDouble(col1Col2.get(j).get(1));
-                                double SKN = Double.parseDouble(col1Col2.get(j).get(2));
-                                double newsci = SKN * Math.cos(Math.toRadians(degAngle));
-                                doubleArrayList.add(v0);
-                                doubleArrayList.add(newsci);
-                                arrayLists.add(doubleArrayList);
-                            }
+                    final ArrayList<ArrayList<String>> col1Col2 = Mapping.LatLong.getColsData(dataFilePath, ";", 1, 6, 7);
+                    for (int j = 2; j < col1Col2.size() - 1; j++) {
+                        if (!col1Col2.get(j).get(0).equals("NULL") && !col1Col2.get(j).get(1).equals("NULL")) {
+                            ArrayList<Double> doubleArrayList = new ArrayList<>(2);
+                            double v0 = Double.parseDouble(col1Col2.get(j).get(0));
+                            double degAngle = Double.parseDouble(col1Col2.get(j).get(1));
+                            double SKN = Double.parseDouble(col1Col2.get(j).get(2));
+                            double newsci = SKN * Math.cos(Math.toRadians(degAngle));
+                            doubleArrayList.add(v0);
+                            doubleArrayList.add(newsci);
+                            arrayLists.add(doubleArrayList);
                         }
+                    }
                     return arrayLists;
                 }
 
                 @Override
                 public double maxValue(ArrayList<Double> doubles) {
-                    return   MathTerminology.max(doubles);
+                    return MathTerminology.max(doubles);
                 }
 
                 @Override
@@ -97,10 +98,6 @@ public class Wind implements Function {
         }
 
     }
-
-
-    private ArrayList<Object> allfeatureAndYear = new ArrayList<>();
-
 
     private void showChartAndAna(FormInfo formInfo, Do aDo) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         if (!allfeatureAndYear.isEmpty()) allfeatureAndYear.clear();
@@ -171,8 +168,7 @@ public class Wind implements Function {
 
                         featureAndYear.add(unit);
                         allfeatureAndYear.add(featureAndYear);
-                    }
-                    else {
+                    } else {
                         allfeatureAndYear.add(null);
                     }
 
@@ -193,7 +189,7 @@ public class Wind implements Function {
         try {
             System.out.println(new Gson().toJson(knotslist));
 
-            Charting charting2 = new Charting(yearsofFeature.get(0)-1, yearsofFeature.get(yearsofFeature.size()-1)+1, 1,
+            Charting charting2 = new Charting(yearsofFeature.get(0) - 1, yearsofFeature.get(yearsofFeature.size() - 1) + 1, 1,
                     Math.floor(aDo.minValue(knotslist)), Math.ceil(aDo.maxValue(knotslist)), ytickUnit, "years", featureName + "(" + unit + ")", Charting.LINE_CHART);
             charting2.interpolateChart("interpolate years for " + featureName + " in " + heightDesire + " m",
                     "interpolate", knotslist, yearsofFeature, "avg line val is on ", unit);

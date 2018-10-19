@@ -24,19 +24,14 @@ import java.util.ArrayList;
 public class Charting {
     public static String LINE_CHART = "line";
     public static String SCATTER_CHART = "ScatterChart";
+    private XYChart<Number, Number> sc;
+    private Method method;
+    private ArrayList<ArrayList<Double>> arrayListArrayList;
+    private ArrayList<ArrayList<String>> windSpeedCol;
 
     public Charting() {
     }
 
-    public XYChart<Number, Number> getSc() {
-        return sc;
-    }
-
-    public void setSc(XYChart<Number, Number> sc) {
-        this.sc = sc;
-    }
-
-    private XYChart<Number, Number> sc;
 
     public Charting(double XlowerBound, double XupperBound, double XtickUnit,
                     double YlowerBound, double YupperBound, double YtickUnit,
@@ -56,6 +51,27 @@ public class Charting {
     }
 
 
+    public Charting(String featurename, String unitname) {
+        arrayListArrayList = new ArrayList<>();
+        windSpeedCol = new ArrayList<>();
+        int cti = convertTogether(featurename, unitname);
+
+        try {
+            method = Charting.class.getMethod("conv" + cti, double.class);
+        } catch (NoSuchMethodException e) {
+            Dialog.createExceptionDialog(e);
+        }
+
+    }
+
+    public XYChart<Number, Number> getSc() {
+        return sc;
+    }
+
+    public void setSc(XYChart<Number, Number> sc) {
+        this.sc = sc;
+    }
+
     public ArrayList<ArrayList<String>> addSeriesToChart(String title, String seriesName, String dayfilePath, int col1, int col2) throws IOException {
         sc.setTitle(title);
         XYChart.Series series1 = new XYChart.Series();
@@ -72,11 +88,8 @@ public class Charting {
         return windSpeedCol;
     }
 
-
     public ArrayList<ArrayList<Double>> addSeriesToChart(String title, String seriesName, String dayfilePath, int col1, int col2
-            , String featurename, String unitname) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException
-
-    {
+            , String featurename, String unitname) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         ArrayList<ArrayList<Double>> arrayListArrayList = new ArrayList<>();
         int cti = convertTogether(featurename, unitname);
         Method method;
@@ -103,7 +116,6 @@ public class Charting {
         return arrayListArrayList;
     }
 
-
     public void addSeriesToChart(ArrayList<ArrayList<Double>> doublescol1col2, String title, String seriesName,
                                  String featurename, String unitname)
             throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
@@ -113,33 +125,14 @@ public class Charting {
         sc.setTitle(title);
         XYChart.Series series1 = new XYChart.Series();
         series1.setName(seriesName);
-        for (int j = 0; j < doublescol1col2.size() ; j++) {
-                double v0 = (doublescol1col2.get(j).get(0));
-                double v1 = (doublescol1col2.get(j).get(1));
-                Double invokeDouble = ((Double) method.invoke(this, v1));
-                series1.getData().add(new XYChart.Data(v0, invokeDouble));
+        for (int j = 0; j < doublescol1col2.size(); j++) {
+            double v0 = (doublescol1col2.get(j).get(0));
+            double v1 = (doublescol1col2.get(j).get(1));
+            Double invokeDouble = ((Double) method.invoke(this, v1));
+            series1.getData().add(new XYChart.Data(v0, invokeDouble));
         }
         sc.getData().addAll(series1);
     }
-
-
-    public Charting(String featurename, String unitname) {
-        arrayListArrayList = new ArrayList<>();
-        windSpeedCol = new ArrayList<>();
-        int cti = convertTogether(featurename, unitname);
-
-        try {
-            method = Charting.class.getMethod("conv" + cti, double.class);
-        } catch (NoSuchMethodException e) {
-            Dialog.createExceptionDialog(e);
-        }
-
-    }
-
-    private Method method;
-    private ArrayList<ArrayList<Double>> arrayListArrayList;
-
-    private ArrayList<ArrayList<String>> windSpeedCol;
 
     public ArrayList<ArrayList<Double>> getcol1col2daydata(String dayfilePath, int col1, int col2) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         arrayListArrayList.clear();
@@ -149,14 +142,14 @@ public class Charting {
         for (int j = 2; j < windSpeedCol.size() - 1; j++) {
             if (!windSpeedCol.get(j).get(0).equals("NULL") && !windSpeedCol.get(j).get(1).equals("NULL")) {
                 try {
-                    ArrayList<Double> doubleArrayList=new ArrayList<>(2);
+                    ArrayList<Double> doubleArrayList = new ArrayList<>(2);
                     double v0 = Double.parseDouble(windSpeedCol.get(j).get(0));
                     double v1 = Double.parseDouble(windSpeedCol.get(j).get(1));
                     Double invokeDouble = ((Double) method.invoke(this, v1));
                     doubleArrayList.add(v0);
                     doubleArrayList.add(invokeDouble);
                     arrayListArrayList.add(doubleArrayList);
-                }catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     System.out.println(dayfilePath);
                 }
 
@@ -164,15 +157,6 @@ public class Charting {
         }
         return arrayListArrayList;
     }
-
-
-
-
-
-
-
-
-
 
 
     public int convertTogether(String featurename, String unitname) {
@@ -437,7 +421,7 @@ public class Charting {
             sum += knots.get(i);
         }
         int size = knots.size();
-        System.out.println("size of "+size);
+        System.out.println("size of " + size);
         double avgknots = sum / size;
         avgseries.setName(avgseriname + String.format("%.4f ", avgknots) + unit);
         for (int i = 0; i < knots.size(); i++) {

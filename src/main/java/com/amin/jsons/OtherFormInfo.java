@@ -14,10 +14,10 @@ import java.util.ArrayList;
 @Accessors(chain = true)
 public class OtherFormInfo {
     public Date Date;
-    private String feaureName;
     public ArrayList<String> StationNumbersList;
     public ArrayList<String> StationNamesList;
     public String Country;
+    private String feaureName;
     private String height;
     private String lowHeightRange;
     private String highHeightRange;

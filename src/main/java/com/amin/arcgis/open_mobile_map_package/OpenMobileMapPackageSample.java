@@ -35,67 +35,74 @@ import java.io.File;
 
 public class OpenMobileMapPackageSample extends Application {
 
-  private MapView mapView;
+    private MapView mapView;
 
-  @Override
-  public void start(Stage stage) {
+    /**
+     * Opens and runs application.
+     *
+     * @param args arguments passed to this application
+     */
+    public static void main(String[] args) {
 
-    try {
-      // create stack pane and application scene
-      StackPane stackPane = new StackPane();
-      Scene scene = new Scene(stackPane);
-
-      // set title, size, and add scene to stage
-      stage.setTitle("Open Mobile Map Package Sample");
-      stage.setWidth(800);
-      stage.setHeight(700);
-      stage.setScene(scene);
-      stage.show();
-
-      // create a map view
-      mapView = new MapView();
-
-      //load a mobile map package
-        final String mmpkPath = new File("samples-data/mmpk/Yellowstone.mmpk").getAbsolutePath();
-      MobileMapPackage mobileMapPackage = new MobileMapPackage(mmpkPath);
-
-      mobileMapPackage.loadAsync();
-      mobileMapPackage.addDoneLoadingListener(() -> {
-        if (mobileMapPackage.getLoadStatus() == LoadStatus.LOADED && mobileMapPackage.getMaps().size() > 0) {
-          //add the map from the mobile map package to the map view
-          mapView.setMap(mobileMapPackage.getMaps().get(0));
-        } else {
-          Alert alert = new Alert(Alert.AlertType.ERROR, "Failed to load the mobile map package");
-          alert.show();
-        }
-      });
-
-
-        // click event to display the callout with the formatted coordinates of the clicked location
-        mapView.setOnMouseClicked(e -> {
-            // check that the primary mouse button was clicked and user is not panning
-            if (e.isStillSincePress() && e.getButton() == MouseButton.PRIMARY) {
-                // get the map point where the user clicked
-                Point2D point = new Point2D(e.getX(), e.getY());
-                Point mapPoint = mapView.screenToLocation(point);
-                // show the callout at the point with the different coordinate format strings
-                showCalloutWithLocationCoordinates(mapPoint);
-            }
-        });
-
-        // add the map view to stack pane
-      stackPane.getChildren().add(mapView);
-    } catch (Exception e) {
-      // on any error, display the stack trace.
-      e.printStackTrace();
+        Application.launch(args);
     }
-  }
 
 
 //todo RUNTIMELOCALSERVER_100_3=...
 
+    @Override
+    public void start(Stage stage) {
+
+        try {
+            // create stack pane and application scene
+            StackPane stackPane = new StackPane();
+            Scene scene = new Scene(stackPane);
+
+            // set title, size, and add scene to stage
+            stage.setTitle("Open Mobile Map Package Sample");
+            stage.setWidth(800);
+            stage.setHeight(700);
+            stage.setScene(scene);
+            stage.show();
+
+            // create a map view
+            mapView = new MapView();
+
+            //load a mobile map package
+            final String mmpkPath = new File("samples-data/mmpk/Yellowstone.mmpk").getAbsolutePath();
+            MobileMapPackage mobileMapPackage = new MobileMapPackage(mmpkPath);
+
+            mobileMapPackage.loadAsync();
+            mobileMapPackage.addDoneLoadingListener(() -> {
+                if (mobileMapPackage.getLoadStatus() == LoadStatus.LOADED && mobileMapPackage.getMaps().size() > 0) {
+                    //add the map from the mobile map package to the map view
+                    mapView.setMap(mobileMapPackage.getMaps().get(0));
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Failed to load the mobile map package");
+                    alert.show();
+                }
+            });
 
 
+            // click event to display the callout with the formatted coordinates of the clicked location
+            mapView.setOnMouseClicked(e -> {
+                // check that the primary mouse button was clicked and user is not panning
+                if (e.isStillSincePress() && e.getButton() == MouseButton.PRIMARY) {
+                    // get the map point where the user clicked
+                    Point2D point = new Point2D(e.getX(), e.getY());
+                    Point mapPoint = mapView.screenToLocation(point);
+                    // show the callout at the point with the different coordinate format strings
+                    showCalloutWithLocationCoordinates(mapPoint);
+                }
+            });
+
+            // add the map view to stack pane
+            stackPane.getChildren().add(mapView);
+        } catch (Exception e) {
+            // on any error, display the stack trace.
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Shows a callout at the specified location with different coordinate formats in the callout.
@@ -122,24 +129,14 @@ public class OpenMobileMapPackageSample extends Application {
     }
 
     /**
-   * Stops and releases all resources used in application.
-   */
-  @Override
-  public void stop() {
+     * Stops and releases all resources used in application.
+     */
+    @Override
+    public void stop() {
 
-    if (mapView != null) {
-      mapView.dispose();
+        if (mapView != null) {
+            mapView.dispose();
+        }
     }
-  }
-
-  /**
-   * Opens and runs application.
-   *
-   * @param args arguments passed to this application
-   */
-  public static void main(String[] args) {
-
-    Application.launch(args);
-  }
 
 }

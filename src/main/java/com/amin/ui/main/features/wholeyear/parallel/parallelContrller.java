@@ -50,25 +50,21 @@ public class parallelContrller implements Initializable {
     public ProgressIndicator progressbar;
 
     public GridPane rootNode;
-
-    @FXML
-    private JFXComboBox<Label> stationsCombo;
-    @FXML
-    private JFXComboBox<Label> countriesCombo;
     public JFXButton cancelBtn;
     public JFXButton Gobtn;
-
     public TextField height;
     public VBox vvv;
     public JFXComboBox monthCombo;
     public JFXComboBox dayofMonthCombo;
     public JFXCheckBox z00;
     public JFXTabPane jfxtab;
-
+    public OtherFormInfo formInfo;
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
-
-    public OtherFormInfo formInfo;
+    @FXML
+    private JFXComboBox<Label> stationsCombo;
+    @FXML
+    private JFXComboBox<Label> countriesCombo;
     private Map<String, String> stationNumTOCities;
 
     @FXML
@@ -89,11 +85,6 @@ public class parallelContrller implements Initializable {
                 formInfo.setDirTOSave(kasriDate.getAbsolutePath());
             }
         });
-
-
-
-
-
 
 
         String[] featursName = {"PRES", "HGHT", "TEMP", "DWPT", "RELH", "MIXR", "DRCT", Features.SKNT.getName(), "THTA", "THTE", "THTV"};
@@ -194,8 +185,6 @@ public class parallelContrller implements Initializable {
         });
 
 
-
-
         lowYearjfxslider.valueProperty().addListener((observable, oldValue, newValue) -> {
             int a = (int) Math.round((Double) newValue);
             formInfo.setLowerYear(a);
@@ -214,9 +203,9 @@ public class parallelContrller implements Initializable {
         });
 
 
-        GridPane.setMargin(monthCombo,new Insets(0,0,30,0));
+        GridPane.setMargin(monthCombo, new Insets(0, 0, 30, 0));
 
-        ArrayList<String> persianMonths=new ArrayList<String>( Arrays.asList("فروردین", "اردیبهشت", "خرداد","تیر","مرداد","شهریور","مهر","ابان","اذر","دی","بهمن","اسفند"));
+        ArrayList<String> persianMonths = new ArrayList<String>(Arrays.asList("فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "ابان", "اذر", "دی", "بهمن", "اسفند"));
         Map<String, Integer> persianMapMonth = new HashMap<>();
 
         for (int j = 0; j < persianMonths.size(); j++) {
@@ -225,12 +214,11 @@ public class parallelContrller implements Initializable {
         }
 
 
-
         monthCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             dayofMonthCombo.getItems().clear();
-            int[] days={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
+            int[] days = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
             for (int i = 1; i <= 31; i++) {
-                    dayofMonthCombo.getItems().add(new Label(String.valueOf(i)));
+                dayofMonthCombo.getItems().add(new Label(String.valueOf(i)));
             }
 
 
@@ -246,12 +234,12 @@ public class parallelContrller implements Initializable {
                     persianCalendarCalendarPicker.valueProperty().setValue(PersianCalendar.of(1372, intmonth, (Integer.parseInt(((Label) newValue).getText()))));
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
-                }catch (IllegalArgumentException ex){
+                } catch (IllegalArgumentException ex) {
                     Dialog.createExceptionDialog(ex);
                 }
 //                System.out.println(persianCalendarCalendarPicker.valueProperty().getValue().getMonth());
-            PersianCalendar persianCalendar = persianCalendarCalendarPicker.valueProperty().getValue();
-            PlainDate plainDate = persianCalendar.transform(PlainDate.class);
+                PersianCalendar persianCalendar = persianCalendarCalendarPicker.valueProperty().getValue();
+                PlainDate plainDate = persianCalendar.transform(PlainDate.class);
                 System.out.println(String.format("%s-%s-%s", plainDate.getDayOfMonth(), plainDate.getMonth(), plainDate.getYear()));
             }
 
@@ -284,7 +272,6 @@ public class parallelContrller implements Initializable {
 
                 stationNumTOCities = Mapping.
                         MapStationNumTOCities("config/old-stations/" + newValue.getText() + ".conf.csv");
-
 
 
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
@@ -320,12 +307,12 @@ public class parallelContrller implements Initializable {
 
         });
         cancelBtn.setOnKeyPressed(event -> {
-            if(event.getCode()==KeyCode.ENTER)
+            if (event.getCode() == KeyCode.ENTER)
                 cancelBtn.getOnAction().handle(null);
         });
 
         Gobtn.setOnKeyPressed(event -> {
-            if(event.getCode()==KeyCode.ENTER)
+            if (event.getCode() == KeyCode.ENTER)
                 Gobtn.getOnAction().handle(null);
         });
         formInfo.setDirTOSave(System.getProperty("user.home") + "/Desktop/data");
@@ -353,7 +340,7 @@ public class parallelContrller implements Initializable {
                     System.out.println(toJson);
                     System.out.println(proxy);
 
-                    String command = String.format(s, proxy, "1", "2","_1");
+                    String command = String.format(s, proxy, "1", "2", "_1");
                     try {
                         CMD.run(command);
                         System.out.println("finished");
@@ -379,7 +366,7 @@ public class parallelContrller implements Initializable {
                     System.out.println(toJson);
                     System.out.println(proxy);
 
-                    String command = String.format(s, proxy, "3", "4","_2");
+                    String command = String.format(s, proxy, "3", "4", "_2");
                     try {
                         CMD.run(command);
                         System.out.println("finished");
@@ -405,7 +392,7 @@ public class parallelContrller implements Initializable {
                     System.out.println(toJson);
                     System.out.println(proxy);
 
-                    String command = String.format(s, proxy, "5", "6","_3");
+                    String command = String.format(s, proxy, "5", "6", "_3");
                     try {
                         CMD.run(command);
                         System.out.println("finished");
@@ -431,7 +418,7 @@ public class parallelContrller implements Initializable {
                     System.out.println(toJson);
                     System.out.println(proxy);
 
-                    String command = String.format(s, proxy, "7", "8","_4");
+                    String command = String.format(s, proxy, "7", "8", "_4");
                     try {
                         CMD.run(command);
                         System.out.println("finished");
@@ -457,7 +444,7 @@ public class parallelContrller implements Initializable {
                     System.out.println(toJson);
                     System.out.println(proxy);
 
-                    String command = String.format(s, proxy, "9", "10","_5");
+                    String command = String.format(s, proxy, "9", "10", "_5");
                     try {
                         CMD.run(command);
                         System.out.println("finished");
@@ -482,7 +469,7 @@ public class parallelContrller implements Initializable {
                     System.out.println(toJson);
                     System.out.println(proxy);
 
-                    String command = String.format(s, proxy, "11", "12","_6");
+                    String command = String.format(s, proxy, "11", "12", "_6");
                     try {
                         CMD.run(command);
                         System.out.println("finished");
@@ -600,7 +587,7 @@ public class parallelContrller implements Initializable {
 
                     }, StandardWatchEventKinds.ENTRY_MODIFY);
                 }).start();
-        }
+            }
 
         });
 
@@ -615,7 +602,6 @@ public class parallelContrller implements Initializable {
         });
 
 
-
         hSlider.lowValueProperty().addListener((observable, oldValue, newValue) -> {
             height.textProperty().setValue(String.valueOf(Math.round(newValue.doubleValue())));
         });
@@ -626,12 +612,7 @@ public class parallelContrller implements Initializable {
         });
 
 
-
     }
-
-
-
-
 
 
     private boolean isReadyToFire(OtherFormInfo formInfo) {
@@ -641,8 +622,6 @@ public class parallelContrller implements Initializable {
         } else
             return true;
     }
-
-
 
 
 }

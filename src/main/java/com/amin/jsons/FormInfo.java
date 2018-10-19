@@ -22,7 +22,7 @@ public class FormInfo {
     public FormInfo() {
     }
 
-    public FormInfo(com.amin.jsons.Date date, String feaureName, String stationNumber, String stationName, String country, String height,  Number lowerYear, Number highYear, String featureUnit) {
+    public FormInfo(com.amin.jsons.Date date, String feaureName, String stationNumber, String stationName, String country, String height, Number lowerYear, Number highYear, String featureUnit) {
         Date = date;
         this.feaureName = feaureName;
         StationNumber = stationNumber;

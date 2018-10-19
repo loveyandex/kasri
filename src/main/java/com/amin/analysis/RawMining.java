@@ -9,10 +9,10 @@ import java.util.regex.Pattern;
  * is created by aMIN on 3/3/2018 at 06:53 PM
  */
 public class RawMining implements Runnable {
-    private String fileName;
     Scanner scanner;
     StringBuilder item1 = new StringBuilder("");
     StringBuilder item2 = new StringBuilder("");
+    private String fileName;
     private String dirpath;
 
 
@@ -22,6 +22,33 @@ public class RawMining implements Runnable {
         FileReader reader = null;
         reader = new FileReader(Dirpath + File.separator + fileName);
         scanner = new Scanner(reader);
+    }
+
+    public static boolean writeInFileInOnce(String pathDirToSave, String childFileName, StringBuilder stringBuilder, boolean closIt) throws IOException {
+        File dir = new File(pathDirToSave);
+        dir.mkdirs();
+        File fileTosave = new File(dir, childFileName);
+        System.out.println("saved in " + fileTosave.getPath());
+        fileTosave.createNewFile();
+        OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(fileTosave, false));
+        writer.write(stringBuilder.toString());
+        writer.flush();
+        if (closIt)
+            writer.close();
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+        try {
+            new RawMining("G:\\armenia\\year_1981\\month_2",
+                    "37789.data").readAndWriteFile("G:\\gg5");
+            ;
+        } catch (FileNotFoundException e) {
+            System.out.println("god is great aminabvaal");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void readAndWriteFile(String RootpathDirToSave) throws IOException {
@@ -66,21 +93,6 @@ public class RawMining implements Runnable {
         }
     }
 
-    public static boolean writeInFileInOnce(String pathDirToSave, String childFileName, StringBuilder stringBuilder, boolean closIt) throws IOException {
-        File dir = new File(pathDirToSave);
-        dir.mkdirs();
-        File fileTosave = new File(dir, childFileName);
-        System.out.println("saved in "+fileTosave.getPath());
-        fileTosave.createNewFile();
-        OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(fileTosave, false));
-        writer.write(stringBuilder.toString());
-        writer.flush();
-        if (closIt)
-            writer.close();
-        return true;
-    }
-
-
     private boolean isItem(String line, String item) {
         return line.contains(item);
     }
@@ -106,21 +118,6 @@ public class RawMining implements Runnable {
 
         return zone + "_" + date.replace(" ", " _");
     }
-
-
-    public static void main(String[] args) {
-
-        try {
-            new RawMining("G:\\armenia\\year_1981\\month_2",
-                    "37789.data").readAndWriteFile("G:\\gg5");
-            ;
-        } catch (FileNotFoundException e) {
-            System.out.println("god is great aminabvaal");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     @Override
     public void run() {

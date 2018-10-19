@@ -7,11 +7,15 @@ import javax.measure.unit.*;
  * is created by aMIN on 19/07/2018 at 04:17 PM
  */
 public enum UnitConvertor {
-;
+    ;
 
     public enum PRES {
         units(SI.PASCAL, NonSI.ATMOSPHERE, NonSI.BAR, NonSI.MILLIMETER_OF_MERCURY);
 
+        private final AlternateUnit<Pressure> pascal;
+        private final Unit<Pressure> atmosphere;
+        private final Unit<Pressure> bar;
+        private final Unit<Pressure> millimeterOfMercury;
         PRES(AlternateUnit<Pressure> pascal, Unit<Pressure> atmosphere,
              Unit<Pressure> bar, Unit<Pressure> millimeterOfMercury) {
             this.pascal = pascal;
@@ -19,11 +23,6 @@ public enum UnitConvertor {
             this.bar = bar;
             this.millimeterOfMercury = millimeterOfMercury;
         }
-
-        private final AlternateUnit<Pressure> pascal;
-        private final Unit<Pressure> atmosphere;
-        private final Unit<Pressure> bar;
-        private final Unit<Pressure> millimeterOfMercury;
 
         public AlternateUnit<Pressure> getPascal() {
             return pascal;
@@ -47,6 +46,11 @@ public enum UnitConvertor {
         units(SI.METER, NonSI.FOOT, NonSI.MILE, NonSI.YARD, NonSI.INCH);
 
 
+        private final Unit<Length> meter;
+        private final Unit<Length> foot;
+        private final Unit<Length> mile;
+        private final Unit<Length> yard;
+        private final Unit<Length> inch;
         HGHT(Unit<Length> meter, Unit<Length> foot, Unit<Length> mile, Unit<Length> yard, Unit<Length> inch) {
             this.meter = meter;
             this.foot = foot;
@@ -54,12 +58,6 @@ public enum UnitConvertor {
             this.yard = yard;
             this.inch = inch;
         }
-
-        private final Unit<Length> meter;
-        private final Unit<Length> foot;
-        private final Unit<Length> mile;
-        private final Unit<Length> yard;
-        private final Unit<Length> inch;
 
         public Unit<Length> getMeter() {
             return meter;
@@ -93,6 +91,13 @@ public enum UnitConvertor {
         private final Unit<Temperature> fahrenheit;
         private final Unit<Temperature> rankine;
 
+        TEMP(Unit<Temperature> celsius, BaseUnit<Temperature> kelvin, Unit<Temperature> fahrenheit, Unit<Temperature> rankine) {
+            this.celsius = celsius;
+            this.kelvin = kelvin;
+            this.fahrenheit = fahrenheit;
+            this.rankine = rankine;
+        }
+
         public Unit<Temperature> getCelsius() {
             return celsius;
         }
@@ -108,18 +113,11 @@ public enum UnitConvertor {
         public Unit<Temperature> getRankine() {
             return rankine;
         }
-
-        TEMP(Unit<Temperature> celsius, BaseUnit<Temperature> kelvin, Unit<Temperature> fahrenheit, Unit<Temperature> rankine) {
-            this.celsius = celsius;
-            this.kelvin = kelvin;
-            this.fahrenheit = fahrenheit;
-            this.rankine = rankine;
-        }
     }
 
-    public enum DRCT{
+    public enum DRCT {
 
-        units(SI.RADIAN,NonSI.DEGREE_ANGLE,NonSI.GRADE,NonSI.MINUTE_ANGLE,NonSI.SECOND_ANGLE,NonSI.REVOLUTION
+        units(SI.RADIAN, NonSI.DEGREE_ANGLE, NonSI.GRADE, NonSI.MINUTE_ANGLE, NonSI.SECOND_ANGLE, NonSI.REVOLUTION
         );
 
         private final AlternateUnit<Angle> radian;
@@ -127,6 +125,17 @@ public enum UnitConvertor {
         private final Unit<Angle> grade;
         private final Unit<Angle> minuteAngle;
         private final Unit<Angle> secondAngle;
+        private final Unit<Angle> revolution;
+
+        DRCT(AlternateUnit<Angle> radian, Unit<Angle> degreeAngle, Unit<Angle> grade, Unit<Angle> minuteAngle, Unit<Angle> secondAngle, Unit<Angle> revolution) {
+
+            this.radian = radian;
+            this.degreeAngle = degreeAngle;
+            this.grade = grade;
+            this.minuteAngle = minuteAngle;
+            this.secondAngle = secondAngle;
+            this.revolution = revolution;
+        }
 
         public AlternateUnit<Angle> getRadian() {
             return radian;
@@ -151,27 +160,24 @@ public enum UnitConvertor {
         public Unit<Angle> getRevolution() {
             return revolution;
         }
-
-        private final Unit<Angle> revolution;
-
-        DRCT(AlternateUnit<Angle> radian, Unit<Angle> degreeAngle, Unit<Angle> grade, Unit<Angle> minuteAngle, Unit<Angle> secondAngle, Unit<Angle> revolution) {
-
-            this.radian = radian;
-            this.degreeAngle = degreeAngle;
-            this.grade = grade;
-            this.minuteAngle = minuteAngle;
-            this.secondAngle = secondAngle;
-            this.revolution = revolution;
-        }
     }
 
-    public enum SPEED{
-        units(SI.METERS_PER_SECOND,NonSI.KNOT,NonSI.KILOMETRES_PER_HOUR,NonSI.MACH, NonSI.MILES_PER_HOUR);
+    public enum SPEED {
+        units(SI.METERS_PER_SECOND, NonSI.KNOT, NonSI.KILOMETRES_PER_HOUR, NonSI.MACH, NonSI.MILES_PER_HOUR);
 
         private final Unit<Velocity> metersPerSecond;
         private final Unit<Velocity> knot;
         private final Unit<Velocity> kilometresPerHour;
         private final Unit<Velocity> mach;
+        private final Unit<Velocity> milesPerHour;
+
+        SPEED(Unit<Velocity> metersPerSecond, Unit<Velocity> knot, Unit<Velocity> kilometresPerHour, Unit<Velocity> mach, Unit<Velocity> milesPerHour) {
+            this.metersPerSecond = metersPerSecond;
+            this.knot = knot;
+            this.kilometresPerHour = kilometresPerHour;
+            this.mach = mach;
+            this.milesPerHour = milesPerHour;
+        }
 
         public Unit<Velocity> getMetersPerSecond() {
             return metersPerSecond;
@@ -191,16 +197,6 @@ public enum UnitConvertor {
 
         public Unit<Velocity> getMilesPerHour() {
             return milesPerHour;
-        }
-
-        private final Unit<Velocity> milesPerHour;
-
-        SPEED(Unit<Velocity> metersPerSecond, Unit<Velocity> knot, Unit<Velocity> kilometresPerHour, Unit<Velocity> mach, Unit<Velocity> milesPerHour) {
-            this.metersPerSecond = metersPerSecond;
-            this.knot = knot;
-            this.kilometresPerHour = kilometresPerHour;
-            this.mach = mach;
-            this.milesPerHour = milesPerHour;
         }
     }
 

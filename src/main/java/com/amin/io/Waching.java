@@ -1,6 +1,5 @@
 package com.amin.io;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 
@@ -59,10 +58,6 @@ public class Waching {
 //                System.out.println("god is changing");
 //
 //        }, StandardWatchEventKinds.ENTRY_DELETE);
-
-
-
-
 
 
     }

@@ -79,7 +79,7 @@ public class StatisticalController implements Initializable, Runnable {
             doubles.add((Double) objects.get(0));
         });
 
-        Vec vec=new Vec() {
+        Vec vec = new Vec() {
             @Override
             public int length() {
                 return doubles.size();
@@ -94,7 +94,7 @@ public class StatisticalController implements Initializable, Runnable {
             @Override
             public void set(int i, double v) {
                 doubles.remove(i);
-                doubles.add(i,v);
+                doubles.add(i, v);
             }
 
             @Override

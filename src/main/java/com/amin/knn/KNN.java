@@ -65,9 +65,10 @@ public class KNN {
 
 
     public static void main(String[] args) throws SQLException {
-        long start = System.nanoTime();;
+        long start = System.nanoTime();
+        ;
         final double lat1 = 31.883674;
-        final double long1 = 54.368775 ;
+        final double long1 = 54.368775;
 
         final double dle = Math.toDegrees(100 / (R * sin(Math.toRadians(90 - lat1))));
         System.out.println(dle);
@@ -90,7 +91,7 @@ public class KNN {
 //            System.out.println(lat1);
 //            System.out.print(long1);
             final double real_distance = real_distance(lat1, long1, Double.parseDouble(lati), Double.parseDouble(longi));
-            if (real_distance<10){
+            if (real_distance < 10) {
                 System.err.println(real_distance);
                 System.out.println(stacitinametion + "...." + lati + "  " + longi);
 
@@ -99,7 +100,7 @@ public class KNN {
 
         }
         long time = System.nanoTime() - start;
-        System.out.printf("Each XXXXX took an average of %f ms%n", time/1e6d);
+        System.out.printf("Each XXXXX took an average of %f ms%n", time / 1e6d);
 
 
     }
@@ -154,7 +155,7 @@ public class KNN {
 
         }
 
-        if (sum_distance!=0.0)
+        if (sum_distance != 0.0)
             return expection / sum_distance;
         else
             return -3000000000000000.0;
@@ -227,25 +228,6 @@ public class KNN {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //        for (int i = 0; i < 100; i++) {

@@ -7,10 +7,11 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 public class NotifyBot extends TelegramLongPollingBot {
 
+    private static NotifyBot notifyBot = new NotifyBot();
+
     public static NotifyBot getNotifyBot() {
         return notifyBot;
     }
-    private static NotifyBot notifyBot=new NotifyBot();
 
     @Override
     public void onUpdateReceived(Update update) {

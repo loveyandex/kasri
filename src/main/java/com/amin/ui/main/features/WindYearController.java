@@ -56,13 +56,18 @@ public class WindYearController implements Initializable {
     //    public JFXTextField height;
     public TextField height;
     public VBox vvv;
+    public FormInfo formInfo;
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
     private DatePicker datePicker;
-
-    public FormInfo formInfo;
     private Map<String, String> stationNumTOCities;
     private RangeSlider hSlider;
+
+    public static final LocalDate LOCAL_DATE(String dateString, String pattern) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        LocalDate localDate = LocalDate.parse(dateString, formatter);
+        return localDate;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -92,7 +97,8 @@ public class WindYearController implements Initializable {
         persianCalendarCalendarPicker.setShowInfoLabel(true);
         persianCalendarCalendarPicker.setLocale(new Locale("fa", "IR"));
         persianCalendarCalendarPicker.setShowWeeks(true);
-        persianCalendarCalendarPicker.setCellCustomizer((cell, column, row, model, date) -> {});
+        persianCalendarCalendarPicker.setCellCustomizer((cell, column, row, model, date) -> {
+        });
 
         persianCalendarCalendarPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 
@@ -184,12 +190,12 @@ public class WindYearController implements Initializable {
 
         });
         cancelBtn.setOnKeyPressed(event -> {
-            if(event.getCode()==KeyCode.ENTER)
+            if (event.getCode() == KeyCode.ENTER)
                 cancelBtn.getOnAction().handle(null);
         });
 
         Gobtn.setOnKeyPressed(event -> {
-            if(event.getCode()==KeyCode.ENTER)
+            if (event.getCode() == KeyCode.ENTER)
                 Gobtn.getOnAction().handle(null);
         });
 
@@ -256,48 +262,6 @@ public class WindYearController implements Initializable {
         });
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public static final LocalDate LOCAL_DATE(String dateString, String pattern) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        LocalDate localDate = LocalDate.parse(dateString, formatter);
-        return localDate;
-    }
-
     private boolean isReadyToFire(FormInfo formInfo) {
         if (formInfo.getDate() == null || formInfo.getStationNumber() == null || formInfo.getCountry() == null || formInfo.getHeight() == null) {
             Gobtn.setDisable(true);
@@ -305,8 +269,6 @@ public class WindYearController implements Initializable {
         } else
             return true;
     }
-
-
 
 
 }

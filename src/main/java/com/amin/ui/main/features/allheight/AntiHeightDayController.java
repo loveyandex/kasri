@@ -47,31 +47,53 @@ public class AntiHeightDayController implements Initializable {
     public HBox topOfgobtn;
     public JFXComboBox featuresCombo;
     public JFXComboBox unitsCombo;
-    private ArrayList<IOException> ioExceptions = new ArrayList<>();
-
     public GridPane rootNode;
-
-    @FXML
-    private JFXComboBox<Label> stationsCombo;
-    @FXML
-    private JFXComboBox<Label> countriesCombo;
     public JFXButton cancelBtn;
     public JFXButton Gobtn;
-
     public VBox vvv;
     public JFXComboBox monthCombo;
     public JFXComboBox dayofMonthCombo;
     public JFXCheckBox z00;
     public JFXTabPane jfxtab;
-
+    public FormInfo formInfo;
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
-
-    public FormInfo formInfo;
+    private ArrayList<IOException> ioExceptions = new ArrayList<>();
+    @FXML
+    private JFXComboBox<Label> stationsCombo;
+    @FXML
+    private JFXComboBox<Label> countriesCombo;
     private Map<String, String> stationNumTOCities;
 
 
     private ArrayList<ArrayList<ArrayList<Double>>> AllfeatureAndYear = new ArrayList<ArrayList<ArrayList<Double>>>();
+
+    public static Features getFeatures(String featureName) {
+        if (featureName.equals(Features.PRES.getName()))
+            return Features.PRES;
+        else if (featureName.equals(Features.HGHT.getName()))
+            return Features.HGHT;
+        else if (featureName.equals(Features.TEMP.getName()))
+            return Features.TEMP;
+        else if (featureName.equals(Features.DWPT.getName()))
+            return Features.DWPT;
+        else if (featureName.equals(Features.RELH.getName()))
+            return Features.RELH;
+        else if (featureName.equals(Features.MIXR.getName()))
+            return Features.MIXR;
+        else if (featureName.equals(Features.DRCT.getName()))
+            return Features.DRCT;
+        else if (featureName.equals(Features.SKNT.getName()))
+            return Features.SKNT;
+        else if (featureName.equals(Features.THTA.getName()))
+            return Features.THTA;
+        else if (featureName.equals(Features.THTE.getName()))
+            return Features.THTE;
+        else if (featureName.equals(Features.THTV.getName()))
+            return Features.THTV;
+        else
+            return null;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -348,7 +370,6 @@ public class AntiHeightDayController implements Initializable {
 
     }
 
-
     private void showChartAndAna() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         if (!AllfeatureAndYear.isEmpty()) AllfeatureAndYear.clear();
         int fromYear = formInfo.getLowerYear().intValue();
@@ -434,7 +455,6 @@ public class AntiHeightDayController implements Initializable {
         try {
 
 
-
             final VBox vbox = new VBox();
             vbox.setLayoutY(300);
             vbox.setLayoutX(400);
@@ -464,33 +484,6 @@ public class AntiHeightDayController implements Initializable {
     private Features getfeatureIndex(String featureName) {
         return getFeatures(featureName);
 
-    }
-
-    public static Features getFeatures(String featureName) {
-        if (featureName.equals(Features.PRES.getName()))
-            return Features.PRES;
-        else if (featureName.equals(Features.HGHT.getName()))
-            return Features.HGHT;
-        else if (featureName.equals(Features.TEMP.getName()))
-            return Features.TEMP;
-        else if (featureName.equals(Features.DWPT.getName()))
-            return Features.DWPT;
-        else if (featureName.equals(Features.RELH.getName()))
-            return Features.RELH;
-        else if (featureName.equals(Features.MIXR.getName()))
-            return Features.MIXR;
-        else if (featureName.equals(Features.DRCT.getName()))
-            return Features.DRCT;
-        else if (featureName.equals(Features.SKNT.getName()))
-            return Features.SKNT;
-        else if (featureName.equals(Features.THTA.getName()))
-            return Features.THTA;
-        else if (featureName.equals(Features.THTE.getName()))
-            return Features.THTE;
-        else if (featureName.equals(Features.THTV.getName()))
-            return Features.THTV;
-        else
-            return null;
     }
 
     private boolean isReadyToFire(FormInfo formInfo) {

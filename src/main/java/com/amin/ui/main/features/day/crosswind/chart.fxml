@@ -4,9 +4,9 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<VBox fx:id="rootme" fx:controller="com.amin.ui.main.features.day.crosswind.ChartController" prefHeight="400"
-      prefWidth="800"
-      xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx/2.2">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:id="rootme" fx:controller="com.amin.ui.main.features.day.crosswind.ChartController"
+      prefHeight="400"
+      prefWidth="800" xmlns="http://javafx.com/javafx/2.2">
 
     <MenuBar fx:id="menuBar" focusTraversable="true">
         <menus>

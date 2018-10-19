@@ -41,15 +41,11 @@ public class MainController implements Initializable {
     public JFXButton scriptbtn;
     public JFXButton mapbtn;
     public JFXButton maplessbtn;
-
-    @FXML
-    private VBox rootme;
-
-
     public MenuBar menuBar;
     public StackPane stackpane;
     public JFXButton acceptButton;
-
+    @FXML
+    private VBox rootme;
     @FXML
     private JFXDialog dialog;
 
@@ -71,23 +67,20 @@ public class MainController implements Initializable {
 
         });
         rootme.setOnKeyPressed(event -> {
-             if (event.getCode()== KeyCode.D &&  event.isControlDown()) {
-                 onday(null);
-             } else if (event.getCode() == KeyCode.M && event.isControlDown()) {
-                 onMap(null);
-             } else if (event.getCode() == KeyCode.S && event.isControlDown()) {
-                 openscript(null);
-             }else if (event.getCode() == KeyCode.L && event.isControlDown()) {
-                 try {
-                     onMapless(null);
-                 } catch (IOException e) {
-                     Dialog.createExceptionDialog(e);
-                 }
-             }
+            if (event.getCode() == KeyCode.D && event.isControlDown()) {
+                onday(null);
+            } else if (event.getCode() == KeyCode.M && event.isControlDown()) {
+                onMap(null);
+            } else if (event.getCode() == KeyCode.S && event.isControlDown()) {
+                openscript(null);
+            } else if (event.getCode() == KeyCode.L && event.isControlDown()) {
+                try {
+                    onMapless(null);
+                } catch (IOException e) {
+                    Dialog.createExceptionDialog(e);
+                }
+            }
         });
-
-
-
 
 
         acceptButton.setOnAction(action -> dialog.close());
@@ -114,7 +107,6 @@ public class MainController implements Initializable {
     }
 
 
-
     public void dayFeature(ActionEvent actionEvent) throws IOException, URISyntaxException {
         Stage stage = new StageOverride();
         stage.setResizable(true);
@@ -128,8 +120,8 @@ public class MainController implements Initializable {
 
 
     public void getDataFromInternet(ActionEvent actionEvent) {
-        Starter starter=new Starter();
-        Stage stage=new Stage();
+        Starter starter = new Starter();
+        Stage stage = new Stage();
         starter.start(stage);
     }
 
@@ -150,11 +142,11 @@ public class MainController implements Initializable {
         root.setStyle("-fx-padding: 30 30 30 30 ");
         SceneJson scene = new SceneJson<>(root);
         ArrayList<ArrayList> json = new ArrayList<>();
-        ArrayList<Object> kaArrayList=new ArrayList();
+        ArrayList<Object> kaArrayList = new ArrayList();
         for (int i = 0; i < 5; i++) {
             ArrayList e = new ArrayList();
-            e.add(23.32+i);
-            e.add(2016+i);
+            e.add(23.32 + i);
+            e.add(2016 + i);
             json.add(e);
         }
         scene.setJson(json);
@@ -221,8 +213,8 @@ public class MainController implements Initializable {
 
 
     public void ff(ActionEvent actionEvent) {
-        Platform.runLater(()->{
-            JFXTooltip jfxTooltip=new JFXTooltip("god is great kijng ",rootme);
+        Platform.runLater(() -> {
+            JFXTooltip jfxTooltip = new JFXTooltip("god is great kijng ", rootme);
             jfxTooltip.show(rootme.getScene().getWindow());
         });
 

@@ -58,7 +58,6 @@ public class SceneJson<T> extends Scene implements EventHandler<KeyEvent> {
     }
 
 
-
     public T getJson() {
         return json;
     }

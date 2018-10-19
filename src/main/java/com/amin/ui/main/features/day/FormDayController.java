@@ -42,33 +42,27 @@ public class FormDayController implements Initializable {
     public HBox topOfgobtn;
     public JFXComboBox featuresCombo;
     public JFXComboBox unitsCombo;
-    private ArrayList<IOException> ioExceptions = new ArrayList<>();
-
     public GridPane rootNode;
-
-    @FXML
-    private JFXComboBox<Label> stationsCombo;
-    @FXML
-    private JFXComboBox<Label> countriesCombo;
     public JFXButton cancelBtn;
     public JFXButton Gobtn;
-
     public TextField height;
     public VBox vvv;
     public JFXComboBox monthCombo;
     public JFXComboBox dayofMonthCombo;
     public JFXCheckBox z00;
     public JFXTabPane jfxtab;
-
+    public FormInfo formInfo;
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
-
-    public FormInfo formInfo;
+    private ArrayList<IOException> ioExceptions = new ArrayList<>();
+    @FXML
+    private JFXComboBox<Label> stationsCombo;
+    @FXML
+    private JFXComboBox<Label> countriesCombo;
     private Map<String, String> stationNumTOCities;
 
     @FXML
     private RangeSlider hSlider;
-
 
 
     @Override
@@ -106,7 +100,7 @@ public class FormDayController implements Initializable {
                 unitsCombo.getItems().add(new Label(units.getYard().toString()));
                 unitsCombo.getItems().add(new Label(units.getInch().toString()));
                 unitsCombo.valueProperty().setValue(unitsCombo.getItems().get(0));
-;
+                ;
             } else if (feaureName.equals(Features.TEMP.getName())
                     || feaureName.equals(Features.DWPT.getName())
                     || feaureName.equals(Features.THTA.getName())
@@ -176,8 +170,6 @@ public class FormDayController implements Initializable {
         });
 
 
-
-
         lowYearjfxslider.valueProperty().addListener((observable, oldValue, newValue) -> {
             int a = (int) Math.round((Double) newValue);
             formInfo.setLowerYear(a);
@@ -196,9 +188,9 @@ public class FormDayController implements Initializable {
         });
 
 
-        GridPane.setMargin(monthCombo,new Insets(0,0,30,0));
+        GridPane.setMargin(monthCombo, new Insets(0, 0, 30, 0));
 
-        ArrayList<String> persianMonths=new ArrayList<String>( Arrays.asList("فروردین", "اردیبهشت", "خرداد","تیر","مرداد","شهریور","مهر","ابان","اذر","دی","بهمن","اسفند"));
+        ArrayList<String> persianMonths = new ArrayList<String>(Arrays.asList("فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "ابان", "اذر", "دی", "بهمن", "اسفند"));
         Map<String, Integer> persianMapMonth = new HashMap<>();
 
         for (int j = 0; j < persianMonths.size(); j++) {
@@ -207,13 +199,12 @@ public class FormDayController implements Initializable {
         }
 
 
-
         monthCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             formInfo.setDate(null);
             dayofMonthCombo.getItems().clear();
-            int[] days={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
+            int[] days = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
             for (int i = 1; i <= 31; i++) {
-                    dayofMonthCombo.getItems().add(new Label(String.valueOf(i)));
+                dayofMonthCombo.getItems().add(new Label(String.valueOf(i)));
             }
             if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
@@ -233,12 +224,12 @@ public class FormDayController implements Initializable {
                     persianCalendarCalendarPicker.valueProperty().setValue(PersianCalendar.of(1372, intmonth, (Integer.parseInt(((Label) newValue).getText()))));
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
-                }catch (java.lang.IllegalArgumentException ex){
+                } catch (java.lang.IllegalArgumentException ex) {
                     Dialog.createExceptionDialog(ex);
                 }
 //                System.out.println(persianCalendarCalendarPicker.valueProperty().getValue().getMonth());
-            PersianCalendar persianCalendar = persianCalendarCalendarPicker.valueProperty().getValue();
-            PlainDate plainDate = persianCalendar.transform(PlainDate.class);
+                PersianCalendar persianCalendar = persianCalendarCalendarPicker.valueProperty().getValue();
+                PlainDate plainDate = persianCalendar.transform(PlainDate.class);
                 System.out.println(String.format("%s-%s-%s", plainDate.getDayOfMonth(), plainDate.getMonth(), plainDate.getYear()));
                 formInfo.setDate(new Date(plainDate.getMonth(), plainDate.getDayOfMonth(), plainDate.getYear()));
             }
@@ -255,7 +246,6 @@ public class FormDayController implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
 
 
         countriesCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -298,8 +288,6 @@ public class FormDayController implements Initializable {
                 }
 
 
-
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -319,7 +307,7 @@ public class FormDayController implements Initializable {
 
             if (newValue != null) {
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
-                    if (station.getKey().equals(newValue.getText())){
+                    if (station.getKey().equals(newValue.getText())) {
                         formInfo.setStationNumber(station.getValue());
                         System.out.println(station.getValue());
 
@@ -343,12 +331,12 @@ public class FormDayController implements Initializable {
 
         });
         cancelBtn.setOnKeyPressed(event -> {
-            if(event.getCode()==KeyCode.ENTER)
+            if (event.getCode() == KeyCode.ENTER)
                 cancelBtn.getOnAction().handle(null);
         });
 
         Gobtn.setOnKeyPressed(event -> {
-            if(event.getCode()==KeyCode.ENTER)
+            if (event.getCode() == KeyCode.ENTER)
                 Gobtn.getOnAction().handle(null);
         });
 
@@ -383,7 +371,6 @@ public class FormDayController implements Initializable {
         });
 
 
-
         hSlider.lowValueProperty().addListener((observable, oldValue, newValue) -> {
             height.textProperty().setValue(String.valueOf(Math.round(newValue.doubleValue())));
         });
@@ -392,7 +379,6 @@ public class FormDayController implements Initializable {
             if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
         });
-
 
 
     }
@@ -404,8 +390,6 @@ public class FormDayController implements Initializable {
         } else
             return true;
     }
-
-
 
 
 }

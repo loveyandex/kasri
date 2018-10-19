@@ -59,18 +59,18 @@ public class MaplessController implements Initializable {
             } else {
 
                 Stage stage = new StageOverride();
-            stage.setResizable(true);
-            Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/mappless/otherfield.fxml"));
+                stage.setResizable(true);
+                Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/mappless/otherfield.fxml"));
                 Scene scene = new SceneJson<>(root, 650, 480);
-            ((SceneJson) scene).setJson(latLon);
+                ((SceneJson) scene).setJson(latLon);
 
-            stage.setScene(scene);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
+                stage.setScene(scene);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
 
             }
         } catch (NumberFormatException v) {
-            Dialog.SnackBar.showSnack(root,v.getLocalizedMessage(),3000);
+            Dialog.SnackBar.showSnack(root, v.getLocalizedMessage(), 3000);
         } catch (IOException e) {
             e.printStackTrace();
         }
