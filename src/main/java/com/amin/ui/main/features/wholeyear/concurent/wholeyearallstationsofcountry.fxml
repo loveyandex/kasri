@@ -8,7 +8,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.RangeSlider?>
-<VBox fx:id="vvv" stylesheets="/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.121"
+<VBox fx:id="vvv"
+      stylesheets="/dark-theme.css"
+      xmlns="http://javafx.com/javafx/8.0.121"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.amin.ui.main.features.wholeyear.concurent.ConcurentController">
 
@@ -225,7 +227,6 @@
                                       fx:id="height"
                                       promptText="height"
                                       minWidth="300"
-                                      style="-fx-background-color: white"
                         >
                             <font>
                                 <Font size="9.0"/>

@@ -76,6 +76,8 @@ public class FormDayController implements Initializable {
         formInfo = new FormInfo();
 
         String[] featursName = {"PRES", "HGHT", "TEMP", "DWPT", "RELH", "MIXR", "DRCT", Features.SKNT.getName(), "THTA", "THTE", "THTV"};
+        Arrays.sort(featursName);
+
         for (int i = 0; i < featursName.length; i++) {
             featuresCombo.getItems().add(new Label(featursName[i]));
         }
@@ -104,7 +106,7 @@ public class FormDayController implements Initializable {
                 unitsCombo.getItems().add(new Label(units.getYard().toString()));
                 unitsCombo.getItems().add(new Label(units.getInch().toString()));
                 unitsCombo.valueProperty().setValue(unitsCombo.getItems().get(0));
-
+;
             } else if (feaureName.equals(Features.TEMP.getName())
                     || feaureName.equals(Features.DWPT.getName())
                     || feaureName.equals(Features.THTA.getName())
@@ -274,12 +276,29 @@ public class FormDayController implements Initializable {
                 stationNumTOCities = Mapping.
                         MapStationNumTOCities("config/old-stations/" + newValue.getText() + ".conf.csv");
 
+                final Collection<String> values = stationNumTOCities.values();
+                List<String> lisst = new ArrayList<>(values);
+                Collections.sort(lisst);
 
+                for (int i = 0; i < lisst.size(); i++) {
+                    System.out.println((lisst.get(i)));
+                }
 
+                final Set<String> statinss = stationNumTOCities.keySet();
+                List<String> list = new ArrayList<String>(statinss);
+
+                final ArrayList<String> asli = new ArrayList<>();
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
                     if (!station.getValue().equals("&"))
-                        stationsCombo.getItems().add(new Label(station.getKey()));
+                        asli.add(station.getKey());
                 }
+                Collections.sort(asli);
+                for (int i = 0; i < asli.size(); i++) {
+                    stationsCombo.getItems().add(new Label(asli.get(i)));
+                }
+
+
+
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -300,8 +319,11 @@ public class FormDayController implements Initializable {
 
             if (newValue != null) {
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
-                    if (station.getKey().equals(newValue.getText()))
+                    if (station.getKey().equals(newValue.getText())){
                         formInfo.setStationNumber(station.getValue());
+                        System.out.println(station.getValue());
+
+                    }
 
                 }
                 formInfo.setStationName(newValue.getText());

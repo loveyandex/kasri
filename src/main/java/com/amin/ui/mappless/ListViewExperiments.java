@@ -2,6 +2,7 @@ package com.amin.ui.mappless;
 
 import com.amin.jsons.City;
 import com.amin.jsons.Country;
+import com.amin.pojos.LatLon;
 import com.amin.ui.dialogs.SnackBar;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -26,6 +27,7 @@ import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.sql.SQLException;
 
 
 public class ListViewExperiments extends Application {
@@ -65,7 +67,7 @@ public class ListViewExperiments extends Application {
         countries = gson.fromJson(reader2, Country[].class); // contains the whole reviews list
 
 
-        listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
 
 //        searchbox.setLabelFloat(true);
@@ -158,21 +160,36 @@ public class ListViewExperiments extends Application {
                 searchbox.requestFocus();
 
             } else if ((event.getCode() == KeyCode.ENTER && listView.getItems().size() > 0)) {
+                final String json = (String) listView.getSelectionModel().getSelectedItems().get(0);
+                final City city = gson.fromJson(json, City.class);
+                try {
+                    primaryStage.hide();
+                    aDo.aDo(new LatLon(city.getLat(), city.getLng()));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+//                SnackBar.showSnack(vBox, String.valueOf(json));
 
-                SnackBar.showSnack(vBox, String.valueOf(listView.getSelectionModel().getSelectedItems().get(0)));
 
             }
         });
         listView.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY && listView.getItems().size() > 0) {
                 if (event.getClickCount() == 2) {
-                    SnackBar.showSnack(vBox, String.valueOf(listView.getSelectionModel().getSelectedItems().get(0)));
+                    final String json = (String) listView.getSelectionModel().getSelectedItems().get(0);
+                    final City city = gson.fromJson(json, City.class);
+                    try {
+                        primaryStage.hide();
+                        aDo.aDo(new LatLon(city.getLat(), city.getLng()));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
 
 
-        vBox.getStylesheets().add("/dark.css");
+        vBox.getStylesheets().add("/dark-theme.css");
         //You would need from here
         primaryStage.focusedProperty().addListener((ov, onHidden, onShown) -> {
             primaryStage.hide();
@@ -216,4 +233,16 @@ public class ListViewExperiments extends Application {
 
 
     }
+
+
+    private Do aDo;
+
+
+    public ListViewExperiments(Do aDo) {
+        this.aDo = aDo;
+    }
+}
+
+interface Do {
+    void aDo(LatLon latLon) throws SQLException;
 }

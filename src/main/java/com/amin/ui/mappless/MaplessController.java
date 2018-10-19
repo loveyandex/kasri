@@ -58,19 +58,14 @@ public class MaplessController implements Initializable {
     }
 
     public void hypring(ActionEvent actionEvent) throws Exception {
-        OkHttpClient client = new OkHttpClient();
-        class Http {
-            String run(String url) throws IOException {
-                Request request = new Request.Builder()
-                        .url(url)
-                        .build();
 
-                Response response = client.newCall(request).execute();
-                return response.body().string();
-            }
-        }
-        System.out.println(new Http().run("http://localhost:8080/car"));
-        new ListViewExperiments().start(new Stage());
+        new ListViewExperiments((latLon) -> {
+            final double nearst = KNN.nearst(300, latLon);
+            System.out.println(nearst);
+            LatLongFXMLController.SnackBar.showSnack(root, String.valueOf(nearst), 2333);
+
+        }).start(new Stage());
 
     }
+
 }
