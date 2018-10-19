@@ -12,6 +12,8 @@ public class LatLon {
     private double lat;
     private double logn;
 
+    public LatLon() {
+    }
 
     public LatLon(double lat, double logn) {
         this.lat = lat;
