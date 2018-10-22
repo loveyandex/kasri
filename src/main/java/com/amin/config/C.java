@@ -21,6 +21,8 @@ public class C {
     public static final String COUNTRIES_CONFIG_PATH = "config/countries.conf";
 
     public static final String APP_PROP_PATH = "application.properties";
+    public static final int NowYear = 2017;
+    public static final int FIRST_YEAR = 1973;
     public static String DATA_PATH;
     public static String SOCANDARY_DATA_PATH;
     public static String THIRDY_PATH ;

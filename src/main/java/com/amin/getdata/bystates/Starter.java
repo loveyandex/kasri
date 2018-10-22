@@ -21,7 +21,7 @@ public class Starter extends javafx.application.Application implements EventHand
     private TextArea regionteTextArea;
     public static String ABSOLUTE_ROOT_PATH;
     public static String[] COUNTRIES;
-    public static boolean mustStop=false;
+    public static boolean mustStop = false;
 
     @Override
     public void start(Stage myStage) {
@@ -29,7 +29,7 @@ public class Starter extends javafx.application.Application implements EventHand
         myStage.setTitle("weather");
 
         myStage.setOnCloseRequest(event -> {
-            mustStop=true;
+            mustStop = true;
         });
 
 
