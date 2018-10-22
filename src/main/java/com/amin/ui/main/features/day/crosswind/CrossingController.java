@@ -97,28 +97,16 @@ public class CrossingController extends StaticFunctions implements Initializable
             for (int i = 0; i < fitness.size() - 1; i++) {
                 if ((fitness.get(i) * fitness.get(i + 1)) < 0) {
                     System.out.println(i);
-                    for (int j = 0; j < 21; j++) {
-                        final double height = (heights.get(i) * (20 - j) / 20 + (j) * heights.get(i + 1) / 20);
+                    final int limit = 20;
+                    for (int j = 0; j < limit + 1; j++) {
+
+                        final double height = (heights.get(i) * (limit - j) / limit + (j) * heights.get(i + 1) / limit);
                         final Double aDouble = random - intrapolateinAllFeature(height, firstyear);
                         System.out.println("       " + height + "intrabulate " + aDouble);
                     }
 
                 }
             }
-
-
-//            final DataSetIterator trainingData = getTrainingData(heights, features, features.size(), 100);
-//            final MultiLayerNetwork net = RegressionSum.net(trainingData, 1, 1,
-//                    1, 0.01, 1300);
-//
-//            try {
-//                final File f = new File("assets/", "gh");
-//                f.createNewFile();
-//                net.save(f);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-
 
         });
 
