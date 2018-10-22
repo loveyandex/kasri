@@ -35,30 +35,35 @@ import java.util.Random;
 
 
 public class Demo extends Application {
-    private static final Random         RND           = new Random();
+    private static final Random RND = new Random();
     private static final Notification[] NOTIFICATIONS = {
-        NotificationBuilder.create().title("Info").message("New Information").image(Notification.INFO_ICON).build(),
-        NotificationBuilder.create().title("Warning").message("Attention, somethings wrong").image(Notification.WARNING_ICON).build(),
-        NotificationBuilder.create().title("Success").message("Great it works").image(Notification.SUCCESS_ICON).build(),
-        NotificationBuilder.create().title("Error").message("ZOMG").image(Notification.ERROR_ICON).build()
+            NotificationBuilder.create().title("Info").message("New Information").image(Notification.INFO_ICON).build(),
+            NotificationBuilder.create().title("Warning").message("Attention, somethings wrong").image(Notification.WARNING_ICON).build(),
+            NotificationBuilder.create().title("Success").message("Great it works").image(Notification.SUCCESS_ICON).build(),
+            NotificationBuilder.create().title("Error").message("ZOMG").image(Notification.ERROR_ICON).build()
     };
     private Notification.Notifier notifier;
-    private Button                button;
-    private int                   count;
-    private long                  lastTimerCall;
-    private AnimationTimer        timer;
+    private Button button;
+    private int count;
+    private long lastTimerCall;
+    private AnimationTimer timer;
 
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     // ******************** Initialization ************************************
-    @Override public void init() {
+    @Override
+    public void init() {
         button = new Button("Notify");
         button.setOnAction(event -> {
             notifier.notify(NOTIFICATIONS[RND.nextInt(4)]);
         });
-        count         = 0;
+        count = 0;
         lastTimerCall = System.nanoTime();
-        timer         = new AnimationTimer() {
-            @Override public void handle(long now) {
+        timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
                 if (now > lastTimerCall + 5_000_000_000l) {
                     if (count == 10) timer.stop();
                     notifier.notify(NOTIFICATIONS[RND.nextInt(4)]);
@@ -69,24 +74,24 @@ public class Demo extends Application {
         };
     }
 
-
     // ******************** Application start *********************************
-    @Override public void start(Stage stage) {
+    @Override
+    public void start(Stage stage) {
         Notification.Notifier.INSTANCE.setAlwaysOnTop(false);
 
         notifier = NotifierBuilder.create()
-            //.popupLocation(Pos.TOP_RIGHT)
-            //.popupLifeTime(Duration.millis(10000))
-            //.styleSheet(getClass().getResource("mynotification.css").toExternalForm())
-            .build();
-        notifier.setOnNotificationPressed(event ->{
+                //.popupLocation(Pos.TOP_RIGHT)
+                //.popupLifeTime(Duration.millis(10000))
+                //.styleSheet(getClass().getResource("mynotification.css").toExternalForm())
+                .build();
+        notifier.setOnNotificationPressed(event -> {
             System.out.println("Notification pressed: " + event.NOTIFICATION.TITLE);
 
-        } );
-        notifier.setOnShowNotification(event ->{
-                    System.out.println("Notification shown: " + event.NOTIFICATION.TITLE);
+        });
+        notifier.setOnShowNotification(event -> {
+            System.out.println("Notification shown: " + event.NOTIFICATION.TITLE);
 
-                });
+        });
         notifier.setOnHideNotification(event -> System.out.println("Notification hidden: " + event.NOTIFICATION.TITLE));
         StackPane pane = new StackPane();
         pane.setPadding(new Insets(10, 10, 10, 10));
@@ -103,9 +108,7 @@ public class Demo extends Application {
         //timer.start();
     }
 
-    @Override public void stop() {}
-
-    public static void main(String[] args) {
-        launch(args);
+    @Override
+    public void stop() {
     }
 }

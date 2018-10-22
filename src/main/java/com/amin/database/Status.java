@@ -15,6 +15,7 @@ enum Status {
     public String getKey() {
         return key;
     }
+
     public Integer getValue() {
         return value;
     }

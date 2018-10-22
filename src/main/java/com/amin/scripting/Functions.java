@@ -37,12 +37,13 @@ import static com.amin.ui.main.features.allheight.AntiHeightDayController.getFea
 public class Functions {
     private static Functions ourInstance = new Functions();
     private ArrayList<IOException> ioExceptions = new ArrayList<>();
+    private ArrayList<ArrayList<Object>> AllfeatureAndYear = new ArrayList<>();
+
+    private Functions() {
+    }
 
     public static Functions getInstance() {
         return ourInstance;
-    }
-
-    private Functions() {
     }
 
     public void fopen(FormInfo formInfo) {
@@ -71,7 +72,7 @@ public class Functions {
         return 0.0;
     }
 
-    public void fAllstationsonDay(OtherFormInfo otherFormInfo){
+    public void fAllstationsonDay(OtherFormInfo otherFormInfo) {
         try {
             allstationsofCountryOndayOneHeight(otherFormInfo);
         } catch (NoSuchMethodException e) {
@@ -84,8 +85,6 @@ public class Functions {
             e.printStackTrace();
         }
     }
-
-    private ArrayList<ArrayList<Object>> AllfeatureAndYear = new ArrayList<>();
 
     private void allstationsofCountryOndayOneHeight(OtherFormInfo formInfo) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, IOException {
         String childFileName = "";
@@ -133,7 +132,7 @@ public class Functions {
         int counterforStations = -1;
         childFileName = formInfo.getFeaureName() + "_" + height + "_" + formInfo.getCountry() + "_" + dayOfMonth + "_" + monthDisp + "_.csv";
 
-        File file = new File(pathDirToSave,childFileName);
+        File file = new File(pathDirToSave, childFileName);
         if (file.exists())
             file.delete();
 
@@ -229,8 +228,6 @@ public class Functions {
         });
 
     }
-
-
 
 
     public void onDayOneHeightOneStation(FormInfo formInfo) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
@@ -446,27 +443,6 @@ public class Functions {
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     private Features getfeatureIndex(String featureName) {

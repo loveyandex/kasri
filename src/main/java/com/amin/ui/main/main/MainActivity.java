@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * is created by aMIN on 5/29/2018 at 05:39
  */
-public class MainActivity extends Application  {
+public class MainActivity extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -37,6 +37,7 @@ public class MainActivity extends Application  {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.show();
     }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/main/main_activity.fxml"));

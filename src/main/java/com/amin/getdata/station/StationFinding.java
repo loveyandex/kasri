@@ -37,8 +37,7 @@ public class StationFinding {
                 String title = element.attr("title");
                 String[] split = title.split(" ");
                 String stnnum = split[0];
-                String stnName = title.replaceAll(stnnum,"");
-
+                String stnName = title.replaceAll(stnnum, "");
 
 
                 try (
@@ -59,7 +58,7 @@ public class StationFinding {
                                 CSVWriter.DEFAULT_LINE_END);
                 ) {
                     csvWriter.writeNext(new String[]{stnnum});
-                    csvWriter1.writeNext(new String[]{stnnum,stnName});
+                    csvWriter1.writeNext(new String[]{stnnum, stnName});
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

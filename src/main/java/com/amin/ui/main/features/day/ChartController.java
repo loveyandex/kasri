@@ -42,7 +42,7 @@ public class ChartController implements Initializable, Runnable {
 
 
     public void statisticalModels(ActionEvent actionEvent) throws IOException {
-        Stage primaryStage=new StageOverride();
+        Stage primaryStage = new StageOverride();
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/day/statistic.fxml"));
         root.setStyle("-fx-padding: 30 30 30 30 ");
 

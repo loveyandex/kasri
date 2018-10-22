@@ -73,7 +73,7 @@ public class Process implements Runnable {
     }
 
 
-    public static void getDataFrom(String pathDirToSave, String stationsPath,String region, String year, String mounth) {
+    public static void getDataFrom(String pathDirToSave, String stationsPath, String region, String year, String mounth) {
         String text = "";
         Elements elements = null;
         Stack<String> urls = new Stack<>();
@@ -149,7 +149,8 @@ public class Process implements Runnable {
                 j = 2 * i;
                 text += h2.get(i) + "\n" + "<item1>" + "\n" + preElements.get(j).text() + "\n" + "</item1>" + "\n" + "<item2>" + "\n" + preElements.get(j + 1).text() + "\n" + "</item2>" + "\n";
                 i++;
-            };
+            }
+            ;
             System.out.println(setLasturl("mideast",
                     "TEXT:LIST", year, mounth, "all", "0100", stationOne));
 
@@ -236,7 +237,7 @@ public class Process implements Runnable {
 
     public static void main(String[] args) {
 //        start();
-        getData2("G:/alternative/newmew","40745","1997","5");
+        getData2("G:/alternative/newmew", "40745", "1997", "5");
     }
 
     @Override

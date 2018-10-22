@@ -4,23 +4,24 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx"
-      stylesheets="/dark-theme.css" xmlns:fx="http://javafx.com/fxml"
+<VBox xmlns:fx="http://javafx.com/fxml"
+      xmlns="http://javafx.com/javafx" stylesheets="/dark-theme.css"
       fx:controller="com.amin.ui.scripts.ScriptAPP"
       prefHeight="400.0" prefWidth="600.0">
 
-<children>
-    <HBox>
-        <Button fx:id="titlebtn" minWidth="545" style="-fx-background-radius: 0;-fx-border-radius: 0" >scripting</Button>
-        <Button fx:id="minimizbtn"  >__</Button>
-        <Button fx:id="closebtn">X</Button>
-    </HBox>
+    <children>
+        <HBox>
+            <Button fx:id="titlebtn" minWidth="545" style="-fx-background-radius: 0;-fx-border-radius: 0">scripting
+            </Button>
+            <Button fx:id="minimizbtn">__</Button>
+            <Button fx:id="closebtn">X</Button>
+        </HBox>
 
 
-    <TextArea
-            stylesheets="/com/amin/ui/scripts/scripts.css"
-    >
+        <TextArea
+                stylesheets="/com/amin/ui/scripts/scripts.css"
+        >
 
-    </TextArea>
-</children>
+        </TextArea>
+    </children>
 </VBox>

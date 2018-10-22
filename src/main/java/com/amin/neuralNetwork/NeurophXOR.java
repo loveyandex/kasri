@@ -93,10 +93,10 @@ public class NeurophXOR {
         NeuralNetwork neuralNetwork = NeurophXOR.assembleNeuralNetwork();
         neuralNetwork = NeurophXOR.trainNeuralNetwork(neuralNetwork);
 
-            neuralNetwork.setInput(0.0000001,0.0000001);
-            neuralNetwork.calculate();
-            final double[] output = neuralNetwork.getOutput();
-            System.out.println(output[0]);
+        neuralNetwork.setInput(0.0000001, 0.0000001);
+        neuralNetwork.calculate();
+        final double[] output = neuralNetwork.getOutput();
+        System.out.println(output[0]);
 
 
     }

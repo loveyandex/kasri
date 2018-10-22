@@ -31,9 +31,9 @@ import java.util.List;
  */
 
 public class RawMiningActivity extends Application implements Runnable {
+    private static Stage primaryStage;
     public Button okBtn;
     public Button chooseDir;
-    private static Stage primaryStage;
     public ProgressBar progress;
     public Button chooseDir2;
     public Button allinon;
@@ -226,9 +226,9 @@ public class RawMiningActivity extends Application implements Runnable {
                                                         for (File day : days) {
                                                             if (day.isFile()) {
                                                                 try {
-                                                                    new SecondMining(day.getParent()+ File.separator +day.getName(), day.getName(),true)
+                                                                    new SecondMining(day.getParent() + File.separator + day.getName(), day.getName(), true)
                                                                             .allinOneFolder(day.getPath(),
-                                                                                    country.getName() + "_" + yearFile.getName() + "_" + month.getName() + "_" + station.getName()+".csv");
+                                                                                    country.getName() + "_" + yearFile.getName() + "_" + month.getName() + "_" + station.getName() + ".csv");
 
                                                                 } catch (IOException e) {
                                                                     System.err.println(day.getPath());
@@ -249,8 +249,6 @@ public class RawMiningActivity extends Application implements Runnable {
         }
 
     }
-
-
 
 
 }

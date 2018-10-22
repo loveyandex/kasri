@@ -11,55 +11,24 @@ import java.sql.SQLException;
 public class Convertor {
     private static Convertor ourInstance = new Convertor();
 
-    public static Convertor getInstance() {
-        return ourInstance;
-    }
-
     private Convertor() {
 
     }
 
-
-    public void convertCSVTotable(String csvFile) {
-        String TableName=getJustNameFile(csvFile);
-        try {
-            Driver.getDriver().createCSVTable("t_"+TableName);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public static Convertor getInstance() {
+        return ourInstance;
     }
 
-
-    public void convertCSVFileTotable(File csvFile) {
-        String TableName=getJustNameFile(csvFile.getName());
-        try {
-            Driver.getDriver().createCSVTable("t"+TableName);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    private String getJustNameFile(String fileName) {
-        String[] split = fileName.split("\\.");
-        String tot = "";
-        for (int i = 0; i < split.length - 1; i++)
-            tot +=split[i] +".";
-        return tot.substring(0,tot.length()-1);
-
-    }
-
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         follan("iran__islamic_rep");
     }
-
 
     public static void follan(String country) {
 
         try {
 
-            File folder = new File("G:/lastdir/"+ country);
+            File folder = new File("G:/lastdir/" + country);
 
             final File[] yearsfolder = folder.listFiles();
             for (File yearfolder : yearsfolder) {
@@ -83,7 +52,7 @@ public class Convertor {
 
                                 final String namefile = dataFile.getName().replaceAll(".csv", "");
 
-                                final String tablename = country+"_" + stationFolder.getName() + "_" + namefile;
+                                final String tablename = country + "_" + stationFolder.getName() + "_" + namefile;
 
 
                                 String sql = Queries.load_dataInto.replaceAll("aminTable",
@@ -120,6 +89,33 @@ public class Convertor {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public void convertCSVTotable(String csvFile) {
+        String TableName = getJustNameFile(csvFile);
+        try {
+            Driver.getDriver().createCSVTable("t_" + TableName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void convertCSVFileTotable(File csvFile) {
+        String TableName = getJustNameFile(csvFile.getName());
+        try {
+            Driver.getDriver().createCSVTable("t" + TableName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getJustNameFile(String fileName) {
+        String[] split = fileName.split("\\.");
+        String tot = "";
+        for (int i = 0; i < split.length - 1; i++)
+            tot += split[i] + ".";
+        return tot.substring(0, tot.length() - 1);
 
     }
 

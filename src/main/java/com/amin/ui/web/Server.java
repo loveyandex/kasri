@@ -12,8 +12,6 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
-import java.net.URL;
-
 /*  ww w .jav  a 2  s.  co  m*/
 public class Server extends Application {
     public static void main(String[] args) {

@@ -12,10 +12,11 @@ import org.neuroph.util.ConnectionFactory;
  * is created by aMIN on 8/18/2018 at 10:29 PM
  */
 public class TEs {
-    public static void main(String[] args) {}
+    public static void main(String[] args) {
+    }
 
 
-    public static NeuralNetwork net(int itr){
+    public static NeuralNetwork net(int itr) {
         Layer inputLayer = new Layer();
         inputLayer.addNeuron(new Neuron());
         inputLayer.addNeuron(new Neuron());

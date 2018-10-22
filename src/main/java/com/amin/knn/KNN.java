@@ -65,9 +65,10 @@ public class KNN {
 
 
     public static void main(String[] args) throws SQLException {
-        long start = System.nanoTime();;
+        long start = System.nanoTime();
+        ;
         final double lat1 = 31.883674;
-        final double long1 = 54.368775 ;
+        final double long1 = 54.368775;
 
         final double dle = Math.toDegrees(100 / (R * sin(Math.toRadians(90 - lat1))));
         System.out.println(dle);
@@ -90,7 +91,7 @@ public class KNN {
 //            System.out.println(lat1);
 //            System.out.print(long1);
             final double real_distance = real_distance(lat1, long1, Double.parseDouble(lati), Double.parseDouble(longi));
-            if (real_distance<10){
+            if (real_distance < 10) {
                 System.err.println(real_distance);
                 System.out.println(stacitinametion + "...." + lati + "  " + longi);
 
@@ -99,7 +100,7 @@ public class KNN {
 
         }
         long time = System.nanoTime() - start;
-        System.out.printf("Each XXXXX took an average of %f ms%n", time/1e6d);
+        System.out.printf("Each XXXXX took an average of %f ms%n", time / 1e6d);
 
 
     }
@@ -154,7 +155,55 @@ public class KNN {
 
         }
 
-        if (sum_distance!=0.0)
+        if (sum_distance != 0.0)
+            return expection / sum_distance;
+        else
+            return -3000000000000000.0;
+
+    }
+
+
+    public static double nearst(double maximum_distance_km, LatLon latLong, Do aDo) throws SQLException {
+
+        final double lat1 = latLong.getLat();
+        final double long1 = latLong.getLogn();
+
+        Station station = null;
+        ArrayList<Station> stations = new ArrayList<>();
+
+        final ResultSet resultSet = exeing();
+        double sum_distance = 0.0;
+        double expection = 0.0;
+        while (resultSet.next()) {
+            final String stationnumber = resultSet.getString(1);
+            final String country = resultSet.getString(2);
+            final String stacitinametion = resultSet.getString(3);
+            final String lati = resultSet.getString(4);
+            final String longi = resultSet.getString(5);
+//            System.out.println(lat1);
+//            System.out.print(long1);
+            final double real_distance = real_distance(lat1, long1, Double.parseDouble(lati), Double.parseDouble(longi));
+            if (real_distance < maximum_distance_km) {
+                station = new Station(stationnumber, country, stacitinametion,
+                        true, new LatLon(Double.parseDouble(lati), Double.parseDouble(longi))
+                        , real_distance);
+                final double temp = aDo.run(stationnumber, country);
+                if (temp == -1000000)
+                    continue;
+                else {
+                    expection += real_distance * temp;
+                    sum_distance += real_distance;
+                    stations.add(station);
+                    System.err.println(real_distance);
+                    System.err.println(stacitinametion + "...." + lati + "  " + longi);
+                }
+
+
+            }
+
+        }
+
+        if (sum_distance != 0.0)
             return expection / sum_distance;
         else
             return -3000000000000000.0;
@@ -162,31 +211,23 @@ public class KNN {
     }
 
     private static double temp(String stationnumber, String country) {
-        final double v = ScriptAPP.scripting2(String.format("onday %s 10 26 WIND_SPEED m/s 5000 1973 2017 %s", stationnumber, country));
+        final String function = String.format("onday %s 10 26 WIND_SPEED m/s 5000 1973 2017 %s", stationnumber, country);
+        final double v = ScriptAPP.scripting2(function);
+        return v;
+    }
+
+    private static double temp(String functionformat, String stationnumber, String country) {
+        final String function = String.format(functionformat, stationnumber, country);
+        final double v = ScriptAPP.scripting2(function);
+        return v;
+    }
+
+    private static double run(String function) {
+        final double v = ScriptAPP.scripting2(function);
         return v;
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //        for (int i = 0; i < 100; i++) {

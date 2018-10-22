@@ -34,6 +34,27 @@ public class CrossingController extends StaticFunctions implements Initializable
     @FXML
     private StackPane rootstackpane;
 
+    public static DataSetIterator getTrainingData(ArrayList<Double> input, ArrayList<Double> output, int nSamples, int batchSize) {
+
+        final double maxfeaturesinput = MathTerminology.max(input);
+        final double maxheightsoutput = MathTerminology.max(output);
+        System.out.println(maxfeaturesinput);
+        System.out.println(maxheightsoutput);
+        double[] sum = new double[nSamples];
+        double[] input1 = new double[nSamples];
+        for (int i = 0; i < nSamples; i++) {
+            input1[i] = input.get(i) / maxfeaturesinput;
+            sum[i] = output.get(i) / maxheightsoutput;
+        }
+        INDArray inputNDArray1 = Nd4j.create(input1, new int[]{nSamples, 1});
+        INDArray inputNDArray = Nd4j.hstack(inputNDArray1);
+        INDArray outPut = Nd4j.create(sum, new int[]{nSamples, 1});
+        DataSet dataSet = new DataSet(inputNDArray, outPut);
+        List<DataSet> listDs = dataSet.asList();
+        Collections.shuffle(listDs, rng);
+        return new ListDataSetIterator(listDs, batchSize);
+
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -56,7 +77,7 @@ public class CrossingController extends StaticFunctions implements Initializable
             firstyear.stream().forEach(doubles -> features.add(doubles.get(1)));
 
             final Double random = features.get(23);
-            System.out.println(random+"random");
+            System.out.println(random + "random");
 
 
             ArrayList<Double> fitness = new ArrayList<>();
@@ -74,18 +95,16 @@ public class CrossingController extends StaticFunctions implements Initializable
 //            }
 
             for (int i = 0; i < fitness.size() - 1; i++) {
-                if ((fitness.get(i) * fitness.get(i + 1)) < 0)
-                {
+                if ((fitness.get(i) * fitness.get(i + 1)) < 0) {
                     System.out.println(i);
                     for (int j = 0; j < 21; j++) {
-                        final double height =  (heights.get(i)*(20-j)/20 + (j)*heights.get(i + 1)/ 20) ;
-                        final Double aDouble =random - intrapolateinAllFeature(height, firstyear);
-                        System.out.println("       "+height + "intrabulate " + aDouble);
+                        final double height = (heights.get(i) * (20 - j) / 20 + (j) * heights.get(i + 1) / 20);
+                        final Double aDouble = random - intrapolateinAllFeature(height, firstyear);
+                        System.out.println("       " + height + "intrabulate " + aDouble);
                     }
 
                 }
             }
-
 
 
 //            final DataSetIterator trainingData = getTrainingData(heights, features, features.size(), 100);
@@ -93,7 +112,7 @@ public class CrossingController extends StaticFunctions implements Initializable
 //                    1, 0.01, 1300);
 //
 //            try {
-//                final File f = new File("assets/", "kir");
+//                final File f = new File("assets/", "gh");
 //                f.createNewFile();
 //                net.save(f);
 //            } catch (IOException e) {
@@ -102,29 +121,6 @@ public class CrossingController extends StaticFunctions implements Initializable
 
 
         });
-
-    }
-
-
-    public static DataSetIterator getTrainingData(ArrayList<Double> input, ArrayList<Double> output, int nSamples, int batchSize) {
-
-        final double maxfeaturesinput = MathTerminology.max(input);
-        final double maxheightsoutput = MathTerminology.max(output);
-        System.out.println(maxfeaturesinput);
-        System.out.println(maxheightsoutput);
-        double[] sum = new double[nSamples];
-        double[] input1 = new double[nSamples];
-        for (int i = 0; i < nSamples; i++) {
-            input1[i] = input.get(i) / maxfeaturesinput;
-            sum[i] = output.get(i) / maxheightsoutput;
-        }
-        INDArray inputNDArray1 = Nd4j.create(input1, new int[]{nSamples, 1});
-        INDArray inputNDArray = Nd4j.hstack(inputNDArray1);
-        INDArray outPut = Nd4j.create(sum, new int[]{nSamples, 1});
-        DataSet dataSet = new DataSet(inputNDArray, outPut);
-        List<DataSet> listDs = dataSet.asList();
-        Collections.shuffle(listDs, rng);
-        return new ListDataSetIterator(listDs, batchSize);
 
     }
 

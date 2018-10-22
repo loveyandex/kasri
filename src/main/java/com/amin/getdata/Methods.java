@@ -63,7 +63,7 @@ public class Methods {
         }
         FileWriter writer = null;
         try {
-            writer = new FileWriter(fileStations,true);
+            writer = new FileWriter(fileStations, true);
             writer.append(fallenUrl + "\n");
             writer.flush();
             writer.close();
@@ -72,7 +72,7 @@ public class Methods {
         }
     }
 
-    public static void writeFallenUrls(String fallenUrl,String fallUrlPathFile) {
+    public static void writeFallenUrls(String fallenUrl, String fallUrlPathFile) {
         File fileStations = new File(fallUrlPathFile);
         try {
             if (fileStations.createNewFile()) {
@@ -85,7 +85,7 @@ public class Methods {
         }
         FileWriter writer = null;
         try {
-            writer = new FileWriter(fileStations,true);
+            writer = new FileWriter(fileStations, true);
             writer.append(fallenUrl + "\r\n");
             writer.flush();
             writer.close();

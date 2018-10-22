@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -27,15 +26,6 @@ public class AllHeightChartController implements Initializable {
     private ArrayList<ArrayList<ArrayList<Double>>> allfeatureandyear;
     @FXML
     private VBox rootme;
-
-    @PostConstruct
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        Platform.runLater(runnable);
-
-    }
-
-
     Runnable runnable = () -> {
         allfeatureandyear = (ArrayList) ((SceneJson) rootme.getScene()).getJson();
         rootme.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -45,8 +35,15 @@ public class AllHeightChartController implements Initializable {
 
     };
 
+    @PostConstruct
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Platform.runLater(runnable);
+
+    }
+
     public void statisticalModels(ActionEvent actionEvent) throws IOException {
-        Stage primaryStage=new StageOverride();
+        Stage primaryStage = new StageOverride();
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/allheight/statistic.fxml"));
         root.setStyle("-fx-padding: 30 30 30 30 ");
 

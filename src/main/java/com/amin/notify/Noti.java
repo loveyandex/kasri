@@ -18,10 +18,18 @@ import java.nio.charset.StandardCharsets;
  * is created by aMIN on 8/7/2018 at 1:16 AM
  */
 public class Noti extends Application {
+    DatagramSocket socket;
+
     public static void main(String[] args) {
         launch(args);
 
 
+    }
+
+    public static void sendmsg(String ip, int port, String msg) throws IOException {
+        DatagramSocket socket = new DatagramSocket();
+        DatagramPacket packet = new DatagramPacket(msg.getBytes(), msg.length(), InetAddress.getByName(ip), (int) port);
+        socket.send(packet);
     }
 
     @Override
@@ -43,10 +51,6 @@ public class Noti extends Application {
         }).start();
 
 
-
-
-
-
         instance.setOnNotificationPressed(event -> {
             System.out.println("god is great");
         });
@@ -55,16 +59,6 @@ public class Noti extends Application {
         });
 
     }
-
-
-    public static void sendmsg(String ip, int port, String msg) throws IOException {
-        DatagramSocket socket = new DatagramSocket();
-        DatagramPacket packet = new DatagramPacket(msg.getBytes(), msg.length(), InetAddress.getByName(ip), (int) port);
-        socket.send(packet);
-    }
-
-    DatagramSocket socket;
-
 
     String recieveMSg() throws IOException {
         final byte[] bytes = new byte[1024];

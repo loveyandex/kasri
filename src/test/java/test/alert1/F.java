@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public class F {
     public static void main(String[] args) {
-        final File f = new File("F:/apps/jvm/kasri/assets", "kir");
+        final File f = new File("F:/apps/jvm/kasri/assets", "gh");
         try {
             final MultiLayerNetwork network = MultiLayerNetwork.load(f, true);
             // Test the addition of 2 numbers (Try different numbers here)

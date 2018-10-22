@@ -15,7 +15,12 @@ public class Starter extends javafx.application.Application implements EventHand
 
     public static String ABSOLUTE_ROOT_PATH;
     public static String[] COUNTRIES;
-    public static boolean terminateThread=false;
+    public static boolean terminateThread = false;
+    Thread startProcess = new Thread(new Process());
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage myStage) {
@@ -23,7 +28,7 @@ public class Starter extends javafx.application.Application implements EventHand
         myStage.setTitle("weather");
 
         myStage.setOnCloseRequest(event -> {
-            terminateThread=true;
+            terminateThread = true;
 
         });
 
@@ -55,7 +60,7 @@ public class Starter extends javafx.application.Application implements EventHand
         rootNode.add(country, 0, 2, 2, 1);
 
 //        TextField countryvalue = new TextField( "israel;turkey;u_arab_emirates;saudi_arabia;qatar;oman;yemen;pakistan;bahrain;azerbaijan;afghanistan;armenia");
-        TextField countryvalue = new TextField( "israel;turkey");
+        TextField countryvalue = new TextField("israel;turkey");
         countryvalue.setAlignment(Pos.CENTER);
         rootNode.add(countryvalue, 1, 3, 2, 1);
 
@@ -63,12 +68,10 @@ public class Starter extends javafx.application.Application implements EventHand
         regionl.setAlignment(Pos.CENTER);
         rootNode.add(regionl, 0, 4, 2, 1);
 
-        TextField region = new TextField( "");
-        ComboBox<String> comboBoxrigion=new ComboBox<>();
+        TextField region = new TextField("");
+        ComboBox<String> comboBoxrigion = new ComboBox<>();
         region.setAlignment(Pos.CENTER);
         rootNode.add(region, 1, 5, 2, 1);
-
-
 
 
         Button aButton = new Button("start getting Data");
@@ -81,8 +84,8 @@ public class Starter extends javafx.application.Application implements EventHand
 
         aButton.setOnAction(e -> {
             ABSOLUTE_ROOT_PATH = firstValue.getText();
-            COUNTRIES =countryvalue.getText().toLowerCase().split(";");
-            System.out.println(COUNTRIES.length+">>>>>>>>>");
+            COUNTRIES = countryvalue.getText().toLowerCase().split(";");
+            System.out.println(COUNTRIES.length + ">>>>>>>>>");
             pbar.setVisible(true);
             System.out.println(ABSOLUTE_ROOT_PATH);
             aButton.setDisable(true);
@@ -95,11 +98,6 @@ public class Starter extends javafx.application.Application implements EventHand
         });
         myStage.show();
     }
-    Thread startProcess = new Thread(new Process());
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     @Override
     public void handle(KeyEvent event) {
@@ -107,14 +105,7 @@ public class Starter extends javafx.application.Application implements EventHand
     }
 
 
-
-
-
-
-
-
-
-    private void setstationsforpersent(){
+    private void setstationsforpersent() {
 
     }
 }

@@ -5,7 +5,6 @@ import org.nd4j.linalg.factory.Nd4j;
 
 /**
  * Calculate function value of Triangle Wave, which is an absolute value of Sawtooth Wave.
- *
  */
 public class TriangleWaveMathFunction implements MathFunction {
 

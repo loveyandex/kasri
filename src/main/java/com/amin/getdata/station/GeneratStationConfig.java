@@ -10,6 +10,8 @@ import java.util.Scanner;
  * is created by aMIN on 7/31/2018 at 4:58 AM
  */
 public class GeneratStationConfig {
+    static String maked = "";
+
     public static void main(String[] args) throws IOException {
         String fileName = null;
         String Dirpath = null;
@@ -24,7 +26,7 @@ public class GeneratStationConfig {
 
                 if (scanner.hasNextLine()) {
 
-                    if (myWriter != null){
+                    if (myWriter != null) {
                         myWriter.close();
                     }
 
@@ -32,8 +34,8 @@ public class GeneratStationConfig {
                     String stationname = stationNameline.substring(0, stationNameline.length() - 9);
                     String stationNameStandard = stationname
                             .replaceAll(",", "_").replaceAll("'", "_")
-                            .replaceAll("\\\\","_").replaceAll("/","_")
-                            .replaceAll("\"","")
+                            .replaceAll("\\\\", "_").replaceAll("/", "_")
+                            .replaceAll("\"", "")
                             .replaceAll("  ", " ").replaceAll(" ", "_");
                     String data = stationNameline.substring(stationNameline.length() - 9, stationNameline.length());
                     System.out.println(stationname);
@@ -47,7 +49,7 @@ public class GeneratStationConfig {
                     continue;
             } else {
                 try {
-                    myWriter.appendStringInFile(line+ "\n");
+                    myWriter.appendStringInFile(line + "\n");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -56,8 +58,6 @@ public class GeneratStationConfig {
         }
 
     }
-
-    static String maked = "";
 
     static void remove_fromlast() {
         if (maked.charAt(maked.length() - 1) == '_') {

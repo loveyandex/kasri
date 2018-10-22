@@ -12,7 +12,7 @@ public class StaticFunctions {
     protected Double intrapolateinAllFeature(double height, ArrayList<ArrayList<Double>> heightAndFeature) {
 
         Double knotdesire = null;
-        double heightdesire =height ;
+        double heightdesire = height;
         final Vector<Double> heigthsVector = new Vector<>();
         final Vector<Double> knotsVector = new Vector<>();
 

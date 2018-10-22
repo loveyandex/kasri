@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import de.westnordost.osmapi.OsmConnection;
 import de.westnordost.osmapi.map.MapDataDao;
 import de.westnordost.osmapi.map.data.*;
-import de.westnordost.osmapi.map.handler.MapDataHandler;
-import javafx.geometry.Bounds;
 
 /**
  * is created by aMIN on 10/12/2018 at 10:56 PM
@@ -39,8 +37,7 @@ public class F {
             }
 
             public void handle(Relation relation) {
-                if (relation.getTags().get("type").equals("route"))
-                {
+                if (relation.getTags().get("type").equals("route")) {
                     System.out.println(relation.getTags().get("name"));
                 }
             }
@@ -53,24 +50,28 @@ public class F {
             while (currentLong < LONGITUDE_STOP) {
                 //System.out.println(currentLat+", "+currentLong);
                 min = new OsmLatLon(currentLat, currentLong);
-                max = new OsmLatLon(currentLat+0.01, currentLong+0.01);
+                max = new OsmLatLon(currentLat + 0.01, currentLong + 0.01);
                 BoundingBox kazanBuses = new BoundingBox(min, max);
                 mapDao.getMap(kazanBuses, mapDataHandler);
 
-                currentLong=currentLong+0.01;
+                currentLong = currentLong + 0.01;
             }
-            currentLong=LONGITUDE_START;
-            currentLat=currentLat+0.01;
+            currentLong = LONGITUDE_START;
+            currentLat = currentLat + 0.01;
         }
     }
 
 
-/** This class is fed the map data. */
- interface MapDataHandler extends de.westnordost.osmapi.map.handler.MapDataHandler {
+    /**
+     * This class is fed the map data.
+     */
+    interface MapDataHandler extends de.westnordost.osmapi.map.handler.MapDataHandler {
         void handle(BoundingBox bounds);
 
         void handle(Node node);
+
         void handle(Way way);
+
         void handle(Relation relation);
     }
 

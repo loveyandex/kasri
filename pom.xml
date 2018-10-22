@@ -10,6 +10,7 @@
     <packaging>jar</packaging>
 
 
+
     <build>
         <plugins>
             <plugin>
@@ -88,6 +89,7 @@
             <url>http://maven.teamdev.com/repository/products</url>
         </repository>
     </repositories>
+
 
 
     <dependencies>
@@ -488,6 +490,12 @@
             <version>2.0.5.RELEASE</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>3.11.0</version>
+        </dependency>
 
 
 

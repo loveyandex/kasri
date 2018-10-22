@@ -34,12 +34,11 @@ public class RegressionSum {
     public static final int batchSize = 100;
     //Network learning rate
     public static final double learningRate = 0.01;
+    public static final Random rng = new Random(seed);
     // The range of the sample data, data in range (0-1 is sensitive for NN, you can try other ranges and see how it effects the results
     // also try changing the range along with changing the activation function
     public static int MIN_RANGE = 0;
     public static int MAX_RANGE = 1;
-
-    public static final Random rng = new Random(seed);
 
     public static void main(String[] args) {
 
@@ -115,7 +114,7 @@ public class RegressionSum {
 
 
     public static MultiLayerNetwork net(DataSetIterator iterator,
-                                        int numInput, int numOutputs, int nHidden,double learningRate,int nEpochs) {
+                                        int numInput, int numOutputs, int nHidden, double learningRate, int nEpochs) {
 
         MultiLayerNetwork net = new MultiLayerNetwork(new NeuralNetConfiguration.Builder()
                 .seed(seed)

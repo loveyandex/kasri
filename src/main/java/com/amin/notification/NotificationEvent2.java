@@ -28,8 +28,8 @@ import javafx.event.EventType;
  */
 public class NotificationEvent2 extends Event {
     public static final EventType<NotificationEvent2> NOTIFICATION_PRESSED = new EventType(ANY, "NOTIFICATION_PRESSED");
-    public static final EventType<NotificationEvent2> SHOW_NOTIFICATION    = new EventType(ANY, "SHOW_NOTIFICATION");
-    public static final EventType<NotificationEvent2> HIDE_NOTIFICATION    = new EventType(ANY, "HIDE_NOTIFICATION");
+    public static final EventType<NotificationEvent2> SHOW_NOTIFICATION = new EventType(ANY, "SHOW_NOTIFICATION");
+    public static final EventType<NotificationEvent2> HIDE_NOTIFICATION = new EventType(ANY, "HIDE_NOTIFICATION");
 
     public final NotificationProgress NOTIFICATION;
 

@@ -1,6 +1,8 @@
 package com.amin.ui;
 
+import javafx.scene.control.ButtonBase;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -27,4 +29,18 @@ public class StageOverride extends Stage {
             e.printStackTrace();
         }
     }
+
+
+    public static void shiftToEnterEvent(ButtonBase... buttonBase) {
+        for (int i = 0; i < buttonBase.length; i++) {
+            int finalI = i;
+            buttonBase[i].setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER)
+                    buttonBase[finalI].getOnAction().handle(null);
+            });
+        }
+
+
+    }
+
 }

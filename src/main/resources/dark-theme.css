@@ -6,9 +6,10 @@
 * {
     /*-fx-primary : #63613a;*/
     /*-fx-primary : #56542d;*/
-    -fx-primary : #f8fbee;
-    -fx-secondary : #6e7d60;
-    -fx-primarytext : #B2B2B2;
+    /*-fx-primary : #f8fbee;*/
+    -fx-primary : #000000;
+    -fx-secondary : rgb(255, 255, 255);
+    -fx-primarytext : #ffffff;
     -fx-blue: #1976D2;
     -fx-red: #FF0000;
     -fx-green: #6e7d60;
@@ -45,7 +46,6 @@
     -fx-font-size : 13pt;
     -jfx-focus-color: -fx-secondary;
     -fx-text-fill: derive(-fx-secondary, 20%);
-    -fx-text-fill:#2A2E37;
 }
 
 /*Login Screen Specific*/
@@ -80,7 +80,8 @@
 .menu:hover,
 .menu:showing,
 .menu-item:focused {
-    -fx-background-color :-fx-secondary;
+    -fx-selection-bar: #555555;
+    -fx-background-color: gray;
 }
 .context-menu
 {
@@ -276,7 +277,7 @@
 .not-available 
 {
     -fx-background-radius: 5px;
-    -fx-fill: derive(blue, 80%);
+    -fx-fill: derive(#ffd465, 80%);
     -fx-cursor: hand;
 }
 
@@ -294,4 +295,8 @@
 }
 .jfx-snackbar-action{
 
+}
+
+.hyperlink:visited{
+    -fx-text-fill: rgb(244,211,244);
 }

@@ -15,9 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
@@ -35,50 +33,32 @@ import java.util.ResourceBundle;
  * is created by aMIN on 5/30/2018 at 21:54
  */
 public class MainController implements Initializable {
-    @FXML
-    private VBox rootme;
-
-    public Label outputLbl;
-
+    public JFXButton ondayoneheight;
+    public JFXButton ondayallheights;
+    public JFXButton allstninoneday;
+    public JFXButton wholeconcurrent;
+    public JFXButton wholeparallel;
+    public JFXButton scriptbtn;
+    public JFXButton mapbtn;
+    public JFXButton maplessbtn;
     public MenuBar menuBar;
-    public JFXButton alertButton;
-    public JFXButton bottombtn;
     public StackPane stackpane;
     public JFXButton acceptButton;
-
+    @FXML
+    private VBox rootme;
     @FXML
     private JFXDialog dialog;
-    @FXML
-    private TextArea textArea;
 
-    @FXML
-    private void onactionHandeler() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/chart.fxml"));
-            Stage stage = new Stage();
-
-            stage.setTitle("Title");
-            stage.setScene(new Scene(root, 450, 450));
-            stage.show();
-            // Hide this current window (if this is what you want)
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     @FXML
     private void exit() {
         System.exit(0);
     }
 
-
-
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        StageOverride.shiftToEnterEvent(ondayoneheight, ondayallheights, allstninoneday, wholeconcurrent, wholeparallel, scriptbtn, mapbtn, maplessbtn);
+
         Platform.runLater(() -> {
             dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM
             );
@@ -87,17 +67,20 @@ public class MainController implements Initializable {
 
         });
         rootme.setOnKeyPressed(event -> {
-             if (event.getCode()== KeyCode.D &&  event.isControlDown()) {
-                 onday(null);
-             } else if (event.getCode() == KeyCode.M && event.isControlDown()) {
-                 onMap(null);
-             } else if (event.getCode() == KeyCode.S && event.isControlDown()) {
-                 openscript(null);
-             }
+            if (event.getCode() == KeyCode.D && event.isControlDown()) {
+                onday(null);
+            } else if (event.getCode() == KeyCode.M && event.isControlDown()) {
+                onMap(null);
+            } else if (event.getCode() == KeyCode.S && event.isControlDown()) {
+                openscript(null);
+            } else if (event.getCode() == KeyCode.L && event.isControlDown()) {
+                try {
+                    onMapless(null);
+                } catch (IOException e) {
+                    Dialog.createExceptionDialog(e);
+                }
+            }
         });
-
-
-
 
 
         acceptButton.setOnAction(action -> dialog.close());
@@ -124,7 +107,6 @@ public class MainController implements Initializable {
     }
 
 
-
     public void dayFeature(ActionEvent actionEvent) throws IOException, URISyntaxException {
         Stage stage = new StageOverride();
         stage.setResizable(true);
@@ -138,8 +120,8 @@ public class MainController implements Initializable {
 
 
     public void getDataFromInternet(ActionEvent actionEvent) {
-        Starter starter=new Starter();
-        Stage stage=new Stage();
+        Starter starter = new Starter();
+        Stage stage = new Stage();
         starter.start(stage);
     }
 
@@ -160,11 +142,11 @@ public class MainController implements Initializable {
         root.setStyle("-fx-padding: 30 30 30 30 ");
         SceneJson scene = new SceneJson<>(root);
         ArrayList<ArrayList> json = new ArrayList<>();
-        ArrayList<Object> kaArrayList=new ArrayList();
+        ArrayList<Object> kaArrayList = new ArrayList();
         for (int i = 0; i < 5; i++) {
             ArrayList e = new ArrayList();
-            e.add(23.32+i);
-            e.add(2016+i);
+            e.add(23.32 + i);
+            e.add(2016 + i);
             json.add(e);
         }
         scene.setJson(json);
@@ -231,25 +213,13 @@ public class MainController implements Initializable {
 
 
     public void ff(ActionEvent actionEvent) {
-        Platform.runLater(()->{
-            JFXTooltip jfxTooltip=new JFXTooltip("god is great kijng ",rootme);
+        Platform.runLater(() -> {
+            JFXTooltip jfxTooltip = new JFXTooltip("god is great kijng ", rootme);
             jfxTooltip.show(rootme.getScene().getWindow());
         });
 
     }
 
-    public void latlong(ActionEvent actionEvent) throws IOException {
-        Stage stage = new StageOverride();
-        stage.setResizable(true);
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/latlong.fxml"));
-        Scene scene = new SceneJson<>(root, 750, 600);
-        stage.setScene(scene);
-        stage.initOwner(rootme.getScene().getWindow());
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
-
-
-    }
 
     public void ondayAllHeight(ActionEvent actionEvent) throws IOException {
         Stage stage = new StageOverride();

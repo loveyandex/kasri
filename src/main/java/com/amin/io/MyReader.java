@@ -15,8 +15,8 @@ import java.util.Scanner;
 
 @Getter
 public class MyReader {
-   private FileReader reader;
-   private Scanner scanner;
+    private FileReader reader;
+    private Scanner scanner;
 
     public MyReader(FileReader reader, Scanner scanner) {
         this.reader = reader;
@@ -33,8 +33,6 @@ public class MyReader {
     }
 
 
-
-
     public static ArrayList<String> readFileLines(String path) throws FileNotFoundException {
         ArrayList<String> lines = new ArrayList<>();
         FileReader reader = new FileReader(path);
@@ -45,20 +43,13 @@ public class MyReader {
 
     }
 
-    public ArrayList<String> readFileLines() {
-        ArrayList<String> lines = new ArrayList<>();
-        while (this.scanner.hasNextLine())
-            lines.add(scanner.nextLine());
-        return lines;
-    }
-
     public static String readFirstLine(String path) {
         FileReader reader = null;
         String s = null;
         try {
             reader = new FileReader(path);
 
-            Scanner scanner = new Scanner(reader );
+            Scanner scanner = new Scanner(reader);
             s = scanner.nextLine();
             scanner.close();
             reader.close();
@@ -66,6 +57,17 @@ public class MyReader {
             e.printStackTrace();
         }
         return s;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(MyReader.readFirstLine("config/start.txt").equals("true"));
+    }
+
+    public ArrayList<String> readFileLines() {
+        ArrayList<String> lines = new ArrayList<>();
+        while (this.scanner.hasNextLine())
+            lines.add(scanner.nextLine());
+        return lines;
     }
 
     public String readFirstLine() {
@@ -79,17 +81,13 @@ public class MyReader {
         }
     }
 
-    public void close(){
+    public void close() {
         try {
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
         scanner.close();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(MyReader.readFirstLine("config/start.txt").equals("true"));
     }
 
 }

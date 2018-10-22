@@ -15,6 +15,7 @@ public enum TEMP {
     ;
 
     private final String name;
+
     TEMP(String name) {
         this.name = name;
     }

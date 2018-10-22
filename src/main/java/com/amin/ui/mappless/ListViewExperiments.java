@@ -2,6 +2,7 @@ package com.amin.ui.mappless;
 
 import com.amin.jsons.City;
 import com.amin.jsons.Country;
+import com.amin.pojos.LatLon;
 import com.amin.ui.dialogs.SnackBar;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -26,16 +27,23 @@ import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.sql.SQLException;
 
+
+interface Do {
+    void aDo(LatLon latLon) throws SQLException;
+}
 
 public class ListViewExperiments extends Application {
-    City[] cities;
-    Country[] countries;
-    JsonReader reader;
     final ListView listView = new ListView();
     final JFXTextField searchbox = new JFXTextField();
     final Gson gson = new Gson();
+    City[] cities;
+    Country[] countries;
+    JsonReader reader;
     ;
+    JsonReader reader2;
+    private Do aDo;
 
     {
         try {
@@ -45,14 +53,21 @@ public class ListViewExperiments extends Application {
         }
     }
 
-    JsonReader reader2;
-
     {
         try {
             reader2 = new JsonReader(new FileReader("../jsons/country-by-abbreviation.json"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public ListViewExperiments(Do aDo) {
+        this.aDo = aDo;
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
     }
 
     @Override
@@ -65,7 +80,7 @@ public class ListViewExperiments extends Application {
         countries = gson.fromJson(reader2, Country[].class); // contains the whole reviews list
 
 
-        listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
 
 //        searchbox.setLabelFloat(true);
@@ -75,6 +90,8 @@ public class ListViewExperiments extends Application {
         searchbox.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.DOWN) {
                 listView.requestFocus();
+                if (listView.getItems().size() > 0)
+                    listView.getSelectionModel().selectFirst();
             } else if (event.getCode() == KeyCode.ENTER) {
                 listView.getItems().clear();
                 for (int i = 0; i < cities.length; i++) {
@@ -158,32 +175,41 @@ public class ListViewExperiments extends Application {
                 searchbox.requestFocus();
 
             } else if ((event.getCode() == KeyCode.ENTER && listView.getItems().size() > 0)) {
+                final String json = (String) listView.getSelectionModel().getSelectedItems().get(0);
+                final City city = gson.fromJson(json, City.class);
+                try {
+                    primaryStage.hide();
+                    aDo.aDo(new LatLon(city.getLat(), city.getLng()));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+//                SnackBar.showSnack(vBox, String.valueOf(json));
 
-                SnackBar.showSnack(vBox, String.valueOf(listView.getSelectionModel().getSelectedItems().get(0)));
 
             }
         });
         listView.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY && listView.getItems().size() > 0) {
                 if (event.getClickCount() == 2) {
-                    SnackBar.showSnack(vBox, String.valueOf(listView.getSelectionModel().getSelectedItems().get(0)));
+                    final String json = (String) listView.getSelectionModel().getSelectedItems().get(0);
+                    final City city = gson.fromJson(json, City.class);
+                    try {
+                        primaryStage.hide();
+                        aDo.aDo(new LatLon(city.getLat(), city.getLng()));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
 
 
-        vBox.getStylesheets().add("/dark.css");
+        vBox.getStylesheets().add("/dark-theme.css");
         //You would need from here
         primaryStage.focusedProperty().addListener((ov, onHidden, onShown) -> {
             primaryStage.hide();
         });
     }
-
-
-    public static void main(String[] args) {
-        Application.launch(args);
-    }
-
 
     private String[] nlp(String text) {
         if (text.contains("oo"))
@@ -196,7 +222,6 @@ public class ListViewExperiments extends Application {
         lookup(text);
         return null;
     }
-
 
     private void lookup(String probablyname) {
 

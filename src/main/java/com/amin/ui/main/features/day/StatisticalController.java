@@ -46,6 +46,7 @@ public class StatisticalController implements Initializable, Runnable {
     private Label valueLable;
     @FXML
     private StackPane rootstackpane;
+    private String unit;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -63,7 +64,6 @@ public class StatisticalController implements Initializable, Runnable {
 
     }
 
-    private String unit;
     @Override
     public void run() {
         allfeatureandyear = (ArrayList) ((SceneJson) rootstackpane.getScene()).getJson();

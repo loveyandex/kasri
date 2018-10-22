@@ -1,12 +1,7 @@
 package com.amin.ui.theme;
 
-public class AwesomeIcons
-{
+public class AwesomeIcons {
 
-    private AwesomeIcons()
-    {
-        /* not needed*/
-    }
     public static final String ICON_GLASS = "\uf000";
     public static final String ICON_MUSIC = "\uf001";
     public static final String ICON_SEARCH = "\uf002";
@@ -256,8 +251,11 @@ public class AwesomeIcons
     public static final String ICON_GITHUB_ALT = "\uf113";
     public static final String ICON_FOLDER_CLOSE_ALT = "\uf114";
     public static final String ICON_FOLDER_OPEN_ALT = "\uf115";
-
     //my addeds
-    public static final String ICON_LOCATION= "\uF601";
+    public static final String ICON_LOCATION = "\uF601";
+
+    private AwesomeIcons() {
+        /* not needed*/
+    }
 
 }

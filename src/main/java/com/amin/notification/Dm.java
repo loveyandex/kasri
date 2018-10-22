@@ -1,5 +1,3 @@
-
-
 package com.amin.notification;
 
 import javafx.application.Application;
@@ -20,6 +18,8 @@ import java.nio.charset.StandardCharsets;
  */
 public class Dm extends Application {
 
+
+    DatagramSocket socket;
 
     public static void main(String[] args) {
         launch(args);
@@ -47,15 +47,11 @@ public class Dm extends Application {
 
     }
 
-
     void sendmsg(String ip, int port, String msg) throws IOException {
         DatagramSocket socket = new DatagramSocket();
         DatagramPacket packet = new DatagramPacket(msg.getBytes(), msg.length(), InetAddress.getByName(ip), (int) port);
         socket.send(packet);
     }
-
-    DatagramSocket socket;
-
 
     String recieveMSg() throws IOException {
         final byte[] bytes = new byte[1024];

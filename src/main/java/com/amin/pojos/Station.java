@@ -16,7 +16,7 @@ public class Station {
     private LatLon latLong;
     private double distance;
 
-    public Station(String stationNumber, String country, String cityName, boolean haveEverData, LatLon latLong,double distance) {
+    public Station(String stationNumber, String country, String cityName, boolean haveEverData, LatLon latLong, double distance) {
         this.stationNumber = stationNumber;
         this.country = country;
         this.cityName = cityName;

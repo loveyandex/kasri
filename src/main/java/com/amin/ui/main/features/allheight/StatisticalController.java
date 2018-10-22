@@ -135,7 +135,7 @@ public class StatisticalController implements Initializable, Runnable {
             if (!valueLable.getText().isEmpty())
                 allfeatureandyear.stream()
                         .filter(doubles1 -> doubles1.get(1).doubleValue() == Double.parseDouble(text))
-                        .forEach(doubles1 -> valueLable.setText(valueLable.getText() +" in "+ doubles1.get(0)));
+                        .forEach(doubles1 -> valueLable.setText(valueLable.getText() + " in " + doubles1.get(0)));
 
 
         } catch (IndexOutOfBoundsException e) {

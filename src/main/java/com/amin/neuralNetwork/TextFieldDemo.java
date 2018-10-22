@@ -21,6 +21,10 @@ public class TextFieldDemo extends Application {
     private static final String EM1 = "1em";
     private static final String ERROR = "error";
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -81,10 +85,10 @@ public class TextFieldDemo extends Application {
 
         final NeuralNetwork[] net = new NeuralNetwork[1];
 
-        JFXButton jfxButton=new JFXButton("learn");
+        JFXButton jfxButton = new JFXButton("learn");
         Label results = new Label("no resut");
 
-        JFXButton gett=new JFXButton("get");
+        JFXButton gett = new JFXButton("get");
 
         jfxButton.setOnMouseClicked(event -> {
             gett.setDisable(true);
@@ -99,23 +103,19 @@ public class TextFieldDemo extends Application {
 
             final double aDouble = Double.parseDouble(validationField.getText().split(",")[0]);
             final double bDouble = Double.parseDouble(validationField.getText().split(",")[1]);
-            net[0].setInput(aDouble,bDouble);
+            net[0].setInput(aDouble, bDouble);
             net[0].calculate();
             double[] networkOutputOne = net[0].getOutput();
 
             final double x = networkOutputOne[0];
-            results.setText(results.getText()+";"+x);
+            results.setText(results.getText() + ";" + x);
             System.out.println(x);
         });
-
-
 
 
         pane.getChildren().add(jfxButton);
         pane.getChildren().add(gett);
         pane.getChildren().add(results);
-
-
 
 
         final Scene scene = new Scene(pane, 600, 400, Color.WHITE);
@@ -127,10 +127,6 @@ public class TextFieldDemo extends Application {
         stage.show();
 
 
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
 

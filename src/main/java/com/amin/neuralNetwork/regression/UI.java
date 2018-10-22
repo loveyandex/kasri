@@ -21,6 +21,10 @@ public class UI extends Application {
     private static final String EM1 = "1em";
     private static final String ERROR = "error";
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         stage.getIcons().add(new Image(getClass().getResource("/drawable/wind_white.png").toURI().toString()));
@@ -65,10 +69,10 @@ public class UI extends Application {
         validator.setMessage("Password Can't be empty");
 
 
-        JFXButton jfxButton=new JFXButton("learn");
+        JFXButton jfxButton = new JFXButton("learn");
         Label results = new Label("no resut");
 
-        JFXButton gett=new JFXButton("get");
+        JFXButton gett = new JFXButton("get");
         final MultiLayerNetwork[] net = new MultiLayerNetwork[1];
         jfxButton.setOnMouseClicked(event -> {
             gett.setDisable(true);
@@ -79,7 +83,7 @@ public class UI extends Application {
             gett.setDisable(false);
         });
 
-                passwordField.getValidators().add(validator);
+        passwordField.getValidators().add(validator);
         passwordField.focusedProperty().addListener((o, oldVal, newVal) -> {
             if (!newVal) {
                 passwordField.validate();
@@ -87,27 +91,22 @@ public class UI extends Application {
         });
 //        pane.getChildren().add(passwordField);
 
-        gett.setOnMouseClicked(event-> {
+        gett.setOnMouseClicked(event -> {
 
             final double aDouble = Double.parseDouble(validationField.getText().split(",")[0]);
             final double bDouble = Double.parseDouble(validationField.getText().split(",")[1]);
 
             // Test the addition of 2 numbers (Try different numbers here)
-            final INDArray input = Nd4j.create(new double[] { aDouble, bDouble }, new int[] { 1, 2 });
+            final INDArray input = Nd4j.create(new double[]{aDouble, bDouble}, new int[]{1, 2});
             INDArray out = net[0].output(input, false);
             System.err.println(out);
-            results.setText(results.getText()+";"+out.toString());
+            results.setText(results.getText() + ";" + out.toString());
         });
-
-
-
 
 
         pane.getChildren().add(jfxButton);
         pane.getChildren().add(gett);
         pane.getChildren().add(results);
-
-
 
 
         final Scene scene = new Scene(pane, 600, 400, Color.WHITE);
@@ -119,10 +118,6 @@ public class UI extends Application {
         stage.show();
 
 
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
 

@@ -13,9 +13,10 @@ import javafx.stage.StageStyle;
 import java.awt.*;
 
 public class SimpleWindowApplication extends Application {
+    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
     private double xOffset = 0;
     private double yOffset = 0;
-    Dimension dimension=Toolkit.getDefaultToolkit().getScreenSize();
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -45,7 +46,7 @@ public class SimpleWindowApplication extends Application {
             }
         });
         value.setOnMouseClicked(event -> {
-            if (event.getButton().name()==MouseButton.SECONDARY.name()) {
+            if (event.getButton().name() == MouseButton.SECONDARY.name()) {
                 final double width = dimension.getWidth();
                 System.out.println(width);
                 primaryStage.setWidth(width);

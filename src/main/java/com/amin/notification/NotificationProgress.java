@@ -54,48 +54,91 @@ import java.util.stream.IntStream;
  * Time: 07:10
  */
 public class NotificationProgress {
-    public static final Image INFO_ICON    = new Image(Notifier.class.getResourceAsStream("info.png"));
+    public static final Image INFO_ICON = new Image(Notifier.class.getResourceAsStream("info.png"));
     public static final Image WARNING_ICON = new Image(Notifier.class.getResourceAsStream("warning.png"));
     public static final Image SUCCESS_ICON = new Image(Notifier.class.getResourceAsStream("success.png"));
-    public static final Image ERROR_ICON   = new Image(Notifier.class.getResourceAsStream("error.png"));
-    public final String       TITLE;
-    public final String       MESSAGE;
-    public final Image        IMAGE;
+    public static final Image ERROR_ICON = new Image(Notifier.class.getResourceAsStream("error.png"));
+    public final String TITLE;
+    public final String MESSAGE;
+    public final Image IMAGE;
 
 
     // ******************** Constructors **************************************
     public NotificationProgress(final String TITLE, final String MESSAGE) {
         this(TITLE, MESSAGE, null);
     }
+
     public NotificationProgress(final String MESSAGE, final Image IMAGE) {
         this("", MESSAGE, IMAGE);
     }
+
     public NotificationProgress(final String TITLE, final String MESSAGE, final Image IMAGE) {
-        this.TITLE   = TITLE;
+        this.TITLE = TITLE;
         this.MESSAGE = MESSAGE;
-        this.IMAGE   = IMAGE;
+        this.IMAGE = IMAGE;
     }
 
-    
+
     // ******************** Inner Classes *************************************
     public enum Notifier {
         INSTANCE;
 
-        private static final double   ICON_WIDTH    = 24;
-        private static final double   ICON_HEIGHT   = 24;
-        private static       double   width         = 300;
-        private static       double   height        = 80;
-        private static       double   offsetX       = 0;
-        private static       double   offsetY       = 25;
-        private static       double   spacingY      = 5;
-        private static       Pos      popupLocation = Pos.TOP_LEFT;
-        private static       Stage    stageRef      = null;
-        private Duration              popupLifetime;
-        private Duration              popupAnimationTime;
-        private Stage                 stage;
-        private Scene                 scene;
+        private static final double ICON_WIDTH = 24;
+        private static final double ICON_HEIGHT = 24;
+        private static double width = 300;
+        private static double height = 80;
+        private static double offsetX = 0;
+        private static double offsetY = 25;
+        private static double spacingY = 5;
+        private static Pos popupLocation = Pos.TOP_LEFT;
+        private static Stage stageRef = null;
+        /**
+         * Creates and shows a popup with the data from the given Notification object
+         *
+         * @param NOTIFICATION
+         */
+        public ProgressBar progressBar;
+        private Duration popupLifetime;
+        private Duration popupAnimationTime;
+        private Stage stage;
+        private Scene scene;
         private ObservableList<Popup> popups;
+        private ObjectProperty<EventHandler<NotificationEvent2>> onNotificationPressed = new ObjectPropertyBase<EventHandler<NotificationEvent2>>() {
+            @Override
+            public Object getBean() {
+                return this;
+            }
 
+            @Override
+            public String getName() {
+                return "onNotificationPressed";
+            }
+        };
+        private ObjectProperty<EventHandler<NotificationEvent2>> onShowNotification = new ObjectPropertyBase<EventHandler<NotificationEvent2>>() {
+            @Override
+            public Object getBean() {
+                return this;
+            }
+
+            @Override
+            public String getName() {
+                return "onShowNotification";
+            }
+        };
+
+
+        // ******************** Methods *******************************************
+        private ObjectProperty<EventHandler<NotificationEvent2>> onHideNotification = new ObjectPropertyBase<EventHandler<NotificationEvent2>>() {
+            @Override
+            public Object getBean() {
+                return this;
+            }
+
+            @Override
+            public String getName() {
+                return "onHideNotification";
+            }
+        };
 
         // ******************** Constructor ***************************************
         private Notifier() {
@@ -103,36 +146,10 @@ public class NotificationProgress {
             initGraphics();
         }
 
-
-        // ******************** Initialization ************************************
-        private void init() {
-            popupLifetime      = Duration.millis(5000);
-            popupAnimationTime = Duration.millis(500);
-            popups             = FXCollections.observableArrayList();
-        }
-
-        private void initGraphics() {
-            scene = new Scene(new Region());
-            scene.setFill(null);
-            scene.getStylesheets().add(getClass().getResource("notifier.css").toExternalForm());            
-
-            stage = new Stage();
-            stage.initStyle(StageStyle.UTILITY);
-            stage.setOpacity(0);
-            stage.setHeight(0);
-            stage.setWidth(0);
-
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.setAlwaysOnTop(true);
-        }
-
-
-        // ******************** Methods *******************************************
         /**
-         * @param STAGE_REF  The Notification will be positioned relative to the given Stage.<br>
-         * 					 If null then the Notification will be positioned relative to the primary Screen.
-         * @param POPUP_LOCATION  The default is TOP_RIGHT of primary Screen.
+         * @param STAGE_REF      The Notification will be positioned relative to the given Stage.<br>
+         *                       If null then the Notification will be positioned relative to the primary Screen.
+         * @param POPUP_LOCATION The default is TOP_RIGHT of primary Screen.
          */
         public static void setPopupLocation(final Stage STAGE_REF, final Pos POPUP_LOCATION) {
             if (null != STAGE_REF) {
@@ -147,6 +164,7 @@ public class NotificationProgress {
          * stage is closed Notifications will be shut down as well.<br>
          * This is only needed if <code>setPopupLocation</code> is called
          * <u>without</u> a stage reference.
+         *
          * @param OWNER
          */
         public static void setNotificationOwner(final Stage OWNER) {
@@ -154,43 +172,66 @@ public class NotificationProgress {
         }
 
         /**
-         * @param OFFSET_X  The horizontal shift required.
-         * <br> The default is 0 px.
+         * @param OFFSET_X The horizontal shift required.
+         *                 <br> The default is 0 px.
          */
         public static void setOffsetX(final double OFFSET_X) {
             Notifier.offsetX = OFFSET_X;
         }
 
         /**
-         * @param OFFSET_Y  The vertical shift required.
-         * <br> The default is 25 px.
+         * @param OFFSET_Y The vertical shift required.
+         *                 <br> The default is 25 px.
          */
         public static void setOffsetY(final double OFFSET_Y) {
             Notifier.offsetY = OFFSET_Y;
         }
 
         /**
-         * @param WIDTH  The default is 300 px.
+         * @param WIDTH The default is 300 px.
          */
         public static void setWidth(final double WIDTH) {
             Notifier.width = WIDTH;
         }
 
         /**
-         * @param HEIGHT  The default is 80 px.
+         * @param HEIGHT The default is 80 px.
          */
         public static void setHeight(final double HEIGHT) {
             Notifier.height = HEIGHT;
         }
 
         /**
-         * @param SPACING_Y  The spacing between multiple Notifications.
-         * <br> The default is 5 px.
+         * @param SPACING_Y The spacing between multiple Notifications.
+         *                  <br> The default is 5 px.
          */
         public static void setSpacingY(final double SPACING_Y) {
             Notifier.spacingY = SPACING_Y;
         }
-               
+
+        // ******************** Initialization ************************************
+        private void init() {
+            popupLifetime = Duration.millis(5000);
+            popupAnimationTime = Duration.millis(500);
+            popups = FXCollections.observableArrayList();
+        }
+
+        private void initGraphics() {
+            scene = new Scene(new Region());
+            scene.setFill(null);
+            scene.getStylesheets().add(getClass().getResource("notifier.css").toExternalForm());
+
+            stage = new Stage();
+            stage.initStyle(StageStyle.UTILITY);
+            stage.setOpacity(0);
+            stage.setHeight(0);
+            stage.setWidth(0);
+
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
+        }
+
         public void stop() {
             popups.clear();
             stage.close();
@@ -199,6 +240,7 @@ public class NotificationProgress {
         /**
          * Returns the Duration that the notification will stay on screen before it
          * will fade out. The default is 5000 ms
+         *
          * @return the Duration the popup notification will stay on screen
          */
         public Duration getPopupLifetime() {
@@ -208,16 +250,18 @@ public class NotificationProgress {
         /**
          * Defines the Duration that the popup notification will stay on screen before it
          * will fade out. The parameter is limited to values between 2 and 20 seconds.
+         *
          * @param POPUP_LIFETIME
          */
         public void setPopupLifetime(final Duration POPUP_LIFETIME) {
 //            popupLifetime = Duration.millis(clamp(2000, 20000, POPUP_LIFETIME.toMillis()));
-            popupLifetime = Duration.millis(clamp( POPUP_LIFETIME.toMillis()));
+            popupLifetime = Duration.millis(clamp(POPUP_LIFETIME.toMillis()));
         }
 
         /**
          * Returns the Duration that it takes to fade out the notification
          * The parameter is limited to values between 0 and 1000 ms
+         *
          * @return the Duration that it takes to fade out the notification
          */
         public Duration getPopupAnimationTime() {
@@ -228,6 +272,7 @@ public class NotificationProgress {
          * Defines the Duration that it takes to fade out the notification
          * The parameter is limited to values between 0 and 1000 ms
          * Default value is 500 ms
+         *
          * @param POPUP_ANIMATION_TIME
          */
         public void setPopupAnimationTime(final Duration POPUP_ANIMATION_TIME) {
@@ -240,6 +285,7 @@ public class NotificationProgress {
 
         /**
          * Show the given Notification on the screen
+         *
          * @param NOTIFICATION
          */
         public void notify(final NotificationProgress NOTIFICATION) {
@@ -249,6 +295,7 @@ public class NotificationProgress {
 
         /**
          * Show a Notification with the given parameters on the screen
+         *
          * @param TITLE
          * @param MESSAGE
          * @param IMAGE
@@ -259,6 +306,7 @@ public class NotificationProgress {
 
         /**
          * Show a Notification with the given title and message and an Info icon
+         *
          * @param TITLE
          * @param MESSAGE
          */
@@ -268,6 +316,7 @@ public class NotificationProgress {
 
         /**
          * Show a Notification with the given title and message and a Warning icon
+         *
          * @param TITLE
          * @param MESSAGE
          */
@@ -277,6 +326,7 @@ public class NotificationProgress {
 
         /**
          * Show a Notification with the given title and message and a Checkmark icon
+         *
          * @param TITLE
          * @param MESSAGE
          */
@@ -286,6 +336,7 @@ public class NotificationProgress {
 
         /**
          * Show a Notification with the given title and message and an Error icon
+         *
          * @param TITLE
          * @param MESSAGE
          */
@@ -295,18 +346,25 @@ public class NotificationProgress {
 
         /**
          * Returns true if the popup parent stage is always on top
+         *
          * @return true if the popup parent stage is always on top
          */
-        public boolean isAlwaysOnTop() { return stage.isAlwaysOnTop(); }
+        public boolean isAlwaysOnTop() {
+            return stage.isAlwaysOnTop();
+        }
 
         /**
          * Enables/Disables always on top for the popup parent stage
+         *
          * @param ALWAYS_ON_TOP
          */
-        public void setAlwaysOnTop(final boolean ALWAYS_ON_TOP) { stage.setAlwaysOnTop(ALWAYS_ON_TOP); }
+        public void setAlwaysOnTop(final boolean ALWAYS_ON_TOP) {
+            stage.setAlwaysOnTop(ALWAYS_ON_TOP);
+        }
 
         /**
          * Makes sure that the given VALUE is within the range of MIN to MAX
+         *
          * @param MIN
          * @param MAX
          * @param VALUE
@@ -317,7 +375,8 @@ public class NotificationProgress {
             if (VALUE > MAX) return MAX;
             return VALUE;
         }
-        private double clamp( final double VALUE) {
+
+        private double clamp(final double VALUE) {
             return VALUE;
         }
 
@@ -325,31 +384,29 @@ public class NotificationProgress {
          * Reorder the popup Notifications on screen so that the latest Notification will stay on top
          */
         private void preOrder() {
-            if (popups.isEmpty()) return;            
+            if (popups.isEmpty()) return;
             IntStream.range(0, popups.size()).parallel().forEachOrdered(
-                i -> {
-                    switch (popupLocation) {
-                        case TOP_LEFT: case TOP_CENTER: case TOP_RIGHT: 
-                            popups.get(i).setY(popups.get(i).getY() + height + spacingY); 
-                            break;
-                        
-                        case BOTTOM_LEFT: case BOTTOM_CENTER: case BOTTOM_RIGHT:                             
-                            popups.get(i).setY(popups.get(i).getY() - height - spacingY);                             
-                            break;
-                        
-                        default: 
-                            popups.get(i).setY(popups.get(i).getY() - height - spacingY);
-                            break;
-                    }    
-                }
+                    i -> {
+                        switch (popupLocation) {
+                            case TOP_LEFT:
+                            case TOP_CENTER:
+                            case TOP_RIGHT:
+                                popups.get(i).setY(popups.get(i).getY() + height + spacingY);
+                                break;
+
+                            case BOTTOM_LEFT:
+                            case BOTTOM_CENTER:
+                            case BOTTOM_RIGHT:
+                                popups.get(i).setY(popups.get(i).getY() - height - spacingY);
+                                break;
+
+                            default:
+                                popups.get(i).setY(popups.get(i).getY() - height - spacingY);
+                                break;
+                        }
+                    }
             );
         }
-
-        /**
-         * Creates and shows a popup with the data from the given Notification object
-         * @param NOTIFICATION
-         */
-        public ProgressBar progressBar  ;
 
         private void showPopup(final NotificationProgress NOTIFICATION) {
             Label title = new Label(NOTIFICATION.TITLE);
@@ -358,8 +415,7 @@ public class NotificationProgress {
             ImageView icon = new ImageView(NOTIFICATION.IMAGE);
             icon.setFitWidth(ICON_WIDTH);
             icon.setFitHeight(ICON_HEIGHT);
-           progressBar = new ProgressBar(0);
-
+            progressBar = new ProgressBar(0);
 
 
             Label message = new Label(NOTIFICATION.MESSAGE, icon);
@@ -368,7 +424,7 @@ public class NotificationProgress {
             VBox popupLayout = new VBox();
             popupLayout.setSpacing(10);
             popupLayout.setPadding(new Insets(10, 10, 10, 10));
-            popupLayout.getChildren().addAll(title, message,progressBar);
+            popupLayout.getChildren().addAll(title, message, progressBar);
 
             StackPane popupContent = new StackPane();
             popupContent.setPrefSize(width, height);
@@ -380,17 +436,17 @@ public class NotificationProgress {
             POPUP.setY(getY());
             POPUP.getContent().add(popupContent);
             POPUP.addEventHandler(MouseEvent.MOUSE_PRESSED, new WeakEventHandler<>(event ->
-                fireNotificationEvent2(new NotificationEvent2(NOTIFICATION, 
-                        Notifier.this, POPUP, NotificationEvent2.NOTIFICATION_PRESSED))
+                    fireNotificationEvent2(new NotificationEvent2(NOTIFICATION,
+                            Notifier.this, POPUP, NotificationEvent2.NOTIFICATION_PRESSED))
             ));
             popups.add(POPUP);
 
             // Add a timeline for popup fade out
             KeyValue fadeOutBegin = new KeyValue(POPUP.opacityProperty(), 1.0);
-            KeyValue fadeOutEnd   = new KeyValue(POPUP.opacityProperty(), 0.0);
+            KeyValue fadeOutEnd = new KeyValue(POPUP.opacityProperty(), 0.0);
 
             KeyFrame kfBegin = new KeyFrame(Duration.ZERO, fadeOutBegin);
-            KeyFrame kfEnd   = new KeyFrame(popupAnimationTime, fadeOutEnd);
+            KeyFrame kfEnd = new KeyFrame(popupAnimationTime, fadeOutEnd);
 
             Timeline timeline = new Timeline(kfBegin, kfEnd);
             timeline.setDelay(popupLifetime);
@@ -414,58 +470,90 @@ public class NotificationProgress {
         }
 
         private double getX() {
-            if (null == stageRef) return calcX( 0.0, Screen.getPrimary().getBounds().getWidth() );
+            if (null == stageRef) return calcX(0.0, Screen.getPrimary().getBounds().getWidth());
 
             return calcX(stageRef.getX(), stageRef.getWidth());
         }
+
         private double getY() {
-            if (null == stageRef) return calcY( 0.0, Screen.getPrimary().getBounds().getHeight() );
+            if (null == stageRef) return calcY(0.0, Screen.getPrimary().getBounds().getHeight());
             return calcY(stageRef.getY(), stageRef.getHeight());
         }
 
         private double calcX(final double LEFT, final double TOTAL_WIDTH) {
             switch (popupLocation) {
-                case TOP_LEFT  : case CENTER_LEFT : case BOTTOM_LEFT  : return LEFT + offsetX;
-                case TOP_CENTER: case CENTER      : case BOTTOM_CENTER: return LEFT + (TOTAL_WIDTH - width) * 0.5 - offsetX;
-                case TOP_RIGHT : case CENTER_RIGHT: case BOTTOM_RIGHT : return LEFT + TOTAL_WIDTH - width - offsetX;
-                default: return 0.0;
-            }
-        }
-        private double calcY(final double TOP, final double TOTAL_HEIGHT ) {
-            switch (popupLocation) {
-                case TOP_LEFT   : case TOP_CENTER   : case TOP_RIGHT   : return TOP + offsetY;
-                case CENTER_LEFT: case CENTER       : case CENTER_RIGHT: return TOP + (TOTAL_HEIGHT- height)/2 - offsetY;
-                case BOTTOM_LEFT: case BOTTOM_CENTER: case BOTTOM_RIGHT: return TOP + TOTAL_HEIGHT - height - offsetY;
-                default: return 0.0;
+                case TOP_LEFT:
+                case CENTER_LEFT:
+                case BOTTOM_LEFT:
+                    return LEFT + offsetX;
+                case TOP_CENTER:
+                case CENTER:
+                case BOTTOM_CENTER:
+                    return LEFT + (TOTAL_WIDTH - width) * 0.5 - offsetX;
+                case TOP_RIGHT:
+                case CENTER_RIGHT:
+                case BOTTOM_RIGHT:
+                    return LEFT + TOTAL_WIDTH - width - offsetX;
+                default:
+                    return 0.0;
             }
         }
 
+        private double calcY(final double TOP, final double TOTAL_HEIGHT) {
+            switch (popupLocation) {
+                case TOP_LEFT:
+                case TOP_CENTER:
+                case TOP_RIGHT:
+                    return TOP + offsetY;
+                case CENTER_LEFT:
+                case CENTER:
+                case CENTER_RIGHT:
+                    return TOP + (TOTAL_HEIGHT - height) / 2 - offsetY;
+                case BOTTOM_LEFT:
+                case BOTTOM_CENTER:
+                case BOTTOM_RIGHT:
+                    return TOP + TOTAL_HEIGHT - height - offsetY;
+                default:
+                    return 0.0;
+            }
+        }
 
         // ******************** Event handling ********************************
-        public final ObjectProperty<EventHandler<NotificationEvent2>> onNotificationPressedProperty() { return onNotificationPressed; }
-        public final void setOnNotificationPressed(EventHandler<NotificationEvent2> value) { onNotificationPressedProperty().set(value); }
-        public final EventHandler<NotificationEvent2> getOnNotificationPressed() { return onNotificationPressedProperty().get(); }
-        private ObjectProperty<EventHandler<NotificationEvent2>> onNotificationPressed = new ObjectPropertyBase<EventHandler<NotificationEvent2>>() {
-            @Override public Object getBean() { return this; }
-            @Override public String getName() { return "onNotificationPressed";}
-        };
+        public final ObjectProperty<EventHandler<NotificationEvent2>> onNotificationPressedProperty() {
+            return onNotificationPressed;
+        }
 
-        public final ObjectProperty<EventHandler<NotificationEvent2>> onShowNotificationProperty() { return onShowNotification; }
-        public final void setOnShowNotification(EventHandler<NotificationEvent2> value) { onShowNotificationProperty().set(value); }
-        public final EventHandler<NotificationEvent2> getOnShowNotification() { return onShowNotificationProperty().get(); }
-        private ObjectProperty<EventHandler<NotificationEvent2>> onShowNotification = new ObjectPropertyBase<EventHandler<NotificationEvent2>>() {
-            @Override public Object getBean() { return this; }
-            @Override public String getName() { return "onShowNotification";}
-        };
+        public final EventHandler<NotificationEvent2> getOnNotificationPressed() {
+            return onNotificationPressedProperty().get();
+        }
 
-        public final ObjectProperty<EventHandler<NotificationEvent2>> onHideNotificationProperty() { return onHideNotification; }
-        public final void setOnHideNotification(EventHandler<NotificationEvent2> value) { onHideNotificationProperty().set(value); }
-        public final EventHandler<NotificationEvent2> getOnHideNotification() { return onHideNotificationProperty().get(); }
-        private ObjectProperty<EventHandler<NotificationEvent2>> onHideNotification = new ObjectPropertyBase<EventHandler<NotificationEvent2>>() {
-            @Override public Object getBean() { return this; }
-            @Override public String getName() { return "onHideNotification";}
-        };
+        public final void setOnNotificationPressed(EventHandler<NotificationEvent2> value) {
+            onNotificationPressedProperty().set(value);
+        }
 
+        public final ObjectProperty<EventHandler<NotificationEvent2>> onShowNotificationProperty() {
+            return onShowNotification;
+        }
+
+        public final EventHandler<NotificationEvent2> getOnShowNotification() {
+            return onShowNotificationProperty().get();
+        }
+
+        public final void setOnShowNotification(EventHandler<NotificationEvent2> value) {
+            onShowNotificationProperty().set(value);
+        }
+
+        public final ObjectProperty<EventHandler<NotificationEvent2>> onHideNotificationProperty() {
+            return onHideNotification;
+        }
+
+        public final EventHandler<NotificationEvent2> getOnHideNotification() {
+            return onHideNotificationProperty().get();
+        }
+
+        public final void setOnHideNotification(EventHandler<NotificationEvent2> value) {
+            onHideNotificationProperty().set(value);
+        }
 
         public void fireNotificationEvent2(final NotificationEvent2 EVENT) {
             final EventType TYPE = EVENT.getEventType();

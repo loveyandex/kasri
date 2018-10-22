@@ -1,17 +1,19 @@
-package com.amin.ui.main.features.day;
+package com.amin.ui.mappless;
 
-import com.amin.analysis.Mapping;
-import com.amin.config.C;
 import com.amin.jsons.Date;
 import com.amin.jsons.Features;
 import com.amin.jsons.FormInfo;
 import com.amin.jsons.UnitConvertor;
-import com.amin.scripting.Functions;
+import com.amin.knn.KNN;
+import com.amin.pojos.LatLon;
+import com.amin.ui.SceneJson;
 import com.amin.ui.dialogs.Dialog;
+import com.amin.ui.dialogs.SnackBar;
+import com.amin.ui.scripts.ScriptAPP;
 import com.jfoenix.controls.*;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -24,17 +26,14 @@ import net.time4j.calendar.PersianCalendar;
 import net.time4j.ui.javafx.CalendarPicker;
 import org.controlsfx.control.RangeSlider;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.*;
 
 /**
  * is created by aMIN on 6/1/2018 at 05:50
  */
-public class FormDayController implements Initializable {
+public class otherFieldController implements Initializable {
 
     public RangeSlider yearsSlider;
     public JFXSlider lowYearjfxslider;
@@ -42,9 +41,13 @@ public class FormDayController implements Initializable {
     public HBox topOfgobtn;
     public JFXComboBox featuresCombo;
     public JFXComboBox unitsCombo;
+
     public GridPane rootNode;
+
+
     public JFXButton cancelBtn;
     public JFXButton Gobtn;
+
     public TextField height;
     public VBox vvv;
     public JFXComboBox monthCombo;
@@ -54,13 +57,6 @@ public class FormDayController implements Initializable {
     public FormInfo formInfo;
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
-    private ArrayList<IOException> ioExceptions = new ArrayList<>();
-    @FXML
-    private JFXComboBox<Label> stationsCombo;
-    @FXML
-    private JFXComboBox<Label> countriesCombo;
-    private Map<String, String> stationNumTOCities;
-
     @FXML
     private RangeSlider hSlider;
 
@@ -68,6 +64,13 @@ public class FormDayController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         formInfo = new FormInfo();
+        final LatLon latLon = new LatLon();
+        Platform.runLater(() -> {
+            LatLon tempLatLon = (LatLon) ((SceneJson) vvv.getScene()).getJson();
+            latLon.setLat(tempLatLon.getLat());
+            latLon.setLogn(tempLatLon.getLogn());
+        });
+
 
         String[] featursName = {"PRES", "HGHT", "TEMP", "DWPT", "RELH", "MIXR", "DRCT", Features.SKNT.getName(), "THTA", "THTE", "THTV"};
         Arrays.sort(featursName);
@@ -224,7 +227,7 @@ public class FormDayController implements Initializable {
                     persianCalendarCalendarPicker.valueProperty().setValue(PersianCalendar.of(1372, intmonth, (Integer.parseInt(((Label) newValue).getText()))));
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
-                } catch (java.lang.IllegalArgumentException ex) {
+                } catch (IllegalArgumentException ex) {
                     Dialog.createExceptionDialog(ex);
                 }
 //                System.out.println(persianCalendarCalendarPicker.valueProperty().getValue().getMonth());
@@ -239,89 +242,6 @@ public class FormDayController implements Initializable {
 
         });
 
-
-        try {
-            ArrayList<String> countriesName = Mapping.getFileLines(C.COUNTRIES_CONFIG_PATH);
-            countriesName.forEach(countryName -> countriesCombo.getItems().add(new Label(countryName)));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
-        countriesCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
-            stationsCombo.getItems().clear();
-            try {
-                formInfo.setStationNumber(null);
-                formInfo.setCountry(newValue.getText());
-
-                String dirpath = "config/old-stations";
-                String fileName = newValue.getText() + ".conf";
-
-                File dir = new File(dirpath);
-                dir.mkdirs();
-                File fileTosave = new File(dir, fileName);
-                if (!fileTosave.exists())
-                    Mapping.createCSVFILEFORStations(dirpath, fileName);
-
-                stationNumTOCities = Mapping.
-                        MapStationNumTOCities("config/old-stations/" + newValue.getText() + ".conf.csv");
-
-                final Collection<String> values = stationNumTOCities.values();
-                List<String> lisst = new ArrayList<>(values);
-                Collections.sort(lisst);
-
-                for (int i = 0; i < lisst.size(); i++) {
-                    System.out.println((lisst.get(i)));
-                }
-
-                final Set<String> statinss = stationNumTOCities.keySet();
-                List<String> list = new ArrayList<String>(statinss);
-
-                final ArrayList<String> asli = new ArrayList<>();
-                for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
-                    if (!station.getValue().equals("&"))
-                        asli.add(station.getKey());
-                }
-                Collections.sort(asli);
-                for (int i = 0; i < asli.size(); i++) {
-                    stationsCombo.getItems().add(new Label(asli.get(i)));
-                }
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (isReadyToFire(formInfo))
-                Gobtn.setDisable(false);
-            else
-                Gobtn.setDisable(true);
-
-
-        });
-
-//        stationsCombo.setPromptText("select station");
-        stationsCombo.setMinWidth(200);
-        countriesCombo.setMinWidth(200);
-
-        stationsCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
-
-            if (newValue != null) {
-                for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
-                    if (station.getKey().equals(newValue.getText())) {
-                        formInfo.setStationNumber(station.getValue());
-                        System.out.println(station.getValue());
-
-                    }
-
-                }
-                formInfo.setStationName(newValue.getText());
-
-                if (isReadyToFire(formInfo))
-                    Gobtn.setDisable(false);
-            }
-        });
-
-        GridPane.setHalignment(stationsCombo, HPos.CENTER);
 
         cancelBtn.pressedProperty().addListener(observable -> {
         });
@@ -347,12 +267,14 @@ public class FormDayController implements Initializable {
             else {
                 try {
 
-                    Functions.getInstance().onDayOneHeightOneStation(formInfo);
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
+                    final double nearst = KNN.nearst(300, latLon, (stationnumber, country) -> {
+                        final String function = String.format("onday %s  %d  %d  %s  %s  %s %d  %d %s", stationnumber, formInfo.getDate().Month, formInfo.getDate().Day, formInfo.getFeaureName(), formInfo.getFeatureUnit(), formInfo.getHeight(), formInfo.getLowerYear().intValue(), formInfo.getHighYear().intValue(), country);
+                        final double v = ScriptAPP.scripting2(function);
+                        return v;
+                    });
+                    SnackBar.showSnack(vvv, String.format("%.4f %s", nearst, formInfo.getFeatureUnit()), 4323);
+
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
@@ -384,7 +306,7 @@ public class FormDayController implements Initializable {
     }
 
     private boolean isReadyToFire(FormInfo formInfo) {
-        if (formInfo.getFeatureUnit() == null || formInfo.getFeaureName() == null || formInfo.getLowerYear() == null || formInfo.getHighYear() == null || formInfo.getDate() == null || formInfo.getStationNumber() == null || formInfo.getCountry() == null || formInfo.getHeight() == null) {
+        if (formInfo.getFeatureUnit() == null || formInfo.getFeaureName() == null || formInfo.getLowerYear() == null || formInfo.getHighYear() == null || formInfo.getDate() == null || formInfo.getHeight() == null) {
             Gobtn.setDisable(true);
             return false;
         } else
