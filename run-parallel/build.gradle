@@ -11,6 +11,13 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
 }
+apply plugin: 'java'
+
+jar {
+    manifest {
+        attributes('Main-Class': 'org.amin.J')
+    }
+}
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
@@ -25,4 +32,4 @@ dependencies {
 
 }
 
-mainClassName='org.amin.Run'
+mainClassName='org.amin.J'
