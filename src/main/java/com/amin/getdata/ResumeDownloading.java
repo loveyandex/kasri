@@ -13,7 +13,7 @@ public class ResumeDownloading {
 
     public static void main(String[] args) {
         ArrayList<DeatailsDownloading> deatailsDownloadings = new ResumeDownloading().checkAndFindDowaloads();
-        System.err.println(new Gson().toJson(deatailsDownloadings));
+        System.err.println(new Gson().toJson(                                                                                                                                                                                       deatailsDownloadings));
 
     }
 
@@ -43,7 +43,7 @@ public class ResumeDownloading {
             }
             return deatailsDownloadings;
         }
-        throw new RuntimeException("why code has reached here ");
+        throw new RuntimeException("why code has reached here!!!");
     }
 
     private int getlastMonth(File country) {
