@@ -12,11 +12,13 @@ import static java.lang.Math.abs;
 public class ResumeDownloading {
 
     public static void main(String[] args) {
-        new ResumeDownloading().check();
+        ArrayList<DeatailsDownloading> deatailsDownloadings = new ResumeDownloading().checkAndFindDowaloads();
+        System.err.println(new Gson().toJson(deatailsDownloadings));
+
     }
 
 
-    public void check() {
+    public ArrayList<DeatailsDownloading> checkAndFindDowaloads() {
         System.out.println(C.DATA_PATH);
         File rootDirectory = new File(C.DATA_PATH);
         if (rootDirectory.isDirectory()) {
@@ -33,19 +35,15 @@ public class ResumeDownloading {
                             int getlastYear = getlastYear(country);
                             int getlastMonth = getlastMonth(country);
                             DeatailsDownloading deatailsDownloading = new DeatailsDownloading(name, getlastMonth, getlastYear, C.NowYear);
-                            System.out.println(new Gson().toJson(deatailsDownloading));
+                            deatailsDownloadings.add(deatailsDownloading);
                         }
                         continue;
-
                     }
-
                 }
-
             }
-
+            return deatailsDownloadings;
         }
-
-
+        throw new RuntimeException("why code has reached here ");
     }
 
     private int getlastMonth(File country) {
