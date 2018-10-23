@@ -15,7 +15,7 @@ apply plugin: 'java'
 
 jar {
     manifest {
-        attributes('Main-Class': 'org.amin.J')
+        attributes('Main-Class': 'org.amin.Run')
     }
 }
 
@@ -32,4 +32,4 @@ dependencies {
 
 }
 
-mainClassName='org.amin.J'
+mainClassName='org.amin.Run'

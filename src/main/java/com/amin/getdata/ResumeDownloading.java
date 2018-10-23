@@ -35,17 +35,10 @@ public class ResumeDownloading {
                             DeatailsDownloading deatailsDownloading = new DeatailsDownloading(name, getlastMonth, getlastYear, C.NowYear);
                             System.out.println(new Gson().toJson(deatailsDownloading));
                         }
-                        continue;
-
                     }
-
                 }
-
             }
-
         }
-
-
     }
 
     private int getlastMonth(File country) {
