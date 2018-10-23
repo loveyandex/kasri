@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.geometry.Insets?>
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.amin.getdata.DoanloadContrller">
+    <children>
+
+        <VBox alignment="CENTER">
+            <HBox alignment="CENTER" spacing="20">
+
+            <JFXButton  prefHeight="50" prefWidth="175" style="-fx-background-color: #30a4ff;   -fx-text-fill: white;"
+                       text="start downloading">
+            </JFXButton>
+
+            <JFXButton  prefHeight="50" prefWidth="175" style="-fx-background-color: #ff852d;   -fx-text-fill: white;"
+                       text="stop downloading">
+            </JFXButton>
+
+            </HBox>
+
+            <VBox.margin>
+                <Insets>
+                    <top>300</top>
+                </Insets>
+            </VBox.margin>
+        </VBox>
+
+    </children>
+</VBox>
