@@ -13,7 +13,7 @@ public class ResumeDownloading {
 
     public static void main(String[] args) {
         ArrayList<DeatailsDownloading> deatailsDownloadings = new ResumeDownloading().checkAndFindDowaloads();
-        System.err.println(new Gson().toJson(                                                                                                                                                                                       deatailsDownloadings));
+        System.err.println(new Gson().toJson(deatailsDownloadings));
 
     }
 
@@ -35,6 +35,7 @@ public class ResumeDownloading {
                             int getlastYear = getlastYear(country);
                             int getlastMonth = getlastMonth(country);
                             DeatailsDownloading deatailsDownloading = new DeatailsDownloading(name, getlastMonth, getlastYear, C.NowYear);
+                            System.err.println(new Gson().toJson(deatailsDownloading));
                             deatailsDownloadings.add(deatailsDownloading);
                         }
                         continue;

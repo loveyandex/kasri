@@ -198,7 +198,7 @@ public class Process implements Runnable {
 //"G:/Program Files/AMinAbvall/kasridata
 
             for (int i = deatailsDownloading.getFromYear(); i < deatailsDownloading.getToYear(); i++) {
-                for (int j = deatailsDownloading.getFromMonth(); j <= deatailsDownloading.getToYear(); j++) {
+                for (int j = deatailsDownloading.getFromMonth(); j <= deatailsDownloading.getToMonth(); j++) {
                     if (Starter.mustStop)
                         break outerloop;
                     System.out.println("year is > " + (i) + " month: > " + j + "  is started dowing");
