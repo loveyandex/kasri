@@ -17,8 +17,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.nio.file.StandardWatchEventKinds;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * is created by aMIN on 5/9/2018 at 20:08
@@ -33,7 +31,7 @@ public class App extends Application {
 
         primaryStage.setTitle("weather");
         new Thread(() -> {
-            Waching.changeFileLisnter(System.getProperty("user.dir"), "config", pathInChanging -> {
+            Waching.changefilelisnter(System.getProperty("user.dir"), "config", pathInChanging -> {
                 if (pathInChanging.endsWith("parallel.txt")) {
                     System.out.println(pathInChanging.toFile().getAbsolutePath());
                     System.exit(0);

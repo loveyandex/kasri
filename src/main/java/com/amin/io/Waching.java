@@ -8,7 +8,7 @@ import java.nio.file.*;
  */
 
 public class Waching {
-    public static <T> void changeFileLisnter(String root, String agterRootPath, Do aDo, WatchEvent.Kind<T> kind) {
+    public static <T> void changefilelisnter(String root, String agterRootPath, Do aDo, WatchEvent.Kind<T> kind) {
         final Path path = FileSystems.getDefault().getPath(root, agterRootPath);
         System.out.println(path);
         try (final WatchService watchService = FileSystems.getDefault().newWatchService()) {

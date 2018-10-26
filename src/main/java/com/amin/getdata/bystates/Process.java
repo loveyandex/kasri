@@ -1,8 +1,11 @@
 package com.amin.getdata.bystates;
 
 
+import com.amin.getdata.DeatailsDownloading;
+import com.amin.getdata.ResumeDownloading;
 import com.amin.io.MyReader;
 import com.amin.notify.Noti;
+import com.google.gson.Gson;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -121,7 +124,7 @@ public class Process implements Runnable {
         return years;
     }
 
-    public static void start() {
+    public static void oldstart() {
         Stack<String> years = getYears();
         outerloop:
         for (int k = 0; k < Starter.COUNTRIES.length; k++) {
@@ -167,10 +170,65 @@ public class Process implements Runnable {
 
     }
 
-    public static void main(String[] args) {
-//        start();
-//        getData2("G:/alternative/newmew","40745","1997","5");
+
+    public static void start() {
+        final ArrayList<DeatailsDownloading> deatailsDownloadings = new ResumeDownloading().checkAndFindDowaloads();
+        System.out.println(new Gson().toJson(deatailsDownloadings));
+
+        outerloop:
+        for (int k = 0; k < deatailsDownloadings.size(); k++) {
+            final DeatailsDownloading deatailsDownloading = deatailsDownloadings.get(k);
+            System.err.println(new Gson().toJson(deatailsDownloading));
+            final String countryName = deatailsDownloading.getCountryName();
+            final String toLowerCase = countryName.toLowerCase();
+            if (toLowerCase.charAt(0) == 'x' || toLowerCase.charAt(0) == 'y' || toLowerCase.charAt(0) == 'z'
+                    || toLowerCase.charAt(0) == 'v' || toLowerCase.charAt(0) == 'w'
+                    || toLowerCase.charAt(0) == 's' || toLowerCase.charAt(0) == 't' || toLowerCase.charAt(0) == 'u'
+                    || toLowerCase.charAt(0) == 'r' || toLowerCase.charAt(0) == 'q')
+                continue;
+
+
+            try {
+                Methods.getStationNumber("config/states/" + countryName + ".conf"
+                        , "config/stations/" + countryName + "-stations.conf");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+//"G:/Program Files/AMinAbvall/kasridata
+
+            for (int i = deatailsDownloading.getFromYear(); i < deatailsDownloading.getToYear(); i++) {
+                for (int j = deatailsDownloading.getFromMonth(); j <= deatailsDownloading.getToYear(); j++) {
+                    if (Starter.mustStop)
+                        break outerloop;
+                    System.out.println("year is > " + (i) + " month: > " + j + "  is started dowing");
+                    CrashedCountry = countryName;
+
+                    String pathDirToSave = Starter.ABSOLUTE_ROOT_PATH + "/" + countryName + "/year_" + (i) + "/month_" + String.valueOf(j);
+                    Process.getData(pathDirToSave,
+                            "config/stations/" + countryName + "-stations.conf"
+                            , String.valueOf(i)
+                            , String.valueOf(j));
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                try {
+                    Thread.sleep(20000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+        System.out.println("finished all stations");
+
     }
+
 
     private ArrayList<String> getyears() throws FileNotFoundException {
         return MyReader.readFileLines("config/years.conf");

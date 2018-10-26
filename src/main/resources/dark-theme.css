@@ -4,8 +4,8 @@
 */
 
 * {
-    /*-fx-primary : #63613a;*/
-    /*-fx-primary : #56542d;*/
+    -fx-primary : #63613a;
+    -fx-primary : #56542d;
     /*-fx-primary : #f8fbee;*/
     -fx-primary : #000000;
     -fx-secondary : rgb(255, 255, 255);

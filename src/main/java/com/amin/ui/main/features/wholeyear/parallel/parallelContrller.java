@@ -485,7 +485,7 @@ public class parallelContrller implements Initializable {
 
                 new Thread(() -> {
 
-                    Waching.changeFileLisnter(System.getProperty("user.dir"), "config", pathInChanging -> {
+                    Waching.changefilelisnter(System.getProperty("user.dir"), "config", pathInChanging -> {
                         if (pathInChanging.endsWith("parallel.txt")) {
                             final File toFile = pathInChanging.toFile();
                             System.out.println(toFile.getAbsolutePath());
