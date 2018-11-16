@@ -63,7 +63,7 @@ public class Starter extends javafx.application.Application implements EventHand
         rootNode.add(regionl, 0, 3, 2, 1);
         regionteTextArea = new TextArea("");
         ComboBox<String> comboBoxrigion = new ComboBox<>();
-        rootNode.add(regionteTextArea, 1, 4, 2, 1);
+//        rootNode.add(regionteTextArea, 1, 4, 2, 1);
 
 
         Button aButton = new Button("start getting Data");
