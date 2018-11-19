@@ -6,14 +6,16 @@ import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.min;
 
 public class ResumeDownloading {
 
     public static void main(String[] args) {
         ArrayList<DeatailsDownloading> deatailsDownloadings = new ResumeDownloading().checkAndFindDowaloads();
-        System.err.println(new Gson().toJson(                                                                                                                                                                                       deatailsDownloadings));
+        System.err.println(new Gson().toJson(deatailsDownloadings));
 
     }
 
@@ -22,28 +24,81 @@ public class ResumeDownloading {
         System.out.println(C.DATA_PATH);
         File rootDirectory = new File(C.DATA_PATH);
         if (rootDirectory.isDirectory()) {
-            File[] files = rootDirectory.listFiles();
-            ArrayList<DeatailsDownloading> deatailsDownloadings = neverDowns(files);
+            File[] countries = rootDirectory.listFiles();
+            ArrayList<DeatailsDownloading> deatailsDownloadings = neverDowns(countries);
             System.err.println(new Gson().toJson(deatailsDownloadings));
-            for (int i = 0; i < files.length; i++) {
-                File country = files[i];
+            for (int i = 0; i < countries.length; i++) {
+                File country = countries[i];
                 if (country.isDirectory()) {
                     String name = country.getName();
-                    if (isConsistOf(country)) {
-                        boolean completedDownloading = isCompletedDownloading(country);
-                        if (!completedDownloading) {
-                            int getlastYear = getlastYear(country);
-                            int getlastMonth = getlastMonth(country);
-                            DeatailsDownloading deatailsDownloading = new DeatailsDownloading(name, getlastMonth, getlastYear, C.NowYear);
-                            deatailsDownloadings.add(deatailsDownloading);
-                        }
-                        continue;
-                    }
+                    File[] yearsOfCountry = country.listFiles();
+                    ArrayList<DeatailsDownloading.Year> _yearsOfCountry = analysYears(yearsOfCountry);
+                    deatailsDownloadings.add(0, new DeatailsDownloading(name, _yearsOfCountry, C.NowYear));
+
                 }
             }
             return deatailsDownloadings;
         }
         throw new RuntimeException("why code has reached here!!!");
+    }
+
+    private ArrayList<DeatailsDownloading.Year> analysYears(File[] yearsOfCountry) {
+        ArrayList<DeatailsDownloading.Year> years = new ArrayList<>();
+
+        IntStream.range(C.FIRST_YEAR, C.NowYear+1).forEach(year -> {
+            File fileOFYear = getFileOFYear(year, yearsOfCountry);
+            if (fileOFYear == null) {
+                years.add(new DeatailsDownloading.Year().setFromMonth(1).setYear(year));
+                ///todo add this year from 1 to 12 month
+            } else {
+                int fiestMonthYear = findFiestMonthYear(fileOFYear);
+                years.add(new DeatailsDownloading.Year().setFromMonth(fiestMonthYear).setYear(year));
+            }
+        });
+        return years;
+    }
+
+    private ArrayList<DeatailsDownloading.Year> addAllYears() {
+        ArrayList<DeatailsDownloading.Year> years = new ArrayList<>();
+
+        IntStream.range(C.FIRST_YEAR, C.NowYear+1).forEach(year ->
+                years.add(new DeatailsDownloading.Year().setFromMonth(1).setYear(year)));
+        return years;
+    }
+
+    private int findFiestMonthYear(File fileOFYear) {
+
+        File[] months = fileOFYear.listFiles();
+        int maxMonth = maxMonth(months);
+        if (maxMonth < 12)
+            return maxMonth;
+        else {
+            File maxMonthfile = new File(months[0].getParent(), "month_" + maxMonth);
+            File beforemaxMonthfile = new File(months[0].getParent(), "month_" + (maxMonth - 1));
+            try {
+                int abs = abs(beforemaxMonthfile.listFiles().length - maxMonthfile.listFiles().length);
+                if (abs < 5) {
+                    return 13
+                            ;
+                } else {
+                    return 12;
+                }
+            }catch (java.lang.NullPointerException e){
+                return 13;
+            }
+
+        }
+    }
+
+
+    private File getFileOFYear(int year, File[] yearsOfCountry) {
+        for (File yearOfCountry : yearsOfCountry) {
+            String year_ = yearOfCountry.getName().replaceAll("year_", "");
+            int year_int = Integer.parseInt(year_);
+            if (year_int == year)
+                return yearOfCountry;
+        }
+        return null;
     }
 
     private int getlastMonth(File country) {
@@ -72,9 +127,8 @@ public class ResumeDownloading {
         else {
             File maxMonthfile = new File(months[0].getParent(), "month_" + maxMonth);
             File beforemaxMonthfile = new File(months[0].getParent(), "month_" + (maxMonth - 1));
-            if (beforemaxMonthfile.listFiles().length == maxMonthfile.listFiles().length) {
-                return true;
-            } else if (abs(beforemaxMonthfile.listFiles().length - maxMonthfile.listFiles().length) < 5) {
+            int abs = abs(beforemaxMonthfile.listFiles().length - maxMonthfile.listFiles().length);
+            if (abs < 5 && minYear == C.NowYear) {
                 return true;
             } else {
 //                throw new RuntimeException("how to possible lengths defferrent");
@@ -132,17 +186,17 @@ public class ResumeDownloading {
 
         for (File file : listFiles)
             if (file.isFile()) {
-                final String s = file.getName().replaceAll(".conf", "");
+                final String nameOfCOuntry = file.getName().replaceAll(".conf", "");
                 boolean booo = false;
                 for (int i = 0; i < country.length; i++) {
-                    boolean contains = country[i].getName().contains(s);
+                    boolean contains = country[i].getName().contains(nameOfCOuntry);
                     if (contains) {
                         booo = true;
                         break;
                     }
                 }
                 if (!booo)
-                    deatailsDownloadings.add(new DeatailsDownloading(s, 1, C.FIRST_YEAR, C.NowYear));
+                    deatailsDownloadings.add(new DeatailsDownloading(nameOfCOuntry, addAllYears(), C.NowYear));
             }
 
         return deatailsDownloadings;

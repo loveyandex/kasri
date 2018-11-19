@@ -3,20 +3,28 @@ package com.amin.getdata;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
+
+import java.util.ArrayList;
 
 @Getter
 @Setter
 public class DeatailsDownloading {
+    private ArrayList<Year> years;
     String countryName;
-    int fromMonth;
-    final int toMonth=12;
-    int fromYear;
-    int toYear;
 
-    public DeatailsDownloading(String countryName, int fromMonth, int fromYear, int toYear) {
+
+    public DeatailsDownloading(String countryName, ArrayList<Year> years, int toYear) {
         this.countryName = countryName;
-        this.fromMonth = fromMonth;
-        this.fromYear = fromYear;
-        this.toYear = toYear;
+        this.years = years;
+    }
+
+    @Getter
+    @Setter
+    @Accessors(chain = true)
+    public static class Year {
+        int year;
+        int fromMonth;
+        final int toMonth = 12;
     }
 }

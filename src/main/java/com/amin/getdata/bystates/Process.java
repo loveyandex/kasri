@@ -178,6 +178,8 @@ public class Process implements Runnable {
         outerloop:
         for (int k = 0; k < deatailsDownloadings.size(); k++) {
             final DeatailsDownloading deatailsDownloading = deatailsDownloadings.get(k);
+            ArrayList<DeatailsDownloading.Year> yearArrayList = deatailsDownloading.getYears();
+
             System.err.println(new Gson().toJson(deatailsDownloading));
             final String countryName = deatailsDownloading.getCountryName();
             final String toLowerCase = countryName.toLowerCase();
@@ -197,17 +199,19 @@ public class Process implements Runnable {
 
 //"G:/Program Files/AMinAbvall/kasridata
 
-            for (int i = deatailsDownloading.getFromYear(); i < deatailsDownloading.getToYear(); i++) {
-                for (int j = deatailsDownloading.getFromMonth(); j <= deatailsDownloading.getToYear(); j++) {
+//            for (int i = deatailsDownloading.getFromYear(); i < deatailsDownloading.getToYear(); i++) {
+            for (DeatailsDownloading.Year year : yearArrayList) {
+
+                for (int j = year.getFromMonth(); j <= year.getToMonth(); j++) {
                     if (Starter.mustStop)
                         break outerloop;
-                    System.out.println("year is > " + (i) + " month: > " + j + "  is started dowing");
+                    System.out.println("year is > " + (year.getYear()) + " month: > " + j + "  is started dowing");
                     CrashedCountry = countryName;
 
-                    String pathDirToSave = Starter.ABSOLUTE_ROOT_PATH + "/" + countryName + "/year_" + (i) + "/month_" + String.valueOf(j);
+                    String pathDirToSave = Starter.ABSOLUTE_ROOT_PATH + "/" + countryName + "/year_" + (year.getYear()) + "/month_" + String.valueOf(j);
                     Process.getData(pathDirToSave,
                             "config/stations/" + countryName + "-stations.conf"
-                            , String.valueOf(i)
+                            , String.valueOf(year.getYear())
                             , String.valueOf(j));
                     try {
                         Thread.sleep(10000);
@@ -217,7 +221,7 @@ public class Process implements Runnable {
 
                 }
                 try {
-                    Thread.sleep(20000);
+                    Thread.sleep(0);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
