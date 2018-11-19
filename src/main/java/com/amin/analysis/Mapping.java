@@ -3,6 +3,7 @@ package com.amin.analysis;
 import com.amin.config.C;
 import com.amin.database.Driver;
 import com.amin.ui.dialogs.Dialog;
+import com.google.gson.Gson;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -18,6 +19,13 @@ import java.util.Scanner;
  * is created by aMIN on 6/5/2018 at 22:11
  */
 public class Mapping {
+    public static void main(String[] args) throws IOException {
+
+        String abspathfile = "config/countries.configfile.conf";
+        final ArrayList<String> fileLines = getFileLines(abspathfile);
+        System.err.println(new Gson().toJson(fileLines));
+
+    }
 
     final static Connection connection = Driver.getDriver().getConnection();
 
@@ -132,13 +140,7 @@ public class Mapping {
         return readFileLines(path);
     }
 
-    public static void main(String[] args) throws IOException {
 
-        String abspathfile = "config/countries.configfile.conf";
-        final ArrayList<String> fileLines = getFileLines(abspathfile);
-        fileLines.forEach(Mapping::mapForOldFolder);
-
-    }
 
     static void map(String rootparent, String fn) {
         final ArrayList<ArrayList<String>> latLongForAContryCities;

@@ -40,7 +40,7 @@ public class MainActivity extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/main/main_activity.fxml"));
+        Parent root = FXMLLoader.load(MainActivity.class.getResource("/com/amin/ui/main/main/main_activity.fxml"));
         Scene scene = new SceneMainActivity<>(root, 1100, 600);
 
         primaryStage.setOnCloseRequest(event -> {
@@ -62,12 +62,12 @@ public class MainActivity extends Application {
 //                "-fx-background-position: center center; " +
 //                "-fx-background-repeat: stretch ;");
 
-        if (C.DATA_PATH.isEmpty())
-            Dialog.createDataDirChooser("data_path");
-        if (C.SOCANDARY_DATA_PATH.isEmpty())
-            Dialog.createDataDirChooser("secondary_data_path");
-        if (C.THIRDY_PATH.isEmpty())
-            Dialog.createDataDirChooser("thirdy_data_path");
+//        if (C.DATA_PATH.isEmpty())
+//            Dialog.createDataDirChooser("data_path");
+//        if (C.SOCANDARY_DATA_PATH.isEmpty())
+//            Dialog.createDataDirChooser("secondary_data_path");
+//        if (C.THIRDY_PATH.isEmpty())
+//            Dialog.createDataDirChooser("thirdy_data_path");
 
         System.out.println(C.DATA_PATH);
         System.out.println(C.SOCANDARY_DATA_PATH);

@@ -25,17 +25,14 @@
             <JFXDialog fx:id="dialog">
                 <JFXDialogLayout>
                     <heading>
-                        <Label>JFoenix Dialog AMin</Label>
+                        <Label>KNN data modeling</Label>
                     </heading>
                     <body>
-                        <Label fx:id="descrip">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                            do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                            enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                            nisi ut aliquip ex ea commodo consequat.
+                        <Label fx:id="descrip">
                         </Label>
                     </body>
                     <actions>
-                        <JFXButton fx:id="acceptButton" styleClass="dialog-accept">ACCEPT
+                        <JFXButton fx:id="acceptButton" styleClass="dialog-accept">OK
                         </JFXButton>
                     </actions>
                 </JFXDialogLayout>

@@ -110,7 +110,8 @@ public class KNN {
         final Statement statement = Driver.getDriver().getConnection().createStatement();
         final ResultSet executeQuery = statement.executeQuery("select *\n" +
                 "from station_latlong\n" +
-                "where station!='null' and country like 'iran%' ;");
+                "where station!='null';");
+//                "where station!='null' and country like 'iran%' ;");
         return executeQuery;
     }
 
