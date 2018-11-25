@@ -141,11 +141,10 @@ public class Mapping {
     }
 
 
-
-    static void map(String rootparent, String fn) {
+    public static void map(String rootparent, String fileName) {
         final ArrayList<ArrayList<String>> latLongForAContryCities;
 
-        latLongForAContryCities = LatLong.getLatLongForAContryCities(rootparent, fn);
+        latLongForAContryCities = LatLong.getLatLongForAContryCities(rootparent, fileName);
         latLongForAContryCities
                 .forEach(strings -> {
                     try {
@@ -161,13 +160,16 @@ public class Mapping {
 
 
                     } catch (SQLException e) {
-                        e.printStackTrace();
+//                        e.printStackTrace();
+                        System.out.println(e);
+                        ;
+//                        System.exit(1);
                     }
                 });
     }
 
     static void mapForOldFolder(String fn) {
-        map("config/old-stations", fn);
+        map("config/states", fn);
 
     }
 
@@ -216,6 +218,7 @@ public class Mapping {
             while (scanner.hasNextLine()) {
                 ArrayList<String> point = new ArrayList<>();
                 String line = scanner.nextLine();
+//                System.out.println(line);
                 String[] split = line.split(";");
                 for (int i = 0; i < cols.length; i++) {
                     point.add(split[cols[i]]);
@@ -296,11 +299,20 @@ public class Mapping {
             for (int j = 0; j < colsData.size(); j++) {
                 String citiname = colsData.get(j).get(0).replaceAll("\\^", " ");
                 String citistationnumber = colsData.get(j).get(1);
-                System.out.println(citiname);
+//                System.out.println(citiname);
+                String s1 = colsData.get(j).get(3).replaceAll("N", "");
+                if (s1.toLowerCase().contains("s"))
+                    s1 = "-" + s1.replaceAll("S", "").replaceAll("s", "");
+
+
                 double citiLat = Double.parseDouble(colsData.get(j).get(2))
-                        + (Double.parseDouble(colsData.get(j).get(3).replaceAll("N", ""))) / 60.0d;
+                        + (Double.parseDouble(s1)) / 60.0d;
+                String s = colsData.get(j).get(5).replaceAll("E", "");
+                if (s.toLowerCase().contains("w"))
+                    s = "-" + s.replaceAll("W", "").replaceAll("w", "");
+
                 double citiLong = Double.parseDouble(colsData.get(j).get(4))
-                        + (Double.parseDouble(colsData.get(j).get(5).replaceAll("E", ""))) / 60.0d;
+                        + (Double.parseDouble(s)) / 60.0d;
 
 
                 ArrayList inoutput = new ArrayList() {{
@@ -316,8 +328,8 @@ public class Mapping {
                 }};
                 output.add(inoutput);
 
-                System.out.println(citiLat);
-                System.out.println(citiLong);
+//                System.out.println(citiLat);
+//                System.out.println(citiLong);
 
             }
             return output;

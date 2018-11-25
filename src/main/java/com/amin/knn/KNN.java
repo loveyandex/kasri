@@ -150,10 +150,7 @@ public class KNN {
                     System.err.println(real_distance);
                     System.err.println(stacitinametion + "...." + lati + "  " + longi);
                 }
-
-
             }
-
         }
 
         if (sum_distance != 0.0)
