@@ -2,6 +2,7 @@ package com.amin.analysis;
 
 import com.amin.config.C;
 import com.amin.database.Driver;
+import com.amin.database.database.DatabaseHandler;
 import com.amin.ui.dialogs.Dialog;
 import com.google.gson.Gson;
 
@@ -27,7 +28,8 @@ public class Mapping {
 
     }
 
-    final static Connection connection = Driver.getDriver().getConnection();
+    final static Connection connectionMYSQL = Driver.getDriver().getConnection();
+    final static Connection connectionDerby = DatabaseHandler.getInstance().getConnection();
 
     static public void createCSVFILEFORStations(String Dirpath, String fileName) throws IOException {
 
@@ -145,19 +147,28 @@ public class Mapping {
         final ArrayList<ArrayList<String>> latLongForAContryCities;
 
         latLongForAContryCities = LatLong.getLatLongForAContryCities(rootparent, fileName);
+        coreinrsert(connectionMYSQL, latLongForAContryCities);
+
+    }
+
+    public static void map(String rootparent, String fileName, Connection connection) {
+        final ArrayList<ArrayList<String>> latLongForAContryCities;
+        latLongForAContryCities = LatLong.getLatLongForAContryCities(rootparent, fileName);
+        coreinrsert(connection, latLongForAContryCities);
+
+    }
+
+    private static void coreinrsert(Connection connection, ArrayList<ArrayList<String>> latLongForAContryCities) {
         latLongForAContryCities
                 .forEach(strings -> {
                     try {
-
-                        final PreparedStatement preparedStatement = connection.prepareStatement("insert into station_latlong (station,country, citiname, lati ,longi) values (?,?,?,?,?);");
-
+                        final PreparedStatement preparedStatement = connection.prepareStatement("insert into stations (station,country, citiname, lati ,longi) values (?,?,?,?,?)");
                         preparedStatement.setString(1, strings.get(0));
                         preparedStatement.setString(2, strings.get(1));
                         preparedStatement.setString(3, strings.get(2));
                         preparedStatement.setString(4, strings.get(3));
                         preparedStatement.setString(5, strings.get(4));
                         preparedStatement.executeUpdate();
-
 
                     } catch (SQLException e) {
 //                        e.printStackTrace();
@@ -167,6 +178,17 @@ public class Mapping {
                     }
                 });
     }
+
+    public static void map(CONNECTIONTYPE connectiontype,String rootparent, String fileName) {
+        if (connectiontype == CONNECTIONTYPE.DERBY) {
+            map(rootparent,fileName,connectionDerby);
+
+        } else if (connectiontype == CONNECTIONTYPE.MYSQL) {
+            map(rootparent, fileName, connectionMYSQL);
+        }
+
+    }
+
 
     static void mapForOldFolder(String fn) {
         map("config/states", fn);

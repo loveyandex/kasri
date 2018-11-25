@@ -2,12 +2,14 @@ package com.amin.pojos;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * is created by aMIN on 10/1/2018 at 3:08 AM
  */
 @Setter
 @Getter
+@Accessors(chain = true)
 public class Station {
     private String stationNumber;
     private String country;
@@ -15,6 +17,9 @@ public class Station {
     private boolean haveEverData;
     private LatLon latLong;
     private double distance;
+
+    public Station() {
+    }
 
     public Station(String stationNumber, String country, String cityName, boolean haveEverData, LatLon latLong, double distance) {
         this.stationNumber = stationNumber;

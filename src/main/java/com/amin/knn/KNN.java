@@ -109,7 +109,7 @@ public class KNN {
     public static ResultSet exeing() throws SQLException {
         final Statement statement = Driver.getDriver().getConnection().createStatement();
         final ResultSet executeQuery = statement.executeQuery("select *\n" +
-                "from station_latlong\n" +
+                "from stations\n" +
                 "where station!='null';");
 //                "where station!='null' and country like 'iran%' ;");
         return executeQuery;

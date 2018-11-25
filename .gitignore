@@ -11,3 +11,4 @@ samples-data/*
  run-parallel/.gradle/
  run-parallel/build/
 /jbjb
+/dbderby

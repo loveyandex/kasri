@@ -1,5 +1,6 @@
 package com.amin.runonce;
 
+import com.amin.analysis.CONNECTIONTYPE;
 import com.amin.analysis.Mapping;
 
 import java.io.File;
@@ -8,7 +9,7 @@ import java.io.File;
 /**
  * is created by aMIN on 11/25/2018 at 5:35 AM
  */
-public class DB {
+public class MB {
     public static void main(String[] args) {
 
         final String rootparent = "config/states";
@@ -27,7 +28,7 @@ public class DB {
             for (File file1 : files) {
                 System.err.println(file1.getName());
                 if (file1.getName().contains(".conf.csv"))
-                    Mapping.map(rootparent, file1.getName());
+                    Mapping.map(CONNECTIONTYPE.DERBY, rootparent, file1.getName());
 
             }
         }

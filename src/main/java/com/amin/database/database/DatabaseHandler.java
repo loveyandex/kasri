@@ -1,5 +1,7 @@
 package com.amin.database.database;
 
+import com.amin.pojos.LatLon;
+import com.amin.pojos.Station;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
@@ -27,7 +29,7 @@ public final class DatabaseHandler {
 
     private static DatabaseHandler handler = null;
 
-    private static final String DB_URL = "jdbc:derby:jbjb;create=true";
+    private static final String DB_URL = "jdbc:derby:dbderby;create=true";
     private static Connection conn = null;
     private static Statement stmt = null;
 
@@ -106,17 +108,19 @@ public final class DatabaseHandler {
         }
     }
 
-    public ResultSet execQuery(String query) {
+
+
+
+    public static ResultSet execQuery(String query) {
         ResultSet result;
         try {
-            stmt = conn.createStatement();
+            if (stmt == null)
+                stmt = conn.createStatement();
             result = stmt.executeQuery(query);
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("Exception at execQuery:dataHandler" + ex.getLocalizedMessage());
             return null;
-        }
-        finally {
+        } finally {
         }
         return result;
     }
@@ -138,23 +142,24 @@ public final class DatabaseHandler {
 
 
     public static void main(String[] args) throws Exception {
-        DatabaseHandler.getInstance();
+        final Station station = new Station().setStationNumber("23232").setCountry("godconute").setCityName("ko").setLatLong(new LatLon(23.23, -83.23*Math.random()));
+//        DatabaseHandler.getInstance().insertStations(station);
+
+        final ObservableList<PieChart.Data> getstations = DatabaseHandler.getInstance().getstations();
+
+        getstations.forEach(data -> System.out.println(data));
+
+
     }
 
-    public ObservableList<PieChart.Data> getBookGraphStatistics() {
+    public ObservableList<PieChart.Data> getstations() {
         ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
         try {
-            String qu1 = "SELECT COUNT(*) FROM BOOK";
-            String qu2 = "SELECT COUNT(*) FROM ISSUE";
+            String qu1 = "SELECT COUNT(*) FROM stations";
             ResultSet rs = execQuery(qu1);
             if (rs.next()) {
                 int count = rs.getInt(1);
-                data.add(new PieChart.Data("Total Books (" + count + ")", count));
-            }
-            rs = execQuery(qu2);
-            if (rs.next()) {
-                int count = rs.getInt(1);
-                data.add(new PieChart.Data("Issued Books (" + count + ")", count));
+                data.add(new PieChart.Data("Total stations (" + count + ")", count));
             }
         }
         catch (Exception e) {
@@ -163,26 +168,19 @@ public final class DatabaseHandler {
         return data;
     }
 
-    public ObservableList<PieChart.Data> getMemberGraphStatistics() {
-        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
-        try {
-            String qu1 = "SELECT COUNT(*) FROM MEMBER";
-            String qu2 = "SELECT COUNT(DISTINCT memberID) FROM ISSUE";
-            ResultSet rs = execQuery(qu1);
-            if (rs.next()) {
-                int count = rs.getInt(1);
-                data.add(new PieChart.Data("Total Members (" + count + ")", count));
-            }
-            rs = execQuery(qu2);
-            if (rs.next()) {
-                int count = rs.getInt(1);
-                data.add(new PieChart.Data("Active (" + count + ")", count));
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return data;
+
+    public void insertStations(Station station) throws SQLException {
+
+        final PreparedStatement preparedStatement = conn.prepareStatement("insert into stations (station,country, citiname, lati ,longi) values (?,?,?,?,?)");
+
+        preparedStatement.setString(1, station.getStationNumber());
+        preparedStatement.setString(2, station.getCountry());
+        preparedStatement.setString(3,station.getCityName());
+        preparedStatement.setString(4, String.valueOf(station.getLatLong().getLat()));
+        preparedStatement.setString(5, String.valueOf(station.getLatLong().getLogn()));
+        preparedStatement.executeUpdate();
+        System.err.println("good added");
+
     }
 
     private static void createTables(List<String> tableData) throws SQLException {
