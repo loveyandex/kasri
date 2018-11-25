@@ -301,18 +301,34 @@ public class Mapping {
                 String citistationnumber = colsData.get(j).get(1);
 //                System.out.println(citiname);
                 String s1 = colsData.get(j).get(3).replaceAll("N", "");
-                if (s1.toLowerCase().contains("s"))
-                    s1 = "-" + s1.replaceAll("S", "").replaceAll("s", "");
+                double citiLat   ;
+
+                if (s1.toLowerCase().contains("s")){
+                    s1 =  s1.replaceAll("S", "").replaceAll("s", "");
 
 
-                double citiLat = Double.parseDouble(colsData.get(j).get(2))
-                        + (Double.parseDouble(s1)) / 60.0d;
+                    citiLat = -(Double.parseDouble(colsData.get(j).get(2))
+                            + (Double.parseDouble(s1)) / 60.0d);
+                }else {
+                    citiLat = Double.parseDouble(colsData.get(j).get(2))
+                            + (Double.parseDouble(s1)) / 60.0d;
+                }
+
+
+
+
                 String s = colsData.get(j).get(5).replaceAll("E", "");
-                if (s.toLowerCase().contains("w"))
-                    s = "-" + s.replaceAll("W", "").replaceAll("w", "");
 
-                double citiLong = Double.parseDouble(colsData.get(j).get(4))
-                        + (Double.parseDouble(s)) / 60.0d;
+                double citiLong;
+                if (s.toLowerCase().contains("w")){
+                    s = s.replaceAll("W", "").replaceAll("w", "");
+                    citiLong= -(Double.parseDouble(colsData.get(j).get(4))
+                            + (Double.parseDouble(s)) / 60.0d);
+                }else {
+                    citiLong= Double.parseDouble(colsData.get(j).get(4))
+                            + (Double.parseDouble(s)) / 60.0d;
+                }
+
 
 
                 ArrayList inoutput = new ArrayList() {{

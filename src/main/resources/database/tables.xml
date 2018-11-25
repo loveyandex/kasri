@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tables>
+    <table-entry name="stations" query="create table stations
+(
+  station  varchar(5)  not null,
+  country  varchar(50) not null,
+  citiname varchar(30) not null,
+  lati     varchar(20) not null,
+  longi    varchar(20) not null,
+  primary key (station, country, citiname, lati, longi)
+)"/>
+
+
+</tables>

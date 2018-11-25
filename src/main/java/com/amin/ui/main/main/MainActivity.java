@@ -1,6 +1,7 @@
 package com.amin.ui.main.main;
 
 import com.amin.config.C;
+import com.amin.database.database.DatabaseHandler;
 import com.amin.ui.SceneJson;
 import com.amin.ui.SceneMainActivity;
 import com.amin.ui.StageOverride;
@@ -62,17 +63,20 @@ public class MainActivity extends Application {
 //                "-fx-background-position: center center; " +
 //                "-fx-background-repeat: stretch ;");
 
-//        if (C.DATA_PATH.isEmpty())
-//            Dialog.createDataDirChooser("data_path");
-//        if (C.SOCANDARY_DATA_PATH.isEmpty())
-//            Dialog.createDataDirChooser("secondary_data_path");
-//        if (C.THIRDY_PATH.isEmpty())
-//            Dialog.createDataDirChooser("thirdy_data_path");
+        if (C.DATA_PATH.isEmpty())
+            Dialog.createDataDirChooser("data_path");
+        if (C.SOCANDARY_DATA_PATH.isEmpty())
+            Dialog.createDataDirChooser("secondary_data_path");
+        if (C.THIRDY_PATH.isEmpty())
+            Dialog.createDataDirChooser("thirdy_data_path");
 
         System.out.println(C.DATA_PATH);
         System.out.println(C.SOCANDARY_DATA_PATH);
         System.out.println(C.THIRDY_PATH);
+
+        DatabaseHandler.getInstance();
     }
+
 
 
 }

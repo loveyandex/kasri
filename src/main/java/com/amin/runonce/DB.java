@@ -11,9 +11,17 @@ import java.io.File;
 public class DB {
     public static void main(String[] args) {
 
-        final String rootparent = "config/old-stations";
-//        final String rootparent = "config/states";
+        final String rootparent = "config/states";
         File file = new File(rootparent);
+        king(rootparent, file);
+
+        final String rootparent2 = "config/old-stations";
+        File file2 = new File(rootparent2);
+        king(rootparent2, file2);
+
+    }
+
+    private static void king(String rootparent, File file) {
         if (file.isDirectory()) {
             final File[] files = file.listFiles();
             for (File file1 : files) {
@@ -23,6 +31,5 @@ public class DB {
 
             }
         }
-
     }
 }
