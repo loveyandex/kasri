@@ -8,6 +8,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
+import javafx.util.StringConverter;
 
 import javax.measure.Measure;
 import javax.measure.quantity.Pressure;
@@ -38,6 +39,21 @@ public class Charting {
                     String Xlabel, String Ylabel, String chartType) {
         NumberAxis xAxis = new NumberAxis(XlowerBound, XupperBound, XtickUnit);
         NumberAxis yAxis = new NumberAxis(YlowerBound, YupperBound, YtickUnit);
+
+        xAxis.setTickLabelFormatter(new StringConverter<Number>() {
+            @Override
+            public String toString(Number object) {
+                return object.doubleValue()/1e3 +"";
+            }
+
+            @Override
+            public Number fromString(String string) {
+                return null;
+            }
+        });
+
+
+
         xAxis.setLabel(Xlabel);
         yAxis.setLabel(Ylabel);
         if (chartType.equals(SCATTER_CHART)) {
@@ -429,6 +445,12 @@ public class Charting {
             series.getData().add(new XYChart.Data(years.get(i), knots.get(i)));
             avgseries.getData().add(new XYChart.Data(years.get(i), avgknots));
         }
+
+
+        sc.getStyleClass().add(".chart-title {\n" +
+                "  -fx-text-fill: #4682b4;\n" +
+                "  -fx-font-size: 1.6em;\n" +
+                "}");
 
 
         sc.getData().addAll(series, avgseries);

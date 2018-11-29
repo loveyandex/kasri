@@ -1,6 +1,5 @@
 package com.amin.ui.map;
 
-import com.amin.database.Driver;
 import com.amin.database.database.DatabaseHandler;
 import com.amin.knn.KNN;
 import com.amin.pojos.LatLon;
@@ -24,9 +23,7 @@ import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +32,6 @@ import java.util.ResourceBundle;
 import static java.lang.Math.abs;
 
 public class LatLongFXMLController implements Initializable {
-    final Connection connection = Driver.getDriver().getConnection();
     final Connection connectionDerby = DatabaseHandler.getInstance().getConnection();
 
 

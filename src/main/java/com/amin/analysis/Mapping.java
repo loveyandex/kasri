@@ -1,7 +1,6 @@
 package com.amin.analysis;
 
 import com.amin.config.C;
-import com.amin.database.Driver;
 import com.amin.database.database.DatabaseHandler;
 import com.amin.ui.dialogs.Dialog;
 import com.google.gson.Gson;
@@ -28,7 +27,6 @@ public class Mapping {
 
     }
 
-    final static Connection connectionMYSQL = Driver.getDriver().getConnection();
     final static Connection connectionDerby = DatabaseHandler.getInstance().getConnection();
 
     static public void createCSVFILEFORStations(String Dirpath, String fileName) throws IOException {
@@ -147,7 +145,7 @@ public class Mapping {
         final ArrayList<ArrayList<String>> latLongForAContryCities;
 
         latLongForAContryCities = LatLong.getLatLongForAContryCities(rootparent, fileName);
-        coreinrsert(connectionMYSQL, latLongForAContryCities);
+        coreinrsert(connectionDerby, latLongForAContryCities);
 
     }
 
@@ -183,8 +181,6 @@ public class Mapping {
         if (connectiontype == CONNECTIONTYPE.DERBY) {
             map(rootparent,fileName,connectionDerby);
 
-        } else if (connectiontype == CONNECTIONTYPE.MYSQL) {
-            map(rootparent, fileName, connectionMYSQL);
         }
 
     }

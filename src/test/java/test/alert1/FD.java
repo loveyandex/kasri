@@ -1,7 +1,7 @@
 package test.alert1;
 
 
-import com.amin.database.Driver;
+import com.amin.database.database.DatabaseHandler;
 import com.amin.jsons.City;
 import com.amin.jsons.Country;
 import com.google.gson.Gson;
@@ -26,7 +26,7 @@ public class FD {
         Country[] countries = gson.fromJson(reader2, Country[].class); // contains the whole reviews list
 
 
-        final Connection connection = Driver.getDriver().getConnection();
+        final Connection connection = DatabaseHandler.getInstance().getConnection();
         connection.createStatement().execute("delete  from city");
         final PreparedStatement statement = connection.prepareStatement("insert into  city  values (?,?,?,?,?);");
 

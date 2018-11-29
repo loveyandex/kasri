@@ -74,10 +74,19 @@ public class MainActivity extends Application {
         System.out.println(C.SOCANDARY_DATA_PATH);
         System.out.println(C.THIRDY_PATH);
 
-        DatabaseHandler.getInstance();
+        new Thread(() -> {
+            try {
+                Thread.sleep(3000);
+                DatabaseHandler.getInstance();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }).start();
+
+
+        System.out.println("after_out_of_thread");
     }
-
-
 
 }
 
