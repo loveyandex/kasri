@@ -1,0 +1,69 @@
+.chart {
+    -fx-padding: 2px;
+    /*-fx-background-image: url("loginWind.jpg");*/
+}
+
+.chart-content {
+    -fx-padding: 2px;
+}
+
+.chart-title {
+    -fx-text-fill: #4682b4;
+    -fx-font-size: 1.6em;
+}
+
+.axis-label {
+    -fx-text-fill: #4682b4;
+}
+
+.chart-legend {
+    -fx-background-color:  transparent;
+    -fx-padding: 2px;
+}
+
+.chart-legend-item-symbol{
+    -fx-background-radius: 0;
+}
+
+.chart-legend-item{
+    -fx-text-fill: #191970;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+.chart-vertical-grid-lines {
+    -fx-stroke: #f1f4ff;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: #ebfae2;
+}
+.chart-alternative-row-fill {
+    -fx-fill: transparent;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+}
+
+.axis {
+    -fx-font-size: 1.4em;
+    -fx-tick-label-fill: #914800;
+    -fx-font-family: Tahoma;
+    -fx-tick-length: 20;
+    -fx-minor-tick-length: 10;
+}
+
+.axis-label {
+    -fx-text-fill: #462300;
+}
+
+.axis-tick-mark {
+    -fx-stroke: #637040;
+    -fx-stroke-width: 2;
+}
+.axis-minor-tick-mark {
+    -fx-stroke: #859656;
+}
+.x.axis-label{
+    -fx-text-fill: #3c0e46;
+
+}

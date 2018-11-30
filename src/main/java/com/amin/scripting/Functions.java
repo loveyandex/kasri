@@ -2,6 +2,7 @@ package com.amin.scripting;
 
 import com.amin.analysis.Mapping;
 import com.amin.config.C;
+import com.amin.config.MathTerminology;
 import com.amin.jsons.Features;
 import com.amin.jsons.FormInfo;
 import com.amin.jsons.OtherFormInfo;
@@ -10,6 +11,7 @@ import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.main.features.day.FormDayController;
 import com.amin.ui.main.main.Charting;
+import com.google.gson.Gson;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
@@ -259,19 +261,20 @@ public class Functions {
         Method method;
         method = Charting.class.getMethod("conv" + cti, double.class);
 
-        Double invokelowrange = ((Double) method.invoke(charting123, lowrange));
-        Double invokehighrange = ((Double) method.invoke(charting123, highrange));
+        Double invokelowrange = ((double) Math.round(((Double) method.invoke(charting123, lowrange))));
+        Double invokehighrange = ((double) Math.round(((Double) method.invoke(charting123, highrange)))) + 1;
         double ytickUnit = ((Double) method.invoke(charting123, 10));
-
-        Charting charting = new Charting(900, 33000, 1000,
-                invokelowrange, invokehighrange, ytickUnit, "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
-        final XYChart<Number, Number> sc = charting.getSc();
 
 
         ArrayList<Double> knotslist = new ArrayList<>();
         ArrayList<Integer> yearsofFeature = new ArrayList<>();
 
         String[] z = {"00Z", "12Z"};
+        ArrayList<ArrayList<ArrayList<Double>>> all = new ArrayList<>();
+        ArrayList<String> titles = new ArrayList<String>();
+        ArrayList<String> seriecsnAMES = new ArrayList<String>();
+        ArrayList<Double> yearsdata = new ArrayList<>();
+
         for (int id = 0; id < 2; id++) {
 
             String Z = z[id];
@@ -286,13 +289,25 @@ public class Functions {
 //                            , fileName.replaceAll(".csv", ""),
 //                            rootDir + File.separator + fileName, 1, featureIndexCSV);
 
-
-                    heightAndFeature = charting.addSeriesToChart(featureName
-                            , fileName.replaceAll(".csv", ""),
+//
+//                    heightAndFeature = charting.addSeriesToChart(featureName
+//                            , Z+"_"+i,
+//                            rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
+//
+//
+                    final String title = featureName;
+                    final String seriesName = Z + "_" + i;
+                    heightAndFeature = Charting.returnCOlCol2Data(title
+                            , seriesName,
                             rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
 
+                    seriecsnAMES.add(seriesName);
+                    titles.add(title);
+                    yearsdata.add((double) i);
+                    all.add(heightAndFeature);
 
                     Double intrapolatedKnot = intrapolateFeature(height, heightAndFeature);
+
                     if (intrapolatedKnot != null) {
 
                         knotslist.add(intrapolatedKnot);
@@ -317,14 +332,36 @@ public class Functions {
                 }
             }
         }
-        if (!ioExceptions.isEmpty()) {
-            Dialog.createIOExceptionDialog(ioExceptions);
-            ioExceptions.clear();
-        }
+//        if (!ioExceptions.isEmpty()) {
+//            Dialog.createIOExceptionDialog(ioExceptions);
+//            ioExceptions.clear();
+//        }
 
         try {
 
-            Charting charting2 = new Charting(fromYear, toYear, 1,
+            final double[] maxMin = maxMin(all);
+
+
+            Charting charting = new Charting(1000, 33000, 1000,
+                    maxMin[1]-1, maxMin[0]+1, ytickUnit, "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
+            final XYChart<Number, Number> sc = charting.getSc();
+            for (int rr = 0; rr < all.size(); rr++) {
+                sc.setTitle(titles.get(rr));
+                XYChart.Series series1 = new XYChart.Series();
+                series1.setName(seriecsnAMES.get(rr));
+                final ArrayList<ArrayList<Double>> arrayLists = all.get(rr);
+                for (int g = 0; g < arrayLists.size(); g++) {
+                    final ArrayList<Double> vs = arrayLists.get(g);
+                    series1.getData().add(new XYChart.Data(vs.get(0), vs.get(1)));
+                }
+                sc.getData().addAll(series1);
+
+
+            }
+
+
+            System.err.println(new Gson().toJson(yearsdata));
+            Charting charting2 = new Charting(((int) MathTerminology.min(yearsdata)) - 1, toYear, 1,
                     invokelowrange, invokehighrange, ytickUnit, "years", featureName + "(" + unit + ")", Charting.LINE_CHART);
             charting2.interpolateChart("interpolate years for " + featureName + " in " + height + " m",
                     "interpolate", knotslist, yearsofFeature, "avg line val is on ", unit);
@@ -332,16 +369,13 @@ public class Functions {
 
             final VBox vbox = new VBox();
             final HBox hbox = new HBox();
-            vbox.setLayoutY(300);
-            vbox.setLayoutX(400);
-            vbox.setStyle("-fx-background-color: #fff");
             vbox.getChildren().addAll(sc, charting2.getSc());
-            hbox.setPadding(new Insets(10, 10,
-                    03.10, 10));
+            hbox.setPadding(new Insets(10, 10, 03.10, 10));
             Parent root = FXMLLoader.load(FormDayController.class.getResource("/com/amin/ui/main/features/day/chart.fxml"));
             ((VBox) root).getChildren().add(vbox);
             StageOverride stage = new StageOverride();
             stage.setTitle("statistical analysis");
+            root.getStylesheets().add("/chart.css");
 
             SceneJson sceneJson = new SceneJson<ArrayList>(root, 450, 450);
 
@@ -357,6 +391,28 @@ public class Functions {
 
 
     }
+
+
+    private double[] maxMin(ArrayList<ArrayList<ArrayList<Double>>> allyearsData) {
+        ArrayList<Double> minarrays = new ArrayList<>();
+        ArrayList<Double> maxarrays = new ArrayList<>();
+
+        for (ArrayList<ArrayList<Double>> oneArrayLists : allyearsData) {
+            ArrayList<Double> arrayListdata = new ArrayList<>();
+
+            for (ArrayList<Double> ddd : oneArrayLists) {
+                for (int i = 0; i < ddd.size(); i++) {
+                    final Double aDouble = ddd.get(1);
+                    arrayListdata.add(aDouble);
+                }
+                maxarrays.add(MathTerminology.max(arrayListdata));
+                minarrays.add(MathTerminology.min(arrayListdata));
+            }
+        }
+        return new double[]{MathTerminology.max(maxarrays), MathTerminology.min(minarrays)};
+    }
+
+
 
 
     private double returnInterapulate(FormInfo formInfo) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {

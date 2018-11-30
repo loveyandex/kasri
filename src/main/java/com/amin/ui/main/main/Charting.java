@@ -43,7 +43,7 @@ public class Charting {
         xAxis.setTickLabelFormatter(new StringConverter<Number>() {
             @Override
             public String toString(Number object) {
-                return object.doubleValue()/1e3 +"";
+                return object.intValue()+"";
             }
 
             @Override
@@ -131,6 +131,27 @@ public class Charting {
         sc.getData().addAll(series1);
         return arrayListArrayList;
     }
+  static   public ArrayList<ArrayList<Double>> returnCOlCol2Data(String title, String seriesName, String dayfilePath, int col1, int col2
+            , String featurename, String unitname) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        ArrayList<ArrayList<Double>> arrayListArrayList = new ArrayList<>();
+        int cti = convertTogether(featurename, unitname);
+        Method method;
+        method = Charting.class.getMethod("conv" + cti, double.class);
+        ArrayList<ArrayList<String>> col1Col2 = OldMapping.getCol1Col2(dayfilePath, col1, col2);
+        for (int j = 2; j < col1Col2.size() - 1; j++) {
+            if (!col1Col2.get(j).get(0).equals("NULL") && !col1Col2.get(j).get(1).equals("NULL")) {
+                ArrayList<Double> doubleArrayList = new ArrayList<>(2);
+                double v0 = Double.parseDouble(col1Col2.get(j).get(0));
+                double v1 = Double.parseDouble(col1Col2.get(j).get(1));
+                Double invokeDouble = ((Double) method.invoke(new Charting(),v1));
+                doubleArrayList.add(v0);
+                doubleArrayList.add(invokeDouble);
+                arrayListArrayList.add(doubleArrayList);
+
+            }
+        }
+        return arrayListArrayList;
+    }
 
     public void addSeriesToChart(ArrayList<ArrayList<Double>> doublescol1col2, String title, String seriesName,
                                  String featurename, String unitname)
@@ -175,7 +196,7 @@ public class Charting {
     }
 
 
-    public int convertTogether(String featurename, String unitname) {
+  static   public int convertTogether(String featurename, String unitname) {
         if (featurename.equals(Features.PRES.getName())) {
 
             if (unitname.equals("hPa")) {
@@ -446,11 +467,6 @@ public class Charting {
             avgseries.getData().add(new XYChart.Data(years.get(i), avgknots));
         }
 
-
-        sc.getStyleClass().add(".chart-title {\n" +
-                "  -fx-text-fill: #4682b4;\n" +
-                "  -fx-font-size: 1.6em;\n" +
-                "}");
 
 
         sc.getData().addAll(series, avgseries);
