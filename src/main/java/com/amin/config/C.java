@@ -60,7 +60,7 @@ public class C {
     public static String readPropertieVal(String key) throws IOException, URISyntaxException {
 
 
-        final String name = "/drawable/app.properties";
+        final String name = "/application.properties";
         final URL resource = C.class.getResource(name);
         final InputStream resourceAsStream = C.class.getResourceAsStream(name);
 
