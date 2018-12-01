@@ -35,13 +35,13 @@ public class AtmosphereFunction {
     public static void main(String[] args) throws IOException {
         final DataSetIterator trainingData = getTrainingData(222, rand);
 
-        MultiLayerNetwork net = net(trainingData, 0.1, 1000);
+        MultiLayerNetwork net = net(trainingData, 0.1, 10000);
 
 
-        final INDArray input = Nd4j.create(new double[]{10193.0/32575.0}, new int[]{1, 1});
+        final INDArray input = Nd4j.create(new double[]{12307/12621}, new int[]{1, 1});
         INDArray out = net.output(input, true);
         System.err.println(out);
-        System.err.println(out.data().asDouble()[0] * 78.0);
+        System.err.println(out.data().asDouble()[0] * 25.0);
 
 
     }
@@ -53,20 +53,17 @@ public class AtmosphereFunction {
         //Create the network
         int numInput = 1;
         int numOutputs = 1;
-        int nHidden = 3;
+        int nHidden = 10;
         NeuralNetConfiguration.Builder seed;
         MultiLayerNetwork net = new MultiLayerNetwork(new NeuralNetConfiguration.Builder()
                 .seed(seejd)
                 .weightInit(WeightInit.ZERO)
-                .updater(new Nesterovs(learningRate2, 0.9))
+                .updater(new Nesterovs(learningRate2, 0.8))
                 .list()
                 .layer(0, new DenseLayer.Builder().nIn(numInput).nOut(nHidden)
                         .activation(Activation.TANH)
                         .build())
-                .layer(1, new DenseLayer.Builder().nIn(nHidden).nOut(nHidden)
-                        .activation(Activation.TANH)
-                        .build())
-                .layer(2, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                .layer(1, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .activation(Activation.TANH)
                         .nIn(nHidden).nOut(numOutputs).build())
                 .pretrain(false).backprop(true).build()
@@ -77,8 +74,14 @@ public class AtmosphereFunction {
 
         //Train the network on the full data set, and evaluate in periodically
         for (int i = 0; i < nepoche; i++) {
+            final double scorebef = net.score();
             iterator.reset();
             net.fit(iterator);
+            if ((Math.abs(scorebef - net.score())) < 0.00000000001) {
+                return net;
+            }
+
+
         }
         return net;
 
@@ -87,8 +90,8 @@ public class AtmosphereFunction {
 
     public static DataSetIterator getTrainingData(int batchSize, Random rand) throws IOException {
 
-        final ArrayList<ArrayList<String>> col1Col2Data = Mapping.LatLong.getCol1Col2Data("assets/00Z_02_Mar_2016.csv",
-                1, 7);
+        final ArrayList<ArrayList<String>> col1Col2Data = Mapping.LatLong.getCol1Col2Data("assets/dd.csv",
+                1, 7,"\t");
         final int nSamples = col1Col2Data.size();
         double[] sum = new double[nSamples];
         double[] input1 = new double[nSamples];
