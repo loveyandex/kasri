@@ -1,7 +1,10 @@
 package com.amin.neuralNetwork.regression;
 
+import com.amin.analysis.Mapping;
+import com.amin.config.MathTerminology;
 import com.amin.neuralNetwork.regression.function.MathFunction;
 import com.amin.neuralNetwork.regression.function.SinXDivXMathFunction;
+import com.google.gson.Gson;
 import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
@@ -27,6 +30,7 @@ import org.nd4j.linalg.lossfunctions.LossFunctions;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -40,7 +44,7 @@ import java.util.Random;
  *
  * @author Alex Black
  */
-public class RegressionMathFunctions {
+public class Atm {
 
     //Random number generator seed, for reproducability
     public static final int seed = 12345;
@@ -59,15 +63,14 @@ public class RegressionMathFunctions {
     public static final int numOutputs = 1;
 
 
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws IOException {
 
         //Switch these two options to do different functions with different networks
-        final MathFunction fn = new SinXDivXMathFunction();
         final MultiLayerConfiguration conf = getDeepDenseLayerNetworkConfiguration();
 
         //Generate the training data
-        final INDArray x = Nd4j.linspace(-1000, 1000, nSamples).reshape(nSamples, 1);
-        final DataSetIterator iterator = getTrainingData(x, fn, batchSize, rng);
+        final INDArray x = Nd4j.linspace(-10, 10, nSamples).reshape(nSamples, 1);
+        final DataSetIterator iterator = getTrainingData( batchSize, rng);
 
         //Create the network
         final MultiLayerNetwork net = new MultiLayerNetwork(conf);
@@ -81,18 +84,16 @@ public class RegressionMathFunctions {
             iterator.reset();
             System.out.println(i);
             net.fit(iterator);
-            if ((i + 1) % plotFrequency == 0) networkPredictions[i / plotFrequency] = net.output(x, false);
         }
 
         try {
-            net.save(new File("assets/", "net.net"));
+            net.save(new File("assets/", "gg.net"));
             System.err.println("saved");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         //Plot the target data and the network predictions
-        plot(fn, x, fn.getFunctionValues(x), networkPredictions);
 
 
     }
@@ -127,6 +128,45 @@ public class RegressionMathFunctions {
      */
     private static DataSetIterator getTrainingData(final INDArray x, final MathFunction function, final int batchSize, final Random rng) {
         final INDArray y = function.getFunctionValues(x);
+        final DataSet allData = new DataSet(x, y);
+
+        final List<DataSet> list = allData.asList();
+        Collections.shuffle(list, rng);
+        return new ListDataSetIterator(list, batchSize);
+    }
+
+    private static DataSetIterator getTrainingData(final int batchSize, final Random rng) throws IOException {
+
+        final ArrayList<ArrayList<String>> col1Col2Data = Mapping.LatLong.getCol1Col2Data("assets/00Z_02_Mar_2016.csv",
+                1, 7, ";");
+        final int nSamples = col1Col2Data.size();
+        ;
+        double[] sum = new double[nSamples];
+        double[] input1 = new double[nSamples];
+        String forprint = "";
+        for (int i = 0; i < col1Col2Data.size(); i++) {
+            final String inp = col1Col2Data.get(i).get(0);
+            final String out = col1Col2Data.get(i).get(1);
+            input1[i] = Double.parseDouble(inp);
+            sum[i] = Double.parseDouble(out);
+            ;
+            forprint += "[" + out + "],";
+        }
+//        final double maxinput = MathTerminology.max(input1);
+//        final double maxSum = MathTerminology.max(sum);
+//        System.out.println(maxinput + "maxinput");
+//        System.out.println(maxSum + "maxsum");
+//
+//        for (int i = 0; i < sum.length; i++) {
+//            sum[i] /= maxSum;
+//            input1[i] /= maxinput;
+//        }
+
+
+        System.err.println(new Gson().toJson(input1));
+        System.err.println(new Gson().toJson(sum));
+        INDArray x = Nd4j.create(input1, new int[]{nSamples, 1});
+        INDArray y = Nd4j.create(sum, new int[]{nSamples, 1});
         final DataSet allData = new DataSet(x, y);
 
         final List<DataSet> list = allData.asList();
