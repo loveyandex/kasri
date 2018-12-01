@@ -11,7 +11,7 @@ public class SinXDivXMathFunction implements MathFunction {
 
     @Override
     public INDArray getFunctionValues(final INDArray x) {
-        return Nd4j.getExecutioner().execAndReturn(new Sin(x.dup())).div(x);
+        return Nd4j.getExecutioner().execAndReturn(new Sin(x.dup())).div(x).div(0.5);
     }
 
     @Override
