@@ -34,7 +34,7 @@ interface Do {
     void aDo(LatLon latLon) throws SQLException;
 }
 
-public class ListViewExperiments extends Application {
+public class SearchingView extends Application {
     final ListView listView = new ListView();
     final JFXTextField searchbox = new JFXTextField();
     final Gson gson = new Gson();
@@ -62,7 +62,7 @@ public class ListViewExperiments extends Application {
     }
 
 
-    public ListViewExperiments(Do aDo) {
+    public SearchingView(Do aDo) {
         this.aDo = aDo;
     }
 
