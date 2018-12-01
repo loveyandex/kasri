@@ -76,23 +76,24 @@ public class ResumeDownloading {
             File maxMonthfile = new File(months[0].getParent(), "month_" + maxMonth);
             File beforemaxMonthfile = new File(months[0].getParent(), "month_" + (maxMonth - 1));
             try {
-                int abs = ( maxMonthfile.listFiles().length - beforemaxMonthfile.listFiles().length);
-                if (abs > 5 ) {
+                int abs = (maxMonthfile.listFiles().length - beforemaxMonthfile.listFiles().length);
+                if (abs > 5) {
                     return 11
                             ;
-                } else  if (abs(abs) > 5 && abs<0) {
+                } else if (abs(abs) > 5 && abs < 0) {
                     return 12;
-                }
-                else {
+                } else {
                     return 13;
                 }
 
             } catch (java.lang.NullPointerException e) {
                 return 13;
             }
-
         }
     }
+
+
+
 
 
     private File getFileOFYear(int year, File[] yearsOfCountry) {
