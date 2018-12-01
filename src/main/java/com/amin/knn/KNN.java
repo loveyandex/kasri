@@ -1,6 +1,6 @@
 package com.amin.knn;
 
-import com.amin.database.Driver;
+import com.amin.database.database.DatabaseHandler;
 import com.amin.pojos.LatLon;
 import com.amin.pojos.Station;
 import com.amin.ui.scripts.ScriptAPP;
@@ -107,16 +107,17 @@ public class KNN {
 
 
     public static ResultSet exeing() throws SQLException {
-        final Statement statement = Driver.getDriver().getConnection().createStatement();
+        final Statement statement = DatabaseHandler.getInstance().getConnection().createStatement();
+
         final ResultSet executeQuery = statement.executeQuery("select *\n" +
-                "from station_latlong\n" +
-                "where station!='null' and country like 'iran%' ;");
+                "from stations\n" +
+                "where station!='NULL'");
+//                "where station!='null' and country like 'iran%' ;");
         return executeQuery;
     }
 
 
     public static double nearst(double maximum_distance_km, LatLon latLong) throws SQLException {
-
         final double lat1 = latLong.getLat();
         final double long1 = latLong.getLogn();
 
@@ -136,23 +137,21 @@ public class KNN {
 //            System.out.print(long1);
             final double real_distance = real_distance(lat1, long1, Double.parseDouble(lati), Double.parseDouble(longi));
             if (real_distance < maximum_distance_km) {
-                station = new Station(stationnumber, country, stacitinametion,
-                        true, new LatLon(Double.parseDouble(lati), Double.parseDouble(longi))
-                        , real_distance);
+//                station = new Station(stationnumber, country, stacitinametion,
+//                        true, new LatLon(Double.parseDouble(lati), Double.parseDouble(longi))
+//                        , real_distance);
+
                 final double temp = temp(stationnumber, country);
                 if (temp == -1000000)
                     continue;
                 else {
                     expection += real_distance * temp;
                     sum_distance += real_distance;
-                    stations.add(station);
+
                     System.err.println(real_distance);
                     System.err.println(stacitinametion + "...." + lati + "  " + longi);
                 }
-
-
             }
-
         }
 
         if (sum_distance != 0.0)
@@ -228,21 +227,3 @@ public class KNN {
     }
 
 }
-
-
-//        for (int i = 0; i < 100; i++) {
-//            System.out.println("--------------------");
-//            double alfa = delalf * i;
-//            final double dellong = disradius * cos(Math.toRadians(alfa));
-//            final double dellat = disradius * sin(Math.toRadians(alfa));
-//
-//            final double dellongang = Math.toDegrees(dellong / (R * sin(Math.toRadians(90 - lat1))));
-//            final double dellatang = Math.toDegrees(dellat / (R));
-//
-////            System.out.println(real_distance(lat1, long1, lat1 + dellatang, long1 + dellongang));
-//
-//            System.out.println(lat1 + dellatang);
-//            System.out.println(long1 + dellongang);
-//
-////            System.err.println(alfa);
-//        }

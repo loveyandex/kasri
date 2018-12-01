@@ -9,6 +9,7 @@ import com.amin.jsons.UnitConvertor;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
+import com.amin.ui.main.features.StaticFunctions;
 import com.amin.ui.main.main.Charting;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
@@ -47,7 +48,7 @@ import static com.amin.ui.main.features.allheight.AntiHeightDayController.getFea
  * is created by aMIN on 6/1/2018 at 05:50
  */
 
-public class AllStationsOfCountryController implements Initializable {
+public class AllStationsOfCountryController extends StaticFunctions implements Initializable {
 
     public RangeSlider yearsSlider;
     public JFXSlider lowYearjfxslider;
@@ -456,7 +457,7 @@ public class AllStationsOfCountryController implements Initializable {
                                 rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
 
 
-                        Double intrapolateFeature = intrapolateFeature(height, heightAndFeature);
+                        Double intrapolateFeature = intrapolateinAllFeature(Double.parseDouble(height), heightAndFeature);
                         if (intrapolateFeature != null) {
 
                             featurelist.add(intrapolateFeature);
@@ -528,76 +529,6 @@ public class AllStationsOfCountryController implements Initializable {
         return getFeatures(featureName);
 
     }
-
-
-    private Double intrapolateFeature(String height, ArrayList<ArrayList<Double>> heightAndFeature) {
-
-        Double knotdesire = null;
-        double heightdesire = Double.parseDouble(height);
-        final Vector<Double> heigthsVector = new Vector<>();
-        final Vector<Double> knotsVector = new Vector<>();
-
-        heightAndFeature.forEach(doubles -> {
-
-            double h = (doubles.get(0));
-            double knot = (doubles.get(1));
-            heigthsVector.add(h);
-            knotsVector.add(knot);
-
-        });
-
-        for (int i = 0; i < heigthsVector.size() - 1; i++) {
-            double hi = heigthsVector.get(i);
-            double hiplus = heigthsVector.get(i + 1);
-            double knoti = knotsVector.get(i);
-            double knotiplus = knotsVector.get(i + 1);
-            if ((heightdesire - hi) * (heightdesire - hiplus) <= 0) {
-                knotdesire = (knotiplus - knoti) * (heightdesire - hi) / (hiplus - hi) + (knoti);
-                break;
-            }
-
-        }
-        return knotdesire;
-    }
-
-
-    private double intrapolateKnot(String height, ArrayList<ArrayList<String>> heightAndKnotAll) {
-        double knotdesire = -1;
-        double heightdesire = Double.parseDouble(height);
-        final Vector<Double> heigthsVector = new Vector<>();
-        final Vector<Double> knotsVector = new Vector<>();
-
-        heightAndKnotAll.forEach(strings -> {
-            if (!strings.get(0).equals("HGHT")
-                    && !strings.get(1).equals("SKNT")
-                    && !strings.get(0).equals("m")
-                    && !strings.get(1).equals("knot")
-                    && !strings.get(0).equals("NULL")
-                    && !strings.get(1).equals("NULL")
-
-
-            ) {
-                double h = Double.parseDouble(strings.get(0));
-                double knot = Double.parseDouble(strings.get(1));
-                heigthsVector.add(h);
-                knotsVector.add(knot);
-            }
-        });
-
-        for (int i = 0; i < heigthsVector.size() - 1; i++) {
-            double hi = heigthsVector.get(i);
-            double hiplus = heigthsVector.get(i + 1);
-            double knoti = knotsVector.get(i);
-            double knotiplus = knotsVector.get(i + 1);
-            if ((heightdesire - hi) * (heightdesire - hiplus) <= 0) {
-                knotdesire = (knotiplus - knoti) * (heightdesire - hi) / (hiplus - hi) + (knoti);
-                break;
-            }
-
-        }
-        return knotdesire;
-    }
-
 
     private boolean isReadyToFire(OtherFormInfo formInfo) {
         if (formInfo.getFeatureUnit() == null || formInfo.getFeaureName() == null || formInfo.getLowerYear() == null || formInfo.getHighYear() == null || formInfo.getDate() == null || formInfo.getStationNamesList().isEmpty() || formInfo.getCountry() == null || formInfo.getHeight() == null) {

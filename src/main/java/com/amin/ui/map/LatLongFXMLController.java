@@ -1,6 +1,6 @@
 package com.amin.ui.map;
 
-import com.amin.database.Driver;
+import com.amin.database.database.DatabaseHandler;
 import com.amin.knn.KNN;
 import com.amin.pojos.LatLon;
 import com.amin.ui.scripts.ScriptAPP;
@@ -23,9 +23,7 @@ import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +32,8 @@ import java.util.ResourceBundle;
 import static java.lang.Math.abs;
 
 public class LatLongFXMLController implements Initializable {
-    final Connection connection = Driver.getDriver().getConnection();
+    final Connection connectionDerby = DatabaseHandler.getInstance().getConnection();
+
 
 
     public AnchorPane anchorroot;
@@ -86,7 +85,7 @@ public class LatLongFXMLController implements Initializable {
 
         mapOptions.center(new LatLong(35.6892, 51.3890))
                 .mapType(MapTypeIdEnum.ROADMAP)
-                .zoom(9);
+                .zoom(3);
         map = googleMapView.createMap(mapOptions, false);
 
         final MarkerOptions markerOptions = new MarkerOptions();
@@ -95,33 +94,33 @@ public class LatLongFXMLController implements Initializable {
         marker.setTitle("first");
         map.addMarker(marker);
 
-        final Statement statement = connection.createStatement();
-        final ResultSet resultSet = statement.executeQuery("select * from station_latlong");
-        final ArrayList<ArrayList<String>> stations = new ArrayList<>();
-
-        while (resultSet.next()) {
-            final String stnm = resultSet.getString(1);
-            if (!stnm.equals("NULL")) {
-                final MarkerOptions markerOptions2 = new MarkerOptions();
-                final Marker marker2 = new Marker(markerOptions);
-                final String latitude = resultSet.getString(4);
-                final String longitude = resultSet.getString(5);
-                final String country = resultSet.getString(2);
-
-                stations.add(new ArrayList<String>() {{
-                    add(stnm);
-                    add(country);
-                    add(latitude);
-                    add(longitude);
-                }});
-
-
-                marker2.setPosition(new LatLong(Double.parseDouble(latitude), Double.parseDouble(longitude)));
-                marker2.setTitle(stnm);
-                map.addMarker(marker2);
-
-            }
-        }
+//        final Statement statement = connection.createStatement();
+//        final ResultSet resultSet = statement.executeQuery("select * from stations");
+//        final ArrayList<ArrayList<String>> stations = new ArrayList<>();
+//
+//        while (resultSet.next()) {
+//            final String stnm = resultSet.getString(1);
+//            if (!stnm.equals("NULL")) {
+//                final MarkerOptions markerOptions2 = new MarkerOptions();
+//                final Marker marker2 = new Marker(markerOptions);
+//                final String latitude = resultSet.getString(4);
+//                final String longitude = resultSet.getString(5);
+//                final String country = resultSet.getString(2);
+//
+//                stations.add(new ArrayList<String>() {{
+//                    add(stnm);
+//                    add(country);
+//                    add(latitude);
+//                    add(longitude);
+//                }});
+//
+//
+//                marker2.setPosition(new LatLong(Double.parseDouble(latitude), Double.parseDouble(longitude)));
+//                marker2.setTitle(stnm);
+//                map.addMarker(marker2);
+//
+//            }
+//        }
 
 
         map.addMouseEventHandler(UIEventType.click, (GMapMouseEvent event) -> {

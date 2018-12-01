@@ -1,0 +1,22 @@
+* {
+    -fx-primary : #63613a;
+    -fx-secondary : rgb(255, 255, 255);
+    -fx-primarytext : #ffffff;
+    -fx-blue: #1976D2;
+    -fx-red: #FF0000;
+    -fx-green: #6e7d60;
+    /*-fx-text-fill: #FFFFFF;*/
+}
+/*Chart Styling*/
+.data0.chart-pie{
+    -fx-pie-color: -fx-secondary;
+    -fx-border-color: derive(-fx-secondary, -30%);
+}
+.data1.chart-pie{
+    -fx-pie-color: derive(-fx-primary, 30%);
+    -fx-border-color: derive(-fx-primary, 30%);
+}
+.chart-pie-label
+{
+    -fx-fill : derive(-fx-secondary, -5%);
+}

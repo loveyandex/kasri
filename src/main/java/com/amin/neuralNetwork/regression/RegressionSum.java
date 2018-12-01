@@ -25,15 +25,17 @@ import java.util.Random;
  */
 public class RegressionSum {
     //Random number generator seed, for reproducability
-    public static final int seed = 12345;
+    public static final int seed = 1234;
     //Number of epochs (full passes of the data)
-    public static final int nEpochs = 2000;
+    public static final int nEpochs = 200;
     //Number of data points
-    public static final int nSamples = 1000;
+    public static final int nSamples = 100;
     //Batch size: i.e., each epoch has nSamples/batchSize parameter updates
     public static final int batchSize = 100;
     //Network learning rate
     public static final double learningRate = 0.01;
+
+
     public static final Random rng = new Random(seed);
     // The range of the sample data, data in range (0-1 is sensitive for NN, you can try other ranges and see how it effects the results
     // also try changing the range along with changing the activation function
@@ -43,7 +45,7 @@ public class RegressionSum {
     public static void main(String[] args) {
 
         //Generate the training data
-        DataSetIterator iterator = getTrainingData(batchSize, rng);
+        DataSetIterator iterator = getTrainingData(batchSize, rng, nSamples);
 
         //Create the network
         int numInput = 2;
@@ -79,7 +81,7 @@ public class RegressionSum {
     }
 
 
-    public static MultiLayerNetwork net(DataSetIterator iterator) {
+    public static MultiLayerNetwork net(DataSetIterator iterator, double learningRate2, int nepoche) {
 
 
         //Create the network
@@ -89,7 +91,7 @@ public class RegressionSum {
         MultiLayerNetwork net = new MultiLayerNetwork(new NeuralNetConfiguration.Builder()
                 .seed(seed)
                 .weightInit(WeightInit.XAVIER)
-                .updater(new Nesterovs(learningRate, 0.9))
+                .updater(new Nesterovs(learningRate2, 0.9))
                 .list()
                 .layer(0, new DenseLayer.Builder().nIn(numInput).nOut(nHidden)
                         .activation(Activation.TANH)
@@ -104,7 +106,7 @@ public class RegressionSum {
 
 
         //Train the network on the full data set, and evaluate in periodically
-        for (int i = 0; i < nEpochs; i++) {
+        for (int i = 0; i < nepoche; i++) {
             iterator.reset();
             net.fit(iterator);
         }
@@ -143,7 +145,7 @@ public class RegressionSum {
     }
 
 
-    public static DataSetIterator getTrainingData(int batchSize, Random rand) {
+    public static DataSetIterator getTrainingData(int batchSize, Random rand, int nSamples) {
         double[] sum = new double[nSamples];
         double[] input1 = new double[nSamples];
         double[] input2 = new double[nSamples];

@@ -30,7 +30,7 @@ public class LatLongMainApp extends Application {
         Scene scene = new SceneJson<>(root);
         scene.getStylesheets().add("/styles/Styles.css");
 
-        stage.setTitle("JavaFX and Maven");
+        stage.setTitle("MAP");
         stage.setScene(scene);
 
         scene.setFill(Color.TRANSPARENT);

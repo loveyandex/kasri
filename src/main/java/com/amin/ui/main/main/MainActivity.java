@@ -1,6 +1,7 @@
 package com.amin.ui.main.main;
 
 import com.amin.config.C;
+import com.amin.database.database.DatabaseHandler;
 import com.amin.ui.SceneJson;
 import com.amin.ui.SceneMainActivity;
 import com.amin.ui.StageOverride;
@@ -40,7 +41,7 @@ public class MainActivity extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/main/main_activity.fxml"));
+        Parent root = FXMLLoader.load(MainActivity.class.getResource("/com/amin/ui/main/main/main_activity.fxml"));
         Scene scene = new SceneMainActivity<>(root, 1100, 600);
 
         primaryStage.setOnCloseRequest(event -> {
@@ -72,8 +73,20 @@ public class MainActivity extends Application {
         System.out.println(C.DATA_PATH);
         System.out.println(C.SOCANDARY_DATA_PATH);
         System.out.println(C.THIRDY_PATH);
-    }
 
+        new Thread(() -> {
+            try {
+                Thread.sleep(3000);
+                DatabaseHandler.getInstance();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }).start();
+
+
+        System.out.println("after_out_of_thread");
+    }
 
 }
 

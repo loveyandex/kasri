@@ -1,10 +1,8 @@
 package com.amin.config;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Properties;
 
 /**
@@ -20,7 +18,7 @@ public class C {
     public static final String SPACE = " ";
     public static final String COUNTRIES_CONFIG_PATH = "config/countries.conf";
 
-    public static final String APP_PROP_PATH = "application.properties";
+    public static final String APP_PROP_PATH = "/application.properties";
     public static final int NowYear = 2017;
     public static final int FIRST_YEAR = 1973;
     public static String DATA_PATH;
@@ -62,12 +60,21 @@ public class C {
     public static String readPropertieVal(String key) throws IOException, URISyntaxException {
 
 
-        File file = new File(new Load().getload(C.APP_PROP_PATH));
+        final String name = "/drawable/app.properties";
+        final URL resource = C.class.getResource(name);
+        final InputStream resourceAsStream = C.class.getResourceAsStream(name);
 
-        FileInputStream in = new FileInputStream(file);
+        File file = new File(resource.toURI().toString());
+
+        if (!file.exists())
+            System.err.println("not existed");
+
+
+
+//        FileInputStream in = new FileInputStream(file);
         Properties properties = new Properties();
-        properties.load(in);
-        in.close();
+        properties.load(resourceAsStream);
+        resourceAsStream.close();
 
         String pval = properties.getProperty(key);
         return pval;
@@ -78,8 +85,11 @@ public class C {
     public static void writePropertie(String key, String value) throws IOException, URISyntaxException {
 
 
-        File file = new File(new Load().getload(C.APP_PROP_PATH));
+        final URL resource = C.class.getClassLoader().getResource("application.properties");
+        File file = new File(resource.toURI());
 
+        if (!file.exists())
+            System.err.println("not existed2");
 
         FileInputStream in = new FileInputStream(file);
         Properties properties = new Properties();
@@ -104,7 +114,7 @@ public class C {
 
 class Load {
     public String getload(String path) {
-        String resource = getClass().getClassLoader().getResource(path).getPath();
+        String resource = getClass().getResource(path).getPath();
         return resource;
     }
 }

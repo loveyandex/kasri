@@ -1,7 +1,6 @@
 package test.alert1;
 
 
-import com.amin.database.Driver;
 import com.amin.jsons.City;
 import com.amin.jsons.Country;
 import com.google.gson.Gson;
@@ -12,8 +11,6 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import static test.alert1.FD.abrtoName;

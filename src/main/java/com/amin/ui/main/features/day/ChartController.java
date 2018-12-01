@@ -2,7 +2,9 @@ package com.amin.ui.main.features.day;
 
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
+import com.google.gson.Gson;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,14 +47,31 @@ public class ChartController implements Initializable, Runnable {
         Stage primaryStage = new StageOverride();
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/day/statistic.fxml"));
         root.setStyle("-fx-padding: 30 30 30 30 ");
+//        root.getStylesheets().add("/dark-theme.css");
 
         SceneJson sceneJson = new SceneJson<>(root);
         sceneJson.setJson(allfeatureandyear);
+        
         primaryStage.setScene(sceneJson);
+        primaryStage.titleProperty().setValue(new Gson().toJson(allfeatureandyear));
 
-        primaryStage.setResizable(false);
         primaryStage.show();
     }
+    public void styling(ActionEvent actionEvent) {
+        final Parent root = rootme.getScene().getRoot();
+        root.getStylesheets().add("/dark-theme.css");
+    }
 
+    public void removestyling(ActionEvent actionEvent) {
+        final Parent root = rootme.getScene().getRoot();
+        final ObservableList<String> stylesheets = root.getStylesheets();
 
+        System.out.println(stylesheets.size());
+
+    }
+
+    public void whiteStyle(ActionEvent actionEvent) {
+        final Parent root = rootme.getScene().getRoot();
+        root.getStylesheets().add("/white-chart.css");
+    }
 }

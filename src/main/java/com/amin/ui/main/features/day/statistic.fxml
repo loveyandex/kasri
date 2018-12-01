@@ -14,7 +14,7 @@
            fx:controller="com.amin.ui.main.features.day.StatisticalController"
            xmlns="http://javafx.com/javafx/2.2"
            stylesheets="/statistic.css">
-    <VBox maxWidth="600" maxHeight="450" spacing="20"
+    <VBox maxWidth="900" maxHeight="650" spacing="20"
           alignment="CENTER">
         <children>
             <HBox>

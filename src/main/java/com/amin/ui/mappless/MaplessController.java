@@ -83,9 +83,20 @@ public class MaplessController implements Initializable {
 
     }
 
-    public void hypring(ActionEvent actionEvent) throws Exception {
+    public void hypringCityname(ActionEvent actionEvent) throws Exception {
 
-        new ListViewExperiments((latLon) -> {
+        new SearchingView((latLon) -> {
+            final double nearst = KNN.nearst(300, latLon);
+            System.out.println(nearst);
+            LatLongFXMLController.SnackBar.showSnack(root, String.valueOf(nearst), 2333);
+            longitude.setText(String.valueOf(latLon.getLogn()));
+            latitude.setText(String.valueOf(latLon.getLat()));
+        }).start(new Stage());
+
+    }
+    public void hypringCuntryname(ActionEvent actionEvent) throws Exception {
+
+        new SearchingView((latLon) -> {
             final double nearst = KNN.nearst(300, latLon);
             System.out.println(nearst);
             LatLongFXMLController.SnackBar.showSnack(root, String.valueOf(nearst), 2333);

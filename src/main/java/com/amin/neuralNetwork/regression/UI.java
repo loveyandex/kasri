@@ -5,15 +5,20 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.factory.Nd4j;
+
+import java.util.Random;
 
 public class UI extends Application {
 
@@ -41,11 +46,17 @@ public class UI extends Application {
 //        pane.getChildren().add(field);
 
 
-        JFXTextField disabledField = new JFXTextField("555");
-        disabledField.setStyle(FX_LABEL_FLOAT_TRUE);
-        disabledField.setPromptText("Itr..");
+        JFXTextField itreatenode = new JFXTextField("555");
+        itreatenode.setStyle(FX_LABEL_FLOAT_TRUE);
+        itreatenode.setPromptText("Itr..");
 //        disabledField.setDisable(true);
-        pane.getChildren().add(disabledField);
+        pane.getChildren().add(itreatenode);
+
+        // learning rate
+        JFXTextField learningRate = new JFXTextField("0.01");
+
+
+
 
         JFXTextField validationField = new JFXTextField("0.1,0.99");
 
@@ -68,19 +79,32 @@ public class UI extends Application {
         validator = new RequiredFieldValidator();
         validator.setMessage("Password Can't be empty");
 
+        Node nEpcheNode = new JFXTextField("120");
+
 
         JFXButton jfxButton = new JFXButton("learn");
         Label results = new Label("no resut");
 
         JFXButton gett = new JFXButton("get");
         final MultiLayerNetwork[] net = new MultiLayerNetwork[1];
+
+
         jfxButton.setOnMouseClicked(event -> {
             gett.setDisable(true);
 
 
-            net[0] = RegressionSum.net(RegressionSum.getTrainingData(RegressionSum.batchSize, RegressionSum.rng));
+            final DataSetIterator trainingData = RegressionSum.getTrainingData(RegressionSum.batchSize,
+                    new Random(1234),
+                    100);
+
+            double learningRate2= Double.parseDouble(learningRate.getText());
+
+            final int nepoche = Integer.parseInt(((JFXTextField) nEpcheNode).getText());
+            net[0] = RegressionSum.net(trainingData, learningRate2, nepoche);
+
             results.setText("no result");
             gett.setDisable(false);
+
         });
 
         passwordField.getValidators().add(validator);
@@ -92,10 +116,8 @@ public class UI extends Application {
 //        pane.getChildren().add(passwordField);
 
         gett.setOnMouseClicked(event -> {
-
             final double aDouble = Double.parseDouble(validationField.getText().split(",")[0]);
             final double bDouble = Double.parseDouble(validationField.getText().split(",")[1]);
-
             // Test the addition of 2 numbers (Try different numbers here)
             final INDArray input = Nd4j.create(new double[]{aDouble, bDouble}, new int[]{1, 2});
             INDArray out = net[0].output(input, false);
@@ -108,10 +130,13 @@ public class UI extends Application {
         pane.getChildren().add(gett);
         pane.getChildren().add(results);
 
+        HBox h = new HBox(learningRate,nEpcheNode);
+
+        pane.getChildren().add(h);
+
 
         final Scene scene = new Scene(pane, 600, 400, Color.WHITE);
-        scene.getStylesheets()
-                .add(UI.class.getResource("/css/jfoenix-components.css").toExternalForm());
+        scene.getStylesheets().add(UI.class.getResource("/css/jfoenix-components.css").toExternalForm());
         stage.setTitle("");
         stage.setScene(scene);
         stage.setResizable(false);

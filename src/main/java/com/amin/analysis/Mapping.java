@@ -1,8 +1,9 @@
 package com.amin.analysis;
 
 import com.amin.config.C;
-import com.amin.database.Driver;
+import com.amin.database.database.DatabaseHandler;
 import com.amin.ui.dialogs.Dialog;
+import com.google.gson.Gson;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -18,8 +19,15 @@ import java.util.Scanner;
  * is created by aMIN on 6/5/2018 at 22:11
  */
 public class Mapping {
+    public static void main(String[] args) throws IOException {
 
-    final static Connection connection = Driver.getDriver().getConnection();
+        String abspathfile = "config/countries.configfile.conf";
+        final ArrayList<String> fileLines = getFileLines(abspathfile);
+        System.err.println(new Gson().toJson(fileLines));
+
+    }
+
+    final static Connection connectionDerby = DatabaseHandler.getInstance().getConnection();
 
     static public void createCSVFILEFORStations(String Dirpath, String fileName) throws IOException {
 
@@ -132,24 +140,27 @@ public class Mapping {
         return readFileLines(path);
     }
 
-    public static void main(String[] args) throws IOException {
 
-        String abspathfile = "config/countries.configfile.conf";
-        final ArrayList<String> fileLines = getFileLines(abspathfile);
-        fileLines.forEach(Mapping::mapForOldFolder);
+    public static void map(String rootparent, String fileName) {
+        final ArrayList<ArrayList<String>> latLongForAContryCities;
+
+        latLongForAContryCities = LatLong.getLatLongForAContryCities(rootparent, fileName);
+        coreinrsert(connectionDerby, latLongForAContryCities);
 
     }
 
-    static void map(String rootparent, String fn) {
+    public static void map(String rootparent, String fileName, Connection connection) {
         final ArrayList<ArrayList<String>> latLongForAContryCities;
+        latLongForAContryCities = LatLong.getLatLongForAContryCities(rootparent, fileName);
+        coreinrsert(connection, latLongForAContryCities);
 
-        latLongForAContryCities = LatLong.getLatLongForAContryCities(rootparent, fn);
+    }
+
+    private static void coreinrsert(Connection connection, ArrayList<ArrayList<String>> latLongForAContryCities) {
         latLongForAContryCities
                 .forEach(strings -> {
                     try {
-
-                        final PreparedStatement preparedStatement = connection.prepareStatement("insert into station_latlong (station,country, citiname, lati ,longi) values (?,?,?,?,?);");
-
+                        final PreparedStatement preparedStatement = connection.prepareStatement("insert into stations (station,country, citiname, lati ,longi) values (?,?,?,?,?)");
                         preparedStatement.setString(1, strings.get(0));
                         preparedStatement.setString(2, strings.get(1));
                         preparedStatement.setString(3, strings.get(2));
@@ -157,15 +168,26 @@ public class Mapping {
                         preparedStatement.setString(5, strings.get(4));
                         preparedStatement.executeUpdate();
 
-
                     } catch (SQLException e) {
-                        e.printStackTrace();
+//                        e.printStackTrace();
+                        System.out.println(e);
+                        ;
+//                        System.exit(1);
                     }
                 });
     }
 
+    public static void map(CONNECTIONTYPE connectiontype,String rootparent, String fileName) {
+        if (connectiontype == CONNECTIONTYPE.DERBY) {
+            map(rootparent,fileName,connectionDerby);
+
+        }
+
+    }
+
+
     static void mapForOldFolder(String fn) {
-        map("config/old-stations", fn);
+        map("config/states", fn);
 
     }
 
@@ -214,6 +236,7 @@ public class Mapping {
             while (scanner.hasNextLine()) {
                 ArrayList<String> point = new ArrayList<>();
                 String line = scanner.nextLine();
+//                System.out.println(line);
                 String[] split = line.split(";");
                 for (int i = 0; i < cols.length; i++) {
                     point.add(split[cols[i]]);
@@ -294,11 +317,36 @@ public class Mapping {
             for (int j = 0; j < colsData.size(); j++) {
                 String citiname = colsData.get(j).get(0).replaceAll("\\^", " ");
                 String citistationnumber = colsData.get(j).get(1);
-                System.out.println(citiname);
-                double citiLat = Double.parseDouble(colsData.get(j).get(2))
-                        + (Double.parseDouble(colsData.get(j).get(3).replaceAll("N", ""))) / 60.0d;
-                double citiLong = Double.parseDouble(colsData.get(j).get(4))
-                        + (Double.parseDouble(colsData.get(j).get(5).replaceAll("E", ""))) / 60.0d;
+//                System.out.println(citiname);
+                String s1 = colsData.get(j).get(3).replaceAll("N", "");
+                double citiLat   ;
+
+                if (s1.toLowerCase().contains("s")){
+                    s1 =  s1.replaceAll("S", "").replaceAll("s", "");
+
+
+                    citiLat = -(Double.parseDouble(colsData.get(j).get(2))
+                            + (Double.parseDouble(s1)) / 60.0d);
+                }else {
+                    citiLat = Double.parseDouble(colsData.get(j).get(2))
+                            + (Double.parseDouble(s1)) / 60.0d;
+                }
+
+
+
+
+                String s = colsData.get(j).get(5).replaceAll("E", "");
+
+                double citiLong;
+                if (s.toLowerCase().contains("w")){
+                    s = s.replaceAll("W", "").replaceAll("w", "");
+                    citiLong= -(Double.parseDouble(colsData.get(j).get(4))
+                            + (Double.parseDouble(s)) / 60.0d);
+                }else {
+                    citiLong= Double.parseDouble(colsData.get(j).get(4))
+                            + (Double.parseDouble(s)) / 60.0d;
+                }
+
 
 
                 ArrayList inoutput = new ArrayList() {{
@@ -314,8 +362,8 @@ public class Mapping {
                 }};
                 output.add(inoutput);
 
-                System.out.println(citiLat);
-                System.out.println(citiLong);
+//                System.out.println(citiLat);
+//                System.out.println(citiLong);
 
             }
             return output;
