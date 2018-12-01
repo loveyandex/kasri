@@ -45,7 +45,7 @@ public class ResumeDownloading {
     private ArrayList<DeatailsDownloading.Year> analysYears(File[] yearsOfCountry) {
         ArrayList<DeatailsDownloading.Year> years = new ArrayList<>();
 
-        IntStream.range(C.FIRST_YEAR, C.NowYear+1).forEach(year -> {
+        IntStream.range(C.FIRST_YEAR, C.NowYear + 1).forEach(year -> {
             File fileOFYear = getFileOFYear(year, yearsOfCountry);
             if (fileOFYear == null) {
                 years.add(new DeatailsDownloading.Year().setFromMonth(1).setYear(year));
@@ -61,7 +61,7 @@ public class ResumeDownloading {
     private ArrayList<DeatailsDownloading.Year> addAllYears() {
         ArrayList<DeatailsDownloading.Year> years = new ArrayList<>();
 
-        IntStream.range(C.FIRST_YEAR, C.NowYear+1).forEach(year ->
+        IntStream.range(C.FIRST_YEAR, C.NowYear + 1).forEach(year ->
                 years.add(new DeatailsDownloading.Year().setFromMonth(1).setYear(year)));
         return years;
     }
@@ -76,14 +76,18 @@ public class ResumeDownloading {
             File maxMonthfile = new File(months[0].getParent(), "month_" + maxMonth);
             File beforemaxMonthfile = new File(months[0].getParent(), "month_" + (maxMonth - 1));
             try {
-                int abs = abs(beforemaxMonthfile.listFiles().length - maxMonthfile.listFiles().length);
-                if (abs < 5) {
-                    return 13
+                int abs = ( maxMonthfile.listFiles().length - beforemaxMonthfile.listFiles().length);
+                if (abs > 5 ) {
+                    return 11
                             ;
-                } else {
+                } else  if (abs(abs) > 5 && abs<0) {
                     return 12;
                 }
-            }catch (java.lang.NullPointerException e){
+                else {
+                    return 13;
+                }
+
+            } catch (java.lang.NullPointerException e) {
                 return 13;
             }
 
@@ -99,42 +103,6 @@ public class ResumeDownloading {
                 return yearOfCountry;
         }
         return null;
-    }
-
-    private int getlastMonth(File country) {
-        File[] years = country.listFiles();
-        int maxYear = minYear(years);
-        File mazyeafile = new File(years[0].getParent(), "year_" + maxYear);
-        File[] months = mazyeafile.listFiles();
-        int maxMonth = maxMonth(months);
-        return maxMonth;
-    }
-
-    private int getlastYear(File country) {
-        File[] years = country.listFiles();
-        return minYear(years);
-    }
-
-    private boolean isCompletedDownloading(File country) {
-        System.out.println(country.getPath());
-        File[] years = country.listFiles();
-        int minYear = minYear(years);
-        File minyearfile = new File(years[0].getParent(), "year_" + minYear);
-        File[] months = minyearfile.listFiles();
-        int maxMonth = maxMonth(months);
-        if (maxMonth < 12)
-            return false;
-        else {
-            File maxMonthfile = new File(months[0].getParent(), "month_" + maxMonth);
-            File beforemaxMonthfile = new File(months[0].getParent(), "month_" + (maxMonth - 1));
-            int abs = abs(beforemaxMonthfile.listFiles().length - maxMonthfile.listFiles().length);
-            if (abs < 5 && minYear == C.NowYear) {
-                return true;
-            } else {
-//                throw new RuntimeException("how to possible lengths defferrent");
-                return false;
-            }
-        }
     }
 
     private int minYear(File[] years) {
