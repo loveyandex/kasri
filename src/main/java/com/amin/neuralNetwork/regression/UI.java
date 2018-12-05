@@ -95,7 +95,7 @@ public class UI extends Application {
 
             final DataSetIterator trainingData = RegressionSum.getTrainingData(RegressionSum.batchSize,
                     new Random(1234),
-                    100);
+                    1000);
 
             double learningRate2= Double.parseDouble(learningRate.getText());
 
