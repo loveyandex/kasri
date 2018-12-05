@@ -205,7 +205,7 @@ public class Process implements Runnable {
                 for (int j = year.getFromMonth(); j <= year.getToMonth(); j++) {
                     if (Starter.mustStop)
                         break outerloop;
-                    System.out.println("year is > " + (year.getYear()) + " month: > " + j + "  is started dowing");
+                    System.out.println("country "+deatailsDownloading.getCountryName()+"year is > " + (year.getYear()) + " month: > " + j + "  is started dowing");
                     CrashedCountry = countryName;
 
                     String pathDirToSave = Starter.ABSOLUTE_ROOT_PATH + "/" + countryName + "/year_" + (year.getYear()) + "/month_" + String.valueOf(j);
