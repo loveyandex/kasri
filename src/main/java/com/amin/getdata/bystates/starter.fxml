@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+
+      fx:controller="com.amin.getdata.bystates.Starter"
+      prefHeight="400.0" prefWidth="600.0">
+    <VBox alignment="BASELINE_CENTER">
+        <children>
+            <HBox alignment="BASELINE_CENTER">
+                <Label>path to down</Label>
+                <JFXTextField fx:id="filePapth"
+                ></JFXTextField>
+            </HBox>
+            <HBox>
+                <JFXTextArea>
+                    sdfgjsdlkgj
+                </JFXTextArea>
+            </HBox>
+
+        </children>
+    </VBox>
+
+
+</VBox>

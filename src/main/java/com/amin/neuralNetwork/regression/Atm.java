@@ -6,6 +6,7 @@ import com.amin.neuralNetwork.regression.function.MathFunction;
 import com.amin.neuralNetwork.regression.function.SinXDivXMathFunction;
 import com.google.gson.Gson;
 import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
+import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
 import org.deeplearning4j.nn.conf.layers.DenseLayer;
@@ -47,9 +48,9 @@ import java.util.Random;
 public class Atm {
 
     //Random number generator seed, for reproducability
-    public static final int seed = 12345;
+    public static final int seed = 123450;
     //Number of epochs (full passes of the data)
-    public static final int nEpochs = 2000;
+    public static final int nEpochs = 20000;
     //How frequently should we plot the network output?
     public static final int plotFrequency = 500;
     //Number of data points
@@ -57,7 +58,7 @@ public class Atm {
     //Batch size: i.e., each epoch has nSamples/batchSize parameter updates
     public static final int batchSize = 100;
     //Network learning rate
-    public static final double learningRate = 0.01;
+    public static final double learningRate = 0.05;
     public static final Random rng = new Random(seed);
     public static final int numInputs = 1;
     public static final int numOutputs = 1;
@@ -69,7 +70,7 @@ public class Atm {
         final MultiLayerConfiguration conf = getDeepDenseLayerNetworkConfiguration();
 
         //Generate the training data
-        final INDArray x = Nd4j.linspace(-10, 10, nSamples).reshape(nSamples, 1);
+//        final INDArray x = Nd4j.linspace(-10, 10, nSamples).reshape(nSamples, 1);
         final DataSetIterator iterator = getTrainingData( batchSize, rng);
 
         //Create the network
@@ -81,13 +82,13 @@ public class Atm {
         //Train the network on the full data set, and evaluate in periodically
         final INDArray[] networkPredictions = new INDArray[nEpochs / plotFrequency];
         for (int i = 0; i < nEpochs; i++) {
-            iterator.reset();
+//            iterator.reset();
             System.out.println(i);
             net.fit(iterator);
         }
 
         try {
-            net.save(new File("assets/", "gg.net"));
+            net.save(new File("assets/", "g5g.net"));
             System.err.println("saved");
         } catch (IOException e) {
             e.printStackTrace();
@@ -102,39 +103,41 @@ public class Atm {
      * Returns the network configuration, 2 hidden DenseLayers of size 50.
      */
     private static MultiLayerConfiguration getDeepDenseLayerNetworkConfiguration() {
-        final int numHiddenNodes = 50;
+        final int numHiddenNodes = 5;
         return new NeuralNetConfiguration.Builder()
                 .seed(seed)
                 .weightInit(WeightInit.XAVIER)
                 .updater(new Nesterovs(learningRate, 0.9))
                 .list()
                 .layer(0, new DenseLayer.Builder().nIn(numInputs).nOut(numHiddenNodes)
-                        .activation(Activation.TANH).build())
+                        .activation(Activation.ELU).build())
                 .layer(1, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
-                        .activation(Activation.TANH).build())
-                .layer(2, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
-                        .activation(Activation.IDENTITY)
+                        .activation(Activation.ELU).build())
+                .layer(2, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .activation(Activation.ELU).build())
+                .layer(3, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .activation(Activation.ELU).build())
+                .layer(4, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .activation(Activation.ELU).build())
+                .layer(5, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .activation(Activation.ELU).build())
+                .layer(6, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .activation(Activation.ELU).build())
+                .layer(7, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .activation(Activation.ELU).build())
+                .layer(8, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .activation(Activation.ELU).build())
+                .layer(9, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                        .activation(Activation.ELU)
                         .nIn(numHiddenNodes).nOut(numOutputs).build())
                 .pretrain(false).backprop(true).build();
     }
 
     /**
      * Create a DataSetIterator for training
-     *
-     * @param x         X values
-     * @param function  Function to evaluate
      * @param batchSize Batch size (number of examples for every call of DataSetIterator.next())
      * @param rng       Random number generator (for repeatability)
      */
-    private static DataSetIterator getTrainingData(final INDArray x, final MathFunction function, final int batchSize, final Random rng) {
-        final INDArray y = function.getFunctionValues(x);
-        final DataSet allData = new DataSet(x, y);
-
-        final List<DataSet> list = allData.asList();
-        Collections.shuffle(list, rng);
-        return new ListDataSetIterator(list, batchSize);
-    }
-
     private static DataSetIterator getTrainingData(final int batchSize, final Random rng) throws IOException {
 
         final ArrayList<ArrayList<String>> col1Col2Data = Mapping.LatLong.getCol1Col2Data("assets/00Z_02_Mar_2016.csv",
@@ -152,16 +155,15 @@ public class Atm {
             ;
             forprint += "[" + out + "],";
         }
-//        final double maxinput = MathTerminology.max(input1);
-//        final double maxSum = MathTerminology.max(sum);
-//        System.out.println(maxinput + "maxinput");
-//        System.out.println(maxSum + "maxsum");
-//
-//        for (int i = 0; i < sum.length; i++) {
-//            sum[i] /= maxSum;
-//            input1[i] /= maxinput;
-//        }
+        final double maxinput = MathTerminology.max(input1);
+        final double maxSum = MathTerminology.max(sum);
+        System.out.println(maxinput + "maxinput");
+        System.out.println(maxSum + "maxsum");
 
+        for (int i = 0; i < sum.length; i++) {
+            sum[i] /= maxSum;
+            input1[i] /= maxinput;
+        }
 
         System.err.println(new Gson().toJson(input1));
         System.err.println(new Gson().toJson(sum));
@@ -174,72 +176,5 @@ public class Atm {
         return new ListDataSetIterator(list, batchSize);
     }
 
-    //Plot the data
-    private static void plot(final MathFunction function, final INDArray x, final INDArray y, final INDArray... predicted) {
-        final XYSeriesCollection dataSet = new XYSeriesCollection();
-        addSeries(dataSet, x, y, "True Function (Labels)");
 
-        for (int i = 0; i < predicted.length; i++) {
-            addSeries(dataSet, x, predicted[i], String.valueOf(i));
-        }
-
-        final JFreeChart chart = ChartFactory.createXYLineChart(
-                "Regression Example - " + function.getName(),      // chart title
-                "X",                        // x axis label
-                function.getName() + "(X)", // y axis label
-                dataSet,                    // data
-                PlotOrientation.VERTICAL,
-                true,                       // include legend
-                true,                       // tooltips
-                false                       // urls
-        );
-
-        final ChartPanel panel = new ChartPanel(chart);
-
-        final JFrame f = new JFrame();
-        f.add(panel);
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        f.pack();
-
-        f.setVisible(true);
-    }
-
-
-    //Plot the حقثیهزفثی یشفش data
-    public static void plot(final INDArray x, final INDArray... predicted) {
-        final XYSeriesCollection dataSet = new XYSeriesCollection();
-
-        for (int i = 0; i < predicted.length; i++) {
-            addSeries(dataSet, x, predicted[i], String.valueOf(i));
-        }
-
-        final JFreeChart chart = ChartFactory.createXYLineChart(
-                "Regression Example - ",      // chart title
-                "X",                        // x axis label
-                "(X)", // y axis label
-                dataSet,                    // data
-                PlotOrientation.VERTICAL,
-                true,                       // include legend
-                true,                       // tooltips
-                false                       // urls
-        );
-
-        final ChartPanel panel = new ChartPanel(chart);
-
-        final JFrame f = new JFrame();
-        f.add(panel);
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        f.pack();
-
-        f.setVisible(true);
-    }
-
-
-    private static void addSeries(final XYSeriesCollection dataSet, final INDArray x, final INDArray y, final String label) {
-        final double[] xd = x.data().asDouble();
-        final double[] yd = y.data().asDouble();
-        final XYSeries s = new XYSeries(label);
-        for (int j = 0; j < xd.length; j++) s.add(xd[j], yd[j]);
-        dataSet.addSeries(s);
-    }
 }
