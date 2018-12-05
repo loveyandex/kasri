@@ -1,5 +1,6 @@
 package com.amin.ui.mappless;
 
+import com.amin.knn.ANN;
 import com.amin.knn.KNN;
 import com.amin.pojos.LatLon;
 import com.amin.ui.SceneJson;
@@ -32,7 +33,8 @@ public class MaplessController implements Initializable {
     public JFXButton cancelbtn;
     public JFXTextField distanceradius;
     public Hyperlink hyperlink;
-    public JFXButton nextbtn;
+    public JFXButton KNNbtn;
+    public JFXButton ANNbtn;
 
     @FXML
     private JFXTextField longitude;
@@ -42,13 +44,13 @@ public class MaplessController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        shiftToEnterEvent(hyperlink, cancelbtn, nextbtn);
+        shiftToEnterEvent(hyperlink, cancelbtn, KNNbtn);
 
     }
 
 
     @FXML
-    private void handleLoginButtonAction(ActionEvent event) throws SQLException {
+    private void knnSolve(ActionEvent event) throws SQLException {
         try {
             LatLon latLon = new LatLon(Double.parseDouble(latitude.getText()), Double.parseDouble(longitude.getText()));
             final double nearst = KNN.nearst(300, new LatLon(latLon.getLat(), latLon.getLogn()));
@@ -77,9 +79,11 @@ public class MaplessController implements Initializable {
 
     }
 
+
     @FXML
     private void handleCancelButtonAction(ActionEvent event) {
         root.getScene().getWindow().hide();
+
 
     }
 
@@ -106,4 +110,12 @@ public class MaplessController implements Initializable {
 
     }
 
+    public void annSolve(ActionEvent actionEvent) {
+        LatLon latLon = new LatLon(Double.parseDouble(latitude.getText()), Double.parseDouble(longitude.getText()));
+        try {
+            ANN.nearest(333, latLon);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

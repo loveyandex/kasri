@@ -150,8 +150,8 @@ public class RegressionSum {
         double[] input1 = new double[nSamples];
         double[] input2 = new double[nSamples];
         for (int i = 0; i < nSamples; i++) {
-            input1[i] = MIN_RANGE + (MAX_RANGE - MIN_RANGE) * rand.nextDouble();
-            input2[i] = MIN_RANGE + (MAX_RANGE - MIN_RANGE) * rand.nextDouble();
+            input1[i] = MIN_RANGE + (MAX_RANGE - MIN_RANGE) * 5.2*rand.nextDouble();
+            input2[i] = MIN_RANGE + (MAX_RANGE - MIN_RANGE) * 5.2*rand.nextDouble();
             sum[i] = input1[i] + input2[i];
         }
         INDArray inputNDArray1 = Nd4j.create(input1, new int[]{nSamples, 1});

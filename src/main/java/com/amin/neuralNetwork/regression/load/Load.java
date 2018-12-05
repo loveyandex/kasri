@@ -15,15 +15,19 @@ public class Load {
     public static void main(String[] args) {
 
         try {
-            final MultiLayerNetwork net = MultiLayerNetwork.load(new File("assets/", "net.net"), true);
+            final MultiLayerNetwork net = MultiLayerNetwork.load(new File("latlongtemp.net"), true);
+
             final INDArray input = Nd4j.create(new double[]{-5.111111}, new int[]{1}).reshape(1, 1);
-            final int rows = 100;
-            final INDArray x = Nd4j.linspace(-10, 10, rows).reshape(rows, 1);
+            final INDArray input2 = Nd4j.create(new double[]{-5.111111}, new int[]{1}).reshape(1, 1);
 
+            final int rows = 10;
+            final INDArray x2 = Nd4j.linspace(20.0, 25.0, rows).reshape(rows, 1);
+            final INDArray x1 = Nd4j.linspace(32, 37.2, rows).reshape(rows, 1);
+            INDArray inputNDArray = Nd4j.hstack(x2,x1);
+            System.err.println(inputNDArray);
 
-            final INDArray output = net.output(x, false);
+            final INDArray output = net.output(inputNDArray, false);
             System.out.println(output);
-            RegressionMathFunctions.plot(x, output);
         } catch (IOException e) {
             e.printStackTrace();
         }
