@@ -4,6 +4,7 @@ import com.amin.analysis.Mapping;
 import com.amin.config.MathTerminology;
 import com.google.gson.Gson;
 import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
+import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
 import org.deeplearning4j.nn.conf.layers.DenseLayer;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
@@ -31,9 +32,9 @@ import java.util.Random;
  */
 public class TwoInput {
     //Random number generator seed, for reproducability
-    public static final int seed = 1234;
+    public static final int seed = 123450;
     //Number of epochs (full passes of the data)
-    public static final int nEpochs = 2000;
+    public static final int nEpochs = 10000;
     //Number of data points
     public static final int nSamples = 100;
     //Batch size: i.e., each epoch has nSamples/batchSize parameter updates
@@ -57,7 +58,7 @@ public class TwoInput {
         int numInput = 2;
         int numOutputs = 1;
         int nHidden = 24;
-        MultiLayerNetwork net = new MultiLayerNetwork(new NeuralNetConfiguration.Builder()
+        final MultiLayerConfiguration build = new NeuralNetConfiguration.Builder()
                 .seed(seed)
                 .weightInit(WeightInit.XAVIER)
                 .updater(new Nesterovs(learningRate, 0.9))
@@ -71,8 +72,10 @@ public class TwoInput {
                 .layer(2, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .activation(Activation.IDENTITY)
                         .nIn(nHidden).nOut(numOutputs).build())
-                .pretrain(false).backprop(true).build()
-        );
+                .pretrain(false).backprop(true).build();
+        MultiLayerNetwork net = new MultiLayerNetwork(getDeepDenseLayerNetworkConfiguration(2,1));
+
+
         net.init();
         net.setListeners(new ScoreIterationListener(11111111));
 
@@ -90,6 +93,42 @@ public class TwoInput {
         net.save(new File("latlongtemp.net"));
 
     }
+
+
+    /**
+     * Returns the network configuration, 2 hidden DenseLayers of size 50.
+     */
+    private static MultiLayerConfiguration getDeepDenseLayerNetworkConfiguration(int ninp, int nout) {
+        final int numHiddenNodes = 10;
+        return new NeuralNetConfiguration.Builder()
+                .seed(seed)
+                .weightInit(WeightInit.XAVIER)
+                .updater(new Nesterovs(learningRate, 0.9))
+                .list()
+                .layer(0, new DenseLayer.Builder().nIn(ninp).nOut(numHiddenNodes)
+                        .activation(Activation.ELU).build())
+                .layer(1, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .activation(Activation.ELU).build())
+                .layer(2, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .activation(Activation.ELU).build())
+                .layer(3, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .activation(Activation.ELU).build())
+                .layer(4, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .activation(Activation.ELU).build())
+                .layer(5, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .activation(Activation.ELU).build())
+                .layer(6, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .activation(Activation.ELU).build())
+                .layer(7, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .activation(Activation.ELU).build())
+                .layer(8, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .activation(Activation.ELU).build())
+                .layer(9, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                        .activation(Activation.ELU)
+                        .nIn(numHiddenNodes).nOut(nout).build())
+                .pretrain(false).backprop(true).build();
+    }
+
 
 
     public static DataSetIterator getTrainingData(int batchSize, Random rand) throws IOException {
