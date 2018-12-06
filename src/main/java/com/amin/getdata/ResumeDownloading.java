@@ -154,7 +154,7 @@ public class ResumeDownloading {
         final File[] listFiles = rootfile.listFiles();
 
         for (File file : listFiles)
-            if (file.isFile()) {
+            if (file.isFile() && !file.getName().toLowerCase().contains(".conf.csv")) {
                 final String nameOfCOuntry = file.getName().replaceAll(".conf", "");
                 boolean booo = false;
                 for (int i = 0; i < country.length; i++) {

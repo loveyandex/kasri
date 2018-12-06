@@ -49,7 +49,7 @@ public class AtmosphereFunction {
         System.out.println("input: " + input);
         System.err.println(out.data().asDouble()[0] * 78);
 
-        net.save(new File("god.net"));
+        net.save(new File("/assets","god.net"));
 
 
     }
