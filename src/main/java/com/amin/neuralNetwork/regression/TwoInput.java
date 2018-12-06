@@ -32,15 +32,15 @@ import java.util.Random;
  */
 public class TwoInput {
     //Random number generator seed, for reproducability
-    public static final int seed = 1234;
+    public static final int seed = 123450;
     //Number of epochs (full passes of the data)
-    public static final int nEpochs = 1000;
+    public static final int nEpochs = 10000;
     //Number of data points
     public static final int nSamples = 100;
     //Batch size: i.e., each epoch has nSamples/batchSize parameter updates
     public static final int batchSize = 100;
     //Network learning rate
-    public static final double learningRate = 0.001;
+    public static final double learningRate = 0.01;
 
 
     public static final Random rng = new Random(seed);
@@ -57,7 +57,7 @@ public class TwoInput {
         //Create the network
         int numInput = 2;
         int numOutputs = 1;
-        int nHidden = 44;
+        int nHidden = 24;
         final MultiLayerConfiguration build = new NeuralNetConfiguration.Builder()
                 .seed(seed)
                 .weightInit(WeightInit.XAVIER)
@@ -69,14 +69,11 @@ public class TwoInput {
                 .layer(1, new DenseLayer.Builder().nIn(nHidden).nOut(nHidden)
                         .activation(Activation.TANH)
                         .build())
-                .layer(2, new DenseLayer.Builder().nIn(nHidden).nOut(nHidden)
-                        .activation(Activation.TANH)
-                        .build())
-                .layer(3, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                .layer(2, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .activation(Activation.IDENTITY)
                         .nIn(nHidden).nOut(numOutputs).build())
                 .pretrain(false).backprop(true).build();
-        MultiLayerConfiguration deepDenseLayerNetworkConfiguration = getDeepDenseLayerNetworkConfiguration(2, 1);
+        final MultiLayerConfiguration deepDenseLayerNetworkConfiguration = getDeepDenseLayerNetworkConfiguration(2, 1);
         MultiLayerNetwork net = new MultiLayerNetwork(build);
 
 
@@ -95,7 +92,7 @@ public class TwoInput {
         }
 
         net.save(new File("latlongtemp.net"));
-        System.err.println("saved");
+
     }
 
 
@@ -103,7 +100,7 @@ public class TwoInput {
      * Returns the network configuration, 2 hidden DenseLayers of size 50.
      */
     private static MultiLayerConfiguration getDeepDenseLayerNetworkConfiguration(int ninp, int nout) {
-        final int numHiddenNodes = 50;
+        final int numHiddenNodes = 10;
         return new NeuralNetConfiguration.Builder()
                 .seed(seed)
                 .weightInit(WeightInit.XAVIER)

@@ -2,6 +2,7 @@ package com.amin.neuralNetwork.regression.load;
 
 import com.amin.neuralNetwork.regression.RegressionMathFunctions;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
+import org.encog.neural.networks.training.lma.LevenbergMarquardtTraining;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 
@@ -13,7 +14,6 @@ import java.io.IOException;
  */
 public class Load {
     public static void main(String[] args) {
-
         try {
             final MultiLayerNetwork net = MultiLayerNetwork.load(new File("latlongtemp.net"), true);
 

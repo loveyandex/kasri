@@ -40,11 +40,9 @@
  * 
  */
 
-package org.jfree.experimental.chart.renderer.xy;
+package org.jfree4;
 
 import java.awt.Paint;
-
-import org.jfree.experimental.chart.renderer.xy.XYBlockRenderer;
 
 /**
  * A source for <code>Paint</code> instances, used by the 
