@@ -23,7 +23,7 @@ public class Load {
             final int rows = 10;
             final INDArray x2 = Nd4j.linspace(20.0, 25.0, rows).reshape(rows, 1);
             final INDArray x1 = Nd4j.linspace(32, 37.2, rows).reshape(rows, 1);
-            INDArray inputNDArray = Nd4j.hstack(x2,x1);
+            INDArray inputNDArray = Nd4j.hstack(x1,x2);
             System.err.println(inputNDArray);
 
             final INDArray output = net.output(inputNDArray, false);
