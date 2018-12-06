@@ -83,7 +83,7 @@ public class FahlmanEncoder {
 
         System.err.println(new Gson().toJson(trainingData));
 
-
+//        System.exit(0);
         MLMethod method = EncogUtility.simpleFeedForward(INPUT_OUTPUT_COUNT,
                 HIDDEN_COUNT, HIDDEN_COUNT, 1, false);
 
@@ -92,13 +92,10 @@ public class FahlmanEncoder {
         BasicNetwork network = new BasicNetwork();
         network.addLayer(new BasicLayer(null, true, 2));
         network.addLayer(new BasicLayer(new ActivationReLU(), true, 10));
-        network.addLayer(new BasicLayer(new ActivationReLU(), true, 10));
-        network.addLayer(new BasicLayer(new ActivationReLU(), true, 10));
-        network.addLayer(new BasicLayer(new ActivationReLU(), true, 10));
         network.addLayer(new BasicLayer(new ActivationSigmoid(), false, 1));
         network.getStructure().finalizeStructure();
         network.reset();
-        new ConsistentRandomizer(-1, 1, 20).randomize(network);
+        new ConsistentRandomizer(-1, 1, 120).randomize(network);
         System.out.println(network.dumpWeights());
 
 //
@@ -106,7 +103,7 @@ public class FahlmanEncoder {
 //        EncogUtility.trainToError(train, 0.001);
 
 
-        final Backpropagation train = new Backpropagation(network, trainingData, 0.0001, 0.02);
+        final Backpropagation train = new Backpropagation(network, trainingData, 0.01, 0.9);
         train.fixFlatSpot(false);
 
         int epoch = 1;
@@ -116,7 +113,7 @@ public class FahlmanEncoder {
             System.out
                     .println("Epoch #" + epoch + " Error:" + train.getError());
             epoch++;
-        } while (train.getError() > 0.01);
+        } while (train.getError() > 0.0000001);
 
 
 
@@ -163,7 +160,7 @@ public class FahlmanEncoder {
         }
         final double maxinput = MathTerminology.max(input1);
         final double maxinput2 = MathTerminology.max(input2);
-        final double maxSum = Math.abs(MathTerminology.min(sum));
+        final double maxSum = Math.abs(MathTerminology.max(sum));
         System.out.println(maxinput + " maxinput1");
         System.out.println(maxinput2 + " maxinput2");
         System.out.println(maxSum + "maxsum");
@@ -176,7 +173,6 @@ public class FahlmanEncoder {
             inps[i] = new double[]{input1[i], input2[i]};
             outs[i] = new double[]{(sum[i])};
         }
-
 
         return new BasicMLDataSet(inps, outs);
 
