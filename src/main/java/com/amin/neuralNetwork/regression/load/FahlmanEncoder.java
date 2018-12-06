@@ -18,9 +18,11 @@ import org.encog.neural.networks.BasicNetwork;
 import org.encog.neural.networks.layers.BasicLayer;
 import org.encog.neural.networks.training.lma.LevenbergMarquardtTraining;
 import org.encog.neural.networks.training.propagation.back.Backpropagation;
+import org.encog.persist.EncogDirectoryPersistence;
 import org.encog.util.simple.EncogUtility;
 
 import javax.crypto.MacSpi;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -94,32 +96,31 @@ public class FahlmanEncoder {
         network.addLayer(new BasicLayer(new ActivationTANH(), true, 2));
         network.addLayer(new BasicLayer(new ActivationTANH(), true, 10));
         network.addLayer(new BasicLayer(new ActivationTANH(), true, 10));
+        network.addLayer(new BasicLayer(new ActivationTANH(), true, 10));
         network.addLayer(new BasicLayer(new ActivationTANH(), true, 1));
         network.getStructure().finalizeStructure();
         network.reset();
         new ConsistentRandomizer(-1, 1, 120).randomize(network);
         System.out.println(network.dumpWeights());
 
+
+        LevenbergMarquardtTraining train = new LevenbergMarquardtTraining(network, trainingData);
+        EncogUtility.trainToError(train, 1e-6);
+
 //
-//        LevenbergMarquardtTraining train = new LevenbergMarquardtTraining(network, trainingData);
-//        EncogUtility.trainToError(train, 0.001);
-
-
-        final Backpropagation train = new Backpropagation(network, trainingData, 0.01, 0.9);
-        train.fixFlatSpot(false);
-
-        int epoch = 1;
-
-        do {
-            train.iteration(111);
-            System.out
-                    .println("Epoch #" + epoch + " Error:" + train.getError());
-            epoch++;
-        } while (train.getError() > 1e-7);
-
-
-
-
+//        final Backpropagation train = new Backpropagation(network, trainingData, 0.01, 0.9);
+//        train.fixFlatSpot(false);
+//
+//        int epoch = 1;
+//
+//        do {
+//            train.iteration(111);
+//            System.out
+//                    .println("Epoch #" + epoch + " Error:" + train.getError());
+//            epoch++;
+//        } while (train.getError() > 1e-6);
+//
+//
 
 
         for (MLDataPair pair : trainingData) {
@@ -130,6 +131,7 @@ public class FahlmanEncoder {
             System.out.println(pair.getInput().getData(0) + "," + pair.getInput().getData(1)
                     + ", actual=" + output.getData(0) + ",ideal=" + pair.getIdeal().getData(0));
         }
+        EncogDirectoryPersistence.saveObject(new File("assets/", "lat.net"), network);
         Encog.getInstance().shutdown();
     }
 
