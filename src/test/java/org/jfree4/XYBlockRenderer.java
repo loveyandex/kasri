@@ -40,7 +40,7 @@
  * 
  */
 
-package org.jfree.experimental.chart.renderer.xy;
+package org.jfree4;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;

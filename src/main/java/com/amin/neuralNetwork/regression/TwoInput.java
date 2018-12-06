@@ -73,7 +73,8 @@ public class TwoInput {
                         .activation(Activation.IDENTITY)
                         .nIn(nHidden).nOut(numOutputs).build())
                 .pretrain(false).backprop(true).build();
-        MultiLayerNetwork net = new MultiLayerNetwork(getDeepDenseLayerNetworkConfiguration(2,1));
+        final MultiLayerConfiguration deepDenseLayerNetworkConfiguration = getDeepDenseLayerNetworkConfiguration(2, 1);
+        MultiLayerNetwork net = new MultiLayerNetwork(build);
 
 
         net.init();

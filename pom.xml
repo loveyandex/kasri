@@ -127,6 +127,13 @@
 
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.encog/encog-core -->
+        <dependency>
+            <groupId>org.encog</groupId>
+            <artifactId>encog-core</artifactId>
+            <version>3.4</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.diogonunes/JCDP -->
         <dependency>
             <groupId>com.diogonunes</groupId>

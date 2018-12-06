@@ -19,9 +19,9 @@ import org.jfree.data.DomainOrder;
 import org.jfree.data.general.DatasetChangeListener; 
 import org.jfree.data.general.DatasetGroup; 
 import org.jfree.data.xy.XYZDataset; 
-import org.jfree.experimental.chart.renderer.xy.GrayPaintScale;
-import org.jfree.experimental.chart.renderer.xy.PaintScale;
-import org.jfree.experimental.chart.renderer.xy.XYBlockRenderer; 
+import org.jfree4.GrayPaintScale;
+import org.jfree4.PaintScale;
+import org.jfree4.XYBlockRenderer;
 import org.jfree.ui.ApplicationFrame; 
 import org.jfree.ui.RefineryUtilities; 
 
