@@ -7,6 +7,7 @@ import org.encog.Encog;
 import org.encog.engine.network.activation.ActivationGaussian;
 import org.encog.engine.network.activation.ActivationReLU;
 import org.encog.engine.network.activation.ActivationSigmoid;
+import org.encog.engine.network.activation.ActivationTANH;
 import org.encog.mathutil.randomize.ConsistentRandomizer;
 import org.encog.ml.MLMethod;
 import org.encog.ml.data.MLData;
@@ -90,9 +91,10 @@ public class FahlmanEncoder {
 
         // create a neural network, without using a factory
         BasicNetwork network = new BasicNetwork();
-        network.addLayer(new BasicLayer(null, true, 2));
-        network.addLayer(new BasicLayer(new ActivationReLU(), true, 10));
-        network.addLayer(new BasicLayer(new ActivationSigmoid(), false, 1));
+        network.addLayer(new BasicLayer(new ActivationTANH(), true, 2));
+        network.addLayer(new BasicLayer(new ActivationTANH(), true, 10));
+        network.addLayer(new BasicLayer(new ActivationTANH(), true, 10));
+        network.addLayer(new BasicLayer(new ActivationTANH(), true, 1));
         network.getStructure().finalizeStructure();
         network.reset();
         new ConsistentRandomizer(-1, 1, 120).randomize(network);
@@ -109,11 +111,11 @@ public class FahlmanEncoder {
         int epoch = 1;
 
         do {
-            train.iteration(11);
+            train.iteration(111);
             System.out
                     .println("Epoch #" + epoch + " Error:" + train.getError());
             epoch++;
-        } while (train.getError() > 0.0000001);
+        } while (train.getError() > 1e-7);
 
 
 
@@ -135,7 +137,7 @@ public class FahlmanEncoder {
     public static BasicMLDataSet traning() throws IOException {
 
 
-        final ArrayList<ArrayList<String>> col1Col2Data = Mapping.LatLong.getColsData("assets/dd.csv",
+        final ArrayList<ArrayList<String>> col1Col2Data = Mapping.LatLong.getColsData("assets/d.csv",
                 ",", 0, 1, 2);
 
 
@@ -160,7 +162,7 @@ public class FahlmanEncoder {
         }
         final double maxinput = MathTerminology.max(input1);
         final double maxinput2 = MathTerminology.max(input2);
-        final double maxSum = Math.abs(MathTerminology.max(sum));
+        final double maxSum = Math.abs(MathTerminology.min(sum));
         System.out.println(maxinput + " maxinput1");
         System.out.println(maxinput2 + " maxinput2");
         System.out.println(maxSum + "maxsum");
