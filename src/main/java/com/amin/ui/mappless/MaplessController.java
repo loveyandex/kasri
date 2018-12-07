@@ -9,6 +9,7 @@ import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.map.LatLongFXMLController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,9 +31,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static com.amin.knn.ANN.MAX_FITTNESS;
-import static com.amin.knn.ANN.MAX_LAT;
-import static com.amin.knn.ANN.MAX_LONG;
+import static com.amin.knn.ANN.*;
 import static com.amin.ui.StageOverride.shiftToEnterEvent;
 
 public class MaplessController implements Initializable {
@@ -132,12 +131,25 @@ public class MaplessController implements Initializable {
                 }
                 final BasicMLDataSet dataset = ANN.dataset(inp1, inp2, outi);
                 final BasicNetwork network = AminLevenberg.netAndTrain(dataset);
+                final JFXTextArea[] consl = new JFXTextArea[0];
+
+                try {
+                    new WhenTrainingView(console -> {
+                        consl[0] = (console);
+
+                    }).start(new Stage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 for (MLDataPair pair : dataset) {
                     final MLData output = (network).compute(pair.getInput());
+                    final String x = pair.getInput().getData(0) * MAX_LAT + "," + pair.getInput().getData(1) * MAX_LONG
+                            + ", actual=" + output.getData(0) * MAX_FITTNESS + ",ideal=" + pair.getIdeal().getData(0) * MAX_FITTNESS;
 
-                    System.out.println(pair.getInput().getData(0) * MAX_LAT + "," + pair.getInput().getData(1) * MAX_LONG
-                            + ", actual=" + output.getData(0) * MAX_FITTNESS + ",ideal=" + pair.getIdeal().getData(0) * MAX_FITTNESS);
+                    consl[0].appendText(x);
+
+                    System.out.println(x);
                 }
 
                 double[] inps = new double[]{latLon.getLat()/MAX_LAT, latLon.getLogn()/MAX_LONG};
