@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.RangeSlider?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vvv" stylesheets="/light-theme2.css"
+      xmlns="http://javafx.com/javafx/8.0.121"
+      fx:controller="com.amin.ui.mappless.annController">
+
+
+    <JFXTabPane fx:id="jfxtab" style="-fx-alignment: center">
+        <Tab text="req1">
+            <GridPane fx:id="rootNode" alignment="TOP_CENTER" prefHeight="2500.0" prefWidth="600.0"
+                      style="-fx-padding: 40px 0px 0px 0px">
+                <Label focusTraversable="true"
+                       stylesheets="/stage.css"
+                       text="choose a feature"
+                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+
+                <JFXComboBox fx:id="featuresCombo"
+                             stylesheets="/combo.css"
+                             minWidth="200"
+                             GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <GridPane.margin>
+                        <Insets>
+                            <bottom>30</bottom>
+                        </Insets>
+                    </GridPane.margin>
+                </JFXComboBox>
+
+                <Label focusTraversable="true"
+                       stylesheets="/stage.css"
+                       text="choose month"
+                       GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+
+
+                <JFXComboBox id="fancytext" fx:id="monthCombo" minWidth="200"
+                             stylesheets="/combo.css"
+                             GridPane.columnIndex="1" GridPane.rowIndex="1">
+
+                </JFXComboBox>
+
+                <Label text="choose a day of month"
+                       GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <JFXComboBox fx:id="dayofMonthCombo" minWidth="200"
+                             stylesheets="/combo.css"
+                             GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets>
+                            <bottom>30</bottom>
+                        </Insets>
+                    </GridPane.margin>
+                </JFXComboBox>
+
+                <Label text="change unit(SI &amp; NonSI)"
+
+                       GridPane.columnIndex="0" GridPane.rowIndex="9">
+
+                </Label>
+
+                <JFXComboBox fx:id="unitsCombo"
+                             minWidth="200"
+                             stylesheets="/combo.css"
+                             GridPane.columnIndex="1" GridPane.rowIndex="9">
+                    <GridPane.margin>
+                        <Insets>
+                            <bottom>30</bottom>
+                        </Insets>
+                    </GridPane.margin>
+                </JFXComboBox>
+
+
+                <HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="12">
+
+                    <JFXButton fx:id="cancelBtn" styleClass="button" stylesheets="/buttons.css" text="Cancel"
+                               translateX="50">
+                    </JFXButton>
+                    <JFXButton fx:id="Gobtn" disable="true" styleClass="button" stylesheets="/buttons.css"
+                               text="Get Result" translateX="180">
+                    </JFXButton>
+                </HBox>
+            </GridPane>
+
+        </Tab>
+        <Tab text="req2">
+            <VBox fx:id="rootNodetab2" alignment="TOP_CENTER"
+                  style="-fx-padding: 40px 0px 0px 0px">
+                <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
+                    <Label text="time zones: " minWidth="100"
+                           style="-fx-padding: 0px 30px 0px 0px;"/>
+                    <JFXCheckBox fx:id="z00" checkedColor="#949c10"
+                                 selected="true" disable="true" contentDisplay="CENTER"
+                                 style="-fx-padding: 0px 20px 0px 0px" text="00Z"
+                                 textAlignment="JUSTIFY"
+                                 textFill="WHITE"
+                                 GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <HBox fx:id="topOfgobtn">
+                        <JFXCheckBox fx:id="z12" disable="true" checkedColor="#949c10"
+                                     selected="true" contentDisplay="CENTER"
+                                     text="12Z" textAlignment="JUSTIFY"
+                                     textFill="WHITE"
+                                     GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    </HBox>
+                </HBox>
+                <!--<HBox alignment="TOP_CENTER"  minWidth="300"  style="-fx-padding: 20px 0px 0px 0px" >-->
+                <!--<RangeSlider fx:id="yearsSlider" minWidth="300" max="2018" min="1973"  lowValue="1973" highValue="2018"-->
+                <!--showTickLabels="true" showTickMarks="true" blockIncrement="1"-->
+
+                <!--/>-->
+                <!--</HBox>-->
+                <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
+                    <Label text="from year: " minWidth="100"
+                           style="-fx-padding: 0px 40px 0px 0px;"/>
+                    <JFXSlider fx:id="lowYearjfxslider"
+                               minWidth="300" showTickMarks="true"
+                               showTickLabels="true"
+                               stylesheets="/combo.css"
+                               styleClass="jf"
+                               min="1973"
+                               max="2018"/>
+                </HBox>
+                <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
+                    <Label text="to year: "
+                           minWidth="100"
+                           style="-fx-padding: 0px 30px 0px 0px;"
+                    />
+                    <JFXSlider fx:id="highYearjfxslider"
+                               stylesheets="/combo.css"
+                               minWidth="300"
+                               showTickMarks="true"
+                               showTickLabels="true"
+                               min="1973"
+                               max="2018"/>
+                </HBox>
+
+                <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
+                    <Label text="height(m)"
+                           minWidth="100"
+                           style="-fx-padding: 0px 40px 0px 0px"/>
+
+                    <JFXTextField alignment="BASELINE_LEFT"
+                                  fx:id="height"
+                                  promptText="height"
+
+                                  style="-fx-background-color: white"
+                                  minWidth="300"
+                    >
+                        <font>
+                            <Font size="9.0"/>
+                        </font>
+
+                    </JFXTextField>
+                </HBox>
+                <HBox alignment="BASELINE_CENTER"
+
+                      style="-fx-padding: 30px 00px 0px 100px;-fx-text-fill:#d5b02c"
+                >
+
+                    <RangeSlider
+                            stylesheets="/combo.css"
+                            fx:id="hSlider"
+                            min="900"
+                            max="35000"
+                            lowValue="1000"
+                            highValue="350000"
+                            maxWidth="300"
+                            minWidth="300"
+
+                    ></RangeSlider>
+
+                </HBox>
+
+
+            </VBox>
+
+
+        </Tab>
+    </JFXTabPane>
+
+</VBox>

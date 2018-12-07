@@ -26,11 +26,11 @@ public class WhenTrainingView extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.initStyle(StageStyle.UTILITY);
 
         JFXTextArea console = new JFXTextArea("");
         console.setMinHeight(660);
-        console.setStyle("-fx-text-fill: white;-fx-font-size: 23px;");
+        console.setStyle("-fx-text-fill: #e2e2e2;-fx-font-size: 14px;");
 
         console.scrollTopProperty().setValue(100.0);
 
@@ -46,10 +46,10 @@ public class WhenTrainingView extends Application {
         });
 
         vBox.getStylesheets().add("/dark-theme.css");
-        //You would need from here
-        primaryStage.focusedProperty().addListener((ov, onHidden, onShown) -> {
-            primaryStage.hide();
-        });
+//        //You would need from here
+//        primaryStage.focusedProperty().addListener((ov, onHidden, onShown) -> {
+//            primaryStage.hide();
+//        });
 
         this.make.aDo(console);
 

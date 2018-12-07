@@ -9,7 +9,6 @@ import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.map.LatLongFXMLController;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,10 +20,9 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.encog.ml.data.MLData;
-import org.encog.ml.data.MLDataPair;
 import org.encog.ml.data.basic.BasicMLDataSet;
 import org.encog.neural.networks.BasicNetwork;
+import org.encog.util.Format;
 
 import java.io.IOException;
 import java.net.URL;
@@ -57,6 +55,21 @@ public class MaplessController implements Initializable {
 
 
     @FXML
+    private void annSolve(ActionEvent actionEvent) throws IOException {
+        LatLon latLon = new LatLon(Double.parseDouble(latitude.getText()), Double.parseDouble(longitude.getText()));
+        Stage stage = new StageOverride();
+        stage.setResizable(true);
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/mappless/ann.fxml"));
+        Scene scene = new SceneJson<>(root, 650, 480);
+        ((SceneJson) scene).setJson(latLon);
+        stage.setTitle("ANN ...");
+        stage.setScene(scene);
+//                stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
+
+
+    @FXML
     private void knnSolve(ActionEvent event) throws SQLException {
         try {
             LatLon latLon = new LatLon(Double.parseDouble(latitude.getText()), Double.parseDouble(longitude.getText()));
@@ -72,9 +85,11 @@ public class MaplessController implements Initializable {
                 Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/mappless/otherfield.fxml"));
                 Scene scene = new SceneJson<>(root, 650, 480);
                 ((SceneJson) scene).setJson(latLon);
+                stage.setTitle("KNN ...");
+
 
                 stage.setScene(scene);
-                stage.initModality(Modality.APPLICATION_MODAL);
+//                stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
 
             }
@@ -117,7 +132,7 @@ public class MaplessController implements Initializable {
 
     }
 
-    public void annSolve(ActionEvent actionEvent) {
+    public void annSolve2() {
         LatLon latLon = new LatLon(Double.parseDouble(latitude.getText()), Double.parseDouble(longitude.getText()));
         try {
             ANN.IranAnn((temps, latLons) -> {
@@ -129,34 +144,52 @@ public class MaplessController implements Initializable {
                     inp1[i] = latLons.get(i).getLat();
                     inp2[i] = latLons.get(i).getLogn();
                 }
+                final Stage primaryStage = new Stage();
                 final BasicMLDataSet dataset = ANN.dataset(inp1, inp2, outi);
-                final BasicNetwork network = AminLevenberg.netAndTrain(dataset);
-                final JFXTextArea[] consl = new JFXTextArea[0];
+                final BasicNetwork network = AminLevenberg.netAndTrain(dataset, train -> {
+                    try {
+                        new WhenTrainingView(console -> {
+                            System.out.println("Beginning training...");
+                            double error = 1e-6d;
+                            int epoch = 1;
+                            do {
+                                train.iteration();
+                                console.appendText("Iteration #" + Format.formatInteger(epoch)
+                                        + " Error:" + Format.formatPercent(train.getError())
+                                        + " Target Error: " + Format.formatPercent(error) + "\n");
+                                epoch++;
+                            } while ((train.getError() > error) && !train.isTrainingDone());
 
-                try {
-                    new WhenTrainingView(console -> {
-                        consl[0] = (console);
+                            train.finishTraining();
+//                                for (MLDataPair pair : dataset) {
+//                                    final BasicNetwork network1 = (BasicNetwork) train.getMethod();
+//                                    final MLData output = network1.compute(pair.getInput());
+//                                    final String x = pair.getInput().getData(0) * MAX_LAT + "," + pair.getInput().getData(1) * MAX_LONG
+//                                            + ", actual=" + output.getData(0) * MAX_FITTNESS + ",ideal=" + pair.getIdeal().getData(0) * MAX_FITTNESS;
+//                                    console.appendText(x + "\n");
+//                                    System.out.println(x);
+//                                }
 
-                    }).start(new Stage());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                        }).start(primaryStage);
 
-                for (MLDataPair pair : dataset) {
-                    final MLData output = (network).compute(pair.getInput());
-                    final String x = pair.getInput().getData(0) * MAX_LAT + "," + pair.getInput().getData(1) * MAX_LONG
-                            + ", actual=" + output.getData(0) * MAX_FITTNESS + ",ideal=" + pair.getIdeal().getData(0) * MAX_FITTNESS;
 
-                    consl[0].appendText(x);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
-                    System.out.println(x);
-                }
+                });
+                primaryStage.setOnHidden(event -> {
 
-                double[] inps = new double[]{latLon.getLat()/MAX_LAT, latLon.getLogn()/MAX_LONG};
-                double[] ops = new double[1];
-                network.compute(inps, ops);
-                System.err.println(ops[0]*MAX_FITTNESS);
-                Dialog.SnackBar.showSnack(root, "" + ops[0] * MAX_FITTNESS, 4001);
+                    double[] inps = new double[]{latLon.getLat() / MAX_LAT, latLon.getLogn() / MAX_LONG};
+                    double[] ops = new double[1];
+
+                    network.compute(inps, ops);
+                    System.err.println(ops[0] * MAX_FITTNESS);
+                    Dialog.SnackBar.showSnack(root, "" + ops[0] * MAX_FITTNESS, 4001);
+                });
+
+
+
 
             });
         } catch (SQLException e) {

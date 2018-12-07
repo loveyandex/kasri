@@ -38,7 +38,7 @@ public class ANN {
 
             final double real_distance = real_distance(lat1, long1, Double.parseDouble(lati), Double.parseDouble(longi));
             if (real_distance < maximum_distance_km) {
-                final double temp = temp(stationnumber, country);
+                final double temp = calcFeatureValue(stationnumber, country);
                 if (temp == -1000000)
                     continue;
                 else {
@@ -65,7 +65,7 @@ public class ANN {
             final String lati = resultSet.getString(4);
             final String longi = resultSet.getString(5);
 
-            final double temp = temp("onday %s 10 26 TEMP ℃ 9900 1973 2017 %s",stationnumber, country);
+            final double temp = calcFeatureValue("onday %s 10 26 TEMP ℃ 9900 1973 2017 %s",stationnumber, country);
             if (temp == -1000000)
                 continue;
             else {
@@ -78,6 +78,54 @@ public class ANN {
         System.err.println(new Gson().toJson(tempLAtlongs));
     }
 
+
+
+
+    public static void IranAnn(Make make,String functionString) throws SQLException {
+
+        final ResultSet resultSet = exeing("iran");
+        ArrayList<Double> tempsArray = new ArrayList<>();
+        ArrayList<LatLon> tempLAtlongs = new ArrayList<>();
+        while (resultSet.next()) {
+
+            final String stationnumber = resultSet.getString(1);
+            final String country = resultSet.getString(2);
+            final String stacitinametion = resultSet.getString(3);
+            final String lati = resultSet.getString(4);
+            final String longi = resultSet.getString(5);
+
+            final double temp = calcFeatureValue(functionString,stationnumber, country);
+            if (temp == -1000000)
+                continue;
+            else {
+                tempsArray.add(temp);
+                tempLAtlongs.add(new LatLon(Double.parseDouble(lati), Double.parseDouble(longi)));
+            }
+        }
+        make.done(tempsArray, tempLAtlongs);
+        System.err.println(new Gson().toJson(tempsArray));
+        System.err.println(new Gson().toJson(tempLAtlongs));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static void main(String[] args) throws SQLException {
         IranAnn((temps, latLons) -> {
             double[] outi = new double[temps.size()];
@@ -89,7 +137,7 @@ public class ANN {
                 inp2[i] = latLons.get(i).getLogn();
             }
             final BasicMLDataSet dataset = dataset(inp1, inp2, outi);
-            final BasicNetwork network = AminLevenberg.netAndTrain(dataset);
+            final BasicNetwork network = AminLevenberg.netAndTrain(dataset,train -> {});
 
             for (MLDataPair pair : dataset) {
                 final MLData output = ( network).compute(pair.getInput());

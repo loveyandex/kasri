@@ -150,7 +150,7 @@ public class KNN {
 //                        true, new LatLon(Double.parseDouble(lati), Double.parseDouble(longi))
 //                        , real_distance);
 
-                final double temp = temp(stationnumber, country);
+                final double temp = calcFeatureValue(stationnumber, country);
                 if (temp == -1000000)
                     continue;
                 else {
@@ -218,21 +218,17 @@ public class KNN {
 
     }
 
-    public static double temp(String stationnumber, String country) {
+    public static double calcFeatureValue(String stationnumber, String country) {
         final String function = String.format("onday %s 10 26 WIND_SPEED m/s 12000 1973 2017 %s", stationnumber, country);
         final double v = ScriptAPP.scripting2(function);
         return v;
     }
 
-    public static double temp(String functionformat, String stationnumber, String country) {
+    public static double calcFeatureValue(String functionformat, String stationnumber, String country) {
         final String function = String.format(functionformat, stationnumber, country);
         final double v = ScriptAPP.scripting2(function);
         return v;
     }
 
-    private static double run(String function) {
-        final double v = ScriptAPP.scripting2(function);
-        return v;
-    }
 
 }
