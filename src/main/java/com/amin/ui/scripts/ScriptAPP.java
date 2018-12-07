@@ -158,9 +158,6 @@ public class ScriptAPP extends Application {
         if (args.length == 1)
             Dialog.createExceptionDialog(new RuntimeException("not arrgumet assigned"));
         else {
-            try {
-
-
                 final String stationNumber = args[1];
                 final int month = Integer.parseInt(args[2]);
                 final int day = Integer.parseInt(args[3]);
@@ -181,9 +178,6 @@ public class ScriptAPP extends Application {
                 final double fopen2 = Functions.getInstance().fopen2(formInfo);
                 return fopen2;
 
-            } catch (Exception X) {
-                Dialog.createExceptionDialog(new RuntimeException(X.toString()));
-            }
         }
         return 0.0;
     }

@@ -21,9 +21,9 @@ public class C {
     public static final String APP_PROP_PATH = "/application.properties";
     public static final int NowYear = 2017;
     public static final int FIRST_YEAR = 1973;
-    public static String DATA_PATH;
-    public static String SOCANDARY_DATA_PATH;
-    public static String THIRDY_PATH;
+    public static String DATA_PATH= "E:\\neuronman\\world";
+    public static String SOCANDARY_DATA_PATH="G:\\new6";
+    public static String THIRDY_PATH="G:\\lastdir";
 
     static {
         try {

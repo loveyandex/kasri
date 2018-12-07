@@ -115,6 +115,15 @@ public class KNN {
 //                "where station!='null' and country like 'iran%' ;");
         return executeQuery;
     }
+    public static ResultSet exeing(String country) throws SQLException {
+        final Statement statement = DatabaseHandler.getInstance().getConnection().createStatement();
+
+        final ResultSet executeQuery = statement.executeQuery("select *\n" +
+                "from stations\n" +
+//                "where station!='NULL'");
+                "where station!='NULL' and country like '" + country+"%'");
+        return executeQuery;
+    }
 
 
     public static double nearst(double maximum_distance_km, LatLon latLong) throws SQLException {
@@ -210,12 +219,12 @@ public class KNN {
     }
 
     public static double temp(String stationnumber, String country) {
-        final String function = String.format("onday %s 10 26 WIND_SPEED m/s 5000 1973 2017 %s", stationnumber, country);
+        final String function = String.format("onday %s 10 26 WIND_SPEED m/s 12000 1973 2017 %s", stationnumber, country);
         final double v = ScriptAPP.scripting2(function);
         return v;
     }
 
-    private static double temp(String functionformat, String stationnumber, String country) {
+    public static double temp(String functionformat, String stationnumber, String country) {
         final String function = String.format(functionformat, stationnumber, country);
         final double v = ScriptAPP.scripting2(function);
         return v;

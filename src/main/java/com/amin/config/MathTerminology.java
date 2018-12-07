@@ -62,6 +62,23 @@ public class MathTerminology {
         return m;
     }
 
+    public static boolean HaveAMines(ArrayList<Double> doubles) {
+        for (Double aDouble : doubles) {
+            if (aDouble<0)
+                return true;
+        }
+        return false;
+
+    }
+    public static boolean HaveAMines(double[] doubles) {
+        for (Double aDouble : doubles) {
+            if (aDouble<0)
+                return true;
+        }
+        return false;
+
+    }
+
     public static void main(String[] args) {
         final double max = MathTerminology.max(new ArrayList<Double>() {{
             add(23.23);
@@ -72,5 +89,6 @@ public class MathTerminology {
         System.out.println(max);
 
     }
+
 
 }
