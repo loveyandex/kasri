@@ -4,9 +4,6 @@ import com.amin.analysis.Mapping;
 import com.amin.config.MathTerminology;
 import com.google.gson.Gson;
 import org.encog.Encog;
-import org.encog.engine.network.activation.ActivationGaussian;
-import org.encog.engine.network.activation.ActivationReLU;
-import org.encog.engine.network.activation.ActivationSigmoid;
 import org.encog.engine.network.activation.ActivationTANH;
 import org.encog.mathutil.randomize.ConsistentRandomizer;
 import org.encog.ml.MLMethod;
@@ -17,11 +14,9 @@ import org.encog.ml.data.basic.BasicMLDataSet;
 import org.encog.neural.networks.BasicNetwork;
 import org.encog.neural.networks.layers.BasicLayer;
 import org.encog.neural.networks.training.lma.LevenbergMarquardtTraining;
-import org.encog.neural.networks.training.propagation.back.Backpropagation;
 import org.encog.persist.EncogDirectoryPersistence;
 import org.encog.util.simple.EncogUtility;
 
-import javax.crypto.MacSpi;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,7 +44,7 @@ import java.util.ArrayList;
  * Fahlman used this simple training data to benchmark neural networks when
  * he introduced the Quickprop algorithm in the above paper.
  */
-public class FahlmanEncoder {
+public class AminLevenberg {
     public static final int INPUT_OUTPUT_COUNT = 2;
     public static final int HIDDEN_COUNT = 5;
     public static final int TRIES = 2500;
@@ -62,34 +57,10 @@ public class FahlmanEncoder {
      */
     public static double XOR_IDEAL[][] = {{1.0}, {0.0}, {1.0}, {0.0}};
 
-    public static MLDataSet generateTraining(int inputCount, boolean compl) {
-        double[][] input = new double[INPUT_OUTPUT_COUNT][INPUT_OUTPUT_COUNT];
-        double[][] ideal = new double[INPUT_OUTPUT_COUNT][INPUT_OUTPUT_COUNT];
-
-        for (int i = 0; i < inputCount; i++) {
-            for (int j = 0; j < inputCount; j++) {
-                if (compl) {
-                    input[i][j] = (j == i) ? 0.0 : 1.0;
-                } else {
-                    input[i][j] = (j == i) ? 1.0 : 0.0;
-                }
-
-                ideal[i][j] = 0.5 * input[i][j];
-            }
-        }
-
-        return new BasicMLDataSet(input, ideal);
-    }
-
     public static void main(String[] args) throws IOException {
         MLDataSet trainingData = traning();
-
-        System.err.println(new Gson().toJson(trainingData));
-
-//        System.exit(0);
         MLMethod method = EncogUtility.simpleFeedForward(INPUT_OUTPUT_COUNT,
                 HIDDEN_COUNT, HIDDEN_COUNT, 1, false);
-
 
         // create a neural network, without using a factory
         BasicNetwork network = new BasicNetwork();
@@ -119,14 +90,11 @@ public class FahlmanEncoder {
 //                    .println("Epoch #" + epoch + " Error:" + train.getError());
 //            epoch++;
 //        } while (train.getError() > 1e-6);
-//
-//
 
 
         for (MLDataPair pair : trainingData) {
 
             final MLData output = ((BasicNetwork) network).compute(pair.getInput());
-            System.err.println("amin " + output.size());
 
             System.out.println(pair.getInput().getData(0) + "," + pair.getInput().getData(1)
                     + ", actual=" + output.getData(0) + ",ideal=" + pair.getIdeal().getData(0));
@@ -136,14 +104,11 @@ public class FahlmanEncoder {
     }
 
 
-    public static BasicMLDataSet traning() throws IOException {
-
-
+    private static BasicMLDataSet traning() throws IOException {
         final ArrayList<ArrayList<String>> col1Col2Data = Mapping.LatLong.getColsData("assets/d.csv",
                 ",", 0, 1, 2);
-
-
         System.err.println(new Gson().toJson(col1Col2Data));
+
 
         final int nSamples = col1Col2Data.size();
 
@@ -154,6 +119,7 @@ public class FahlmanEncoder {
         double[] input1 = new double[nSamples];
         double[] input2 = new double[nSamples];
         String forprint = "";
+
         for (int i = 0; i < col1Col2Data.size(); i++) {
             final String inp1 = col1Col2Data.get(i).get(0);
             final String inp2 = col1Col2Data.get(i).get(1);
@@ -162,6 +128,7 @@ public class FahlmanEncoder {
             input2[i] = Double.parseDouble(inp2);
             sum[i] = Double.parseDouble(out);
         }
+
         final double maxinput = MathTerminology.max(input1);
         final double maxinput2 = MathTerminology.max(input2);
         final double maxSum = Math.abs(MathTerminology.min(sum));
@@ -173,15 +140,46 @@ public class FahlmanEncoder {
             sum[i] /= maxSum;
             input1[i] /= maxinput;
             input2[i] /= maxinput2;
-
             inps[i] = new double[]{input1[i], input2[i]};
             outs[i] = new double[]{(sum[i])};
         }
-
         return new BasicMLDataSet(inps, outs);
-
-
     }
+
+
+    public static BasicNetwork netAndTrain(MLDataSet trainingData){
+        BasicNetwork network = new BasicNetwork();
+        network.addLayer(new BasicLayer(new ActivationTANH(), true, 2));
+        network.addLayer(new BasicLayer(new ActivationTANH(), true, 10));
+        network.addLayer(new BasicLayer(new ActivationTANH(), true, 10));
+        network.addLayer(new BasicLayer(new ActivationTANH(), true, 10));
+        network.addLayer(new BasicLayer(new ActivationTANH(), true, 1));
+        network.getStructure().finalizeStructure();
+        network.reset();
+        new ConsistentRandomizer(-1, 1, 120).randomize(network);
+        System.out.println(network.dumpWeights());
+
+
+        LevenbergMarquardtTraining train = new LevenbergMarquardtTraining(network, trainingData);
+        EncogUtility.trainToError(train, 1e-6);
+
+//
+//        final Backpropagation train = new Backpropagation(network, trainingData, 0.01, 0.9);
+//        train.fixFlatSpot(false);
+//
+//        int epoch = 1;
+//
+//        do {
+//            train.iteration(111);
+//            System.out
+//                    .println("Epoch #" + epoch + " Error:" + train.getError());
+//            epoch++;
+//        } while (train.getError() > 1e-6);
+
+
+        return network;
+    }
+
 
 
 }

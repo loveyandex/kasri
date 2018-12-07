@@ -1,6 +1,7 @@
 package com.amin.ui.main.main;
 
 import com.amin.getdata.Starter;
+import com.amin.knn.ANN;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
@@ -26,6 +27,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -249,6 +251,11 @@ public class MainController implements Initializable {
         stage.initOwner(rootme.getScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
+
+    }
+
+    public void dd(ActionEvent actionEvent) throws SQLException {
+
 
     }
 }

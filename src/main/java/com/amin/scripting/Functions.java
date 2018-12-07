@@ -448,9 +448,7 @@ public class Functions {
         Double invokehighrange = ((Double) method.invoke(charting123, highrange));
         double ytickUnit = ((Double) method.invoke(charting123, 10));
 
-        Charting charting = new Charting(900, 33000, 1000,
-                invokelowrange, invokehighrange, ytickUnit, "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
-
+        Charting charting = new Charting();
         ArrayList<ArrayList<Object>> featureAndYears = new ArrayList<>();
 
         String[] z = {"00Z", "12Z"};
@@ -464,7 +462,7 @@ public class Functions {
             String fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + i + ".csv";
             ArrayList<ArrayList<Double>> heightAndFeature;
             try {
-                heightAndFeature = charting.addSeriesToChart(featureName
+                heightAndFeature = charting.addSeriesToChartSimple(featureName
                         , fileName.replaceAll(".csv", ""),
                         rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
 

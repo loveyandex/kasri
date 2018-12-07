@@ -19,6 +19,7 @@
             <Menu text="File">
                 <items>
                     <MenuItem onAction="#getDataFromInternet" text="get rawdata from net"/>
+                    <MenuItem onAction="#dd" text="ann"/>
                     <SeparatorMenuItem/>
                     <MenuItem onAction="#exit" text="Exit"/>
                 </items>

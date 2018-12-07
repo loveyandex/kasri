@@ -131,6 +131,39 @@ public class Charting {
         sc.getData().addAll(series1);
         return arrayListArrayList;
     }
+
+
+
+    public ArrayList<ArrayList<Double>> addSeriesToChartSimple(String title, String seriesName, String dayfilePath, int col1, int col2
+            , String featurename, String unitname) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        ArrayList<ArrayList<Double>> arrayListArrayList = new ArrayList<>();
+        int cti = convertTogether(featurename, unitname);
+        Method method;
+        method = Charting.class.getMethod("conv" + cti, double.class);
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName(seriesName);
+        ArrayList<ArrayList<String>> col1Col2 = OldMapping.getCol1Col2(dayfilePath, col1, col2);
+        for (int j = 2; j < col1Col2.size() - 1; j++) {
+            if (!col1Col2.get(j).get(0).equals("NULL") && !col1Col2.get(j).get(1).equals("NULL")) {
+                ArrayList<Double> doubleArrayList = new ArrayList<>(2);
+                double v0 = Double.parseDouble(col1Col2.get(j).get(0));
+                double v1 = Double.parseDouble(col1Col2.get(j).get(1));
+                Double invokeDouble = ((Double) method.invoke(this, v1));
+                doubleArrayList.add(v0);;
+                doubleArrayList.add(invokeDouble);
+
+                series1.getData().add(new XYChart.Data(v0, ((double) invokeDouble)));
+                arrayListArrayList.add(doubleArrayList);
+
+            }
+        }
+        return arrayListArrayList;
+    }
+
+
+
+
+
   static   public ArrayList<ArrayList<Double>> returnCOlCol2Data(String title, String seriesName, String dayfilePath, int col1, int col2
             , String featurename, String unitname) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         ArrayList<ArrayList<Double>> arrayListArrayList = new ArrayList<>();
