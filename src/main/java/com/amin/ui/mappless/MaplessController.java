@@ -2,6 +2,7 @@ package com.amin.ui.mappless;
 
 import com.amin.knn.ANN;
 import com.amin.knn.KNN;
+import com.amin.neuralNetwork.regression.load.AminLevenberg;
 import com.amin.pojos.LatLon;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
@@ -19,12 +20,19 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.encog.ml.data.MLData;
+import org.encog.ml.data.MLDataPair;
+import org.encog.ml.data.basic.BasicMLDataSet;
+import org.encog.neural.networks.BasicNetwork;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import static com.amin.knn.ANN.MAX_FITTNESS;
+import static com.amin.knn.ANN.MAX_LAT;
+import static com.amin.knn.ANN.MAX_LONG;
 import static com.amin.ui.StageOverride.shiftToEnterEvent;
 
 public class MaplessController implements Initializable {
@@ -113,9 +121,36 @@ public class MaplessController implements Initializable {
     public void annSolve(ActionEvent actionEvent) {
         LatLon latLon = new LatLon(Double.parseDouble(latitude.getText()), Double.parseDouble(longitude.getText()));
         try {
-            ANN.nearest(333, latLon);
+            ANN.IranAnn((temps, latLons) -> {
+                double[] outi = new double[temps.size()];
+                double[] inp1 = new double[temps.size()];
+                double[] inp2 = new double[temps.size()];
+                for (int i = 0; i < temps.size(); i++) {
+                    outi[i] = temps.get(i);
+                    inp1[i] = latLons.get(i).getLat();
+                    inp2[i] = latLons.get(i).getLogn();
+                }
+                final BasicMLDataSet dataset = ANN.dataset(inp1, inp2, outi);
+                final BasicNetwork network = AminLevenberg.netAndTrain(dataset);
+
+                for (MLDataPair pair : dataset) {
+                    final MLData output = (network).compute(pair.getInput());
+
+                    System.out.println(pair.getInput().getData(0) * MAX_LAT + "," + pair.getInput().getData(1) * MAX_LONG
+                            + ", actual=" + output.getData(0) * MAX_FITTNESS + ",ideal=" + pair.getIdeal().getData(0) * MAX_FITTNESS);
+                }
+
+                double[] inps = new double[]{latLon.getLat()/MAX_LAT, latLon.getLogn()/MAX_LONG};
+                double[] ops = new double[1];
+                network.compute(inps, ops);
+                System.err.println(ops[0]*MAX_FITTNESS);
+                Dialog.SnackBar.showSnack(root, "" + ops[0] * MAX_FITTNESS, 4001);
+
+            });
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
     }
 }

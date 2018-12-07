@@ -65,7 +65,7 @@ public class ANN {
             final String lati = resultSet.getString(4);
             final String longi = resultSet.getString(5);
 
-            final double temp = temp("onday %s 10 26 TEMP ℃ 20000 1973 2017 %s",stationnumber, country);
+            final double temp = temp("onday %s 10 26 TEMP ℃ 9900 1973 2017 %s",stationnumber, country);
             if (temp == -1000000)
                 continue;
             else {
@@ -109,7 +109,7 @@ public class ANN {
     public static double MAX_LONG;
     public static double MAX_FITTNESS;
 
-    static private BasicMLDataSet dataset(double[] inp1, double[] inp2, double[] outi) {
+    public static BasicMLDataSet dataset(double[] inp1, double[] inp2, double[] outi) {
 
         final double maxinput = MathTerminology.max(inp1);
         final double maxinput2 = MathTerminology.max(inp2);
@@ -144,6 +144,3 @@ public class ANN {
 
 }
 
-interface Make {
-    void done(ArrayList<Double> temps, ArrayList<LatLon> latLons);
-}

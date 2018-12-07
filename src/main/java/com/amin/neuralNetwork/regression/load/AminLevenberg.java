@@ -161,7 +161,7 @@ public class AminLevenberg {
 
 
         LevenbergMarquardtTraining train = new LevenbergMarquardtTraining(network, trainingData);
-        EncogUtility.trainToError(train, 1e-6);
+        EncogUtility.trainToError(train, 1e-7);
 
 //
 //        final Backpropagation train = new Backpropagation(network, trainingData, 0.01, 0.9);
