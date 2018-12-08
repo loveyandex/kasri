@@ -57,12 +57,12 @@ public class MaplessController implements Initializable {
     @FXML
     private void annSolve(ActionEvent actionEvent) throws IOException {
         LatLon latLon = new LatLon(Double.parseDouble(latitude.getText()), Double.parseDouble(longitude.getText()));
-        Stage stage = new StageOverride();
+        Stage stage = new StageOverride("/drawable/neo.png");
         stage.setResizable(true);
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/mappless/ann.fxml"));
         Scene scene = new SceneJson<>(root, 650, 480);
         ((SceneJson) scene).setJson(latLon);
-        stage.setTitle("ANN ...");
+        stage.setTitle("ANN Computing...");
         stage.setScene(scene);
 //                stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();

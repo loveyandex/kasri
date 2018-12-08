@@ -225,7 +225,11 @@ public class KNN {
     }
 
     public static double calcFeatureValue(String functionformat, String stationnumber, String country) {
-        final String function = String.format(functionformat, stationnumber, country);
+
+        String function = String.format(functionformat, stationnumber, country);
+        if (function.contains("PERCENT"))
+            function = function.replaceAll("PERCENT", "%");
+
         final double v = ScriptAPP.scripting2(function);
         return v;
     }

@@ -33,7 +33,7 @@ import java.util.*;
 /**
  * is created by aMIN on 6/1/2018 at 05:50
  */
-public class otherFieldController implements Initializable {
+public class KNNController implements Initializable {
 
     public RangeSlider yearsSlider;
     public JFXSlider lowYearjfxslider;

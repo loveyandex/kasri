@@ -8,7 +8,7 @@
 <?import org.controlsfx.control.RangeSlider?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vvv" stylesheets="/light-theme.css"
       xmlns="http://javafx.com/javafx/8.0.121"
-      fx:controller="com.amin.ui.mappless.otherFieldController">
+      fx:controller="com.amin.ui.mappless.KNNController">
 
 
     <JFXTabPane fx:id="jfxtab" style="-fx-alignment: center">

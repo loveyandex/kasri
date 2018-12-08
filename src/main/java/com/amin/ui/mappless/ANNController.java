@@ -5,13 +5,10 @@ import com.amin.jsons.Features;
 import com.amin.jsons.FormInfo;
 import com.amin.jsons.UnitConvertor;
 import com.amin.knn.ANN;
-import com.amin.knn.KNN;
 import com.amin.neuralNetwork.regression.load.AminLevenberg;
 import com.amin.pojos.LatLon;
 import com.amin.ui.SceneJson;
 import com.amin.ui.dialogs.Dialog;
-import com.amin.ui.dialogs.SnackBar;
-import com.amin.ui.scripts.ScriptAPP;
 import com.jfoenix.controls.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -41,7 +38,7 @@ import static com.amin.knn.ANN.*;
 /**
  * is created by aMIN on 6/1/2018 at 05:50
  */
-public class annController implements Initializable {
+public class ANNController implements Initializable {
 
     private LatLon latLon;
 
@@ -289,6 +286,10 @@ public class annController implements Initializable {
                             formInfo.getLowerYear().intValue()
                             , formInfo.getHighYear().intValue());
 
+                if (function.contains("%"))
+                    function = function.replaceAll("%", "PERCENT");
+
+
                     function = function.replaceAll("\\$", "%s");
                     annSolve(function);
             }
@@ -361,8 +362,10 @@ public class annController implements Initializable {
                     double[] ops = new double[1];
 
                     network.compute(inps, ops);
-                    System.err.println(ops[0] * MAX_FITTNESS);
-                    Dialog.SnackBar.showSnack(rootNode, "" + ops[0] * MAX_FITTNESS, 4001);
+                    final double v = ops[0] * MAX_FITTNESS;
+                    final String format = String.format("%.4f %s", v, formInfo.getFeatureUnit());
+                    System.err.println(format);
+                    Dialog.SnackBar.showSnack(rootNode, format, 4001);
                 });
 
 

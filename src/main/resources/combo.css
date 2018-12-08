@@ -20,12 +20,23 @@
 /*}*/
 
 .jfx-combo-box .label {
-    -fx-text-fill: #9d8024;
+    -fx-text-fill: #ffb32d;
 }
+
+
+
+
+.jfx-combo-box .text-input  {
+    -fx-text-fill: #45adff;
+}
+
 
 .combo-box-popup:hover  .list-cell:hover {
     -fx-background-color: #ebebeb;
 
+}
+.combo-box-popup  .list-cell {
+    -fx-background-color: #ae6334;
 }
 
 
