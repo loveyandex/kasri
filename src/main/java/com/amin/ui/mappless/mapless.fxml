@@ -37,6 +37,9 @@
             <Hyperlink fx:id="hyperlinkCountryName" layoutX="85.0" layoutY="259.0"
                        onAction="#hypringCuntryname">i know country name
             </Hyperlink>
+            <Hyperlink fx:id="radiusLink" layoutX="85.0" layoutY="275.0"
+                       onAction="#radiusAssigning">i know country name
+            </Hyperlink>
 
 
         <JFXButton fx:id="cancelbtn" layoutX="58.0" layoutY="288.0" onAction="#handleCancelButtonAction"

@@ -75,6 +75,7 @@ public class SearchingView extends Application {
         primaryStage.initStyle(StageStyle.UNDECORATED);
 
 
+
         cities = gson.fromJson(reader, City[].class); // contains the whole reviews list
         countries = gson.fromJson(reader2, Country[].class); // contains the whole reviews list
 

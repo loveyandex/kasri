@@ -9,6 +9,7 @@ import com.amin.neuralNetwork.regression.load.AminLevenberg;
 import com.amin.pojos.LatLon;
 import com.amin.ui.SceneJson;
 import com.amin.ui.dialogs.Dialog;
+import com.google.gson.Gson;
 import com.jfoenix.controls.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -66,22 +67,20 @@ public class ANNController implements Initializable {
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
     @FXML
     private RangeSlider hSlider;
+    private double max_radius_kml = 100;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(() -> {
-            latLon = (LatLon) ((SceneJson) vvv.getScene()).getJson();
+            ArrayList jsons = (ArrayList) ((SceneJson) vvv.getScene()).getJson();
+            latLon = ((LatLon) jsons.get(0));
+            max_radius_kml = ((double) jsons.get(1));
+            System.err.println(new Gson().toJson(jsons));
         });
 
 
         formInfo = new FormInfo();
-        final LatLon latLon = new LatLon();
-        Platform.runLater(() -> {
-            LatLon tempLatLon = (LatLon) ((SceneJson) vvv.getScene()).getJson();
-            latLon.setLat(tempLatLon.getLat());
-            latLon.setLogn(tempLatLon.getLogn());
-        });
 
 
         String[] featursName = {"PRES", "HGHT", "TEMP", "DWPT", "RELH", "MIXR", "DRCT", Features.SKNT.getName(), "THTA", "THTE", "THTV"};
@@ -277,21 +276,21 @@ public class ANNController implements Initializable {
             if (formInfo.getHighYear().intValue() < formInfo.getLowerYear().intValue())
                 Dialog.SnackBar.showSnack(rootNode, "high year is lower than low year");
             else {
-                    String function = String.format("onday $  %d  %d  %s  %s  %s %d  %d $",
-                            formInfo.getDate().Month,
-                            formInfo.getDate().Day,
-                            formInfo.getFeaureName(),
-                            formInfo.getFeatureUnit(),
-                            formInfo.getHeight(),
-                            formInfo.getLowerYear().intValue()
-                            , formInfo.getHighYear().intValue());
+                String function = String.format("onday $  %d  %d  %s  %s  %s %d  %d $",
+                        formInfo.getDate().Month,
+                        formInfo.getDate().Day,
+                        formInfo.getFeaureName(),
+                        formInfo.getFeatureUnit(),
+                        formInfo.getHeight(),
+                        formInfo.getLowerYear().intValue()
+                        , formInfo.getHighYear().intValue());
 
                 if (function.contains("%"))
                     function = function.replaceAll("%", "PERCENT");
 
 
-                    function = function.replaceAll("\\$", "%s");
-                    annSolve(function);
+                function = function.replaceAll("\\$", "%s");
+                annSolve(function);
             }
 
 
@@ -323,7 +322,7 @@ public class ANNController implements Initializable {
 
     public void annSolve(String fncScript) {
         try {
-            ANN.IranAnn((temps, latLons) -> {
+            ANN.IranAnn(max_radius_kml, latLon, (temps, latLons) -> {
                 double[] outi = new double[temps.size()];
                 double[] inp1 = new double[temps.size()];
                 double[] inp2 = new double[temps.size()];

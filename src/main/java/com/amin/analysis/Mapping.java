@@ -177,9 +177,9 @@ public class Mapping {
                 });
     }
 
-    public static void map(CONNECTIONTYPE connectiontype,String rootparent, String fileName) {
+    public static void map(CONNECTIONTYPE connectiontype, String rootparent, String fileName) {
         if (connectiontype == CONNECTIONTYPE.DERBY) {
-            map(rootparent,fileName,connectionDerby);
+            map(rootparent, fileName, connectionDerby);
 
         }
 
@@ -319,34 +319,31 @@ public class Mapping {
                 String citistationnumber = colsData.get(j).get(1);
 //                System.out.println(citiname);
                 String s1 = colsData.get(j).get(3).replaceAll("N", "");
-                double citiLat   ;
+                double citiLat;
 
-                if (s1.toLowerCase().contains("s")){
-                    s1 =  s1.replaceAll("S", "").replaceAll("s", "");
+                if (s1.toLowerCase().contains("s")) {
+                    s1 = s1.replaceAll("S", "").replaceAll("s", "");
 
 
                     citiLat = -(Double.parseDouble(colsData.get(j).get(2))
                             + (Double.parseDouble(s1)) / 60.0d);
-                }else {
+                } else {
                     citiLat = Double.parseDouble(colsData.get(j).get(2))
                             + (Double.parseDouble(s1)) / 60.0d;
                 }
 
 
-
-
                 String s = colsData.get(j).get(5).replaceAll("E", "");
 
                 double citiLong;
-                if (s.toLowerCase().contains("w")){
+                if (s.toLowerCase().contains("w")) {
                     s = s.replaceAll("W", "").replaceAll("w", "");
-                    citiLong= -(Double.parseDouble(colsData.get(j).get(4))
+                    citiLong = -(Double.parseDouble(colsData.get(j).get(4))
                             + (Double.parseDouble(s)) / 60.0d);
-                }else {
-                    citiLong= Double.parseDouble(colsData.get(j).get(4))
+                } else {
+                    citiLong = Double.parseDouble(colsData.get(j).get(4))
                             + (Double.parseDouble(s)) / 60.0d;
                 }
-
 
 
                 ArrayList inoutput = new ArrayList() {{
