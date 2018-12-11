@@ -19,8 +19,8 @@ public class DF {
     public static void main(String[] args) throws FileNotFoundException {
 
         Gson gson = new Gson();
-        JsonReader reader = new JsonReader(new FileReader(new File("../jsons/", "cities.json")));
-        JsonReader reader2 = new JsonReader(new FileReader("../jsons/country-by-abbreviation.json"));
+        JsonReader reader = new JsonReader(new FileReader(new File("config/jsons/", "cities.json")));
+        JsonReader reader2 = new JsonReader(new FileReader("config/jsons/country-by-abbreviation.json"));
         City[] cities = gson.fromJson(reader, City[].class); // contains the whole reviews list
         Country[] countries = gson.fromJson(reader2, Country[].class); // contains the whole reviews list
 
