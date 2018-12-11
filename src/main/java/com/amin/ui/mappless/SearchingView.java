@@ -72,7 +72,6 @@ public class SearchingView extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("ListView Experiment 1");
         primaryStage.initStyle(StageStyle.UNDECORATED);
 
 
@@ -168,6 +167,14 @@ public class SearchingView extends Application {
             if (event.getCode() == KeyCode.ESCAPE)
                 primaryStage.hide();
         });
+
+        vBox.getStylesheets().add("/dark-theme.css");
+        //You would need from here
+        primaryStage.focusedProperty().addListener((ov, onHidden, onShown) -> {
+            primaryStage.hide();
+        });
+
+
         listView.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ESCAPE)
                 primaryStage.hide();
@@ -204,11 +211,7 @@ public class SearchingView extends Application {
         });
 
 
-        vBox.getStylesheets().add("/dark-theme.css");
-        //You would need from here
-        primaryStage.focusedProperty().addListener((ov, onHidden, onShown) -> {
-            primaryStage.hide();
-        });
+
     }
 
     private String[] nlp(String text) {

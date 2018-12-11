@@ -18,12 +18,13 @@
     <children>
         <JFXTextField fx:id="latitude" labelFloat="true" layoutX="95.0" layoutY="122.0" prefHeight="33.0"
                       prefWidth="259.0"
+                      text="35.69439"
                       promptText="Latitude">
             <font>
                 <Font size="16.0"/>
             </font>
         </JFXTextField>
-        <JFXTextField fx:id="longitude" labelFloat="true" layoutX="97.0" layoutY="194.0"
+        <JFXTextField fx:id="longitude" text="51.42151" labelFloat="true" layoutX="97.0" layoutY="194.0"
                       onAction="#knnSolve" prefHeight="34.0" prefWidth="259.0" promptText="Longitude">
             <font>
                 <Font size="17.0"/>

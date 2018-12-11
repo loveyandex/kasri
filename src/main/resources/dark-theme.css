@@ -306,3 +306,15 @@
 .hyperlink:visited{
     -fx-text-fill: rgb(244,211,244);
 }
+
+.hyperlink:hover {
+    -fx-underline: false;
+    -fx-text-fill: black;
+}
+
+.hyperlink:selected{
+
+}
+.hyperlink{
+    -fx-text-fill: rgb(239, 252, 255);
+}

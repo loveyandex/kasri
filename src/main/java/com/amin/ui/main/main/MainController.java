@@ -2,6 +2,7 @@ package com.amin.ui.main.main;
 
 import com.amin.getdata.Starter;
 import com.amin.knn.ANN;
+import com.amin.neuralNetwork.regression.load.AminLevenberg;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
@@ -23,13 +24,21 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.encog.ml.data.MLData;
+import org.encog.ml.data.MLDataPair;
+import org.encog.ml.data.basic.BasicMLDataSet;
+import org.encog.neural.networks.BasicNetwork;
+import org.encog.persist.EncogDirectoryPersistence;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import static com.amin.knn.ANN.*;
 
 /**
  * is created by aMIN on 5/30/2018 at 21:54
@@ -255,7 +264,6 @@ public class MainController implements Initializable {
     }
 
     public void dd(ActionEvent actionEvent) throws SQLException {
-
 
     }
 }

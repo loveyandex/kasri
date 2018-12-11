@@ -147,7 +147,7 @@ public class AminLevenberg {
     }
 
 
-    public static BasicNetwork netAndTrain(MLDataSet trainingData){
+    public static BasicNetwork netAndTrain(MLDataSet trainingData, IMLTrain imlTrain) {
         BasicNetwork network = new BasicNetwork();
         network.addLayer(new BasicLayer(new ActivationTANH(), true, 2));
         network.addLayer(new BasicLayer(new ActivationTANH(), true, 10));
@@ -161,7 +161,9 @@ public class AminLevenberg {
 
 
         LevenbergMarquardtTraining train = new LevenbergMarquardtTraining(network, trainingData);
-        EncogUtility.trainToError(train, 1e-6);
+
+//        EncogUtility.trainToError(train, 1e-7);
+        imlTrain.train(train);
 
 //
 //        final Backpropagation train = new Backpropagation(network, trainingData, 0.01, 0.9);
@@ -179,7 +181,6 @@ public class AminLevenberg {
 
         return network;
     }
-
 
 
 }

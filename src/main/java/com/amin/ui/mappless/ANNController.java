@@ -4,12 +4,11 @@ import com.amin.jsons.Date;
 import com.amin.jsons.Features;
 import com.amin.jsons.FormInfo;
 import com.amin.jsons.UnitConvertor;
-import com.amin.knn.KNN;
+import com.amin.knn.ANN;
+import com.amin.neuralNetwork.regression.load.AminLevenberg;
 import com.amin.pojos.LatLon;
 import com.amin.ui.SceneJson;
 import com.amin.ui.dialogs.Dialog;
-import com.amin.ui.dialogs.SnackBar;
-import com.amin.ui.scripts.ScriptAPP;
 import com.jfoenix.controls.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -21,19 +20,27 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import net.time4j.PlainDate;
 import net.time4j.calendar.PersianCalendar;
 import net.time4j.ui.javafx.CalendarPicker;
 import org.controlsfx.control.RangeSlider;
+import org.encog.ml.data.basic.BasicMLDataSet;
+import org.encog.neural.networks.BasicNetwork;
+import org.encog.util.Format;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
 
+import static com.amin.knn.ANN.*;
+
 /**
  * is created by aMIN on 6/1/2018 at 05:50
  */
-public class otherFieldController implements Initializable {
+public class ANNController implements Initializable {
+
+    private LatLon latLon;
 
     public RangeSlider yearsSlider;
     public JFXSlider lowYearjfxslider;
@@ -63,6 +70,11 @@ public class otherFieldController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Platform.runLater(() -> {
+            latLon = (LatLon) ((SceneJson) vvv.getScene()).getJson();
+        });
+
+
         formInfo = new FormInfo();
         final LatLon latLon = new LatLon();
         Platform.runLater(() -> {
@@ -265,18 +277,21 @@ public class otherFieldController implements Initializable {
             if (formInfo.getHighYear().intValue() < formInfo.getLowerYear().intValue())
                 Dialog.SnackBar.showSnack(rootNode, "high year is lower than low year");
             else {
-                try {
+                    String function = String.format("onday $  %d  %d  %s  %s  %s %d  %d $",
+                            formInfo.getDate().Month,
+                            formInfo.getDate().Day,
+                            formInfo.getFeaureName(),
+                            formInfo.getFeatureUnit(),
+                            formInfo.getHeight(),
+                            formInfo.getLowerYear().intValue()
+                            , formInfo.getHighYear().intValue());
 
-                    final double nearst = KNN.nearst(300, latLon, (stationnumber, country) -> {
-                        final String function = String.format("onday %s  %d  %d  %s  %s  %s %d  %d %s", stationnumber, formInfo.getDate().Month, formInfo.getDate().Day, formInfo.getFeaureName(), formInfo.getFeatureUnit(), formInfo.getHeight(), formInfo.getLowerYear().intValue(), formInfo.getHighYear().intValue(), country);
-                        final double v = ScriptAPP.scripting2(function);
-                        return v;
-                    });
-                    SnackBar.showSnack(vvv, String.format("%.4f %s", nearst, formInfo.getFeatureUnit()), 4323);
+                if (function.contains("%"))
+                    function = function.replaceAll("%", "PERCENT");
 
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+
+                    function = function.replaceAll("\\$", "%s");
+                    annSolve(function);
             }
 
 
@@ -304,6 +319,64 @@ public class otherFieldController implements Initializable {
 
 
     }
+
+
+    public void annSolve(String fncScript) {
+        try {
+            ANN.IranAnn((temps, latLons) -> {
+                double[] outi = new double[temps.size()];
+                double[] inp1 = new double[temps.size()];
+                double[] inp2 = new double[temps.size()];
+                for (int i = 0; i < temps.size(); i++) {
+                    outi[i] = temps.get(i);
+                    inp1[i] = latLons.get(i).getLat();
+                    inp2[i] = latLons.get(i).getLogn();
+                }
+                final Stage primaryStage = new Stage();
+                final BasicMLDataSet dataset = ANN.dataset(inp1, inp2, outi);
+                final BasicNetwork network = AminLevenberg.netAndTrain(dataset, train -> {
+                    try {
+                        new WhenTrainingView(console -> {
+                            System.out.println("Beginning training...");
+                            double error = 1e-6d;
+                            int epoch = 1;
+                            do {
+                                train.iteration();
+                                console.appendText("Iteration #" + Format.formatInteger(epoch)
+                                        + " Error:" + Format.formatPercent(train.getError())
+                                        + " Target Error: " + Format.formatPercent(error) + "\n");
+                                epoch++;
+                            } while ((train.getError() > error) && !train.isTrainingDone());
+                            train.finishTraining();
+
+                        }).start(primaryStage);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                });
+                primaryStage.setOnHidden(event -> {
+
+                    double[] inps = new double[]{latLon.getLat() / MAX_LAT, latLon.getLogn() / MAX_LONG};
+                    double[] ops = new double[1];
+
+                    network.compute(inps, ops);
+                    final double v = ops[0] * MAX_FITTNESS;
+                    final String format = String.format("%.4f %s", v, formInfo.getFeatureUnit());
+                    System.err.println(format);
+                    Dialog.SnackBar.showSnack(rootNode, format, 4001);
+                });
+
+
+            }, fncScript);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 
     private boolean isReadyToFire(FormInfo formInfo) {
         if (formInfo.getFeatureUnit() == null || formInfo.getFeaureName() == null || formInfo.getLowerYear() == null || formInfo.getHighYear() == null || formInfo.getDate() == null || formInfo.getHeight() == null) {
