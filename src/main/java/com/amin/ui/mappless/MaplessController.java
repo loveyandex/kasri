@@ -177,11 +177,11 @@ public class MaplessController implements Initializable {
                         primaryStage.hide();
                     });
                     VBox vBox = new VBox(radiusJfxTextField, ok);
-                    VBox.setMargin(radiusJfxTextField, new Insets(10, 0, 10, 0));
+                    VBox.setMargin(radiusJfxTextField, new Insets(10, 20, 10, 20));
                     vBox.setAlignment(Pos.CENTER);
                     Scene sd = new SceneJson<>(vBox, 150, 80);
                     primaryStage.setScene(sd);
-
+                    sd.getStylesheets().add("/dark-theme.css");
                     primaryStage.show();
                 }
             }.start(new StageOverride());

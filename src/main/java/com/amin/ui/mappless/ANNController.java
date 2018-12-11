@@ -352,12 +352,19 @@ public class ANNController implements Initializable {
                             } while ((train.getError() > error) && !train.isTrainingDone());
                             train.finishTraining();
 
+                            double[] inps = new double[]{latLon.getLat() / MAX_LAT, latLon.getLogn() / MAX_LONG};
+                            double[] ops = new double[1];
+
+                            ((BasicNetwork) train.getMethod()).compute(inps, ops);
+                            final double v = ops[0] * MAX_FITTNESS;
+                            final String format = String.format("target value for point of %.4f %.4f :\n%s  %.2f %s", latLon.getLat(), latLon.getLogn(), formInfo.getFeaureName(), v, formInfo.getFeatureUnit());
+                            console.appendText(format);
+
                         }).start(primaryStage);
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 });
                 primaryStage.setOnHidden(event -> {
 
@@ -368,6 +375,7 @@ public class ANNController implements Initializable {
                     final double v = ops[0] * MAX_FITTNESS;
                     final String format = String.format("%.4f %s", v, formInfo.getFeatureUnit());
                     System.err.println(format);
+
                     Dialog.SnackBar.showSnack(rootNode, format, 4001);
                 });
 

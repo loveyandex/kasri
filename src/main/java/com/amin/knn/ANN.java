@@ -109,7 +109,7 @@ public class ANN {
     public static void IranAnn(double maximum_distance_km, LatLon latLong, Make make, String functionString) throws SQLException {
         final double lat1 = latLong.getLat();
         final double long1 = latLong.getLogn();
-        final ResultSet resultSet = exeing("iran");
+        final ResultSet resultSet = exeing();
         ArrayList<Double> tempsArray = new ArrayList<>();
         ArrayList<LatLon> tempLAtlongs = new ArrayList<>();
         while (resultSet.next()) {

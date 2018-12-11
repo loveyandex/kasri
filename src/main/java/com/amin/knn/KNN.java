@@ -112,7 +112,6 @@ public class KNN {
         final ResultSet executeQuery = statement.executeQuery("select *\n" +
                 "from stations\n" +
                 "where station!='NULL'");
-//                "where station!='null' and country like 'iran%' ;");
         return executeQuery;
     }
     public static ResultSet exeing(String country) throws SQLException {
