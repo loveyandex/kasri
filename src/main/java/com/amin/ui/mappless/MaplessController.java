@@ -10,14 +10,18 @@ import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.map.LatLongFXMLController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.encog.ml.data.basic.BasicMLDataSet;
@@ -27,6 +31,7 @@ import org.encog.util.Format;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static com.amin.knn.ANN.*;
@@ -57,15 +62,33 @@ public class MaplessController implements Initializable {
     @FXML
     private void annSolve(ActionEvent actionEvent) throws IOException {
         LatLon latLon = new LatLon(Double.parseDouble(latitude.getText()), Double.parseDouble(longitude.getText()));
-        Stage stage = new StageOverride("/drawable/neo.png");
-        stage.setResizable(true);
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/mappless/ann.fxml"));
-        Scene scene = new SceneJson<>(root, 650, 480);
-        ((SceneJson) scene).setJson(latLon);
-        stage.setTitle("ANN Computing...");
-        stage.setScene(scene);
+        final double nearst;
+        try {
+            nearst = KNN.nearst(radius, new LatLon(latLon.getLat(), latLon.getLogn()));
+
+            System.out.println(nearst);
+            if (nearst == -3.0E15d) {
+                LatLongFXMLController.SnackBar.showSnack(root, "Data not found for this pos", 2333);
+
+            } else {
+
+                Stage stage = new StageOverride("/drawable/neo.png");
+                stage.setResizable(true);
+                Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/mappless/ann.fxml"));
+                Scene scene = new SceneJson<>(root, 650, 480);
+                ArrayList<Object> objects = new ArrayList<>();
+                objects.add(latLon);
+                objects.add(radius);
+                ((SceneJson) scene).setJson(objects);
+                stage.setTitle("ANN Computing...");
+                stage.setScene(scene);
 //                stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
+                stage.showAndWait();
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -73,7 +96,7 @@ public class MaplessController implements Initializable {
     private void knnSolve(ActionEvent event) throws SQLException {
         try {
             LatLon latLon = new LatLon(Double.parseDouble(latitude.getText()), Double.parseDouble(longitude.getText()));
-            final double nearst = KNN.nearst(300, new LatLon(latLon.getLat(), latLon.getLogn()));
+            final double nearst = KNN.nearst(radius, new LatLon(latLon.getLat(), latLon.getLogn()));
             System.out.println(nearst);
             if (nearst == -3.0E15d) {
                 LatLongFXMLController.SnackBar.showSnack(root, "Data not found for this pos", 2333);
@@ -84,7 +107,10 @@ public class MaplessController implements Initializable {
                 stage.setResizable(true);
                 Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/mappless/otherfield.fxml"));
                 Scene scene = new SceneJson<>(root, 650, 480);
-                ((SceneJson) scene).setJson(latLon);
+                ArrayList<Object> objects = new ArrayList<>();
+                objects.add(latLon);
+                objects.add(radius);
+                ((SceneJson) scene).setJson(objects);
                 stage.setTitle("KNN ...");
 
 
@@ -120,6 +146,7 @@ public class MaplessController implements Initializable {
         }).start(new Stage());
 
     }
+
     public void hypringCuntryname(ActionEvent actionEvent) throws Exception {
 
         new SearchingView((latLon) -> {
@@ -132,67 +159,33 @@ public class MaplessController implements Initializable {
 
     }
 
-    public void annSolve2() {
-        LatLon latLon = new LatLon(Double.parseDouble(latitude.getText()), Double.parseDouble(longitude.getText()));
+    double radius = 100;
+
+    public void radiusAssigning(ActionEvent actionEvent) {
         try {
-            ANN.IranAnn((temps, latLons) -> {
-                double[] outi = new double[temps.size()];
-                double[] inp1 = new double[temps.size()];
-                double[] inp2 = new double[temps.size()];
-                for (int i = 0; i < temps.size(); i++) {
-                    outi[i] = temps.get(i);
-                    inp1[i] = latLons.get(i).getLat();
-                    inp2[i] = latLons.get(i).getLogn();
+            new Application() {
+                @Override
+                public void start(Stage primaryStage) throws Exception {
+                    JFXButton ok = new JFXButton("OK");
+
+                    JFXTextField radiusJfxTextField = new JFXTextField(String.valueOf(radius));
+                    radiusJfxTextField.setLabelFloat(true);
+                    radiusJfxTextField.setPromptText("radius(km)");
+
+                    ok.setOnAction(event -> {
+                        radius = Double.parseDouble(radiusJfxTextField.getText());
+                        primaryStage.hide();
+                    });
+                    VBox vBox = new VBox(radiusJfxTextField, ok);
+                    VBox.setMargin(radiusJfxTextField, new Insets(10, 0, 10, 0));
+                    vBox.setAlignment(Pos.CENTER);
+                    Scene sd = new SceneJson<>(vBox, 150, 80);
+                    primaryStage.setScene(sd);
+
+                    primaryStage.show();
                 }
-                final Stage primaryStage = new Stage();
-                final BasicMLDataSet dataset = ANN.dataset(inp1, inp2, outi);
-                final BasicNetwork network = AminLevenberg.netAndTrain(dataset, train -> {
-                    try {
-                        new WhenTrainingView(console -> {
-                            System.out.println("Beginning training...");
-                            double error = 1e-6d;
-                            int epoch = 1;
-                            do {
-                                train.iteration();
-                                console.appendText("Iteration #" + Format.formatInteger(epoch)
-                                        + " Error:" + Format.formatPercent(train.getError())
-                                        + " Target Error: " + Format.formatPercent(error) + "\n");
-                                epoch++;
-                            } while ((train.getError() > error) && !train.isTrainingDone());
-
-                            train.finishTraining();
-//                                for (MLDataPair pair : dataset) {
-//                                    final BasicNetwork network1 = (BasicNetwork) train.getMethod();
-//                                    final MLData output = network1.compute(pair.getInput());
-//                                    final String x = pair.getInput().getData(0) * MAX_LAT + "," + pair.getInput().getData(1) * MAX_LONG
-//                                            + ", actual=" + output.getData(0) * MAX_FITTNESS + ",ideal=" + pair.getIdeal().getData(0) * MAX_FITTNESS;
-//                                    console.appendText(x + "\n");
-//                                    System.out.println(x);
-//                                }
-
-                        }).start(primaryStage);
-
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                });
-                primaryStage.setOnHidden(event -> {
-
-                    double[] inps = new double[]{latLon.getLat() / MAX_LAT, latLon.getLogn() / MAX_LONG};
-                    double[] ops = new double[1];
-
-                    network.compute(inps, ops);
-                    System.err.println(ops[0] * MAX_FITTNESS);
-                    Dialog.SnackBar.showSnack(root, "" + ops[0] * MAX_FITTNESS, 4001);
-                });
-
-
-
-
-            });
-        } catch (SQLException e) {
+            }.start(new StageOverride());
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

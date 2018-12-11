@@ -10,6 +10,7 @@ import com.amin.ui.SceneJson;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.dialogs.SnackBar;
 import com.amin.ui.scripts.ScriptAPP;
+import com.google.gson.Gson;
 import com.jfoenix.controls.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -59,18 +60,20 @@ public class KNNController implements Initializable {
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
     @FXML
     private RangeSlider hSlider;
+   private LatLon latLon;
+    private double max_radius_kml = 100;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        formInfo = new FormInfo();
-        final LatLon latLon = new LatLon();
         Platform.runLater(() -> {
-            LatLon tempLatLon = (LatLon) ((SceneJson) vvv.getScene()).getJson();
-            latLon.setLat(tempLatLon.getLat());
-            latLon.setLogn(tempLatLon.getLogn());
+            ArrayList jsons = (ArrayList) ((SceneJson) vvv.getScene()).getJson();
+            latLon = ((LatLon) jsons.get(0));
+            max_radius_kml = ((double) jsons.get(1));
+            System.err.println(new Gson().toJson(jsons));
         });
 
+        formInfo = new FormInfo();
 
         String[] featursName = {"PRES", "HGHT", "TEMP", "DWPT", "RELH", "MIXR", "DRCT", Features.SKNT.getName(), "THTA", "THTE", "THTV"};
         Arrays.sort(featursName);
