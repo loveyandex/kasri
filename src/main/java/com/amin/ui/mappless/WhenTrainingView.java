@@ -1,6 +1,5 @@
 package com.amin.ui.mappless;
 
-import com.amin.pojos.LatLon;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -8,8 +7,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.sql.SQLException;
 
 interface MAKE {
     void aDo(JFXTextArea console);
@@ -36,14 +33,8 @@ public class WhenTrainingView extends Application {
 
         VBox vBox = new VBox(console);
 
-        Scene scene = new Scene(vBox, 550, 662);
-        primaryStage.setScene(scene);
-        primaryStage.show();
 
-        primaryStage.getScene().setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ESCAPE)
-                primaryStage.hide();
-        });
+
 
         vBox.getStylesheets().add("/dark-theme.css");
 //        //You would need from here
@@ -51,8 +42,18 @@ public class WhenTrainingView extends Application {
 //            primaryStage.hide();
 //        });
 
-        this.make.aDo(console);
 
+        primaryStage.setOnShown(event -> {
+            console.appendText("king aain is here");
+            this.make.aDo(console);
+        });
+        Scene scene = new Scene(vBox, 550, 662);
+        primaryStage.setScene(scene);
+        primaryStage.getScene().setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE)
+                primaryStage.hide();
+        }); primaryStage.show();
+//
     }
     private MAKE make;
 }

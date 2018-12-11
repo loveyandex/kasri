@@ -53,6 +53,9 @@ public class MainActivity extends Application {
             }
         });
 
+        primaryStage.setOnShowing(System.out::println);
+
+
         primaryStage.setTitle("Abolfazl");
         primaryStage.setScene(scene);
         primaryStage.toBack();

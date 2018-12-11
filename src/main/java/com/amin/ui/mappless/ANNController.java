@@ -342,9 +342,13 @@ public class ANNController implements Initializable {
                             int epoch = 1;
                             do {
                                 train.iteration();
-                                console.appendText("Iteration #" + Format.formatInteger(epoch)
+
+                                final String text = "Iteration #" + Format.formatInteger(epoch)
                                         + " Error:" + Format.formatPercent(train.getError())
-                                        + " Target Error: " + Format.formatPercent(error) + "\n");
+                                        + " Target Error: " + Format.formatPercent(error) + "\n";
+                                console.appendText(text);
+                                System.out.print(text);
+
                                 epoch++;
                             } while ((train.getError() > error) && !train.isTrainingDone());
                             train.finishTraining();

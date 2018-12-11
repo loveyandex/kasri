@@ -374,6 +374,8 @@ public class Functions {
             Parent root = FXMLLoader.load(FormDayController.class.getResource("/com/amin/ui/main/features/day/chart.fxml"));
             ((VBox) root).getChildren().add(vbox);
             StageOverride stage = new StageOverride();
+
+
             stage.setTitle("statistical analysis");
             root.getStylesheets().add("/chart.css");
 
