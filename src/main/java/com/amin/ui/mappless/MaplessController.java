@@ -1,8 +1,6 @@
 package com.amin.ui.mappless;
 
-import com.amin.knn.ANN;
-import com.amin.knn.KNN;
-import com.amin.neuralNetwork.regression.load.AminLevenberg;
+import com.amin.knnann.KNN;
 import com.amin.pojos.LatLon;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
@@ -22,11 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.encog.ml.data.basic.BasicMLDataSet;
-import org.encog.neural.networks.BasicNetwork;
-import org.encog.util.Format;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,7 +28,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static com.amin.knn.ANN.*;
 import static com.amin.ui.StageOverride.shiftToEnterEvent;
 
 public class MaplessController implements Initializable {
@@ -45,6 +38,8 @@ public class MaplessController implements Initializable {
     public Hyperlink hyperlink;
     public JFXButton KNNbtn;
     public JFXButton ANNbtn;
+    public Hyperlink radiusLink;
+    public Hyperlink hyperlinkCountryName;
 
     @FXML
     private JFXTextField longitude;
@@ -54,7 +49,7 @@ public class MaplessController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        shiftToEnterEvent(hyperlink, cancelbtn, KNNbtn);
+        shiftToEnterEvent(hyperlink, cancelbtn, KNNbtn, ANNbtn, radiusLink, hyperlinkCountryName);
 
     }
 
@@ -171,17 +166,18 @@ public class MaplessController implements Initializable {
                     JFXTextField radiusJfxTextField = new JFXTextField(String.valueOf(radius));
                     radiusJfxTextField.setLabelFloat(true);
                     radiusJfxTextField.setPromptText("radius(km)");
-
+                    shiftToEnterEvent(ok);
                     ok.setOnAction(event -> {
                         radius = Double.parseDouble(radiusJfxTextField.getText());
                         primaryStage.hide();
                     });
+                    radiusJfxTextField.setOnAction(ok.getOnAction());
                     VBox vBox = new VBox(radiusJfxTextField, ok);
-                    VBox.setMargin(radiusJfxTextField, new Insets(10, 0, 10, 0));
+                    VBox.setMargin(radiusJfxTextField, new Insets(10, 20, 10, 20));
                     vBox.setAlignment(Pos.CENTER);
                     Scene sd = new SceneJson<>(vBox, 150, 80);
                     primaryStage.setScene(sd);
-
+                    sd.getStylesheets().add("/dark-theme.css");
                     primaryStage.show();
                 }
             }.start(new StageOverride());

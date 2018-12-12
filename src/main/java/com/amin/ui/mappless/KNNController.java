@@ -4,7 +4,7 @@ import com.amin.jsons.Date;
 import com.amin.jsons.Features;
 import com.amin.jsons.FormInfo;
 import com.amin.jsons.UnitConvertor;
-import com.amin.knn.KNN;
+import com.amin.knnann.KNN;
 import com.amin.pojos.LatLon;
 import com.amin.ui.SceneJson;
 import com.amin.ui.dialogs.Dialog;

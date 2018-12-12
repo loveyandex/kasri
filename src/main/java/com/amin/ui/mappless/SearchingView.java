@@ -47,7 +47,7 @@ public class SearchingView extends Application {
 
     {
         try {
-            reader = new JsonReader(new FileReader(new File("../jsons/", "cities.json")));
+            reader = new JsonReader(new FileReader(new File("config/jsons/", "cities.json")));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -55,7 +55,7 @@ public class SearchingView extends Application {
 
     {
         try {
-            reader2 = new JsonReader(new FileReader("../jsons/country-by-abbreviation.json"));
+            reader2 = new JsonReader(new FileReader("config/jsons/country-by-abbreviation.json"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

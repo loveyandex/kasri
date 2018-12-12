@@ -4,7 +4,7 @@ import com.amin.jsons.Date;
 import com.amin.jsons.Features;
 import com.amin.jsons.FormInfo;
 import com.amin.jsons.UnitConvertor;
-import com.amin.knn.ANN;
+import com.amin.knnann.ANN;
 import com.amin.neuralNetwork.regression.load.AminLevenberg;
 import com.amin.pojos.LatLon;
 import com.amin.ui.SceneJson;
@@ -34,7 +34,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
 
-import static com.amin.knn.ANN.*;
+import static com.amin.knnann.ANN.*;
 
 /**
  * is created by aMIN on 6/1/2018 at 05:50
@@ -341,19 +341,30 @@ public class ANNController implements Initializable {
                             int epoch = 1;
                             do {
                                 train.iteration();
-                                console.appendText("Iteration #" + Format.formatInteger(epoch)
+
+                                final String text = "Iteration #" + Format.formatInteger(epoch)
                                         + " Error:" + Format.formatPercent(train.getError())
-                                        + " Target Error: " + Format.formatPercent(error) + "\n");
+                                        + " Target Error: " + Format.formatPercent(error) + "\n";
+                                console.appendText(text);
+                                System.out.print(text);
+
                                 epoch++;
                             } while ((train.getError() > error) && !train.isTrainingDone());
                             train.finishTraining();
+
+                            double[] inps = new double[]{latLon.getLat() / MAX_LAT, latLon.getLogn() / MAX_LONG};
+                            double[] ops = new double[1];
+
+                            ((BasicNetwork) train.getMethod()).compute(inps, ops);
+                            final double v = ops[0] * MAX_FITTNESS;
+                            final String format = String.format("target value for point of %.4f %.4f :\n%s  %.2f %s", latLon.getLat(), latLon.getLogn(), formInfo.getFeaureName(), v, formInfo.getFeatureUnit());
+                            console.appendText(format);
 
                         }).start(primaryStage);
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 });
                 primaryStage.setOnHidden(event -> {
 
@@ -364,6 +375,7 @@ public class ANNController implements Initializable {
                     final double v = ops[0] * MAX_FITTNESS;
                     final String format = String.format("%.4f %s", v, formInfo.getFeatureUnit());
                     System.err.println(format);
+
                     Dialog.SnackBar.showSnack(rootNode, format, 4001);
                 });
 
