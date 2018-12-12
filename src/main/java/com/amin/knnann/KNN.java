@@ -1,4 +1,4 @@
-package com.amin.knn;
+package com.amin.knnann;
 
 import com.amin.database.database.DatabaseHandler;
 import com.amin.pojos.LatLon;

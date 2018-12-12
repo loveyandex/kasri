@@ -1,4 +1,4 @@
-package com.amin.knn;
+package com.amin.knnann;
 
 import com.amin.config.MathTerminology;
 import com.amin.neuralNetwork.regression.load.AminLevenberg;
@@ -15,7 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static com.amin.knn.KNN.*;
+import static com.amin.knnann.KNN.*;
 
 /**
  * is created by aMIN on 12/3/2018 at 4:16 AM

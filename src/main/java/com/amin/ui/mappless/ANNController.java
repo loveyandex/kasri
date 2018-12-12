@@ -4,7 +4,7 @@ import com.amin.jsons.Date;
 import com.amin.jsons.Features;
 import com.amin.jsons.FormInfo;
 import com.amin.jsons.UnitConvertor;
-import com.amin.knn.ANN;
+import com.amin.knnann.ANN;
 import com.amin.neuralNetwork.regression.load.AminLevenberg;
 import com.amin.pojos.LatLon;
 import com.amin.ui.SceneJson;
@@ -34,7 +34,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
 
-import static com.amin.knn.ANN.*;
+import static com.amin.knnann.ANN.*;
 
 /**
  * is created by aMIN on 6/1/2018 at 05:50

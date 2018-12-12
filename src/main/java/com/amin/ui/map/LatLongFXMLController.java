@@ -1,7 +1,7 @@
 package com.amin.ui.map;
 
 import com.amin.database.database.DatabaseHandler;
-import com.amin.knn.KNN;
+import com.amin.knnann.KNN;
 import com.amin.pojos.LatLon;
 import com.amin.ui.scripts.ScriptAPP;
 import com.jfoenix.controls.JFXButton;
