@@ -19,8 +19,6 @@ public class OtherFormInfo {
     public String Country;
     private String feaureName;
     private String height;
-    private String lowHeightRange;
-    private String highHeightRange;
     private Number lowerYear;
     private Number highYear;
     private String featureUnit;
