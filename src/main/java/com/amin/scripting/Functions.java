@@ -26,8 +26,10 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.TextStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Vector;
@@ -52,6 +54,17 @@ public class Functions {
     public void fopen(FormInfo formInfo) {
         try {
             onDayOneHeightOneStation(formInfo);
+        } catch (NoSuchMethodException e) {
+            Dialog.createExceptionDialog(new RuntimeException("choose the right unit"));
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+    public void someDays(SomeDays someDays) {
+        try {
+            someDaysOneHeightOneStations(someDays);
         } catch (NoSuchMethodException e) {
             Dialog.createExceptionDialog(new RuntimeException("choose the right unit"));
         } catch (InvocationTargetException e) {
@@ -411,11 +424,7 @@ public class Functions {
         Month frommonth = Month.of(fromMonthInt);
         String frommonthDisp = frommonth.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
 
-        int tonumDay = someDays.getToDate().Day;
-        String todayOfMonth = (tonumDay < 10 ? "0" : "") + tonumDay;
-        int toMonthInt = someDays.getToDate().Month;
-        Month tomonth = Month.of(toMonthInt);
-        String tomonthDisp = tomonth.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+        LocalDate myDate0 = LocalDate.of(fromYear, fromMonthInt, fromnumDay);
 
         String country = someDays.getCountry();
         String stationNumber = someDays.getStationNumber();
@@ -433,31 +442,47 @@ public class Functions {
 
         String[] z = {"00Z", "12Z"};
         ArrayList<ArrayList<ArrayList<Double>>> all = new ArrayList<>();
-        ArrayList<String> titles = new ArrayList<String>();
+        ArrayList<String> titles = new ArrayList<>();
         ArrayList<String> seriecsnAMES = new ArrayList<String>();
         ArrayList<Double> yearsdata = new ArrayList<>();
 
-        for (int i = fromYear; i <= toYear; i++) {
+        for (int yearIndexer = fromYear; yearIndexer <= toYear; yearIndexer++) {
             for (int id = 0; id < 2; id++) {
                 String Z = z[id];
                 ArrayList<Object> featureAndYear = new ArrayList<>();
+                int dayIndexer = someDays.getMinusDay();
                 while (true) {
-                    if (z.length == 5) break;
+                    if (dayIndexer > someDays.getPlusDay())
+                        break;
+                   LocalDate myDate = myDate0.plus(dayIndexer, ChronoUnit.DAYS);
+                    final Month month = myDate.getMonth();
+                    final String monthDisplayName = month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+                    final int monthValue = month.getValue();
 
-                    String rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + fromMonthInt + File.separator + stationNumber;
+                    final int dayOfMonth = myDate.getDayOfMonth();
+                    fromdayOfMonth = (dayOfMonth < 10 ? "0" : "") + dayOfMonth;
+                    dayIndexer++;
 
-                    String fileName = Z + "_" + fromdayOfMonth + "_" + frommonthDisp + "_" + i + ".csv";
+
+                    String rootDir = C.THIRDY_PATH + File.separator +
+                            country + File.separator + "year_" + yearIndexer + File.separator
+                            + "month_" + monthValue + File.separator + stationNumber;
+
+                    String fileName = Z + "_" + fromdayOfMonth + "_"
+                            + monthDisplayName + "_" + yearIndexer + ".csv";
+
+
                     ArrayList<ArrayList<Double>> heightAndFeature;
                     try {
                         final String title = featureName;
-                        final String seriesName = Z + "_" + i;
+                        final String seriesName = Z + "_" +monthDisplayName+fromdayOfMonth+"_"+ yearIndexer;
                         heightAndFeature = Charting.returnCOlCol2Data(title
                                 , seriesName,
                                 rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
 
                         seriecsnAMES.add(seriesName);
                         titles.add(title);
-                        yearsdata.add((double) i);
+                        yearsdata.add((double) yearIndexer);
                         all.add(heightAndFeature);
 
                         Double intrapolatedKnot = intrapolateFeature(height, heightAndFeature);
@@ -466,10 +491,10 @@ public class Functions {
 
                             knotslist.add(intrapolatedKnot);
                             featureAndYear.add(((Double) intrapolatedKnot));
-                            featureAndYear.add(i);
+                            featureAndYear.add(yearIndexer);
                             featureAndYear.add(unit);
 
-                            yearsofFeature.add(i);
+                            yearsofFeature.add(yearIndexer);
 
                             AllfeatureAndYear.add(featureAndYear);
                         }
@@ -498,7 +523,7 @@ public class Functions {
 
 
             Charting charting = new Charting(1000, 33000, 1000,
-                    maxMin[1] - 1, maxMin[0] + 1, ytickUnit, "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
+                    maxMin[1] , ((int) maxMin[0]) + 1, ((int) ytickUnit), "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
             final XYChart<Number, Number> sc = charting.getSc();
             for (int rr = 0; rr < all.size(); rr++) {
                 sc.setTitle(titles.get(rr));
@@ -516,8 +541,8 @@ public class Functions {
 
 
             System.err.println(new Gson().toJson(yearsdata));
-            Charting charting2 = new Charting(((int) MathTerminology.min(yearsdata)) - 1, toYear, 1,
-                    maxMin[1] - 1, maxMin[0] + 1, ytickUnit, "years", featureName + "(" + unit + ")", Charting.LINE_CHART);
+            Charting charting2 = new Charting(((int) MathTerminology.min(yearsdata)) - 1, toYear+1, 1,
+                    ((int) maxMin[1]), ((int) maxMin[0]) + 1, ((int) ytickUnit), "years", featureName + "(" + unit + ")", Charting.LINE_CHART);
             charting2.interpolateChart("interpolate years for " + featureName + " in " + height + " m",
                     "interpolate", knotslist, yearsofFeature, "avg line val is on ", unit);
 

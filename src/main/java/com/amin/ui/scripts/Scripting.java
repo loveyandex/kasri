@@ -4,6 +4,7 @@ import com.amin.analysis.Mapping;
 import com.amin.jsons.Date;
 import com.amin.jsons.FormInfo;
 import com.amin.jsons.OtherFormInfo;
+import com.amin.jsons.SomeDays;
 import com.amin.scripting.Functions;
 import com.amin.scripting.wind.Wind;
 import com.amin.ui.SceneJson;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import static com.amin.scripting.RestFuns.toFormInfo;
+import static com.amin.scripting.RestFuns.toSomeDaysObject;
 
 /**
  * is created by aMIN on 6/8/2018 at 04:43
@@ -32,11 +34,7 @@ import static com.amin.scripting.RestFuns.toFormInfo;
 public class Scripting extends Application {
     private static String s;
     static private Map<String, String> stationNumTOCities;
-    public Button titlebtn;
     private BorderPane layout;
-    private Stage window;
-    private double xOffset = 0;
-    private double yOffset = 0;
 
     private static void rem() {
         s = s.replaceAll("  ", " ");
@@ -60,9 +58,13 @@ public class Scripting extends Application {
 
         else if (func.equals("ondaystations"))
             runAllDay(args);
+        else if (func.equals("somedays"))
+            Functions.getInstance().someDays(toSomeDaysObject(args));
 
 
     }
+
+
 
     public static double scripting2(String cmd) {
         s = cmd;
@@ -196,6 +198,7 @@ public class Scripting extends Application {
 
         Menu editMenu = new Menu("samples");
         Menu onday = new Menu("samples onday");
+        Menu someDays = new Menu("samples somedays");
         Menu crosswindmenu = new Menu("cross wind onday");
         Menu ondaystations = new Menu("samples onday over the state");
 
@@ -216,6 +219,25 @@ public class Scripting extends Application {
                 drct
         );
         editMenu.getItems().add(onday);
+
+
+        final MenuItem wind_speedSome = new MenuItem("wind speed");
+        final MenuItem tempSome = new MenuItem("temp");
+        final MenuItem DWPTSome = new MenuItem("DWPT");
+        final MenuItem pressSome = new MenuItem("press");
+        final MenuItem relhSome = new MenuItem("RELH");
+        final MenuItem mixrSome = new MenuItem("MIXR");
+        final MenuItem drctSome = new MenuItem("DRCT");
+        someDays.getItems().addAll(
+                wind_speedSome,
+                tempSome,
+                DWPTSome,
+                pressSome,
+                relhSome,
+                mixrSome,
+                drctSome
+        );
+        editMenu.getItems().add(someDays);
 
 
         final MenuItem wind_speed1 = new MenuItem("wind speed");
@@ -261,9 +283,9 @@ public class Scripting extends Application {
 
         TextArea console = new TextArea(">>onday 40800 10 26 PRES hPa 8999 1999 2017 iran__islamic_rep\n>>");
         console.setMinSize(900, 220);
-        console.setStyle("-fx-base: #fff3f8;\n" +
-                " -fx-control-inner-background: #f8fbee");
-
+//        console.setStyle("-fx-base: #fff3f8;\n" +
+//                " -fx-control-inner-background: #f8fbee");
+//
 
         wind_speed.setOnAction(event -> {
             console.appendText("onday 40800 10 26 WIND_SPEED m/s 20000 1973 2017 iran__islamic_rep");
@@ -293,33 +315,39 @@ public class Scripting extends Application {
         });
 
 
+        wind_speedSome.setOnAction(event -> {
+            console.appendText("somedays 40800 10 26 -2 2 WIND_SPEED m/s 20000 1973 2017 iran__islamic_rep");
+        });
+
+        tempSome.setOnAction(event -> {
+            console.appendText("somedays 40800 10 26 -2 2 TEMP ℃ 20000 1973 2017 iran__islamic_rep");
+        });
+        DWPTSome.setOnAction(event -> {
+            console.appendText("somedays 40800 10 26 -2 2 DWPT ℃ 20000 1973 2017 iran__islamic_rep");
+        });
+
+        pressSome.setOnAction(event -> {
+            console.appendText("somedays 40800 10 26 -2 2 PRES atm 20000 1973 2017 iran__islamic_rep");
+        });
+
+        relhSome.setOnAction(event -> {
+            console.appendText("somedays 40800 10 26 -2 2 RELH % 20000 1973 2017 iran__islamic_rep");
+        });
+
+        mixrSome.setOnAction(event -> {
+            console.appendText("somedays 40800 10 26 -2 2 MIXR g/kg 20000 1973 2017 iran__islamic_rep");
+        });
+
+        drctSome.setOnAction(event -> {
+            console.appendText("somedays 40800 10 26 -2 2 DRCT ° 20000 1973 2017 iran__islamic_rep ");
+        });
+
+
+        /************************///******///////////////////////////////////////////////////////////////////////*/
+
         qwind_speed1.setOnAction(event -> {
             console.appendText("crosswind 40800 10 26 WIND_SPEED m/s 20000 1973 2017 iran__islamic_rep");
         });
-//
-//        qtemp1.setOnAction(event -> {
-//            console.appendText("crosswind 40800 10 26 TEMP ℃ 20000 1973 2017 iran__islamic_rep");
-//        });
-//        qDWPT1.setOnAction(event -> {
-//            console.appendText("crosswind 40800 10 26 DWPT ℃ 20000 1973 2017 iran__islamic_rep");
-//        });
-//
-//        qpress1.setOnAction(event -> {
-//            console.appendText("crosswind 40800 10 26 PRES atm 20000 1973 2017 iran__islamic_rep");
-//        });
-//
-//        qrelh1.setOnAction(event -> {
-//            console.appendText("crosswind 40800 10 26 RELH % 20000 1973 2017 iran__islamic_rep");
-//        });
-//
-//        qmixr1.setOnAction(event -> {
-//            console.appendText("crosswind 40800 10 26 MIXR g/kg 20000 1973 2017 iran__islamic_rep");
-//        });
-//
-//        qdrct1.setOnAction(event -> {
-//            console.appendText("crosswind 40800 10 26 DRCT ° 20000 1973 2017           iran__islamic_rep ");
-//        });
-
 
         wind_speed1.setOnAction(event -> {
             console.appendText("ondaystations  10 26 WIND_SPEED m/s 20000 1973 2017 iran__islamic_rep");
@@ -349,10 +377,6 @@ public class Scripting extends Application {
         });
 
 
-        Button closeButton = new Button("X");
-        closeButton.setStyle("-fx-background-radius: 0;-fx-background-color: #ff667d;-fx-text-fill: white");
-
-
         Button minimumbtn = new Button("__");
         minimumbtn.setStyle("-fx-border-radius: 0;-fx-background-radius: 0;" +
                 "-fx-background-color: #353533;" +
@@ -365,13 +389,6 @@ public class Scripting extends Application {
         minimumbtn.setOnAction(event -> {
             ((Stage) ((Button) event.getSource()).getScene().getWindow()).setIconified(true);
         });
-
-
-        closeButton.setMinWidth(30);
-        Button oth = new Button("scripting");
-        oth.setStyle("-fx-background-radius: 0;-fx-border-radius: 0;" +
-                "-fx-background-color: #f8fbee;" +
-                "-fx-text-fill: #B2B2B2;");
 
 
         console.setOnKeyPressed(event -> {
@@ -410,30 +427,12 @@ public class Scripting extends Application {
         layout.getStylesheets().add("/scripting.css");
 
 
-        oth.setMinWidth(scene.getWidth() - 30 - 25);
 
         primaryStage.setScene(scene);
 //        window.setMaximized(true);
         primaryStage.show();
 
-        primaryStage.widthProperty().addListener((observable, oldValue, newValue) -> {
-            oth.setMinWidth(((double) newValue) - 30 - 25);
 
-        });
-
-        oth.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        oth.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
-        oth.setFocusTraversable(false);
-//        closeButton.setFocusTraversable(false);
-        oth.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println(observable.getClass().getName());
-        });
 
 
     }
@@ -447,6 +446,10 @@ public class Scripting extends Application {
 
     interface Run {
         void run(FormInfo formInfo);
+    }
+
+    interface RunSome {
+        void run(SomeDays  someDays);
     }
 
 

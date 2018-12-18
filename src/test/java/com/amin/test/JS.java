@@ -1,15 +1,11 @@
 package com.amin.test;
 
-import com.amin.jsons.Date;
-import com.amin.jsons.Features;
-import com.amin.jsons.SomeDays;
-import com.amin.scripting.Functions;
-import javafx.application.Application;
-import javafx.stage.Stage;
 import org.junit.Test;
 
-import java.lang.reflect.InvocationTargetException;
-import java.time.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.MonthDay;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -23,9 +19,11 @@ public class JS {
         MonthDay monthDay=MonthDay.now();
         final MonthDay monthDay1 = MonthDay.of(2, 29);
         final LocalDate localDate = LocalDate.of(2016, 2, 29);
-        final LocalDate plus1 = localDate.plus(366, ChronoUnit.DAYS);
+        final LocalDate plus1 = localDate.plus(-42-10, ChronoUnit.DAYS);
         final LocalDate localDate1 = localDate.plusDays(1);
         System.out.println(plus1);
+        System.out.println(plus1.getMonth().getValue());
+        System.out.println(plus1.getDayOfMonth());
     }
 
     @Test

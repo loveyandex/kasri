@@ -25,10 +25,11 @@ public class App  extends Application{
                     .setFeaureName("WIND_SPEED")
                     .setHeight("12000")
                     .setFromDate(new Date(10, 26, 1993))
-                    .setToDate(new Date(10, 26, 1993))
                     .setStationNumber("40800")
                     .setHighYear(2017)
                     .setLowerYear(1992)
+                    .setPlusDay(0)
+                    .setMinusDay(-0)
             );
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
