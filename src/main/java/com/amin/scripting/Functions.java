@@ -341,7 +341,7 @@ public class Functions {
 
 
             Charting charting = new Charting(1000, 33000, 1000,
-                    maxMin[1]-1, maxMin[0]+1, ytickUnit, "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
+                    maxMin[1] - 1, maxMin[0] + 1, ytickUnit, "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
             final XYChart<Number, Number> sc = charting.getSc();
             for (int rr = 0; rr < all.size(); rr++) {
                 sc.setTitle(titles.get(rr));
@@ -400,7 +400,10 @@ public class Functions {
         String featureName = someDays.getFeaureName();
         int featureIndexCSV = getfeatureIndex(featureName).getLevelCode() - 1;
         String unit = someDays.getFeatureUnit();
-        ;
+        /**
+         * java time is good for recognizing current date
+         */
+
 
         int fromnumDay = someDays.getFromDate().Day;
         String fromdayOfMonth = (fromnumDay < 10 ? "0" : "") + fromnumDay;
@@ -408,22 +411,22 @@ public class Functions {
         Month frommonth = Month.of(fromMonthInt);
         String frommonthDisp = frommonth.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
 
+        int tonumDay = someDays.getToDate().Day;
+        String todayOfMonth = (tonumDay < 10 ? "0" : "") + tonumDay;
+        int toMonthInt = someDays.getToDate().Month;
+        Month tomonth = Month.of(toMonthInt);
+        String tomonthDisp = tomonth.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+
         String country = someDays.getCountry();
         String stationNumber = someDays.getStationNumber();
         String height = someDays.getHeight();
 
-
-        double lowrange = Double.parseDouble(getfeatureIndex(featureName).getLow_range());
-        double highrange = Double.parseDouble(getfeatureIndex(featureName).getHigh_range());
-
         Charting charting123 = new Charting();
         int cti = charting123.convertTogether(featureName, unit);
-
         Method method;
         method = Charting.class.getMethod("conv" + cti, double.class);
 
         double ytickUnit = ((Double) method.invoke(charting123, 10));
-
 
         ArrayList<Double> knotslist = new ArrayList<>();
         ArrayList<Integer> yearsofFeature = new ArrayList<>();
@@ -434,60 +437,53 @@ public class Functions {
         ArrayList<String> seriecsnAMES = new ArrayList<String>();
         ArrayList<Double> yearsdata = new ArrayList<>();
 
-        for (int id = 0; id < 2; id++) {
-
-            String Z = z[id];
-            for (int i = fromYear; i <= toYear; i++) {
+        for (int i = fromYear; i <= toYear; i++) {
+            for (int id = 0; id < 2; id++) {
+                String Z = z[id];
                 ArrayList<Object> featureAndYear = new ArrayList<>();
-                String rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + monthInt + File.separator + stationNumber;
-                String fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + i + ".csv";
-                ArrayList<ArrayList<Double>> heightAndFeature;
-                try {
-//
-//                    heightAndFeature = charting.addSeriesToChart(featureName
-//                            , fileName.replaceAll(".csv", ""),
-//                            rootDir + File.separator + fileName, 1, featureIndexCSV);
+                while (true) {
+                    if (z.length == 5) break;
 
-//
-//                    heightAndFeature = charting.addSeriesToChart(featureName
-//                            , Z+"_"+i,
-//                            rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
-//
-//
-                    final String title = featureName;
-                    final String seriesName = Z + "_" + i;
-                    heightAndFeature = Charting.returnCOlCol2Data(title
-                            , seriesName,
-                            rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
+                    String rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + fromMonthInt + File.separator + stationNumber;
 
-                    seriecsnAMES.add(seriesName);
-                    titles.add(title);
-                    yearsdata.add((double) i);
-                    all.add(heightAndFeature);
+                    String fileName = Z + "_" + fromdayOfMonth + "_" + frommonthDisp + "_" + i + ".csv";
+                    ArrayList<ArrayList<Double>> heightAndFeature;
+                    try {
+                        final String title = featureName;
+                        final String seriesName = Z + "_" + i;
+                        heightAndFeature = Charting.returnCOlCol2Data(title
+                                , seriesName,
+                                rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
 
-                    Double intrapolatedKnot = intrapolateFeature(height, heightAndFeature);
+                        seriecsnAMES.add(seriesName);
+                        titles.add(title);
+                        yearsdata.add((double) i);
+                        all.add(heightAndFeature);
 
-                    if (intrapolatedKnot != null) {
+                        Double intrapolatedKnot = intrapolateFeature(height, heightAndFeature);
 
-                        knotslist.add(intrapolatedKnot);
-                        featureAndYear.add(((Double) intrapolatedKnot));
-                        featureAndYear.add(i);
-                        featureAndYear.add(unit);
+                        if (intrapolatedKnot != null) {
 
-                        yearsofFeature.add(i);
+                            knotslist.add(intrapolatedKnot);
+                            featureAndYear.add(((Double) intrapolatedKnot));
+                            featureAndYear.add(i);
+                            featureAndYear.add(unit);
 
-                        AllfeatureAndYear.add(featureAndYear);
+                            yearsofFeature.add(i);
+
+                            AllfeatureAndYear.add(featureAndYear);
+                        }
+
+
+                    } catch (IOException e) {
+                        ioExceptions.add(e);
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
                     }
-
-
-                } catch (IOException e) {
-                    ioExceptions.add(e);
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
                 }
             }
         }
@@ -572,8 +568,6 @@ public class Functions {
         }
         return new double[]{MathTerminology.max(maxarrays), MathTerminology.min(minarrays)};
     }
-
-
 
 
     private double returnInterapulate(FormInfo formInfo) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
