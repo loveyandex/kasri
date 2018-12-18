@@ -427,12 +427,11 @@ public class Scripting extends Application {
         layout.getStylesheets().add("/scripting.css");
 
 
-
         primaryStage.setScene(scene);
-//        window.setMaximized(true);
+        primaryStage.heightProperty().addListener((observable, oldValue, newValue) -> console.setPrefHeight(newValue.doubleValue()));
+        primaryStage.widthProperty().addListener((observable, oldValue, newValue) -> console.prefWidthProperty().setValue(newValue));
+
         primaryStage.show();
-
-
 
 
     }

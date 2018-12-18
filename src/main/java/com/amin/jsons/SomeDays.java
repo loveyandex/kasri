@@ -25,6 +25,9 @@ public class SomeDays {
     private int minusDay;
     private int plusDay;
 
+    public SomeDays() {
+    }
+
     public SomeDays(Date fromDate, String feaureName, String stationNumber, String stationName, String country, String height, Number lowerYear, Number highYear, String featureUnit, int minusDay, int plusDay) {
         this.fromDate = fromDate;
         this.feaureName = feaureName;
