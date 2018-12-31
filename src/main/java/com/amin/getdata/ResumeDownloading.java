@@ -98,7 +98,8 @@ public class ResumeDownloading {
 
     private File getFileOFYear(int year, File[] yearsOfCountry) {
         for (File yearOfCountry : yearsOfCountry) {
-            String year_ = yearOfCountry.getName().replaceAll("year_", "");
+            String name = yearOfCountry.getName();
+            String year_ = name.replaceAll("year_", "");
             int year_int = Integer.parseInt(year_);
             if (year_int == year)
                 return yearOfCountry;
