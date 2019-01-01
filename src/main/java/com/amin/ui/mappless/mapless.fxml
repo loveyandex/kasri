@@ -36,18 +36,18 @@
                        onAction="#hypringCuntryname">i know country name
             </Hyperlink>
             <Hyperlink fx:id="radiusLink" layoutX="85.0" layoutY="275.0"
-                       onAction="#radiusAssigning">i know country name
+                       onAction="#radiusAssigning">radius for making predict on stations
             </Hyperlink>
 
 
-        <JFXButton fx:id="cancelbtn" layoutX="58.0" layoutY="288.0" onAction="#handleCancelButtonAction"
+        <JFXButton fx:id="cancelbtn" layoutX="58.0" layoutY="305.0" onAction="#handleCancelButtonAction"
                    prefHeight="40.0"
                    prefWidth="90.0" styleClass="login-button" text="Cancel"/>
 
-        <JFXButton fx:id="KNNbtn" layoutX="170.0" layoutY="288.0" onAction="#knnSolve" prefHeight="40.0"
+        <JFXButton fx:id="KNNbtn" layoutX="170.0" layoutY="305.0" onAction="#knnSolve" prefHeight="40.0"
                    prefWidth="90.0" styleClass="login-button" text="KNN"/>
 
-        <JFXButton fx:id="ANNbtn" layoutX="289.0" layoutY="288.0" onAction="#annSolve" prefHeight="40.0"
+        <JFXButton fx:id="ANNbtn" layoutX="289.0" layoutY="305.0" onAction="#annSolve" prefHeight="40.0"
                    prefWidth="90.0" styleClass="login-button" text="ANN"/>
 
         <FontAwesomeIconView2 glyphName="APPLE" layoutX="200.0" layoutY="79.0" size="25"/>

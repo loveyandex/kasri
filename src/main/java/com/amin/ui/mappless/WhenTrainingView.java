@@ -27,7 +27,7 @@ public class WhenTrainingView extends Application {
 
         JFXTextArea console = new JFXTextArea("");
         console.setMinHeight(660);
-        console.setStyle("-fx-text-fill: #e2e2e2;-fx-font-size: 14px;");
+        console.setStyle("-fx-text-fill: #3f5349;-fx-font-size: 14px;");
 
         console.scrollTopProperty().setValue(100.0);
 

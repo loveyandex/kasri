@@ -6,6 +6,7 @@ import com.amin.config.MathTerminology;
 import com.amin.jsons.Features;
 import com.amin.jsons.FormInfo;
 import com.amin.jsons.OtherFormInfo;
+import com.amin.jsons.SomeDays;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
@@ -25,8 +26,10 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.TextStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Vector;
@@ -51,6 +54,17 @@ public class Functions {
     public void fopen(FormInfo formInfo) {
         try {
             onDayOneHeightOneStation(formInfo);
+        } catch (NoSuchMethodException e) {
+            Dialog.createExceptionDialog(new RuntimeException("choose the right unit"));
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+    public void someDays(SomeDays someDays) {
+        try {
+            someDaysOneHeightOneStations(someDays);
         } catch (NoSuchMethodException e) {
             Dialog.createExceptionDialog(new RuntimeException("choose the right unit"));
         } catch (InvocationTargetException e) {
@@ -240,7 +254,6 @@ public class Functions {
         int featureIndexCSV = getfeatureIndex(featureName).getLevelCode() - 1;
         String unit = formInfo.getFeatureUnit();
 
-
         int numDay = formInfo.getDate().Day;
         String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
         int monthInt = formInfo.getDate().Month;
@@ -261,8 +274,6 @@ public class Functions {
         Method method;
         method = Charting.class.getMethod("conv" + cti, double.class);
 
-        Double invokelowrange = ((double) Math.round(((Double) method.invoke(charting123, lowrange))));
-        Double invokehighrange = ((double) Math.round(((Double) method.invoke(charting123, highrange)))) + 1;
         double ytickUnit = ((Double) method.invoke(charting123, 10));
 
 
@@ -343,7 +354,7 @@ public class Functions {
 
 
             Charting charting = new Charting(1000, 33000, 1000,
-                    maxMin[1]-1, maxMin[0]+1, ytickUnit, "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
+                    maxMin[1] - 1, maxMin[0] + 1, ytickUnit, "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
             final XYChart<Number, Number> sc = charting.getSc();
             for (int rr = 0; rr < all.size(); rr++) {
                 sc.setTitle(titles.get(rr));
@@ -362,7 +373,176 @@ public class Functions {
 
             System.err.println(new Gson().toJson(yearsdata));
             Charting charting2 = new Charting(((int) MathTerminology.min(yearsdata)) - 1, toYear, 1,
-                    invokelowrange, invokehighrange, ytickUnit, "years", featureName + "(" + unit + ")", Charting.LINE_CHART);
+                    maxMin[1] - 1, maxMin[0] + 1, ytickUnit, "years", featureName + "(" + unit + ")", Charting.LINE_CHART);
+            charting2.interpolateChart("interpolate years for " + featureName + " in " + height + " m",
+                    "interpolate", knotslist, yearsofFeature, "avg line val is on ", unit);
+
+
+            final VBox vbox = new VBox();
+            final HBox hbox = new HBox();
+            vbox.getChildren().addAll(sc, charting2.getSc());
+            hbox.setPadding(new Insets(10, 10, 03.10, 10));
+            Parent root = FXMLLoader.load(FormDayController.class.getResource("/com/amin/ui/main/features/day/chart.fxml"));
+            ((VBox) root).getChildren().add(vbox);
+            StageOverride stage = new StageOverride();
+
+
+            stage.setTitle("statistical analysis");
+            root.getStylesheets().add("/chart.css");
+
+            SceneJson sceneJson = new SceneJson<ArrayList>(root, 450, 450);
+
+
+            sceneJson.setJson(AllfeatureAndYear);
+
+            stage.setScene(sceneJson);
+            stage.show();
+
+        } catch (IOException e) {
+            Dialog.createExceptionDialog(e);
+        }
+
+
+    }
+
+
+    public void someDaysOneHeightOneStations(SomeDays someDays) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        if (!AllfeatureAndYear.isEmpty()) AllfeatureAndYear.clear();
+        int fromYear = someDays.getLowerYear().intValue();
+        int toYear = someDays.getHighYear().intValue();
+        String featureName = someDays.getFeaureName();
+        int featureIndexCSV = getfeatureIndex(featureName).getLevelCode() - 1;
+        String unit = someDays.getFeatureUnit();
+        /**
+         * java time is good for recognizing current date
+         */
+
+
+        int fromnumDay = someDays.getFromDate().Day;
+        String fromdayOfMonth = (fromnumDay < 10 ? "0" : "") + fromnumDay;
+        int fromMonthInt = someDays.getFromDate().Month;
+        Month frommonth = Month.of(fromMonthInt);
+        String frommonthDisp = frommonth.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+
+        LocalDate myDate0 = LocalDate.of(fromYear, fromMonthInt, fromnumDay);
+
+        String country = someDays.getCountry();
+        String stationNumber = someDays.getStationNumber();
+        String height = someDays.getHeight();
+
+        Charting charting123 = new Charting();
+        int cti = charting123.convertTogether(featureName, unit);
+        Method method;
+        method = Charting.class.getMethod("conv" + cti, double.class);
+
+        double ytickUnit = ((Double) method.invoke(charting123, 10));
+
+        ArrayList<Double> knotslist = new ArrayList<>();
+        ArrayList<Integer> yearsofFeature = new ArrayList<>();
+
+        String[] z = {"00Z", "12Z"};
+        ArrayList<ArrayList<ArrayList<Double>>> all = new ArrayList<>();
+        ArrayList<String> titles = new ArrayList<>();
+        ArrayList<String> seriecsnAMES = new ArrayList<String>();
+        ArrayList<Double> yearsdata = new ArrayList<>();
+
+        for (int yearIndexer = fromYear; yearIndexer <= toYear; yearIndexer++) {
+            for (int id = 0; id < 2; id++) {
+                String Z = z[id];
+                ArrayList<Object> featureAndYear = new ArrayList<>();
+                int dayIndexer = someDays.getMinusDay();
+                while (true) {
+                    if (dayIndexer > someDays.getPlusDay())
+                        break;
+                   LocalDate myDate = myDate0.plus(dayIndexer, ChronoUnit.DAYS);
+                    final Month month = myDate.getMonth();
+                    final String monthDisplayName = month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+                    final int monthValue = month.getValue();
+
+                    final int dayOfMonth = myDate.getDayOfMonth();
+                    fromdayOfMonth = (dayOfMonth < 10 ? "0" : "") + dayOfMonth;
+                    dayIndexer++;
+
+
+                    String rootDir = C.THIRDY_PATH + File.separator +
+                            country + File.separator + "year_" + yearIndexer + File.separator
+                            + "month_" + monthValue + File.separator + stationNumber;
+
+                    String fileName = Z + "_" + fromdayOfMonth + "_"
+                            + monthDisplayName + "_" + yearIndexer + ".csv";
+
+
+                    ArrayList<ArrayList<Double>> heightAndFeature;
+                    try {
+                        final String title = featureName;
+                        final String seriesName = Z + "_" +monthDisplayName+fromdayOfMonth+"_"+ yearIndexer;
+                        heightAndFeature = Charting.returnCOlCol2Data(title
+                                , seriesName,
+                                rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
+
+                        seriecsnAMES.add(seriesName);
+                        titles.add(title);
+                        yearsdata.add((double) yearIndexer);
+                        all.add(heightAndFeature);
+
+                        Double intrapolatedKnot = intrapolateFeature(height, heightAndFeature);
+
+                        if (intrapolatedKnot != null) {
+
+                            knotslist.add(intrapolatedKnot);
+                            featureAndYear.add(((Double) intrapolatedKnot));
+                            featureAndYear.add(yearIndexer);
+                            featureAndYear.add(unit);
+
+                            yearsofFeature.add(yearIndexer);
+
+                            AllfeatureAndYear.add(featureAndYear);
+                        }
+
+
+                    } catch (IOException e) {
+                        ioExceptions.add(e);
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+//        if (!ioExceptions.isEmpty()) {
+//            Dialog.createIOExceptionDialog(ioExceptions);
+//            ioExceptions.clear();
+//        }
+
+        try {
+
+            final double[] maxMin = maxMin(all);
+
+
+            Charting charting = new Charting(1000, 33000, 1000,
+                    maxMin[1] , ((int) maxMin[0]) + 1, ((int) ytickUnit), "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
+            final XYChart<Number, Number> sc = charting.getSc();
+            for (int rr = 0; rr < all.size(); rr++) {
+                sc.setTitle(titles.get(rr));
+                XYChart.Series series1 = new XYChart.Series();
+                series1.setName(seriecsnAMES.get(rr));
+                final ArrayList<ArrayList<Double>> arrayLists = all.get(rr);
+                for (int g = 0; g < arrayLists.size(); g++) {
+                    final ArrayList<Double> vs = arrayLists.get(g);
+                    series1.getData().add(new XYChart.Data(vs.get(0), vs.get(1)));
+                }
+                sc.getData().addAll(series1);
+
+
+            }
+
+
+            System.err.println(new Gson().toJson(yearsdata));
+            Charting charting2 = new Charting(((int) MathTerminology.min(yearsdata)) - 1, toYear+1, 1,
+                    ((int) maxMin[1]), ((int) maxMin[0]) + 1, ((int) ytickUnit), "years", featureName + "(" + unit + ")", Charting.LINE_CHART);
             charting2.interpolateChart("interpolate years for " + featureName + " in " + height + " m",
                     "interpolate", knotslist, yearsofFeature, "avg line val is on ", unit);
 
@@ -413,8 +593,6 @@ public class Functions {
         }
         return new double[]{MathTerminology.max(maxarrays), MathTerminology.min(minarrays)};
     }
-
-
 
 
     private double returnInterapulate(FormInfo formInfo) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {

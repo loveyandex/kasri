@@ -21,6 +21,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -100,7 +101,7 @@ public class MaplessController implements Initializable {
 
                 Stage stage = new StageOverride();
                 stage.setResizable(true);
-                Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/mappless/otherfield.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/mappless/knn.fxml"));
                 Scene scene = new SceneJson<>(root, 650, 480);
                 ArrayList<Object> objects = new ArrayList<>();
                 objects.add(latLon);
@@ -175,9 +176,11 @@ public class MaplessController implements Initializable {
                     VBox vBox = new VBox(radiusJfxTextField, ok);
                     VBox.setMargin(radiusJfxTextField, new Insets(10, 20, 10, 20));
                     vBox.setAlignment(Pos.CENTER);
-                    Scene sd = new SceneJson<>(vBox, 150, 80);
+                    Scene sd = new SceneJson<>(vBox, 250, 180);
                     primaryStage.setScene(sd);
                     sd.getStylesheets().add("/dark-theme.css");
+                    primaryStage.initOwner(root.getScene().getWindow());
+                    primaryStage.initStyle(StageStyle.UTILITY);
                     primaryStage.show();
                 }
             }.start(new StageOverride());

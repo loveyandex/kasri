@@ -56,7 +56,7 @@ public class MainActivity extends Application {
         primaryStage.setOnShowing(System.out::println);
 
 
-        primaryStage.setTitle("Abolfazl");
+        primaryStage.setTitle("wafsi");
         primaryStage.setScene(scene);
         primaryStage.toBack();
         primaryStage.show();

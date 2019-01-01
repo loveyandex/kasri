@@ -13,7 +13,11 @@ import java.net.URISyntaxException;
  */
 public class StageOverride extends Stage {
     public StageOverride() {
-
+        try {
+            this.getIcons().add(new Image(getClass().getResource("/drawable/baseline_add_location_white_24dp.png").toURI().toString()));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
 
     }
 

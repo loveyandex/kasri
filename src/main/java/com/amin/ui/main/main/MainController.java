@@ -6,6 +6,7 @@ import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.map.LatLongMainApp;
 import com.amin.ui.scripts.ScriptAPP;
+import com.amin.ui.scripts.Scripting;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import javafx.application.Platform;
@@ -197,7 +198,7 @@ public class MainController implements Initializable {
 
     public void openscript(ActionEvent actionEvent) {
         try {
-            new ScriptAPP().start(new StageOverride());
+            new Scripting().start(new StageOverride());
         } catch (Exception e) {
             Dialog.createExceptionDialog(e);
         }
@@ -250,10 +251,6 @@ public class MainController implements Initializable {
         stage.initOwner(rootme.getScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
-
-    }
-
-    public void dd(ActionEvent actionEvent) throws SQLException {
 
     }
 }
