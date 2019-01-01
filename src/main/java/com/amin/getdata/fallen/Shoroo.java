@@ -13,28 +13,37 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.util.*;
 
-public class Shoroo  {
+public class Shoroo {
 
-    public static void main(String[] args) throws MalformedURLException, UnsupportedEncodingException {
+    public static void main(String[] args) throws MalformedURLException, UnsupportedEncodingException, InterruptedException {
         MyReader myReader = new MyReader("config/fallenUrls2.conf");
         Scanner scanner = myReader.getScanner();
+        int ini = 0;
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            String[] split = line.split(";");
-            String countryy = split[0];
-            String url = split[1];
-            Map<String, List<String>> stringListMap = splitQuery(new URL(url));
+            System.out.println(line);
+            ini++;
+            if ( ini> 85000) {
+                System.err.println(ini);
 
-            String year = stringListMap.get("YEAR").get(0);
-            String month = stringListMap.get("MONTH").get(0);
-            String stnm = stringListMap.get("STNM").get(0);
+                String[] split = line.split(";");
+                String countryy = split[0];
+                String url = split[1];
+                Map<String, List<String>> stringListMap = splitQuery(new URL(url));
 
-            String pathDirToSave = C.DATA_PATH + "/" + countryy + "/year_" + (year) + "/month_" + month;
-            Process.getDataStreight(pathDirToSave, url, stnm, year, month);
+                String year = stringListMap.get("YEAR").get(0);
+                String month = stringListMap.get("MONTH").get(0);
+                String stnm = stringListMap.get("STNM").get(0);
 
-            System.out.println(countryy);
-            System.out.println(url);
+                String pathDirToSave = C.DATA_PATH + "/" + countryy + "/year_" + (year) + "/month_" + month;
+                Process.getDataStreight(pathDirToSave, url, stnm, year, month);
 
+                System.out.println(countryy);
+                System.out.println(url);
+
+                Thread.sleep(13000);
+
+            }
         }
     }
 
@@ -53,8 +62,6 @@ public class Shoroo  {
         }
         return query_pairs;
     }
-
-
 
 
 }
