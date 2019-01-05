@@ -122,11 +122,39 @@
             <id>com.teamdev</id>
             <url>http://maven.teamdev.com/repository/products</url>
         </repository>
+        <repository>
+            <id>extdeps</id>
+            <url>https://dl.bintray.com/gregor-laemmel/maven</url>
+        </repository>
     </repositories>
 
 
 
     <dependencies>
+        <dependency>
+            <groupId>org.processing</groupId>
+            <artifactId>pdf</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-1.2-api</artifactId>
+            <version>2.7</version>
+        </dependency>
+        <dependency>
+            <groupId>de.fhpotsdam</groupId>
+            <artifactId>unfolding</artifactId>
+            <version>0.9.6</version>
+            <type>jar</type>
+        </dependency>
+
+
+
         <!-- https://mvnrepository.com/artifact/org.encog/encog-core -->
         <dependency>
             <groupId>org.encog</groupId>
