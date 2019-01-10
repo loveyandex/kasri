@@ -59,8 +59,8 @@ public class MainActivity extends Application {
         primaryStage.setTitle("wafsi");
         primaryStage.setScene(scene);
         primaryStage.toBack();
-        primaryStage.show();
         primaryStage.getIcons().add(new Image(getClass().getResource("/drawable/baseline_add_location_white_24dp.png").toURI().toString()));
+        primaryStage.show();
 //        String image = MainController.class.getResource("/logo.png").toURI().toString();
 //        root.setStyle("-fx-background-image: url('" + image + "'); " +
 //                "-fx-background-position: center center; " +
@@ -77,18 +77,13 @@ public class MainActivity extends Application {
         System.out.println(C.SOCANDARY_DATA_PATH);
         System.out.println(C.THIRDY_PATH);
 
-        new Thread(() -> {
-            try {
-                Thread.sleep(3000);
-                DatabaseHandler.getInstance();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-        }).start();
 
 
         System.out.println("after_out_of_thread");
+    }
+
+    public interface AfterLoaded {
+        void doThis();
     }
 
 }

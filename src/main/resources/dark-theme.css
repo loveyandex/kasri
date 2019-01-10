@@ -11,6 +11,7 @@
     -fx-primary : #989ba1;
     -fx-primary : #7d784d;
     -fx-primary : #f8fbee;
+    -fx-primary: rgba(247, 247, 247, 0.8);
 
 
 
@@ -322,4 +323,25 @@
 }
 .hyperlink{
     -fx-text-fill: rgb(122, 119, 130);
+    -fx-text-fill: rgba(48.452629203989076, 51.573370003584664, 54.86453148626511, 0.909);
+}
+
+.loading {
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+    -fx-font-size: 0pt;
+    -fx-text-alignment: center;
+
+}
+
+.loading:hover, .loading:focused {
+    -fx-text-fill: -fx-primarytext;
+    -fx-background-color: -fx-primary;
+    -fx-border-color: -fx-secondary;
+
+}
+.loading:pressed{
+    -fx-text-fill: -fx-primarytext;
+    -fx-background-color: -fx-primary;
+    -fx-border-color: -fx-secondary;
 }

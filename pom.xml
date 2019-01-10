@@ -110,6 +110,16 @@
     </build>
 
     <repositories>
+
+        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>http://repo.maven.apache.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
         <repository>
             <id>neuroph.sourceforge.net</id>
             <url>http://neuroph.sourceforge.net/maven2/</url>
@@ -131,6 +141,15 @@
 
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.google.flogger/flogger-system-backend -->
+        <dependency>
+            <groupId>com.google.flogger</groupId>
+            <artifactId>flogger-system-backend</artifactId>
+            <version>0.3.1</version>
+            <scope>runtime</scope>
+        </dependency>
+
+
         <dependency>
             <groupId>org.processing</groupId>
             <artifactId>pdf</artifactId>
@@ -265,19 +284,8 @@
             <artifactId>icu4j</artifactId>
             <version>61.1</version>
         </dependency>
-        <dependency>
-            <groupId>com.jfoenix</groupId>
-            <artifactId>jfoenix</artifactId>
-            <version>8.0.4</version>
-        </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>10.14.2.0</version>
-            <scope>test</scope>
-        </dependency>
+
         <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
         <dependency>
             <groupId>commons-codec</groupId>
@@ -599,7 +607,31 @@
             <artifactId>derby</artifactId>
             <version>10.14.2.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.afester.javafx/FranzXaver -->
+        <dependency>
+            <groupId>com.github.afester.javafx</groupId>
+            <artifactId>FranzXaver</artifactId>
+            <version>0.1</version>
+        </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.google.flogger/flogger -->
+        <dependency>
+            <groupId>com.google.flogger</groupId>
+            <artifactId>flogger</artifactId>
+            <version>0.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-1.0-sdk</artifactId>
+            <version>1.9.54</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.cloud/gcloud-java-logging -->
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>gcloud-java-logging</artifactId>
+            <version>0.2.8</version>
+        </dependency>
 
     </dependencies>
 
