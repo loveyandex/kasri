@@ -12,7 +12,7 @@
 
   ;Name and file
   Name "Wafsi"
-  OutFile "StartMenu.exe"
+  OutFile "Wafsi-setup.exe"
 
   ;Default installation folder
   InstallDir "$LOCALAPPDATA\Wafsi"
@@ -31,12 +31,15 @@
 ;--------------------------------
 ;Interface Settings
 
-  !define MUI_ABORTWARNING
-
+!define MUI_ABORTWARNING
+!define MUI_ICON "F:\Pictures\2000px_tensorflow_logo_svg_1__V7d_icon.ico"
+!define MUI_HEADERIMAGE
+!define MUI_HEADERIMAGE_BITMAP "E:\Downloads\compass-rose-303605_960_720.bmp"
+!define MUI_HEADERIMAGE_RIGHT
 ;--------------------------------
 ;Pages
 
-  !insertmacro MUI_PAGE_LICENSE "${NSISDIR}\Docs\Modern UI\License.txt"
+  !insertmacro MUI_PAGE_LICENSE "C:\Users\AminAbvaal\Desktop\Jetbrains 2018.3 All Products Patch 2018-11-24\License.txt"
   !insertmacro MUI_PAGE_COMPONENTS
   !insertmacro MUI_PAGE_DIRECTORY
   
@@ -66,7 +69,7 @@ Section "core"
   
   ;ADD YOUR OWN FILES HERE...
   ; Put file there
-  File /r "C:\Users\AminAbvaal\Desktop\Jetbrains 2018.3 All Products Patch 2018-11-24\*"
+  File /r "C:\Users\AminAbvaal\Desktop\react\New folder\*"
   
   ;Store installation folder
   WriteRegStr HKCU "Software\Wafsi" "" $INSTDIR
@@ -78,9 +81,9 @@ Section "core"
     
     ;Create shortcuts
     CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
-    CreateShortcut "$SMPROGRAMS\$StartMenuFolder\king.lnk" "$INSTDIR\AnyDesk.exe"
+    CreateShortcut "$SMPROGRAMS\$StartMenuFolder\Wafsi.lnk" "$INSTDIR\Wafsi.exe"
     CreateShortcut "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk" "$INSTDIR\Uninstall.exe"
-	CreateShortcut "$desktop\king.lnk" "$INSTDIR\AnyDesk.exe"
+	CreateShortcut "$desktop\Wafsi.lnk" "$INSTDIR\Wafsi.exe"
   
   !insertmacro MUI_STARTMENU_WRITE_END
 
@@ -106,7 +109,7 @@ Section "Uninstall"
 
   Delete "$INSTDIR\Uninstall.exe"
   
-  Delete   "$desktop\king.lnk"
+  Delete   "$desktop\Wafsi.lnk"
   
 
   RMDir /r  "$INSTDIR"
@@ -114,7 +117,7 @@ Section "Uninstall"
   !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuFolder
     
   Delete "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk"
-  Delete "$SMPROGRAMS\$StartMenuFolder\king.lnk"
+  Delete "$SMPROGRAMS\$StartMenuFolder\Wafsi.lnk"
   RMDir "$SMPROGRAMS\$StartMenuFolder"
 
   

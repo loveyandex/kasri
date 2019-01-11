@@ -292,6 +292,7 @@ public class Functions {
             for (int i = fromYear; i <= toYear; i++) {
                 ArrayList<Object> featureAndYear = new ArrayList<>();
                 String rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + monthInt + File.separator + stationNumber;
+                System.err.println(rootDir);
                 String fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + i + ".csv";
                 ArrayList<ArrayList<Double>> heightAndFeature;
                 try {

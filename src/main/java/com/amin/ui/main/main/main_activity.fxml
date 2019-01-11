@@ -125,7 +125,7 @@
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="/drawable/script_white.png"/>
+                                <Image  url="/drawable/script-31.png"/>
                             </image>
                         </ImageView>
 
@@ -280,7 +280,7 @@
         <VBox fx:id="isloadingvbox" alignment="BOTTOM_CENTER">
             <ImageView>
                 <image>
-                    <Image url="/drawable/Spinner-1s-200px16.gif"/>
+                    <Image url="/drawable/Spinner-1s-200px20.gif"/>
                 </image>
             </ImageView>
             <Label style="-fx-font-size: 14px;">is loading database...please wait to get ready</Label>

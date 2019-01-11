@@ -1,5 +1,6 @@
 package com.amin.ui.dialogs;
 
+import com.amin.config.C;
 import com.jfoenix.controls.JFXSnackbar;
 import eu.hansolo.enzo.notification.Notification;
 import javafx.event.ActionEvent;
@@ -23,7 +24,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import static com.amin.config.C.writePropertie;
+import static com.amin.config.C.*;
 
 public class Dialog {
 
@@ -126,7 +127,14 @@ public class Dialog {
                 directoryChooser.showDialog(primaryStage);
         if (selectedDirectory != null) {
             try {
-                writePropertie(data_path, selectedDirectory.getCanonicalPath());
+                String path = selectedDirectory.getCanonicalPath();
+                writePropertie(data_path, path);
+                if (data_path.equals(SOCANDARY_DATA_PATH_NAME))
+                    C.SOCANDARY_DATA_PATH = path;
+                else if (data_path.equals(C.DATA_PATH_NAME))
+                    C.DATA_PATH = path;
+                else if (data_path.equals(THIRDY_PATH_NAME))
+                    C.THIRDY_PATH = path;
 
                 // Create a custom Notification without icon
 //                Notification info = new Notification("", "God is great");
@@ -134,7 +142,8 @@ public class Dialog {
 //            Notification.Notifier.INSTANCE.notify(info);
                 Notification.Notifier instance = Notification.Notifier.INSTANCE;
                 instance.setPopupLifetime(Duration.INDEFINITE);
-                instance.notifySuccess("success", "the data path is assigned successfully.");
+                instance.setPopupLifetime(Duration.seconds(2));
+                instance.notifySuccess("success", "the path is assigned successfully.");
 
 
             } catch (IOException e) {

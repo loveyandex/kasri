@@ -73,6 +73,7 @@ public class MainActivity extends Application {
         if (C.THIRDY_PATH.isEmpty())
             Dialog.createDataDirChooser("thirdy_data_path");
 
+        System.out.println("now path is");
         System.out.println(C.DATA_PATH);
         System.out.println(C.SOCANDARY_DATA_PATH);
         System.out.println(C.THIRDY_PATH);

@@ -21,13 +21,21 @@ public class C {
     public static final String APP_PROP_PATH = "/application.properties";
     public static final int NowYear = 2017;
     public static final int FIRST_YEAR = 1973;
-    public static String DATA_PATH= "E:\\neuronman\\world";
-    public static String SOCANDARY_DATA_PATH="G:\\new6";
-    public static String THIRDY_PATH="G:\\lastdir";
+//    public static String DATA_PATH= "E:\\neuronman\\world";
+//    public static String SOCANDARY_DATA_PATH="G:\\new6";
+//    public static String THIRDY_PATH="G:\\lastdir";
+
+    public static String DATA_PATH= "";
+    public static String SOCANDARY_DATA_PATH="";
+    public static String THIRDY_PATH="";
+    public static String DATA_PATH_NAME= "data_path";
+    public static String SOCANDARY_DATA_PATH_NAME="secondary_data_path";
+    public static String THIRDY_PATH_NAME="thirdy_data_path";
 
     static {
         try {
-            DATA_PATH = readPropertieVal("data_path");
+            DATA_PATH = readPropertieVal(DATA_PATH_NAME);
+            System.out.println(DATA_PATH);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (URISyntaxException e) {
@@ -37,7 +45,7 @@ public class C {
 
     static {
         try {
-            SOCANDARY_DATA_PATH = readPropertieVal("secondary_data_path");
+            SOCANDARY_DATA_PATH = readPropertieVal(SOCANDARY_DATA_PATH_NAME);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (URISyntaxException e) {
@@ -48,7 +56,8 @@ public class C {
 
     static {
         try {
-            THIRDY_PATH = readPropertieVal("thirdy_data_path");
+            THIRDY_PATH = readPropertieVal(THIRDY_PATH_NAME);
+            System.out.println(C.THIRDY_PATH);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (URISyntaxException e) {
