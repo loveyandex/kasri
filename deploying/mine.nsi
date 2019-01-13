@@ -104,13 +104,11 @@ SectionEnd
 ;Uninstaller Section
 
 Section "Uninstall"
-
   ;ADD YOUR OWN FILES HERE...
 
   Delete "$INSTDIR\Uninstall.exe"
   
   Delete   "$desktop\Wafsi.lnk"
-  
 
   RMDir /r  "$INSTDIR"
   
@@ -120,7 +118,6 @@ Section "Uninstall"
   Delete "$SMPROGRAMS\$StartMenuFolder\Wafsi.lnk"
   RMDir "$SMPROGRAMS\$StartMenuFolder"
 
-  
   DeleteRegKey /ifempty HKCU "Software\Wafsi"
 
 SectionEnd
