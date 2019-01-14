@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
 <VBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.amin.ui.RawMiningActivity">
     <VBox fx:id="vbox2">
@@ -23,10 +24,10 @@
 
                 <Button fx:id="chooseDir2" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false"
                         onAction="#secondMining" text=" choose a country for second csv" textAlignment="CENTER"/>
+          <HBox.margin>
+              <Insets><right>122</right></Insets>
+          </HBox.margin>
             </HBox>
-
-            <Button fx:id="allinon" alignment="BOTTOM_CENTER" contentDisplay="CENTER" mnemonicParsing="false"
-                    onAction="#allinone" text="all file in one folder" textAlignment="CENTER"/>
 
             <ProgressBar fx:id="progress"  prefWidth="Infinity" visible="false"></ProgressBar>
 
