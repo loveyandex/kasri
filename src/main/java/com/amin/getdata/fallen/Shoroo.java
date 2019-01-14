@@ -23,7 +23,7 @@ public class Shoroo {
             String line = scanner.nextLine();
             System.out.println(line);
             ini++;
-            if ( ini> 85000) {
+            if ( ini> 87000) {
                 System.err.println(ini);
 
                 String[] split = line.split(";");
