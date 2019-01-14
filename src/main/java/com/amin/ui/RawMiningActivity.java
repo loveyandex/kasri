@@ -55,8 +55,8 @@ public class RawMiningActivity extends Application implements Runnable {
     public void choosoe(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-                new FileChooser.ExtensionFilter("PNG", "*.png"),
+                new FileChooser.ExtensionFilter("jpg", "*.jpg"),
+                new FileChooser.ExtensionFilter("png", "*.png"),
                 new FileChooser.ExtensionFilter("All Files", "*.*")
         );
         fileChooser.setTitle("Open Resource File");
@@ -106,7 +106,7 @@ public class RawMiningActivity extends Application implements Runnable {
                     if (yearFile.isDirectory()) {
                         File[] months = yearFile.listFiles();
                         for (File month : months) {
-                            String rootpathDirToSave = C.DATA_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName();
+                            String rootpathDirToSave = C.SOCANDARY_DATA_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName();
                             System.out.println(rootpathDirToSave);
                             if (month.isDirectory()) {
                                 File[] stations = month.listFiles();
@@ -159,13 +159,14 @@ public class RawMiningActivity extends Application implements Runnable {
                                 for (File station : stations) {
                                     if (station.isDirectory() && !station.getName().contains("item2")) {
 
-                                        String rootpathDir = C.SOCANDARY_DATA_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName() + File.separator + station.getName();
+                                        String rootpathDir = C.THIRDY_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName() + File.separator + station.getName();
 
                                         File[] days = station.listFiles();
                                         for (File day : days) {
                                             if (day.isFile()) {
                                                 try {
-                                                    new SecondMining(day.getParent(), day.getName()).createCSVInPath(rootpathDir);
+                                                    new SecondMining(day.getParent(), day.getName())
+                                                            .createCSVInPath(rootpathDir);
 
                                                 } catch (IOException e) {
                                                     System.err.println(day.getPath());
