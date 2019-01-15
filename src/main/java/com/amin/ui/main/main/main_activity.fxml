@@ -67,8 +67,12 @@
                            styleClass="toolbar-button"
                            text="on day in height" textAlignment="CENTER">
                     <graphic>
-                        <WeatherIconView glyphName="CLOUD"/>
-                        <!--<FontAwesomeIconView glyphName="AT"  size="25" />-->
+                        <ImageView>
+                            <image>
+                                <Image  url="/drawable/day2.png"/>
+                            </image>
+                        </ImageView>
+
                     </graphic>
                 </JFXButton>
                 <JFXButton fx:id="ondayallheights" contentDisplay="TOP"
@@ -82,7 +86,7 @@
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="/drawable/1x/baseline_add_location_white_24dp.png"/>
+                                <Image  url="/drawable/altitudes51px51px.png"/>
                             </image>
                         </ImageView>
 
@@ -93,11 +97,15 @@
                            mnemonicParsing="false"
                            onAction="#allstationsinone"
                            prefHeight="100.0"
-                           prefWidth="160.0"
+                           prefWidth="180.0"
                            styleClass="toolbar-button"
-                           text="${'stations \n in one day'}" textAlignment="CENTER">
+                           text="${'stns of country one day'}" textAlignment="CENTER">
                     <graphic>
-                        <FontAwesomeIconView glyphName="TABLE" size="25"/>
+                        <ImageView>
+                            <image>
+                                <Image  url="/drawable/nodes.png"/>
+                            </image>
+                        </ImageView>
                     </graphic>
                 </JFXButton>
                 <JFXButton fx:id="wholeconcurrent" contentDisplay="TOP" layoutX="10.0" layoutY="81.0"
@@ -106,18 +114,14 @@
                            prefHeight="100.0" styleClass="toolbar-button"
                            text="in whole of year" textAlignment="CENTER">
                     <graphic>
-                        <FontAwesomeIconView glyphName="TABLE" size="25"/>
+                        <ImageView>
+                            <image>
+                                <Image  url="/drawable/year.png"/>
+                            </image>
+                        </ImageView>
                     </graphic>
                 </JFXButton>
-                <!--<JFXButton fx:id="wholeparallel" contentDisplay="TOP" layoutX="10.0" layoutY="81.0"-->
-                <!--mnemonicParsing="false"-->
-                <!--onAction="#wholestationsallyear"-->
-                <!--prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"-->
-                <!--text="in whole of year" textAlignment="CENTER">-->
-                <!--<graphic>-->
-                <!--<FontAwesomeIconView glyphName="TABLE" size="25"/>-->
-                <!--</graphic>-->
-                <!--</JFXButton>-->
+
                 <JFXButton fx:id="scriptbtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#openscript"
                            prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
                            text="script functions"
@@ -125,7 +129,7 @@
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image  url="/drawable/script-31.png"/>
+                                <Image  url="/drawable/funcs.png"/>
                             </image>
                         </ImageView>
 
@@ -133,12 +137,12 @@
                 </JFXButton>
                 <JFXButton fx:id="mapbtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#onMap"
                            prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
-                           text="script functions"
+                           text="map"
                            textAlignment="CENTER">
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="/drawable/map.png"/>
+                                <Image url="/drawable/map1.png"/>
                             </image>
                         </ImageView>
 
@@ -150,7 +154,11 @@
                            onAction="#onMapless" prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
                            text="MapLess" textAlignment="CENTER">
                     <graphic>
-                        <FontAwesomeIconView glyphName="COG" size="25"/>
+                        <ImageView>
+                            <image>
+                                <Image url="/drawable/mapless.png"/>
+                            </image>
+                        </ImageView>
                     </graphic>
                 </JFXButton>
             </HBox>
