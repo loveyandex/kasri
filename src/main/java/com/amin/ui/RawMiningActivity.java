@@ -44,6 +44,10 @@ public class RawMiningActivity extends Application implements Runnable {
         this.primaryStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource(C.RAW_FMXL_PATH));
 
+        System.out.println("amin");
+        System.out.println(C.DATA_PATH+" DATA_PATH");
+        System.out.println(C.SOCANDARY_DATA_PATH+" Secondary");
+        System.out.println(C.THIRDY_PATH +" Third");
 
         Scene scene = new Scene(root, 1000, 500);
 
@@ -98,36 +102,37 @@ public class RawMiningActivity extends Application implements Runnable {
         final File kasriDate =
                 directoryChooser.showDialog(primaryStage);
         if (kasriDate != null) {
-
+            new Thread(() -> {
             File[] countries = kasriDate.listFiles();
             for (File country : countries) {
+                System.out.println(country.getAbsolutePath());
                 File[] yerarFiles = country.listFiles();
                 for (File yearFile : yerarFiles) {
                     if (yearFile.isDirectory()) {
                         File[] months = yearFile.listFiles();
                         for (File month : months) {
-                            String rootpathDirToSave = C.DATA_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName();
-                            System.out.println(rootpathDirToSave);
-                            if (month.isDirectory()) {
-                                File[] stations = month.listFiles();
-                                for (File station :
-                                        stations) {
-                                    if (station.isFile()) {
 
-                                        try {
-                                            new RawMining(station.getParent(), station.getName())
-                                                    .readAndWriteFile(rootpathDirToSave);
-                                        } catch (FileNotFoundException e) {
-                                            System.err.println(station.getPath());
-                                            Methods.writeFallenUrls(station.getPath(), "config/crashStationsPatternsPathFiles.conf");
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
+                                String rootpathDirToSave = C.SOCANDARY_DATA_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName();
+                                System.out.println(rootpathDirToSave);
+                                if (month.isDirectory()) {
+                                    File[] stations = month.listFiles();
+                                    for (File station :
+                                            stations) {
+                                        if (station.isFile()) {
+
+                                            try {
+                                                new RawMining(station.getParent(), station.getName())
+                                                        .readAndWriteFile(rootpathDirToSave);
+                                            } catch (FileNotFoundException e) {
+                                                System.err.println(station.getPath());
+                                                Methods.writeFallenUrls(station.getPath(), "config/crashStationsPatternsPathFiles.conf");
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
                                         }
                                     }
                                 }
-                            }
                         }
-
 
                     } else {
 
@@ -135,10 +140,12 @@ public class RawMiningActivity extends Application implements Runnable {
                 }
 
             }
-            progress.setProgress(100);
+
+            }).start();
             System.err.println(kasriDate.getAbsolutePath());
         }
-    }
+
+}
 
 
     public void secondMining(ActionEvent actionEvent) {
@@ -159,7 +166,7 @@ public class RawMiningActivity extends Application implements Runnable {
                                 for (File station : stations) {
                                     if (station.isDirectory() && !station.getName().contains("item2")) {
 
-                                        String rootpathDir = C.SOCANDARY_DATA_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName() + File.separator + station.getName();
+                                        String rootpathDir = C.THIRDY_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName() + File.separator + station.getName();
 
                                         File[] days = station.listFiles();
                                         for (File day : days) {

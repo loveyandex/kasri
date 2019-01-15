@@ -131,16 +131,21 @@
                         </ImageView>
 
                     </graphic>
-
-
                 </JFXButton>
-                <JFXButton fx:id="mapbtn" contentDisplay="TOP" layoutX="10.0" layoutY="223.0" mnemonicParsing="false"
-                           onAction="#onMap" prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
-                           text="Map" textAlignment="CENTER">
+                <JFXButton fx:id="mapbtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#onMap"
+                           prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
+                           text="script functions"
+                           textAlignment="CENTER">
                     <graphic>
-                        <FontAwesomeIconView glyphName="COG" size="25"/>
+                        <ImageView>
+                            <image>
+                                <Image url="/drawable/map.png"/>
+                            </image>
+                        </ImageView>
+
                     </graphic>
                 </JFXButton>
+
                 <JFXButton fx:id="maplessbtn" contentDisplay="TOP" layoutX="10.0" layoutY="223.0"
                            mnemonicParsing="false"
                            onAction="#onMapless" prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
