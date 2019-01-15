@@ -92,8 +92,7 @@
 .menu-item:focused {
     -fx-selection-bar:white;
     -fx-background-color: gray;
-    -fx-background-color: #fff2f9;
-    -fx-text-fill: -fx-secondary;
+    -fx-text-fill: rgb(255, 255, 255);
 }
 .context-menu
 {

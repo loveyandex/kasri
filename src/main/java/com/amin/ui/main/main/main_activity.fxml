@@ -258,11 +258,11 @@
                     </heading>
                     <body>
                         <VBox>
-                            <Label>Weather Analysis &amp; Flight Simulation internationally
+                            <Label style="-fx-text-fill: #65673b">Weather Analysis &amp; Flight Simulation internationally
                             </Label>
                             <HBox>
-                                <Label>Developer :</Label>
-                                <Label style="-fx-text-fill: #7d8049">Abolfazl Ghahremani</Label>
+                                <Label style="-fx-text-fill: #5a4420">Developing by :</Label>
+                                <Label style="-fx-text-fill: #6c6f3f">Ab... Ghah...</Label>
 
                             </HBox>
                         </VBox>
