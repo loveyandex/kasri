@@ -2,12 +2,11 @@
 
 <?language JavaScript?>
 <?import com.jfoenix.controls.*?>
-<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.weathericons.WeatherIconView?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="rootme" prefHeight="400" prefWidth="1150"
       xmlns="http://javafx.com/javafx/8.0.1" fx:controller="com.amin.ui.main.main.MainController"
@@ -96,7 +95,7 @@
                            prefHeight="100.0"
                            prefWidth="160.0"
                            styleClass="toolbar-button"
-                           text="${'all stations \n in one day'}" textAlignment="CENTER">
+                           text="${'stations \n in one day'}" textAlignment="CENTER">
                     <graphic>
                         <FontAwesomeIconView glyphName="TABLE" size="25"/>
                     </graphic>
@@ -105,20 +104,20 @@
                            mnemonicParsing="false"
                            onAction="#wholestationsallyearmthread"
                            prefHeight="100.0" styleClass="toolbar-button"
-                           text="in whole of year multithred" textAlignment="CENTER">
-                    <graphic>
-                        <FontAwesomeIconView glyphName="TABLE" size="25"/>
-                    </graphic>
-                </JFXButton>
-                <JFXButton fx:id="wholeparallel" contentDisplay="TOP" layoutX="10.0" layoutY="81.0"
-                           mnemonicParsing="false"
-                           onAction="#wholestationsallyear"
-                           prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
                            text="in whole of year" textAlignment="CENTER">
                     <graphic>
                         <FontAwesomeIconView glyphName="TABLE" size="25"/>
                     </graphic>
                 </JFXButton>
+                <!--<JFXButton fx:id="wholeparallel" contentDisplay="TOP" layoutX="10.0" layoutY="81.0"-->
+                <!--mnemonicParsing="false"-->
+                <!--onAction="#wholestationsallyear"-->
+                <!--prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"-->
+                <!--text="in whole of year" textAlignment="CENTER">-->
+                <!--<graphic>-->
+                <!--<FontAwesomeIconView glyphName="TABLE" size="25"/>-->
+                <!--</graphic>-->
+                <!--</JFXButton>-->
                 <JFXButton fx:id="scriptbtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#openscript"
                            prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
                            text="script functions"
@@ -126,7 +125,7 @@
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="/drawable/script_white.png"/>
+                                <Image  url="/drawable/script-31.png"/>
                             </image>
                         </ImageView>
 
@@ -165,7 +164,7 @@
                         <HBox>
 
                             <HBox>
-                                <Label layoutX="200" style="-fx-text-fill: #b3b3b3;" text="${'one day  '}"/>
+                                <Label layoutX="200" style="-fx-text-fill: #bfbfbf;" text="${'one day  '}"/>
                                 <HBox.margin>
                                     <Insets>
                                         <right>20</right>
@@ -196,7 +195,7 @@
                         <HBox>
 
                             <HBox>
-                                <Label layoutX="200" style="-fx-text-fill: #b3b3b3;" text="${'open script '}"/>
+                                <Label layoutX="200" style="-fx-text-fill: #b3b3b3;" text="${'open script'}"/>
                                 <HBox.margin>
                                     <Insets>
                                         <right>20</right>
@@ -211,7 +210,7 @@
 
                         <HBox>
                             <HBox>
-                                <Label layoutX="200" style="-fx-text-fill: #b3b3b3;" text="${'open Mapless'}"/>
+                                <Label layoutX="200" style="-fx-text-fill: #b3b3b3;" text="${'open MapLess'}"/>
                                 <HBox.margin>
                                     <Insets>
                                         <right>10</right>
@@ -264,11 +263,11 @@
                     </heading>
                     <body>
                         <VBox>
-                            <Label>Weather Analysis &amp; Flight Simulation internationally
+                            <Label style="-fx-text-fill: #65673b">Weather Analysis &amp; Flight Simulation internationally
                             </Label>
                             <HBox>
-                                <Label>Developer :</Label>
-                                <Label style="-fx-text-fill: #7d8049">Abolfazl Ghahremani</Label>
+                                <Label style="-fx-text-fill: #5a4420">Developing by :</Label>
+                                <Label style="-fx-text-fill: #6c6f3f">Ab... Ghah...</Label>
 
                             </HBox>
                         </VBox>
@@ -283,6 +282,14 @@
 
 
         </StackPane>
+        <VBox fx:id="isloadingvbox" alignment="BOTTOM_CENTER">
+            <ImageView>
+                <image>
+                    <Image url="/drawable/Spinner-1s-200px20.gif"/>
+                </image>
+            </ImageView>
+            <Label style="-fx-font-size: 14px;">is loading database...please wait to get ready</Label>
+        </VBox>
 
     </children>
 </VBox>

@@ -56,7 +56,7 @@ public final class DatabaseHandler {
             System.out.println("Already loaded tables " + loadedTables);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(DatabaseHandler.class.getClass().getResourceAsStream("/database/tables.xml"));
+            Document doc = dBuilder.parse(DatabaseHandler.class.getResourceAsStream("/database/tables.xml"));
             NodeList nList = doc.getElementsByTagName("table-entry");
             for (int i = 0; i < nList.getLength(); i++) {
                 Node nNode = nList.item(i);

@@ -1,5 +1,6 @@
 package com.amin.ui.main.main;
 
+import com.amin.database.database.DatabaseHandler;
 import com.amin.getdata.Starter;
 import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
@@ -46,6 +47,7 @@ public class MainController implements Initializable {
     public MenuBar menuBar;
     public StackPane stackpane;
     public JFXButton acceptButton;
+    public VBox isloadingvbox;
     @FXML
     private VBox rootme;
     @FXML
@@ -59,15 +61,22 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        StageOverride.shiftToEnterEvent(ondayoneheight, ondayallheights, allstninoneday, wholeconcurrent, wholeparallel, scriptbtn, mapbtn, maplessbtn);
+
+        new Thread(() -> {
+            DatabaseHandler.getInstance();
+            isloadingvbox.setVisible(false);
+//            Platform.runLater(() -> primaryStage.show());
+        }).start();
+
+        StageOverride.shiftToEnterEvent(ondayoneheight, ondayallheights, allstninoneday, wholeconcurrent, scriptbtn, mapbtn, maplessbtn);
 
         Platform.runLater(() -> {
-            dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM
-            );
+            dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM);
             dialog.show(stackpane);
             dialog.close();
 
         });
+
         rootme.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.D && event.isControlDown()) {
                 onday(null);

@@ -9,6 +9,7 @@ import com.amin.scripting.Functions;
 import com.amin.scripting.wind.Wind;
 import com.amin.ui.SceneJson;
 import com.amin.ui.dialogs.Dialog;
+import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -197,10 +198,10 @@ public class Scripting extends Application {
 
 
         Menu editMenu = new Menu("samples");
-        Menu onday = new Menu("samples onday");
-        Menu someDays = new Menu("samples somedays");
+        Menu onday = new Menu(" onday");
+        Menu someDays = new Menu(" somedays");
         Menu crosswindmenu = new Menu("cross wind onday");
-        Menu ondaystations = new Menu("samples onday over the state");
+        Menu ondaystations = new Menu(" onday over the state");
 
         final MenuItem wind_speed = new MenuItem("wind speed");
         final MenuItem temp = new MenuItem("temp");
@@ -269,19 +270,13 @@ public class Scripting extends Application {
         final MenuItem qdrct1 = new MenuItem("DRCT");
 
         crosswindmenu.getItems().addAll(
-                qwind_speed1/*,
-                qtemp1,
-                qDWPT1,
-                qpress1,
-                qrelh1,
-                qmixr1,
-                qdrct1*/
+                qwind_speed1
         );
 
         editMenu.getItems().add(crosswindmenu);
 
 
-        TextArea console = new TextArea(">>onday 40800 10 26 PRES hPa 8999 1999 2017 iran__islamic_rep\n>>");
+        JFXTextArea console = new JFXTextArea(">>onday 40800 10 26 PRES hPa 8999 1999 2017 iran__islamic_rep\n>>");
         console.setMinSize(900, 220);
 //        console.setStyle("-fx-base: #fff3f8;\n" +
 //                " -fx-control-inner-background: #f8fbee");
@@ -385,11 +380,9 @@ public class Scripting extends Application {
         minimumbtn.getStyleClass().add(".btn:hover{\n" +
                 "    -fx-background-color: #eb5f48; -fx-text-fill: white;}");
 
-
         minimumbtn.setOnAction(event -> {
             ((Stage) ((Button) event.getSource()).getScene().getWindow()).setIconified(true);
         });
-
 
         console.setOnKeyPressed(event -> {
             final KeyCode code = event.getCode();
@@ -401,9 +394,7 @@ public class Scripting extends Application {
                 if (split.length == 10) {
                     console.setText(">>");
                     console.positionCaret(console.getText().length());
-
                 }
-
                 final String x = split[split.length - 1].replaceAll("\n", "");
                 scripting(x);
                 System.out.println(x);
@@ -416,25 +407,21 @@ public class Scripting extends Application {
         file.getMenus().addAll(
                 fileMenu,
                 editMenu
-
         );
 
         layout = new BorderPane();
         layout.setTop(vBox);
-        ;
 
-        Scene scene = new SceneJson<>(layout, 900, 450, Color.rgb(75, 75, 69));
-        layout.getStylesheets().add("/scripting.css");
-
+        Scene scene = new SceneJson<>(layout, 900, 450);
+        layout.getStylesheets().add("/dark-theme.css");
 
         primaryStage.setScene(scene);
         primaryStage.heightProperty().addListener((observable, oldValue, newValue) -> console.setPrefHeight(newValue.doubleValue()));
         primaryStage.widthProperty().addListener((observable, oldValue, newValue) -> console.prefWidthProperty().setValue(newValue));
 
         primaryStage.show();
-
-
     }
+
 
     @Override
     public void stop() throws Exception {
@@ -450,6 +437,4 @@ public class Scripting extends Application {
     interface RunSome {
         void run(SomeDays  someDays);
     }
-
-
 }
