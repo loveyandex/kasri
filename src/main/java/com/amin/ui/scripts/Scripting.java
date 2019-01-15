@@ -1,6 +1,7 @@
 package com.amin.ui.scripts;
 
 import com.amin.analysis.Mapping;
+import com.amin.config.C;
 import com.amin.jsons.Date;
 import com.amin.jsons.FormInfo;
 import com.amin.jsons.OtherFormInfo;
@@ -17,7 +18,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -111,7 +111,7 @@ public class Scripting extends Application {
 
             try {
 
-                String dirpath = "config/old-stations";
+                String dirpath = C.STATES_PATH;
                 String fileName = country + ".conf";
 
                 File dir = new File(dirpath);
@@ -121,7 +121,7 @@ public class Scripting extends Application {
                     Mapping.createCSVFILEFORStations(dirpath, fileName);
 
                 stationNumTOCities = Mapping.
-                        MapStationNumTOCities("config/old-stations/" + country + ".conf.csv");
+                        MapStationNumTOCities(C.STATES_PATH +"/" + country + ".conf.csv");
 
 
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {

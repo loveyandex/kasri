@@ -2,6 +2,7 @@ package com.amin.runonce;
 
 import com.amin.analysis.CONNECTIONTYPE;
 import com.amin.analysis.Mapping;
+import com.amin.config.C;
 
 import java.io.File;
 
@@ -16,7 +17,7 @@ public class MB {
         File file = new File(rootparent);
         king(rootparent, file);
 
-        final String rootparent2 = "config/old-stations";
+        final String rootparent2 = C.STATES_PATH;
         File file2 = new File(rootparent2);
         king(rootparent2, file2);
 

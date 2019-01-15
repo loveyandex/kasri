@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
@@ -76,6 +77,11 @@ public class MainController implements Initializable {
             dialog.close();
 
         });
+
+        Tooltip tooltip1 = new Tooltip("on day one height");
+        ondayoneheight.setTooltip(tooltip1);
+
+
 
         rootme.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.D && event.isControlDown()) {

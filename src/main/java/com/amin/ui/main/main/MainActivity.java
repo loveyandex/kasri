@@ -59,7 +59,7 @@ public class MainActivity extends Application {
         primaryStage.setTitle("wafsi");
         primaryStage.setScene(scene);
         primaryStage.toBack();
-        primaryStage.getIcons().add(new Image(getClass().getResource("/drawable/baseline_add_location_white_24dp.png").toURI().toString()));
+        primaryStage.getIcons().add(new Image(getClass().getResource("/drawable/uav.png").toURI().toString()));
         primaryStage.show();
 //        String image = MainController.class.getResource("/logo.png").toURI().toString();
 //        root.setStyle("-fx-background-image: url('" + image + "'); " +
