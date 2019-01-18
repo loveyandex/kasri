@@ -49,6 +49,7 @@ public class MainController implements Initializable {
     public StackPane stackpane;
     public JFXButton acceptButton;
     public VBox isloadingvbox;
+    public JFXButton earth;
     @FXML
     private VBox rootme;
     @FXML
@@ -266,6 +267,19 @@ public class MainController implements Initializable {
         stage.initOwner(rootme.getScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
+
+    }
+
+    public void earth(ActionEvent actionEvent) {
+        new Thread(() ->{     try {
+            Runtime.getRuntime().exec("cmd.exe /k start earth-server.bat");
+            Runtime.getRuntime().exec("cmd.exe /k cd positron && amin.exe");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        }).start();
+
 
     }
 }

@@ -161,6 +161,18 @@
                         </ImageView>
                     </graphic>
                 </JFXButton>
+                <JFXButton fx:id="earth" contentDisplay="TOP" layoutX="10.0" layoutY="223.0"
+                           mnemonicParsing="false"
+                           onAction="#earth" prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
+                           text="MapLess" textAlignment="CENTER">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="/drawable/earth.jpg"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
             </HBox>
 
             <VBox>
