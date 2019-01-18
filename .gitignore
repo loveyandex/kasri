@@ -13,5 +13,7 @@ samples-data/*
 /jbjb
 /dbderby
 /positron
+!positron/resources/
 /nodejs
 /earth/node_modules
+
