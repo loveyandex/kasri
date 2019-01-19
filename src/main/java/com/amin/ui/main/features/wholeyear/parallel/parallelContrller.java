@@ -261,7 +261,7 @@ public class parallelContrller implements Initializable {
             try {
                 formInfo.setCountry(newValue.getText());
 
-                String dirpath = "config/old-stations";
+                String dirpath = C.STATES_PATH;
                 String fileName = newValue.getText() + ".conf";
 
                 File dir = new File(dirpath);
@@ -271,7 +271,7 @@ public class parallelContrller implements Initializable {
                     Mapping.createCSVFILEFORStations(dirpath, fileName);
 
                 stationNumTOCities = Mapping.
-                        MapStationNumTOCities("config/old-stations/" + newValue.getText() + ".conf.csv");
+                        MapStationNumTOCities(C.STATES_PATH +"/" + newValue.getText() + ".conf.csv");
 
 
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {

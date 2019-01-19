@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
@@ -48,6 +49,7 @@ public class MainController implements Initializable {
     public StackPane stackpane;
     public JFXButton acceptButton;
     public VBox isloadingvbox;
+    public JFXButton earth;
     @FXML
     private VBox rootme;
     @FXML
@@ -76,6 +78,11 @@ public class MainController implements Initializable {
             dialog.close();
 
         });
+
+        Tooltip tooltip1 = new Tooltip("on day one height");
+        ondayoneheight.setTooltip(tooltip1);
+
+
 
         rootme.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.D && event.isControlDown()) {
@@ -260,6 +267,19 @@ public class MainController implements Initializable {
         stage.initOwner(rootme.getScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
+
+    }
+
+    public void earth(ActionEvent actionEvent) {
+        new Thread(() ->{     try {
+            Runtime.getRuntime().exec("cmd.exe /k start earth-server.bat");
+            Runtime.getRuntime().exec("cmd.exe /k cd positron && amin.exe");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        }).start();
+
 
     }
 }

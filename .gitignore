@@ -12,3 +12,8 @@ samples-data/*
  run-parallel/build/
 /jbjb
 /dbderby
+/positron
+!positron/resources/
+/nodejs
+/earth/node_modules
+

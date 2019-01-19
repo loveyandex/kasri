@@ -254,7 +254,7 @@ public class FormDayController implements Initializable {
                 formInfo.setStationNumber(null);
                 formInfo.setCountry(newValue.getText());
 
-                String dirpath = "config/old-stations";
+                String dirpath = C.STATES_PATH;
                 String fileName = newValue.getText() + ".conf";
 
                 File dir = new File(dirpath);
@@ -264,7 +264,7 @@ public class FormDayController implements Initializable {
                     Mapping.createCSVFILEFORStations(dirpath, fileName);
 
                 stationNumTOCities = Mapping.
-                        MapStationNumTOCities("config/old-stations/" + newValue.getText() + ".conf.csv");
+                        MapStationNumTOCities(C.STATES_PATH +"/" + newValue.getText() + ".conf.csv");
 
                 final Collection<String> values = stationNumTOCities.values();
                 List<String> lisst = new ArrayList<>(values);

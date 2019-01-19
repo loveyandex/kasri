@@ -1,5 +1,6 @@
 package test.io;
 
+import com.amin.config.C;
 import com.amin.io.MyWriter;
 
 import java.io.File;
@@ -13,7 +14,7 @@ import java.util.LinkedList;
 public class Exce {
     public static void main(String[] args) throws IOException {
         MyWriter myWriter = new MyWriter("config", "old-exception-stations.conf", true);
-        File file = new File("config/old-stations");
+        File file = new File(C.STATES_PATH);
         if (file.isDirectory()) {
             File[] files = file.listFiles();
             for (int i = 0; i < files.length; i++) {
