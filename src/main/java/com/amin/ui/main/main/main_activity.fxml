@@ -137,7 +137,7 @@
                 </JFXButton>
                 <JFXButton fx:id="mapbtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#onMap"
                            prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
-                           text="map"
+                           text="map online"
                            textAlignment="CENTER">
                     <graphic>
                         <ImageView>
