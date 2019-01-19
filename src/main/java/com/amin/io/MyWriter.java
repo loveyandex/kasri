@@ -28,6 +28,18 @@ public class MyWriter {
             e.printStackTrace();
         }
     }
+    public MyWriter(String abthpathfile, boolean append) {
+        try {
+            File file = new File(abthpathfile);
+
+            fileOutputStream = new FileOutputStream(file, append);
+            outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public void appendStringInFile(String s) throws IOException {

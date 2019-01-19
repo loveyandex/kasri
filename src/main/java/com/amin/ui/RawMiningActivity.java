@@ -30,7 +30,7 @@ import java.util.List;
  * is created by aMIN on 5/31/2018 at 06:50
  */
 
-public class RawMiningActivity extends Application implements Runnable {
+public class RawMiningActivity extends Application {
     private static Stage primaryStage;
     public Button okBtn;
     public Button chooseDir;
@@ -105,11 +105,12 @@ public class RawMiningActivity extends Application implements Runnable {
                 directoryChooser.showDialog(primaryStage);
         if (kasriDate != null) {
             new Thread(() -> {
+                progress.setVisible(true);
                 File[] countries = kasriDate.listFiles();
                 for (File country : countries) {
                     System.out.println(country.getAbsolutePath());
                     int a = Character.getNumericValue(country.getName().charAt(0));
-                    System.out.println("a "+a);
+                    System.out.println("a " + a);
                     if (a < 29)
                         continue;
 
@@ -164,33 +165,37 @@ public class RawMiningActivity extends Application implements Runnable {
     public void secondMining(ActionEvent actionEvent) {
         final DirectoryChooser directoryChooser =
                 new DirectoryChooser();
-        final File kasriDate =
-                directoryChooser.showDialog(primaryStage);
+        final File kasriDate = new File(C.SOCANDARY_DATA_PATH);
+        kasriDate.mkdir();
         if (kasriDate != null) {
-            File[] countries = kasriDate.listFiles();
-            for (File country : countries) {
-                File[] yerarFiles = country.listFiles();
-                for (File yearFile : yerarFiles) {
-                    if (yearFile.isDirectory()) {
-                        File[] months = yearFile.listFiles();
-                        for (File month : months) {
-                            if (month.isDirectory()) {
-                                File[] stations = month.listFiles();
-                                for (File station : stations) {
-                                    if (station.isDirectory() && !station.getName().contains("item2")) {
+            new Thread(() -> {
+                progress.setVisible(true);
+                File[] countries = kasriDate.listFiles();
+                for (File country : countries) {
+                    File[] yerarFiles = country.listFiles();
+                    for (File yearFile : yerarFiles) {
+                        if (yearFile.isDirectory()) {
+                            File[] months = yearFile.listFiles();
+                            for (File month : months) {
+                                if (month.isDirectory()) {
+                                    System.out.println(month.getAbsolutePath());
+                                    File[] stations = month.listFiles();
+                                    for (File station : stations) {
+                                        if (station.isDirectory() && !station.getName().contains("item2")) {
 
-                                        String rootpathDir = C.THIRDY_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName() + File.separator + station.getName();
+                                            String rootpathDir = C.THIRDY_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName() + File.separator + station.getName();
 
-                                        File[] days = station.listFiles();
-                                        for (File day : days) {
-                                            if (day.isFile()) {
-                                                try {
-                                                    new SecondMining(day.getParent(), day.getName()).createCSVInPath(rootpathDir);
+                                            File[] days = station.listFiles();
+                                            for (File day : days) {
+                                                if (day.isFile()) {
+                                                    try {
+                                                        new SecondMining(day.getParent(), day.getName()).createCSVInPath(rootpathDir);
 
-                                                } catch (IOException e) {
-                                                    System.err.println(day.getPath());
-                                                    Methods.writeFallenUrls(day.getPath(), "config/crashDayCSVCreatorPatternOr.conf");
+                                                    } catch (IOException e) {
+                                                        System.err.println(day.getPath());
+                                                        Methods.writeFallenUrls(day.getPath(), "config/crashDayCSVCreatorPatternOr.conf");
 
+                                                    }
                                                 }
                                             }
                                         }
@@ -200,19 +205,13 @@ public class RawMiningActivity extends Application implements Runnable {
                         }
                     }
                 }
-            }
-            progress.setProgress(100);
+            }).start();
             System.err.println(kasriDate.getAbsolutePath());
         }
     }
 
-    @Override
-    public void run() {
-        progress.setVisible(true);
-    }
 
     public void chooseForRaw(ActionEvent actionEvent) {
-        new Thread(this).start();
         rawMining();
     }
 
