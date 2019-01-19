@@ -19,6 +19,12 @@ public class Tes {
         Map<String, List<String>> stringListMap = splitQuery(url);
         System.out.println(new Gson().toJson(stringListMap));
     }
+    @Test
+    public void test23() throws MalformedURLException, UnsupportedEncodingException {
+        int a = Character.getNumericValue("u".charAt(0));
+        System.out.println(a);
+
+    }
 
     public static Map<String, List<String>> splitQuery(URL url) throws UnsupportedEncodingException {
         final Map<String, List<String>> query_pairs = new LinkedHashMap<String, List<String>>();
@@ -34,5 +40,9 @@ public class Tes {
         }
         return query_pairs;
     }
+
+
+
+
 
 }

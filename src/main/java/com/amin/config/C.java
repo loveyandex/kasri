@@ -10,6 +10,7 @@ import java.util.Properties;
  */
 public class C {
     public static final String STATES_PATH = "config/states";
+    public static final String STATIONS_PATH = "config/stations";
     public static final String PATH_TO_RAW_DIR_ROOT = System.getProperty("user.dir");
     public static final String PATH_TO_RAW_DIR_MONTH_RANDOM = "";
     public static final String OTHER = "";

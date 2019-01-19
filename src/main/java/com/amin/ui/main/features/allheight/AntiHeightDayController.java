@@ -282,7 +282,7 @@ public class AntiHeightDayController implements Initializable {
                 formInfo.setStationNumber(null);
                 formInfo.setCountry(newValue.getText());
 
-                String dirpath = "config/stations";
+                String dirpath = C.STATES_PATH;;
                 String fileName = newValue.getText() + ".conf";
 
                 File dir = new File(dirpath);
@@ -292,7 +292,7 @@ public class AntiHeightDayController implements Initializable {
                     Mapping.createCSVFILEFORStations(dirpath, fileName);
 
                 stationNumTOCities = Mapping.
-                        MapStationNumTOCities("config/stations/" + newValue.getText() + ".conf.csv");
+                        MapStationNumTOCities(dirpath+File.separator+ newValue.getText() + ".conf.csv");
 
 
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {

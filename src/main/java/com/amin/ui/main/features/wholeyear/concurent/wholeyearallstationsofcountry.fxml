@@ -19,7 +19,14 @@
 
         <JFXTabPane fx:id="jfxtab" style="-fx-alignment: center">
 
-            <Tab text="req1">
+            <Tab text="">
+                <graphic>
+                    <ImageView>
+                        <image>
+                            <Image url="/drawable/config.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
 
 
                 <GridPane fx:id="rootNode" alignment="TOP_CENTER" prefHeight="2500.0" prefWidth="600.0"
@@ -146,7 +153,7 @@
 
             </Tab>
 
-            <Tab text="req2">
+            <Tab text=""> <graphic>                 <ImageView>                     <image>                         <Image url="/drawable/config.png"/>                     </image>                 </ImageView>             </graphic>
                 <VBox fx:id="rootNodetab2" alignment="TOP_CENTER"
                       style="-fx-padding: 40px 0px 0px 0px" stylesheets="/dark-theme.css">
                     <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">

@@ -276,7 +276,7 @@ public class AllStationsOfCountryController extends StaticFunctions implements I
             try {
                 formInfo.setCountry(newValue.getText());
 
-                String dirpath = "config/stations";
+                String dirpath = C.STATES_PATH;;
                 String fileName = newValue.getText() + ".conf";
 
                 File dir = new File(dirpath);
@@ -286,7 +286,7 @@ public class AllStationsOfCountryController extends StaticFunctions implements I
                     Mapping.createCSVFILEFORStations(dirpath, fileName);
 
                 stationNumTOCities = Mapping.
-                        MapStationNumTOCities("config/stations/" + newValue.getText() + ".conf.csv");
+                        MapStationNumTOCities(dirpath+File.separator+ newValue.getText() + ".conf.csv");
 
 
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {

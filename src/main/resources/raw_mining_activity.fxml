@@ -23,7 +23,7 @@
                         onAction="#chooseForRaw" text="choose a country for raw minig" textAlignment="CENTER"/>
 
                 <Button fx:id="chooseDir2" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false"
-                        onAction="#secondMining" text=" choose a country for second csv" textAlignment="CENTER"/>
+                        onAction="#secondMining" text=" choose the world folder for third csv" textAlignment="CENTER"/>
           <HBox.margin>
               <Insets><right>122</right></Insets>
           </HBox.margin>

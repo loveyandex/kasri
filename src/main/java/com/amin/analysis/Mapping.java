@@ -30,7 +30,6 @@ public class Mapping {
     final static Connection connectionDerby = DatabaseHandler.getInstance().getConnection();
 
     static public void createCSVFILEFORStations(String Dirpath, String fileName) throws IOException {
-
         FileReader reader = new FileReader(Dirpath + File.separator + fileName);
         Scanner scanner = new Scanner(reader);
         String total = "";
