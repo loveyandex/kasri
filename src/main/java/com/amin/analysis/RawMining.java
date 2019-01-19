@@ -66,16 +66,21 @@ public class RawMining implements Runnable {
 
             if (isItem(line, "<item1>")) {
                 String subitem1 = "";
-                while (!(subitem1 = scanner.nextLine()).contains("</item1>")) {
-                    item1.append(subitem1 + "\r\n");
+                try {
+                    while (!(subitem1 = scanner.nextLine()).contains("</item1>")) {
+                        item1.append(subitem1 + "\r\n");
+                    }
+                } catch (java.util.NoSuchElementException exception) {
+
                 }
+
             } else
                 continue;
             writeInFileInOnce(RootpathDirToSave + File.separator + fileName.replaceAll(".data", ""), getFileName, item1, true);
 
 //            System.out.println(item1);
 
-            line = scanner.nextLine();
+            line = scanner.hasNextLine()?scanner.nextLine():"";
             if (isItem(line, "<item2>")) {
                 String subitem2 = "";
                 while (!(subitem2 = scanner.nextLine()).contains("</item2>"))

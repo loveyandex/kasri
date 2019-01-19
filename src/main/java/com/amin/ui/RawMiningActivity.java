@@ -45,15 +45,17 @@ public class RawMiningActivity extends Application implements Runnable {
         Parent root = FXMLLoader.load(getClass().getResource(C.RAW_FMXL_PATH));
 
         System.out.println("amin");
-        System.out.println(C.DATA_PATH+" DATA_PATH");
-        System.out.println(C.SOCANDARY_DATA_PATH+" Secondary");
-        System.out.println(C.THIRDY_PATH +" Third");
+        System.out.println(C.DATA_PATH + " DATA_PATH");
+        System.out.println(C.SOCANDARY_DATA_PATH + " Secondary");
+        System.out.println(C.THIRDY_PATH + " Third");
 
         Scene scene = new Scene(root, 1000, 500);
 
         primaryStage.setTitle("");
         primaryStage.setScene(scene);
         primaryStage.show();
+        System.out.println("myth " + Thread.activeCount());
+
     }
 
     public void choosoe(ActionEvent actionEvent) {
@@ -103,14 +105,19 @@ public class RawMiningActivity extends Application implements Runnable {
                 directoryChooser.showDialog(primaryStage);
         if (kasriDate != null) {
             new Thread(() -> {
-            File[] countries = kasriDate.listFiles();
-            for (File country : countries) {
-                System.out.println(country.getAbsolutePath());
-                File[] yerarFiles = country.listFiles();
-                for (File yearFile : yerarFiles) {
-                    if (yearFile.isDirectory()) {
-                        File[] months = yearFile.listFiles();
-                        for (File month : months) {
+                File[] countries = kasriDate.listFiles();
+                for (File country : countries) {
+                    System.out.println(country.getAbsolutePath());
+                    int a = Character.getNumericValue(country.getName().charAt(0));
+                    System.out.println("a "+a);
+                    if (a < 29)
+                        continue;
+
+                    File[] yerarFiles = country.listFiles();
+                    for (File yearFile : yerarFiles) {
+                        if (yearFile.isDirectory()) {
+                            File[] months = yearFile.listFiles();
+                            for (File month : months) {
 
                                 String rootpathDirToSave = C.SOCANDARY_DATA_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName();
                                 System.out.println(rootpathDirToSave);
@@ -132,20 +139,26 @@ public class RawMiningActivity extends Application implements Runnable {
                                         }
                                     }
                                 }
+                            }
+
+                        } else {
+
                         }
-
-                    } else {
-
                     }
+                    System.out.println("threads " + Thread.getAllStackTraces().keySet().size());
+                    System.out.println("threads2 " + Thread.activeCount());
+
+
                 }
 
-            }
 
             }).start();
             System.err.println(kasriDate.getAbsolutePath());
+            System.out.println("main thread come over from here");
         }
 
-}
+
+    }
 
 
     public void secondMining(ActionEvent actionEvent) {
