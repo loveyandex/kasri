@@ -2,8 +2,6 @@ package com.amin.analysis;
 
 import com.amin.config.C;
 import com.amin.database.database.DatabaseHandler;
-import com.amin.ui.dialogs.Dialog;
-import com.google.gson.Gson;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -20,10 +18,6 @@ import java.util.Scanner;
  */
 public class Mapping {
     public static void main(String[] args) throws IOException {
-
-        String abspathfile = "config/countries.configfile.conf";
-        final ArrayList<String> fileLines = getFileLines(abspathfile);
-        System.err.println(new Gson().toJson(fileLines));
 
     }
 
@@ -357,35 +351,10 @@ public class Mapping {
 
                 }};
                 output.add(inoutput);
-
-//                System.out.println(citiLat);
-//                System.out.println(citiLong);
-
             }
             return output;
-
-
         }
 
-        public void createBigConfigFile() {
-
-            File file = new File("config");
-            file.mkdirs();
-            File[] files = file.listFiles();
-
-            for (File f : files) {
-                if (f.isFile()) {
-                    if (f.getName().contains(".conf.csv")) {
-                        try {
-                            writeStringInFile("config", "countries.configfile.conf", new StringBuilder(f.getName() + "\r\n"), true);
-                        } catch (IOException e) {
-                            Dialog.createExceptionDialog(e);
-                        }
-                    }
-
-                }
-            }
-        }
 
         public void delimiteCSVColsWriteFile(boolean append, String pathDirToSave, String childFileName, String... colsvalue) throws IOException {
             File dir = new File(pathDirToSave);
