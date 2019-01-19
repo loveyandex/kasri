@@ -10,6 +10,7 @@ import java.util.Properties;
  */
 public class C {
     public static final String STATES_PATH = "config/states";
+    public static final String DATA_PATHES_LOC = "config/datapath.properties";
     public static final String STATIONS_PATH = "config/stations";
     public static final String PATH_TO_RAW_DIR_ROOT = System.getProperty("user.dir");
     public static final String PATH_TO_RAW_DIR_MONTH_RANDOM = "";
@@ -71,11 +72,12 @@ public class C {
     public static String readPropertieVal(String key) throws IOException, URISyntaxException {
 
 
-        final String name = "/application.properties";
-        final URL resource = C.class.getResource(name);
-        final InputStream resourceAsStream = C.class.getResourceAsStream(name);
-
-        File file = new File(resource.toURI().toString());
+//        final String name = "/application.properties";
+//        final URL resource = C.class.getResource(name);
+//        final InputStream resourceAsStream = C.class.getResourceAsStream(name);
+//
+//        File file = new File(resource.toURI().toString());
+        File file = new File(DATA_PATHES_LOC);
 
         if (!file.exists())
             System.err.println("not existed");
@@ -84,9 +86,7 @@ public class C {
 
 //        FileInputStream in = new FileInputStream(file);
         Properties properties = new Properties();
-        properties.load(resourceAsStream);
-        resourceAsStream.close();
-
+        properties.load(new FileInputStream(file));
         String pval = properties.getProperty(key);
         return pval;
 
@@ -96,8 +96,7 @@ public class C {
     public static void writePropertie(String key, String value) throws IOException, URISyntaxException {
 
 
-        final URL resource = C.class.getClassLoader().getResource("application.properties");
-        File file = new File(resource.toURI());
+        File file = new File(C.DATA_PATHES_LOC);
 
         if (!file.exists())
             System.err.println("not existed2");
