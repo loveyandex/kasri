@@ -39,7 +39,7 @@
 ;--------------------------------
 ;Pages
 
-  !insertmacro MUI_PAGE_LICENSE "C:\Users\AminAbvaal\Desktop\Jetbrains 2018.3 All Products Patch 2018-11-24\License.txt"
+  !insertmacro MUI_PAGE_LICENSE "C:\Users\AminAbvaal\Desktop\License.txt"
   !insertmacro MUI_PAGE_COMPONENTS
   !insertmacro MUI_PAGE_DIRECTORY
   
@@ -69,7 +69,7 @@ Section "core"
   
   ;ADD YOUR OWN FILES HERE...
   ; Put file there
-  File /r "C:\Users\AminAbvaal\Desktop\react\New folder\*"
+  File /r "F:\apps\jvm\kasri-deploy\*"
   
   ;Store installation folder
   WriteRegStr HKCU "Software\Wafsi" "" $INSTDIR
