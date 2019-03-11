@@ -21,7 +21,7 @@ public class Tes {
     }
     @Test
     public void test23() throws MalformedURLException, UnsupportedEncodingException {
-        int a = Character.getNumericValue("u".charAt(0));
+        int a = Character.getNumericValue("c".charAt(0));
         System.out.println(a);
 
     }

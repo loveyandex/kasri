@@ -172,6 +172,11 @@ public class RawMiningActivity extends Application {
                 progress.setVisible(true);
                 File[] countries = kasriDate.listFiles();
                 for (File country : countries) {
+                    System.out.println(country.getAbsolutePath());
+                    int a = Character.getNumericValue(country.getName().charAt(0));
+                    System.out.println("a " + a);
+                    if (a < 12)
+                        continue;
                     File[] yerarFiles = country.listFiles();
                     for (File yearFile : yerarFiles) {
                         if (yearFile.isDirectory()) {
@@ -182,7 +187,6 @@ public class RawMiningActivity extends Application {
                                     File[] stations = month.listFiles();
                                     for (File station : stations) {
                                         if (station.isDirectory() && !station.getName().contains("item2")) {
-
                                             String rootpathDir = C.THIRDY_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName() + File.separator + station.getName();
 
                                             File[] days = station.listFiles();
