@@ -74,14 +74,9 @@ public class KNN {
         System.out.println(dle);
         System.out.println(real_distance(lat1, long1, lat1, long1 + dle));
         System.out.println(real_distance(90, 0, -90, 0));
-
-
         final double delalf = 360 / 999d;
         double disradius = 100;
-
-
         final ResultSet resultSet = exeing();
-
         while (resultSet.next()) {
             final String station = resultSet.getString(1);
             final String country = resultSet.getString(2);
@@ -94,15 +89,10 @@ public class KNN {
             if (real_distance < 10) {
                 System.err.println(real_distance);
                 System.out.println(stacitinametion + "...." + lati + "  " + longi);
-
-
             }
-
         }
         long time = System.nanoTime() - start;
         System.out.printf("Each XXXXX took an average of %f ms%n", time / 1e6d);
-
-
     }
 
 
@@ -114,13 +104,14 @@ public class KNN {
                 "where station!='NULL'");
         return executeQuery;
     }
+
     public static ResultSet exeing(String country) throws SQLException {
         final Statement statement = DatabaseHandler.getInstance().getConnection().createStatement();
 
         final ResultSet executeQuery = statement.executeQuery("select *\n" +
                 "from stations\n" +
 //                "where station!='NULL'");
-                "where station!='NULL' and country like '" + country+"%'");
+                "where station!='NULL' and country like '" + country + "%'");
         return executeQuery;
     }
 
@@ -143,20 +134,20 @@ public class KNN {
             final String longi = resultSet.getString(5);
 //            System.out.println(lat1);
 //            System.out.print(long1);
-            final double real_distance = real_distance(lat1, long1, Double.parseDouble(lati), Double.parseDouble(longi));
-            if (real_distance < maximum_distance_km) {
+            final double real_distance1 = real_distance(lat1, long1, Double.parseDouble(lati), Double.parseDouble(longi));
+            if (real_distance1 < maximum_distance_km) {
 //                station = new Station(stationnumber, country, stacitinametion,
 //                        true, new LatLon(Double.parseDouble(lati), Double.parseDouble(longi))
-//                        , real_distance);
+//                        , real_distance1);
 
                 final double temp = calcFeatureValue(stationnumber, country);
                 if (temp == -1000000)
                     continue;
                 else {
-                    expection += real_distance * temp;
-                    sum_distance += real_distance;
+                    expection += real_distance1 * temp;
+                    sum_distance += real_distance1;
 
-                    System.err.println(real_distance);
+                    System.err.println(real_distance1);
                     System.err.println(stacitinametion + "...." + lati + "  " + longi);
                 }
             }

@@ -175,52 +175,6 @@ public class Process implements Runnable {
         return years;
     }
 
-    public static void oldstart() {
-        Stack<String> years = getYears();
-        outerloop:
-        for (int k = 0; k < Starter.COUNTRIES.length; k++) {
-
-            try {
-                Methods.getStationNumber("config/states/" + Starter.COUNTRIES[k] + ".conf"
-                        , "config/stations/" + Starter.COUNTRIES[k] + "-stations.conf");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-//"G:/Program Files/AMinAbvall/kasridata
-
-            for (int i = 0; i < years.size(); i++) {
-                for (int j = 1; j <= 12; j++) {
-                    if (Starter.mustStop)
-                        break outerloop;
-                    System.out.println("year is > " + years.get(i) + " month: > " + j + "  is started dowing");
-                    CrashedCountry = Starter.COUNTRIES[k];
-
-                    String pathDirToSave = Starter.ABSOLUTE_ROOT_PATH + "/" + Starter.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j);
-                    Process.getData(pathDirToSave,
-                            "config/stations/" + Starter.COUNTRIES[k] + "-stations.conf"
-                            , years.get(i)
-                            , String.valueOf(j));
-                    try {
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-                try {
-                    Thread.sleep(20000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }
-
-        System.out.println("finished all stations");
-
-    }
-
 
     public static void start() {
         final ArrayList<DeatailsDownloading> deatailsDownloadings = new ResumeDownloading().checkAndFindDowaloads();

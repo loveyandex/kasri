@@ -13,13 +13,6 @@ import static java.lang.Math.min;
 
 public class ResumeDownloading {
 
-    public static void main(String[] args) {
-        ArrayList<DeatailsDownloading> deatailsDownloadings = new ResumeDownloading().checkAndFindDowaloads();
-        System.err.println(new Gson().toJson(deatailsDownloadings));
-
-    }
-
-
     public ArrayList<DeatailsDownloading> checkAndFindDowaloads() {
         System.out.println(C.DATA_PATH);
         File rootDirectory = new File(C.DATA_PATH);
@@ -27,16 +20,17 @@ public class ResumeDownloading {
             File[] countries = rootDirectory.listFiles();
             ArrayList<DeatailsDownloading> deatailsDownloadings = neverDowns(countries);
             System.err.println(new Gson().toJson(deatailsDownloadings));
-            for (int i = 0; i < countries.length; i++) {
-                File country = countries[i];
-                if (country.isDirectory()) {
-                    String name = country.getName();
-                    File[] yearsOfCountry = country.listFiles();
-                    ArrayList<DeatailsDownloading.Year> _yearsOfCountry = analysYears(yearsOfCountry);
-                    deatailsDownloadings.add(0, new DeatailsDownloading(name, _yearsOfCountry, C.NowYear));
-
-                }
-            }
+//            for (int i = 0; i < countries.length; i++) {
+//                File country = countries[i];
+//                if (country.isDirectory()) {
+//                    String name = country.getName();
+//                    File[] yearsOfCountry = country.listFiles();
+//                    ArrayList<DeatailsDownloading.Year> _yearsOfCountry = analysYears(yearsOfCountry);
+//                    deatailsDownloadings.add(0, new DeatailsDownloading(name, _yearsOfCountry, C.NowYear));
+//
+//                }
+//            }
+            System.out.println(new Gson().toJson(deatailsDownloadings));
             return deatailsDownloadings;
         }
         throw new RuntimeException("why code has reached here!!!");

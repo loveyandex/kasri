@@ -1,5 +1,6 @@
 package com.amin.ui.main.main;
 
+import com.amin.config.C;
 import com.amin.database.database.DatabaseHandler;
 import com.amin.getdata.Starter;
 import com.amin.ui.SceneJson;
@@ -32,6 +33,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import static com.amin.config.C.*;
 
 /**
  * is created by aMIN on 5/30/2018 at 21:54
@@ -81,7 +84,6 @@ public class MainController implements Initializable {
 
         Tooltip tooltip1 = new Tooltip("on day one height");
         ondayoneheight.setTooltip(tooltip1);
-
 
 
         rootme.setOnKeyPressed(event -> {
@@ -267,19 +269,29 @@ public class MainController implements Initializable {
         stage.initOwner(rootme.getScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
-
     }
 
     public void earth(ActionEvent actionEvent) {
-        new Thread(() ->{     try {
-            Runtime.getRuntime().exec("cmd.exe /k start earth-server.bat");
-            Runtime.getRuntime().exec("cmd.exe /k cd positron && amin.exe");
+        new Thread(() -> {
+            try {
+                Runtime.getRuntime().exec("cmd.exe /k start earth-server.bat");
+                Runtime.getRuntime().exec("cmd.exe /k cd positron && amin.exe");
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }).start();
 
 
+    }
+
+    public void clear(ActionEvent actionEvent) throws IOException, URISyntaxException {
+        writePropertie(C.THIRDY_PATH_NAME, "");
+        writePropertie(C.DATA_PATH_NAME, "");
+        writePropertie(C.SOCANDARY_DATA_PATH_NAME, "");
+
+        C.THIRDY_PATH="";
+        C.SOCANDARY_DATA_PATH = "";
+        C.DATA_PATH = "";
     }
 }

@@ -134,9 +134,9 @@ public class MaplessController implements Initializable {
     public void hypringCityname(ActionEvent actionEvent) throws Exception {
 
         new SearchingView((latLon) -> {
-            final double nearst = KNN.nearst(300, latLon);
-            System.out.println(nearst);
-            LatLongFXMLController.SnackBar.showSnack(root, String.valueOf(nearst), 2333);
+//            final double nearst = KNN.nearst(300, latLon);
+//            System.out.println(nearst);
+//            LatLongFXMLController.SnackBar.showSnack(root, String.valueOf(nearst), 2333);
             longitude.setText(String.valueOf(latLon.getLogn()));
             latitude.setText(String.valueOf(latLon.getLat()));
         }).start(new Stage());
@@ -144,14 +144,14 @@ public class MaplessController implements Initializable {
     }
 
     public void hypringCuntryname(ActionEvent actionEvent) throws Exception {
-
-        new SearchingView((latLon) -> {
-            final double nearst = KNN.nearst(300, latLon);
-            System.out.println(nearst);
-            LatLongFXMLController.SnackBar.showSnack(root, String.valueOf(nearst), 2333);
-            longitude.setText(String.valueOf(latLon.getLogn()));
-            latitude.setText(String.valueOf(latLon.getLat()));
-        }).start(new Stage());
+//
+//        new SearchingView((latLon) -> {
+//            final double nearst = KNN.nearst(300, latLon);
+//            System.out.println(nearst);
+//            LatLongFXMLController.SnackBar.showSnack(root, String.valueOf(nearst), 2333);
+//            longitude.setText(String.valueOf(latLon.getLogn()));
+//            latitude.setText(String.valueOf(latLon.getLat()));
+//        }).start(new Stage());
 
     }
 

@@ -8,7 +8,8 @@
 <?import org.controlsfx.control.RangeSlider?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vvv" stylesheets="/light-theme2.css"
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vvv"
+      stylesheets="/dark-theme.css"
       xmlns="http://javafx.com/javafx/8.0.121"
       fx:controller="com.amin.ui.mappless.ANNController">
 
@@ -17,7 +18,7 @@
         <Tab text=""> <graphic>                 <ImageView>                     <image>                         <Image url="/drawable/config.png"/>                     </image>                 </ImageView>             </graphic>
             <GridPane fx:id="rootNode" alignment="TOP_CENTER" prefHeight="2500.0" prefWidth="600.0"
                       style="-fx-padding: 40px 0px 0px 0px">
-                <Label focusTraversable="true"
+                <Label  styleClass="lb" focusTraversable="true"
                        stylesheets="/stage.css"
                        text="choose a feature"
                        GridPane.columnIndex="0" GridPane.rowIndex="0"/>
@@ -33,7 +34,7 @@
                     </GridPane.margin>
                 </JFXComboBox>
 
-                <Label focusTraversable="true"
+                <Label styleClass="lb" focusTraversable="true"
                        stylesheets="/stage.css"
                        text="choose month"
                        GridPane.columnIndex="0" GridPane.rowIndex="1"/>
@@ -45,7 +46,7 @@
 
                 </JFXComboBox>
 
-                <Label text="choose a day of month"
+                <Label styleClass="lb" text="choose a day of month"
                        GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                 <JFXComboBox fx:id="dayofMonthCombo" minWidth="200"
                              stylesheets="/combo.css"
@@ -57,7 +58,7 @@
                     </GridPane.margin>
                 </JFXComboBox>
 
-                <Label text="change unit(SI &amp; NonSI)"
+                <Label styleClass="lb" text="change unit(SI &amp; NonSI)"
 
                        GridPane.columnIndex="0" GridPane.rowIndex="9">
 
@@ -91,7 +92,7 @@
             <VBox fx:id="rootNodetab2" alignment="TOP_CENTER"
                   style="-fx-padding: 40px 0px 0px 0px">
                 <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
-                    <Label text="time zones: " minWidth="100"
+                    <Label styleClass="lb" text="time zones: " minWidth="100"
                            style="-fx-padding: 0px 30px 0px 0px;"/>
                     <JFXCheckBox fx:id="z00" checkedColor="#949c10"
                                  selected="true" disable="true" contentDisplay="CENTER"
@@ -114,7 +115,7 @@
                 <!--/>-->
                 <!--</HBox>-->
                 <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
-                    <Label text="from year: " minWidth="100"
+                    <Label styleClass="lb" text="from year: " minWidth="100"
                            style="-fx-padding: 0px 40px 0px 0px;"/>
                     <JFXSlider fx:id="lowYearjfxslider"
                                minWidth="300" showTickMarks="true"
@@ -125,7 +126,7 @@
                                max="2018"/>
                 </HBox>
                 <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
-                    <Label text="to year: "
+                    <Label styleClass="lb" text="to year: "
                            minWidth="100"
                            style="-fx-padding: 0px 30px 0px 0px;"
                     />
@@ -139,15 +140,14 @@
                 </HBox>
 
                 <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
-                    <Label text="height(m)"
+                    <Label styleClass="lb" text="height(m)"
                            minWidth="100"
                            style="-fx-padding: 0px 40px 0px 0px"/>
 
                     <JFXTextField alignment="BASELINE_LEFT"
                                   fx:id="height"
                                   promptText="height"
-
-                                  style="-fx-background-color: white"
+                                  text="10000"
                                   minWidth="300"
                     >
                         <font>
@@ -158,10 +158,11 @@
                 </HBox>
                 <HBox alignment="BASELINE_CENTER"
 
-                      style="-fx-padding: 30px 00px 0px 100px;-fx-text-fill:#d5b02c"
+                      style="-fx-padding: 30px 00px 0px 100px;"
                 >
 
                     <RangeSlider
+
                             stylesheets="/combo.css"
                             fx:id="hSlider"
                             min="900"

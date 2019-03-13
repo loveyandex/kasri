@@ -11,15 +11,16 @@
     -fx-primary : #7d784d;
     -fx-primary : #fbccb3;
     -fx-primary : #f8fbee;
-    -fx-primary : white;
     -fx-primary: rgba(247, 247, 247, 0.8);
+    -fx-primary : #000000;
+    -fx-primary : #354044;
 
 
 
     /*-fx-secondary : rgb(255, 255, 255);*/
-    -fx-secondary : rgb(0, 0, 0);
+    -fx-secondary : rgb(213, 213, 213);
     /*-fx-primarytext : #ffffff;*/
-    -fx-primarytext : #000000;
+    -fx-primarytext : #0590ae;
     -fx-blue: #1976D2;
     -fx-red: #FF0000;
     -fx-green: #94a682;
@@ -118,6 +119,7 @@
     -fx-background-color: derive(-fx-primary, 10%);
     -fx-background-radius: 0px;
     -fx-border-radius: 0px;
+    -fx-font-size: 16px;
 }
 .toolbar-button:hover
 {
@@ -344,4 +346,12 @@
     -fx-text-fill: -fx-primarytext;
     -fx-background-color: -fx-primary;
     -fx-border-color: -fx-secondary;
+}
+
+.lb{
+    -fx-text-fill: white;
+}
+
+.cons{
+    -fx-text-fill: white;
 }

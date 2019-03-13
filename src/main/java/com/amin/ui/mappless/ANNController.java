@@ -357,8 +357,9 @@ public class ANNController implements Initializable {
 
                             ((BasicNetwork) train.getMethod()).compute(inps, ops);
                             final double v = ops[0] * MAX_FITTNESS;
-                            final String format = String.format("target value for point of %.4f %.4f :\n%s  %.2f %s", latLon.getLat(), latLon.getLogn(), formInfo.getFeaureName(), v, formInfo.getFeatureUnit());
+                            final String format = String.format("\ntarget value for point of %.4f %.4f :\n%s  %.2f %s", latLon.getLat(), latLon.getLogn(), formInfo.getFeaureName(), v, formInfo.getFeatureUnit());
                             console.appendText(format);
+                            console.appendText("\n\n\n");
 
                         }).start(primaryStage);
 

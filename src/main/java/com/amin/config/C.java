@@ -31,9 +31,9 @@ public class C {
     public static String DATA_PATH= "";
     public static String SOCANDARY_DATA_PATH="";
     public static String THIRDY_PATH="";
-    public static String DATA_PATH_NAME= "data_path";
-    public static String SOCANDARY_DATA_PATH_NAME="secondary_data_path";
-    public static String THIRDY_PATH_NAME="thirdy_data_path";
+   final public static String DATA_PATH_NAME= "data_path";
+    final public static String SOCANDARY_DATA_PATH_NAME="secondary_data_path";
+    final public static String THIRDY_PATH_NAME="thirdy_data_path";
 
     static {
         try {
@@ -70,46 +70,26 @@ public class C {
 
 
     public static String readPropertieVal(String key) throws IOException, URISyntaxException {
-
-
-//        final String name = "/application.properties";
-//        final URL resource = C.class.getResource(name);
-//        final InputStream resourceAsStream = C.class.getResourceAsStream(name);
-//
-//        File file = new File(resource.toURI().toString());
         File file = new File(DATA_PATHES_LOC);
-
         if (!file.exists())
             System.err.println("not existed");
-
-
-
-//        FileInputStream in = new FileInputStream(file);
         Properties properties = new Properties();
         properties.load(new FileInputStream(file));
         String pval = properties.getProperty(key);
         return pval;
-
     }
 
 
     public static void writePropertie(String key, String value) throws IOException, URISyntaxException {
-
-
         File file = new File(C.DATA_PATHES_LOC);
-
         if (!file.exists())
             System.err.println("not existed2");
-
         FileInputStream in = new FileInputStream(file);
         Properties properties = new Properties();
         properties.load(in);
         in.close();
-
         String pval = properties.getProperty(key);
         String toVal = (pval == null || !value.equals(pval)) ? value : pval;
-
-
         FileOutputStream out = new FileOutputStream(file);
         properties.setProperty(key, toVal);
         properties.store(out, "god is great");

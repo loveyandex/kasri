@@ -136,15 +136,10 @@ public class Dialog {
                 else if (data_path.equals(THIRDY_PATH_NAME))
                     C.THIRDY_PATH = path;
 
-                // Create a custom Notification without icon
-//                Notification info = new Notification("", "God is great");
-// Show the custom notification
-//            Notification.Notifier.INSTANCE.notify(info);
                 Notification.Notifier instance = Notification.Notifier.INSTANCE;
                 instance.setPopupLifetime(Duration.INDEFINITE);
                 instance.setPopupLifetime(Duration.seconds(2));
                 instance.notifySuccess("success", "the path is assigned successfully.");
-
 
             } catch (IOException e) {
                 e.printStackTrace();

@@ -13,11 +13,7 @@ public class DoanloadContrller extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/getdata/doanload.fxml"));
         Scene scene = new SceneJson<>(root);
         primaryStage.setScene(scene);
-
         primaryStage.show();
-
-
-
     }
 
 }

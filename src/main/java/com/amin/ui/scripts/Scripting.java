@@ -44,6 +44,8 @@ public class Scripting extends Application {
         else return;
     }
 
+
+
     public static void scripting(String cmd) {
         s = cmd;
         rem();
@@ -62,9 +64,7 @@ public class Scripting extends Application {
         else if (func.equals("somedays"))
             Functions.getInstance().someDays(toSomeDaysObject(args));
 
-
     }
-
 
 
     public static double scripting2(String cmd) {
@@ -121,7 +121,7 @@ public class Scripting extends Application {
                     Mapping.createCSVFILEFORStations(dirpath, fileName);
 
                 stationNumTOCities = Mapping.
-                        MapStationNumTOCities(C.STATES_PATH +"/" + country + ".conf.csv");
+                        MapStationNumTOCities(C.STATES_PATH + "/" + country + ".conf.csv");
 
 
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
@@ -278,9 +278,8 @@ public class Scripting extends Application {
 
         JFXTextArea console = new JFXTextArea(">>onday 40800 10 26 PRES hPa 8999 1999 2017 iran__islamic_rep\n>>");
         console.setMinSize(900, 220);
-//        console.setStyle("-fx-base: #fff3f8;\n" +
-//                " -fx-control-inner-background: #f8fbee");
-//
+
+
 
         wind_speed.setOnAction(event -> {
             console.appendText("onday 40800 10 26 WIND_SPEED m/s 20000 1973 2017 iran__islamic_rep");
@@ -413,11 +412,16 @@ public class Scripting extends Application {
         layout.setTop(vBox);
 
         Scene scene = new SceneJson<>(layout, 900, 450);
-        layout.getStylesheets().add("/dark-theme.css");
 
         primaryStage.setScene(scene);
         primaryStage.heightProperty().addListener((observable, oldValue, newValue) -> console.setPrefHeight(newValue.doubleValue()));
         primaryStage.widthProperty().addListener((observable, oldValue, newValue) -> console.prefWidthProperty().setValue(newValue));
+
+
+
+        layout.getStylesheets().add("/dark-theme.css");
+        console.getStyleClass().add("cons");
+        file.getStyleClass().add("cons");
 
         primaryStage.show();
     }
@@ -435,6 +439,6 @@ public class Scripting extends Application {
     }
 
     interface RunSome {
-        void run(SomeDays  someDays);
+        void run(SomeDays someDays);
     }
 }

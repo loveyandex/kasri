@@ -34,19 +34,10 @@
                     </Menu>
                 </items>
             </Menu>
-            <Menu text="all heigth">
-                <items>
-
-                    <Menu fx:id="allhigt" mnemonicParsing="false" text="Wind">
-                        <items>
-                            <MenuItem mnemonicParsing="false" onAction="#ondayAllHeight" text="on day"/>
-                        </items>
-                    </Menu>
-                </items>
-            </Menu>
             <Menu text="Help">
                 <items>
                     <MenuItem text="About" onAction="#about"/>
+                    <MenuItem text="clear paths" onAction="#clear"/>
 
                 </items>
             </Menu>
@@ -57,8 +48,6 @@
 
 
             <HBox alignment="CENTER">
-
-
                 <JFXButton fx:id="ondayoneheight" contentDisplay="TOP"
                            mnemonicParsing="false"
                            onAction="#onday"
@@ -122,7 +111,8 @@
                     </graphic>
                 </JFXButton>
 
-                <JFXButton fx:id="scriptbtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#openscript"
+                <JFXButton fx:id="scriptbtn" contentDisplay="TOP" mnemonicParsing="false"
+                           onAction="#openscript"
                            prefHeight="100.0" prefWidth="160.0" styleClass="toolbar-button"
                            text="script functions"
                            textAlignment="CENTER">

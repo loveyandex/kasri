@@ -27,7 +27,7 @@ public class WhenTrainingView extends Application {
 
         JFXTextArea console = new JFXTextArea("");
         console.setMinHeight(660);
-        console.setStyle("-fx-text-fill: #3f5349;-fx-font-size: 14px;");
+        console.setStyle("-fx-text-fill: #c7ffe5;-fx-font-size: 14px;");
 
         console.scrollTopProperty().setValue(100.0);
 
@@ -44,7 +44,6 @@ public class WhenTrainingView extends Application {
 
 
         primaryStage.setOnShown(event -> {
-            console.appendText("king aain is here");
             this.make.aDo(console);
         });
         Scene scene = new Scene(vBox, 550, 662);
@@ -53,7 +52,7 @@ public class WhenTrainingView extends Application {
             if (event.getCode() == KeyCode.ESCAPE)
                 primaryStage.hide();
         }); primaryStage.show();
-//
+
     }
     private MAKE make;
 }
