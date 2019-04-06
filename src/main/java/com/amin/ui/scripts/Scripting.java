@@ -371,17 +371,6 @@ public class Scripting extends Application {
         });
 
 
-        Button minimumbtn = new Button("__");
-        minimumbtn.setStyle("-fx-border-radius: 0;-fx-background-radius: 0;" +
-                "-fx-background-color: #353533;" +
-                "-fx-text-fill: #ffffff");
-
-        minimumbtn.getStyleClass().add(".btn:hover{\n" +
-                "    -fx-background-color: #eb5f48; -fx-text-fill: white;}");
-
-        minimumbtn.setOnAction(event -> {
-            ((Stage) ((Button) event.getSource()).getScene().getWindow()).setIconified(true);
-        });
 
         console.setOnKeyPressed(event -> {
             final KeyCode code = event.getCode();
