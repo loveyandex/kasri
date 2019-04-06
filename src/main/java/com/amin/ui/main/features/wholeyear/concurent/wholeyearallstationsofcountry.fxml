@@ -23,7 +23,7 @@
                 <graphic>
                     <ImageView>
                         <image>
-                            <Image url="/drawable/config.png"/>
+                            <Image  requestedWidth="30" requestedHeight="30"  url="/drawable/setting_icon.png"/>
                         </image>
                     </ImageView>
                 </graphic>
@@ -153,7 +153,7 @@
 
             </Tab>
 
-            <Tab text=""> <graphic>                 <ImageView>                     <image>                         <Image url="/drawable/config.png"/>                     </image>                 </ImageView>             </graphic>
+            <Tab text=""> <graphic>                 <ImageView>                     <image>                         <Image  requestedWidth="30" requestedHeight="30"  url="/drawable/setting_icon.png"/>                     </image>                 </ImageView>             </graphic>
                 <VBox fx:id="rootNodetab2" alignment="TOP_CENTER"
                       style="-fx-padding: 40px 0px 0px 0px" stylesheets="/dark-theme.css">
                     <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">

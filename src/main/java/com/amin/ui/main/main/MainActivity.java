@@ -1,7 +1,6 @@
 package com.amin.ui.main.main;
 
 import com.amin.config.C;
-import com.amin.database.database.DatabaseHandler;
 import com.amin.ui.SceneJson;
 import com.amin.ui.SceneMainActivity;
 import com.amin.ui.StageOverride;
