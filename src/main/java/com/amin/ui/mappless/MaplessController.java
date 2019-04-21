@@ -180,7 +180,7 @@ public class MaplessController implements Initializable {
                     primaryStage.setScene(sd);
                     sd.getStylesheets().add("/dark-theme.css");
                     primaryStage.initOwner(root.getScene().getWindow());
-                    primaryStage.initStyle(StageStyle.UTILITY);
+                    primaryStage.initStyle(StageStyle.UNDECORATED);
                     primaryStage.show();
                 }
             }.start(new StageOverride());

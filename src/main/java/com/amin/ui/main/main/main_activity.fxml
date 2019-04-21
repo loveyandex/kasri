@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="rootme" prefHeight="400" prefWidth="1150"
       xmlns="http://javafx.com/javafx/8.0.1" fx:controller="com.amin.ui.main.main.MainController"
-      stylesheets="/dark-theme.css"
+
 >
 
     <MenuBar fx:id="menuBar" focusTraversable="true">
@@ -178,7 +178,7 @@
                                     internationally
                                 </Label>
                                 <HBox>
-                                    <Label style="-fx-text-fill: #5a4420">Developing by :</Label>
+                                    <Label style="-fx-text-fill: #5a4420;-fx-font-size: 24px;">Developing by :</Label>
                                     <Label style="-fx-text-fill: #6c6f3f">Jubin Barte</Label>
                                 </HBox>
                                 <Label style="-fx-text-fill: #6c6f3f">Version 1.1</Label>

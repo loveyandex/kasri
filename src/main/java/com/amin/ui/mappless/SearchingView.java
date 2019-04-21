@@ -87,6 +87,7 @@ public class SearchingView extends Application {
         searchbox.paddingProperty().setValue(new Insets(18, 18, 18, 18));
         searchbox.promptTextProperty().setValue("Search cities");
 
+
         searchbox.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.DOWN) {
                 listView.requestFocus();
@@ -170,6 +171,10 @@ public class SearchingView extends Application {
         });
 
         vBox.getStylesheets().add("/dark-theme.css");
+        searchbox.getStyleClass().add("searchbox");
+
+
+
         //You would need from here
         primaryStage.focusedProperty().addListener((ov, onHidden, onShown) -> {
             primaryStage.hide();

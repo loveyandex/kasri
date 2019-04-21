@@ -17,12 +17,15 @@
 
 
     /*-fx-secondary : rgb(255, 255, 255);*/
-    -fx-secondary: rgb(213, 213, 213);
+    -fx-secondary: rgb(182, 217, 164);
+    -fx-secondary: #5cb3d6;
 
 
-    -fx-primarytext : #ffffff;
+    -fx-primarytext: #ffffff;
     -fx-primarytext: #0590ae;
     -fx-primarytext: #319b21;
+    -fx-primarytext: #76cfff;
+
 
 
     -fx-blue: #45d285;
@@ -59,6 +62,7 @@
     -fx-font-size: 13pt;
     -jfx-focus-color: -fx-secondary;
     -fx-text-fill: derive(-fx-secondary, 20%);
+    -fx-text-fill: -fx-secondary;
 }
 
 /*Login Screen Specific*/
@@ -89,8 +93,8 @@
 }
 
 /*.menu {*/
-    /*-fx-background-color: #50804b;*/
-    /*-fx-text-fill: blue;*/
+/*-fx-background-color: #50804b;*/
+/*-fx-text-fill: blue;*/
 /*}*/
 
 
@@ -103,20 +107,20 @@
 
 .menu:hover,
 .menu:showing,
-.menu:focused,.menu-item:focused{
+.menu:focused, .menu-item:focused {
     -fx-text-fill: -fx-primarytext;
     -fx-background-color: -fx-secondary;
 }
 
 .menu:hover,
 .menu:showing,
-.menu:focused .label{
+.menu:focused .label {
     -fx-text-fill: -fx-primarytext;
     -fx-background-color: -fx-secondary;
 }
 
 .context-menu {
-    -fx-background-color:  -fx-primary;
+    -fx-background-color: -fx-primary;
 }
 
 .menu .label {
@@ -124,6 +128,7 @@
     -fx-background-color: -fx-primary;
 
 }
+
 .menu:hover,
 .menu:showing,
 .menu:focused .label {
@@ -133,18 +138,18 @@
 }
 
 .menu-item:hover,
-/*.menu-item:expanded,*/
+    /*.menu-item:expanded,*/
 .menu-item:showing,
-.menu-item:focused .label  {
-    -fx-text-fill:-fx-primarytext;
+.menu-item:focused .label {
+    -fx-text-fill: -fx-primarytext;
     -fx-background-color: -fx-secondary;
 
 }
 
 .menu-item:hover,
 .menu-item:showing,
-.menu-item:focused .label  {
-    -fx-text-fill:-fx-primarytext;
+.menu-item:focused .label {
+    -fx-text-fill: -fx-primarytext;
     -fx-background-color: -fx-secondary;
 
 }
@@ -366,12 +371,13 @@
     -fx-background-color: -fx-primary;
     -fx-border-radius: 200px 20px 20px 20px;
 }
-.jfx-snackbar-content .button{
+
+.jfx-snackbar-content .button {
     -fx-text-fill: -fx-primarytext;
     -fx-background-color: -fx-primary;
     -fx-border-color: -fx-secondary;
     -fx-border-radius: 3px;
-    -fx-background-radius:3px;
+    -fx-background-radius: 3px;
     -fx-font-size: 8pt;
 
 }
@@ -386,6 +392,8 @@
 
 .hyperlink:visited {
     -fx-text-fill: rgb(244, 211, 244);
+    -fx-text-fill: -fx-secondary;
+
 }
 
 .hyperlink:hover {
@@ -398,8 +406,10 @@
 }
 
 .hyperlink {
-    -fx-text-fill: rgb(122, 119, 130);
     -fx-text-fill: rgba(48.452629203989076, 51.573370003584664, 54.86453148626511, 0.909);
+    -fx-text-fill: rgb(122, 119, 130);
+    -fx-text-fill: rgb(226, 219, 237);
+    -fx-text-fill: -fx-secondary;
 }
 
 .loading {
@@ -426,9 +436,11 @@
 .lb {
     -fx-text-fill: #ffb32d;
 }
-.label{
+
+.label {
     -fx-text-fill: -fx-primarytext;
 }
+
 .cons {
     -fx-text-fill: white;
 }
@@ -439,7 +451,7 @@
     -fx-background-color: -fx-primary;
     -fx-border-color: -fx-secondary;
     -fx-border-radius: 3px;
-    -fx-background-radius:3px;
+    -fx-background-radius: 3px;
     -fx-font-size: 8pt;
 
 
@@ -453,4 +465,36 @@
 
 .dayofmonth {
     -fx-text-fill: -fx-primary;
+}
+
+.searchbox {
+    -fx-text-fill: #76cfff;
+    -fx-text-fill: -fx-primarytext;
+    -fx-prompt-text-fill: -fx-primarytext;
+    -jfx-focus-color: -fx-primarytext;
+    -jfx-unfocus-color: -fx-primarytext;
+}
+
+.list-view {
+    -fx-background-color: -fx-primary;
+    -fx-text-fill: -fx-primarytext;
+}
+
+.list-view .list-cell:even {
+    -fx-text-fill  : -fx-primarytext;
+    -fx-background-color : -fx-primary;
+}
+.list-view .list-cell:odd {
+    -fx-text-fill :-fx-primarytext;
+    -fx-background-color : derive(-fx-primary, 10%);
+}
+.list-view .list-cell:hover {
+    -fx-text-fill :derive(-fx-primarytext, 100%);
+    -fx-background-color : derive(-fx-primary, 50%);
+
+}
+.list-view .list-cell:focused {
+    -fx-text-fill :derive(-fx-primarytext, 100%);
+    -fx-background-color : derive(-fx-primary, 50%);
+
 }

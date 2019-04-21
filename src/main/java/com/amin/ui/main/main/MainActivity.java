@@ -44,6 +44,9 @@ public class MainActivity extends Application {
         Parent root = FXMLLoader.load(MainActivity.class.getResource("/com/amin/ui/main/main/main_activity.fxml"));
         Scene scene = new SceneMainActivity<>(root, 1100, 600);
 
+        scene.getStylesheets().add(C.THEME);
+
+
         primaryStage.setOnCloseRequest(event -> {
             event.consume();
             try {
@@ -56,7 +59,7 @@ public class MainActivity extends Application {
         primaryStage.setOnShowing(System.out::println);
 
 
-        primaryStage.setTitle("wafsi");
+        primaryStage.setTitle("WA");
         primaryStage.setScene(scene);
         primaryStage.toBack();
         primaryStage.getIcons().add(new Image(getClass().getResource("/drawable/uav.png").toURI().toString()));
