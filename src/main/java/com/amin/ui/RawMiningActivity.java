@@ -110,9 +110,7 @@ public class RawMiningActivity extends Application {
                 for (File country : countries) {
                     System.out.println(country.getAbsolutePath());
                     int a = Character.getNumericValue(country.getName().charAt(0));
-                    System.out.println("a " + a);
-                    if (a < 29)
-                        continue;
+
 
                     File[] yerarFiles = country.listFiles();
                     for (File yearFile : yerarFiles) {
@@ -174,9 +172,7 @@ public class RawMiningActivity extends Application {
                 for (File country : countries) {
                     System.out.println(country.getAbsolutePath());
                     int a = Character.getNumericValue(country.getName().charAt(0));
-                    System.out.println("a " + a);
-                    if (a < 12)
-                        continue;
+
                     File[] yerarFiles = country.listFiles();
                     for (File yearFile : yerarFiles) {
                         if (yearFile.isDirectory()) {
@@ -209,6 +205,8 @@ public class RawMiningActivity extends Application {
                         }
                     }
                 }
+                progress.setVisible(false);
+
             }).start();
             System.err.println(kasriDate.getAbsolutePath());
         }

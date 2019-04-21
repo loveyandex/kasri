@@ -6,10 +6,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             xmlns="http://javafx.com/javafx"
             fx:controller="com.amin.ui.Alert"
-
+            stylesheets="/dark-theme.css"
             prefHeight="70.0" prefWidth="160.0">
     <VBox>
         <HBox>
@@ -17,7 +18,7 @@
         </HBox>
 
         <HBox alignment="BASELINE_RIGHT">
-            <JFXButton fx:id="exit" onAction="#exit">exit</JFXButton>
+            <JFXButton  fx:id="exit" onAction="#exit">exit</JFXButton>
             <JFXButton fx:id="cancel" onAction="#cancel">cancel</JFXButton>
         </HBox>
     </VBox>

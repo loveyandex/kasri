@@ -1,6 +1,7 @@
 *.ipr
 *.iws
 *.iml
+/.idea
 kasri.ipr
 kasri.iws
 .ideaDataSources/

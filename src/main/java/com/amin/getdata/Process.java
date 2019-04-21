@@ -214,7 +214,7 @@ public class Process implements Runnable {
                     if (!Starter.terminateThread) {
                         System.out.println("year is > " + years.get(i) + " month: > " + j + "  is started dowing");
                         Process.getData(Starter.ABSOLUTE_ROOT_PATH + "/" + Starter.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j),
-                                "config/" + Starter.COUNTRIES[k] + "-stations.conf", years.get(i), String.valueOf(j));
+                                "config/stations/" + Starter.COUNTRIES[k] + "-stations.conf", years.get(i), String.valueOf(j));
                         try {
                             Thread.sleep(10000);
                         } catch (InterruptedException e) {

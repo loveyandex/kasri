@@ -15,7 +15,7 @@
 
     <MenuBar fx:id="menuBar" focusTraversable="true">
         <menus>
-            <Menu text="File">
+            <Menu text="File" styleClass="gg">
                 <items>
                     <MenuItem onAction="#getDataFromInternet" text="get rawdata from net"/>
                     <SeparatorMenuItem/>
@@ -165,6 +165,34 @@
                 </JFXButton>
             </HBox>
 
+            <StackPane fx:id="stackpane">
+
+                <JFXDialog fx:id="dialog">
+                    <JFXDialogLayout>
+                        <heading>
+                            <Label>Wafsi</Label>
+                        </heading>
+                        <body>
+                            <VBox>
+                                <Label style="-fx-text-fill: #65673b">Weather Analysis &amp; Flight Simulation internationally
+                                </Label>
+                                <HBox>
+                                    <Label style="-fx-text-fill: #5a4420">Developing by :</Label>
+                                    <Label style="-fx-text-fill: #6c6f3f">Ab... Ghah...</Label>
+
+                                </HBox>
+                            </VBox>
+
+                        </body>
+                        <actions>
+                            <JFXButton fx:id="acceptButton" styleClass="dialog-accept">Close
+                            </JFXButton>
+                        </actions>
+                    </JFXDialogLayout>
+                </JFXDialog>
+
+
+            </StackPane>
             <VBox>
 
                 <HBox style="-fx-font-size: 20; -fx-font-style: italic;" alignment="BASELINE_CENTER">
@@ -264,38 +292,10 @@
 
         </VBox>
 
-        <StackPane fx:id="stackpane">
-
-            <JFXDialog fx:id="dialog">
-                <JFXDialogLayout>
-                    <heading>
-                        <Label>Wafsi</Label>
-                    </heading>
-                    <body>
-                        <VBox>
-                            <Label style="-fx-text-fill: #65673b">Weather Analysis &amp; Flight Simulation internationally
-                            </Label>
-                            <HBox>
-                                <Label style="-fx-text-fill: #5a4420">Developing by :</Label>
-                                <Label style="-fx-text-fill: #6c6f3f">Ab... Ghah...</Label>
-
-                            </HBox>
-                        </VBox>
-
-                    </body>
-                    <actions>
-                        <JFXButton fx:id="acceptButton" styleClass="dialog-accept">Close
-                        </JFXButton>
-                    </actions>
-                </JFXDialogLayout>
-            </JFXDialog>
-
-
-        </StackPane>
         <VBox fx:id="isloadingvbox" alignment="BOTTOM_CENTER">
             <ImageView>
                 <image>
-                    <Image url="/drawable/Spinner-1s-200px20.gif"/>
+                    <Image url="/drawable/dark-loading.gif"/>
                 </image>
             </ImageView>
             <Label style="-fx-font-size: 14px;">is loading database...please wait to get ready</Label>
