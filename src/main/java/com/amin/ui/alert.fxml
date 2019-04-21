@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             xmlns="http://javafx.com/javafx"
             fx:controller="com.amin.ui.Alert"
@@ -17,9 +18,27 @@
             <Label>Are you sure close App ??</Label>
         </HBox>
 
-        <HBox alignment="BASELINE_RIGHT">
-            <JFXButton  fx:id="exit" onAction="#exit">exit</JFXButton>
-            <JFXButton fx:id="cancel" onAction="#cancel">cancel</JFXButton>
+        <HBox alignment="BASELINE_CENTER">
+            <HBox>
+                <JFXButton styleClass="alertbtn" fx:id="exit" onAction="#exit">exit</JFXButton>
+                <HBox.margin>
+                    <Insets>
+                        <right>10</right>
+                        <top>10</top>
+                        <left>10</left>
+                    </Insets>
+                </HBox.margin>
+            </HBox>
+            <HBox>
+                <JFXButton styleClass="alertbtn" fx:id="cancel" onAction="#cancel">cancel</JFXButton>
+                <HBox.margin>
+                    <Insets>
+                        <right>10</right>
+                        <top>10</top>
+                    </Insets>
+                </HBox.margin>
+            </HBox>
+
         </HBox>
     </VBox>
 

@@ -8,7 +8,7 @@ import de.westnordost.osmapi.map.data.*;
 /**
  * is created by aMIN on 10/12/2018 at 10:56 PM
  */
-public class F {
+public class OpenStreetMapApiTest {
     public static void main(String[] args) {
         OsmConnection osm = new OsmConnection(
                 "https://api.openstreetmap.org/api/0.6/",

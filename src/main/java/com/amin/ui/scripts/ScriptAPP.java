@@ -121,7 +121,7 @@ public class ScriptAPP extends Application {
                     Mapping.createCSVFILEFORStations(dirpath, fileName);
 
                 stationNumTOCities = Mapping.
-                        MapStationNumTOCities(C.STATES_PATH +"/" + country + ".conf.csv");
+                        MapStationNumTOCities(C.STATES_PATH + "/" + country + ".conf.csv");
 
 
                 for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
@@ -156,9 +156,10 @@ public class ScriptAPP extends Application {
     }
 
     private static double runFopen2(String[] args) {
-        if (args.length == 1)
-            Dialog.createExceptionDialog(new RuntimeException("not arrgumet assigned"));
-        else {
+        try {
+            if (args.length == 1)
+                Dialog.createExceptionDialog(new RuntimeException("not arrgumet assigned"));
+            else {
                 final String stationNumber = args[1];
                 final int month = Integer.parseInt(args[2]);
                 final int day = Integer.parseInt(args[3]);
@@ -179,7 +180,11 @@ public class ScriptAPP extends Application {
                 final double fopen2 = Functions.getInstance().fopen2(formInfo);
                 return fopen2;
 
+            }
+        } catch (Exception e) {
+            Dialog.createExceptionDialog(e);
         }
+
         return 0.0;
     }
 

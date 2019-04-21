@@ -58,7 +58,7 @@
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image  url="/drawable/day2.png"/>
+                                <Image url="/drawable/day2.png"/>
                             </image>
                         </ImageView>
 
@@ -75,7 +75,7 @@
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image  url="/drawable/altitudes51px51px.png"/>
+                                <Image url="/drawable/altitudes51px51px.png"/>
                             </image>
                         </ImageView>
 
@@ -92,7 +92,7 @@
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image  url="/drawable/nodes.png"/>
+                                <Image url="/drawable/nodes.png"/>
                             </image>
                         </ImageView>
                     </graphic>
@@ -105,7 +105,7 @@
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image  url="/drawable/year.png"/>
+                                <Image url="/drawable/year.png"/>
                             </image>
                         </ImageView>
                     </graphic>
@@ -119,7 +119,7 @@
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image  url="/drawable/funcs.png"/>
+                                <Image url="/drawable/funcs.png"/>
                             </image>
                         </ImageView>
 
@@ -170,17 +170,18 @@
                 <JFXDialog fx:id="dialog">
                     <JFXDialogLayout>
                         <heading>
-                            <Label>Wafsi</Label>
+                            <Label style="-fx-text-fill:#65673b ">Wafsi</Label>
                         </heading>
                         <body>
                             <VBox>
-                                <Label style="-fx-text-fill: #65673b">Weather Analysis &amp; Flight Simulation internationally
+                                <Label style="-fx-text-fill: #65673b">Weather Analysis &amp; Flight Simulation
+                                    internationally
                                 </Label>
                                 <HBox>
                                     <Label style="-fx-text-fill: #5a4420">Developing by :</Label>
-                                    <Label style="-fx-text-fill: #6c6f3f">Ab... Ghah...</Label>
-
+                                    <Label style="-fx-text-fill: #6c6f3f">Jubin Barte</Label>
                                 </HBox>
+                                <Label style="-fx-text-fill: #6c6f3f">Version 1.1</Label>
                             </VBox>
 
                         </body>

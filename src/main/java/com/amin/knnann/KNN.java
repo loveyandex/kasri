@@ -161,6 +161,61 @@ public class KNN {
     }
 
 
+
+    public static double nearst(double maximum_distance_km, LatLon latLong,String dayOfmonth,String monthofyear) throws SQLException {
+        final double lat1 = latLong.getLat();
+        final double long1 = latLong.getLogn();
+
+        Station station = null;
+        ArrayList<Station> stations = new ArrayList<>();
+
+        final ResultSet resultSet = exeing();
+        double sum_distance = 0.0;
+        double expection = 0.0;
+        while (resultSet.next()) {
+            final String stationnumber = resultSet.getString(1);
+            final String country = resultSet.getString(2);
+            final String stacitinametion = resultSet.getString(3);
+            final String lati = resultSet.getString(4);
+            final String longi = resultSet.getString(5);
+//            System.out.println(lat1);
+//            System.out.print(long1);
+            final double real_distance1 = real_distance(lat1, long1, Double.parseDouble(lati), Double.parseDouble(longi));
+            if (real_distance1 < maximum_distance_km) {
+//                station = new Station(stationnumber, country, stacitinametion,
+//                        true, new LatLon(Double.parseDouble(lati), Double.parseDouble(longi))
+//                        , real_distance1);
+
+                final double temp = calcFeatureValue(stationnumber, country, dayOfmonth, monthofyear);
+                if (temp == -1000000)
+                    continue;
+                else {
+                    expection += real_distance1 * temp;
+                    sum_distance += real_distance1;
+
+                    System.err.println(real_distance1);
+                    System.err.println(stacitinametion + "...." + lati + "  " + longi);
+                }
+            }else {
+                System.err.println("out of band od radius");
+            }
+        }
+
+
+
+        if (sum_distance != 0.0)
+            return expection / sum_distance;
+        else
+            return -3000000000000000.0;
+
+    }
+
+
+
+
+
+
+
     public static double nearst(double maximum_distance_km, LatLon latLong, Do aDo) throws SQLException {
 
         final double lat1 = latLong.getLat();
@@ -210,6 +265,14 @@ public class KNN {
 
     public static double calcFeatureValue(String stationnumber, String country) {
         final String function = String.format("onday %s 10 26 WIND_SPEED m/s 12000 1973 2017 %s", stationnumber, country);
+        System.out.println(function);
+        final double v = ScriptAPP.scripting2(function);
+        return v;
+    }
+    public static double calcFeatureValue(String stationnumber, String country,String dayofmonth,String monthofyear) {
+        final String function = String.format("onday %s %s %s WIND_SPEED m/s 12000 1973 2017 %s",
+                stationnumber,monthofyear,dayofmonth, country);
+        System.out.println(function);
         final double v = ScriptAPP.scripting2(function);
         return v;
     }

@@ -179,8 +179,8 @@ public class Mapping {
     }
 
 
-    static void mapForOldFolder(String fn) {
-        map("config/states", fn);
+    static void mapForFolder(String file) {
+        map("config/states", file);
 
     }
 

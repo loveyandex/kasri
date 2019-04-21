@@ -3,10 +3,13 @@ package com.amin.ui.map;
 import com.amin.database.database.DatabaseHandler;
 import com.amin.knnann.KNN;
 import com.amin.pojos.LatLon;
+import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.scripts.ScriptAPP;
+import com.google.gson.Gson;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXSnackbar;
+import com.jfoenix.controls.JFXTextField;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.javascript.event.GMapMouseEvent;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
@@ -35,12 +38,14 @@ public class LatLongFXMLController implements Initializable {
     final Connection connectionDerby = DatabaseHandler.getInstance().getConnection();
 
 
-
     public AnchorPane anchorroot;
     public StackPane stackpane;
     public JFXDialog dialog;
     public JFXButton acceptButton;
     public Label descrip;
+    public JFXTextField dayOfMonth;
+    public JFXTextField monthOfYear;
+    public Label headerDialoglable;
 
 
     @FXML
@@ -136,22 +141,43 @@ public class LatLongFXMLController implements Initializable {
                     actionEvent -> {
                         try {
                             SnackBar.jfxSnackbar.unregisterSnackbarContainer(anchorroot);
-                            final double nearst = KNN.nearst(300, new LatLon(latLong.getLatitude(), latLong.getLongitude()));
+                            LatLon latLong1 = new LatLon(latLong.getLatitude()
+                                    , latLong.getLongitude());
+
+                            String dayOfMonthText = dayOfMonth.getText();
+                            String month = monthOfYear.getText();
+
+                            int day = Integer.parseInt(dayOfMonthText);
+                            int mon = Integer.parseInt(month);
+
+
+                            final double nearst = KNN.nearst(500
+                                    , latLong1, dayOfMonthText, month);
+                            System.err.println(new Gson().toJson(latLong1));
                             System.out.println(nearst);
                             final String msg = String.valueOf(nearst);
                             SnackBar.showSnack(anchorroot, msg, 2333);
+
+                            headerDialoglable.setText("KNN Data Modeling");
                             descrip.setText(msg);
-
                             AnchorPane.setLeftAnchor(stackpane, anchorroot.getWidth() / 2.0 - dialog.getWidth() / 2.0);
-
-                            dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM
-                            );
+                            dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM);
                             dialog.show(stackpane);
 
-                        } catch (SQLException e) {
-                            e.printStackTrace();
+                        } catch (java.lang.NumberFormatException e) {
+                            headerDialoglable.setText("Oops!! error inputting day and month value");
+
+                            descrip.setText(e.getLocalizedMessage());
+                            AnchorPane.setLeftAnchor(stackpane, anchorroot.getWidth() / 2.0 - dialog.getWidth() / 2.0);
+                            dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM);
+                            dialog.show(stackpane);
+                        } catch (Exception e) {
+                            Dialog.createExceptionDialog(e);
                         }
-                    }, latLong.toString(), 5000);
+                    },
+
+
+                    latLong.toString(), 5000);
 
 
         });
@@ -243,7 +269,7 @@ public class LatLongFXMLController implements Initializable {
 
         public static void showSnackwithActionKNN(Pane snackbarContainer, EventHandler<ActionEvent> eventHandler, String msg, long timeout) {
             jfxSnackbar = new JFXSnackbar(snackbarContainer);
-            jfxSnackbar.getStyleClass().add("jfx-snackbar-content");
+//            jfxSnackbar.getStyleClass().add("jfx-snackbar-content");
 
             jfxSnackbar.show(msg, "KNN", timeout, eventHandler);
         }

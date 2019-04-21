@@ -17,4 +17,4 @@ samples-data/*
 !positron/resources/
 /nodejs
 /earth/node_modules
-
+/offline-leaflet

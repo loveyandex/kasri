@@ -83,7 +83,7 @@ public class SceneMainActivity<T> extends Scene implements EventHandler<KeyEvent
 
     private void closeAlertDialog() throws IOException {
         Stage stage = new StageOverride();
-        stage.initStyle(StageStyle.UTILITY);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/alert.fxml"));
         Scene scene = new SceneJson<>(root);

@@ -18,8 +18,13 @@
 
     /*-fx-secondary : rgb(255, 255, 255);*/
     -fx-secondary: rgb(213, 213, 213);
-    /*-fx-primarytext : #ffffff;*/
+
+
+    -fx-primarytext : #ffffff;
     -fx-primarytext: #0590ae;
+    -fx-primarytext: #319b21;
+
+
     -fx-blue: #45d285;
     -fx-red: #FF0000;
     -fx-green: #94a682;
@@ -358,8 +363,17 @@
 }
 
 .jfx-snackbar-content {
-    -fx-background-color: #440a2d;
+    -fx-background-color: -fx-primary;
     -fx-border-radius: 200px 20px 20px 20px;
+}
+.jfx-snackbar-content .button{
+    -fx-text-fill: -fx-primarytext;
+    -fx-background-color: -fx-primary;
+    -fx-border-color: -fx-secondary;
+    -fx-border-radius: 3px;
+    -fx-background-radius:3px;
+    -fx-font-size: 8pt;
+
 }
 
 .jfx-snackbar {
@@ -417,4 +431,26 @@
 }
 .cons {
     -fx-text-fill: white;
+}
+
+
+.alertbtn {
+    -fx-text-fill: -fx-primarytext;
+    -fx-background-color: -fx-primary;
+    -fx-border-color: -fx-secondary;
+    -fx-border-radius: 3px;
+    -fx-background-radius:3px;
+    -fx-font-size: 8pt;
+
+
+}
+
+.alertbtn:hover, .alertbtn:focused {
+    -fx-border-color: -fx-secondary;
+    -fx-background-color: -fx-secondary;
+    -fx-text-fill: -fx-primary;
+}
+
+.dayofmonth {
+    -fx-text-fill: -fx-primary;
 }

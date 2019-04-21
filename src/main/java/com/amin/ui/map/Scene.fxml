@@ -7,25 +7,41 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorroot"
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.VBox?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:id="anchorroot"
             id="AnchorPane"
+            stylesheets="/dark-theme.css"
             xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="com.amin.ui.map.LatLongFXMLController">
 
     <children>
+
+
         <GoogleMapView fx:id="googleMapView" layoutX="14.0" layoutY="21.0"
                        prefHeight="700.0"
                        prefWidth="1000"
 
-        />
+        >
+            <StackPane fx:id="date" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10">
+            <VBox>
+                <JFXTextField promptText="day of month" fx:id="dayOfMonth" styleClass="dayofmonth"> </JFXTextField>
+                <JFXTextField promptText="momth of year" fx:id="monthOfYear"> </JFXTextField>
+
+            </VBox>
+
+            </StackPane>
+        </GoogleMapView>
 
 
-        <StackPane fx:id="stackpane" AnchorPane.leftAnchor="300" AnchorPane.topAnchor="200">
+        <StackPane fx:id="stackpane" AnchorPane.leftAnchor="300"
+                   AnchorPane.topAnchor="200">
 
             <JFXDialog fx:id="dialog">
                 <JFXDialogLayout>
                     <heading>
-                        <Label>KNN data modeling</Label>
+                        <Label fx:id="headerDialoglable">KNN Data Modeling</Label>
                     </heading>
                     <body>
                         <Label fx:id="descrip">
