@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Example github pages</title>
+    <title>Jubin's Glob</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!---->
@@ -45,27 +45,23 @@
 </head>
 
 <body>
-<div id="map"></div>
+<div id="map" style="position: absolute;opacity:0.9999;">
+    <div class="leaflet-bottom leaflet-left">
+        <div class="leaflet-control-attribution leaflet-control">
 
-
-<div class="container-fluid" style="max-width:1200px;  position: fixed;
-  top: 0;">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Leaflet.offline example</h1>
-        </div>
-        <div class="col-md-12">
-        </div>
-        <div class="col-md-5">
-            <p>Progress: <span id="progress"></span> / <span id="total"></span></p>
+            <span>Progress: <span id="progress"></span> / <span id="total"></span></span>
             <p>Current storage: <span id="storage"></span> files
                 <button class="btn btn-danger" id="remove_tiles">
                     <i class="fa fa-trash" aria-hidden="true" title="Remove tiles"></i>
                 </button>
             </p>
+
         </div>
     </div>
+
 </div>
+
+
 
 <script type="text/javascript">
     var map = L.map('map');
