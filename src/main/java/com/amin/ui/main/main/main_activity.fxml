@@ -97,7 +97,8 @@
                         </ImageView>
                     </graphic>
                 </JFXButton>
-                <JFXButton fx:id="wholeconcurrent" contentDisplay="TOP" layoutX="10.0" layoutY="81.0"
+                <JFXButton fx:id="wholeconcurrent" contentDisplay="TOP"
+                           layoutX="10.0" layoutY="81.0"
                            mnemonicParsing="false"
                            onAction="#wholestationsallyearmthread"
                            prefHeight="100.0" styleClass="toolbar-button"

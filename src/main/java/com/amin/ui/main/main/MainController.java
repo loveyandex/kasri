@@ -197,7 +197,9 @@ public class MainController implements Initializable {
         stage.setScene(scene);
         stage.initOwner(rootme.getScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
+        System.out.println("in whole");
+        stage.show();
+
 
     }
 

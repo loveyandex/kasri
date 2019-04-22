@@ -8,7 +8,8 @@
 <?import org.controlsfx.control.RangeSlider?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vvv" stylesheets="/light-theme.css"
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vvv"
+      stylesheets="/dark-theme.css"
       xmlns="http://javafx.com/javafx/8.0.121"
       fx:controller="com.amin.ui.mappless.KNNController">
 
@@ -18,19 +19,18 @@
             <graphic>
                 <ImageView>
                     <image>
-                        <Image  requestedWidth="30" requestedHeight="30"  url="/drawable/setting_icon.png"/>
+                        <Image requestedWidth="30" requestedHeight="30"
+                               url="/drawable/setting_icon.png"/>
                     </image>
                 </ImageView>
             </graphic>
             <GridPane fx:id="rootNode" alignment="TOP_CENTER" prefHeight="2500.0" prefWidth="600.0"
                       style="-fx-padding: 40px 0px 0px 0px">
                 <Label focusTraversable="true"
-                       stylesheets="/stage.css"
                        text="choose a feature"
                        GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 
                 <JFXComboBox fx:id="featuresCombo"
-                             stylesheets="/combo.css"
                              minWidth="200"
                              GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <GridPane.margin>
@@ -41,7 +41,6 @@
                 </JFXComboBox>
 
                 <Label focusTraversable="true"
-                       stylesheets="/stage.css"
                        text="choose month"
                        GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
@@ -55,7 +54,6 @@
                 <Label text="choose a day of month"
                        GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                 <JFXComboBox fx:id="dayofMonthCombo" minWidth="200"
-                             stylesheets="/combo.css"
                              GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets>
@@ -72,7 +70,6 @@
 
                 <JFXComboBox fx:id="unitsCombo"
                              minWidth="200"
-                             stylesheets="/combo.css"
                              GridPane.columnIndex="1" GridPane.rowIndex="9">
                     <GridPane.margin>
                         <Insets>
@@ -84,10 +81,11 @@
 
                 <HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="12">
 
-                    <JFXButton fx:id="cancelBtn" styleClass="button" stylesheets="/buttons.css" text="Cancel"
+                    <JFXButton fx:id="cancelBtn"
+                               text="Cancel"
                                translateX="50">
                     </JFXButton>
-                    <JFXButton fx:id="Gobtn" disable="true" styleClass="button" stylesheets="/buttons.css"
+                    <JFXButton fx:id="Gobtn" disable="true"
                                text="Get Result" translateX="180">
                     </JFXButton>
                 </HBox>
@@ -97,7 +95,7 @@
         <Tab text="">
             <graphic>
                 <ImageView>
-                    <image >
+                    <image>
                         <Image requestedWidth="30" requestedHeight="30" url="/drawable/setting_icon.png"/>
                     </image>
                 </ImageView>

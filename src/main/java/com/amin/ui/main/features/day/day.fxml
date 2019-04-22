@@ -26,12 +26,10 @@
             <GridPane fx:id="rootNode" alignment="TOP_CENTER" prefHeight="2500.0" prefWidth="600.0"
                       style="-fx-padding: 40px 0px 0px 0px">
                 <Label  styleClass="lb" focusTraversable="true"
-                       stylesheets="/stage.css"
                        text="choose a feature"
                        GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 
                 <JFXComboBox fx:id="featuresCombo"
-                             stylesheets="/combo.css"
                              minWidth="200"
                              GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <GridPane.margin>
@@ -41,14 +39,12 @@
                     </GridPane.margin>
                 </JFXComboBox>
 
-                <Label  styleClass="lb" focusTraversable="true"
-                       stylesheets="/stage.css"
+                <Label   focusTraversable="true"
                        text="choose month"
                        GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
 
                 <JFXComboBox id="fancytext" fx:id="monthCombo" minWidth="200"
-                             stylesheets="/combo.css"
                              GridPane.columnIndex="1" GridPane.rowIndex="1">
 
                 </JFXComboBox>
@@ -56,7 +52,6 @@
                 <Label  styleClass="lb" text="choose a day of month"
                        GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                 <JFXComboBox fx:id="dayofMonthCombo" minWidth="200"
-                             stylesheets="/combo.css"
                              GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets>
@@ -69,7 +64,6 @@
                        GridPane.columnIndex="0" GridPane.rowIndex="5"/>
 
                 <JFXComboBox id="fancytext" fx:id="countriesCombo" minWidth="200"
-                             stylesheets="/combo.css"
                              GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <GridPane.margin>
                         <Insets>
@@ -82,7 +76,6 @@
                        GridPane.columnIndex="0" GridPane.rowIndex="7"/>
 
                 <JFXComboBox id="fancytext" fx:id="stationsCombo" minWidth="200"
-                             stylesheets="/combo.css"
                              GridPane.columnIndex="1" GridPane.rowIndex="7">
                     <GridPane.margin>
                         <Insets>
@@ -100,7 +93,6 @@
 
                 <JFXComboBox fx:id="unitsCombo"
                              minWidth="200"
-                             stylesheets="/combo.css"
                              GridPane.columnIndex="1" GridPane.rowIndex="9">
                     <GridPane.margin>
                         <Insets>

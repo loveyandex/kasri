@@ -196,8 +196,6 @@ public class KNN {
                     System.err.println(real_distance1);
                     System.err.println(stacitinametion + "...." + lati + "  " + longi);
                 }
-            }else {
-                System.err.println("out of band od radius");
             }
         }
 

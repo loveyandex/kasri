@@ -57,7 +57,8 @@ public class LatLongFXMLController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        googleMapView.setKey("AIzaSyAjh0Sl5vljWmzKnR5n_7xwI1L-1zAtARc");
+//        googleMapView.setKey("AIzaSyAjh0Sl5vljWmzKnR5n_7xwI1L-1zAtARc");
+        googleMapView.setKey("AIzaSyAolOBgT7MeYriXi6S08tlXuOySGOUKODY");
         Platform.runLater(() -> {
             dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM
             );

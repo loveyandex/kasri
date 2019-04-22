@@ -11,6 +11,7 @@ import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.main.features.StaticFunctions;
 import com.amin.ui.main.main.Charting;
 import com.jfoenix.controls.*;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
@@ -534,6 +535,7 @@ public class ConcurentController extends StaticFunctions implements Initializabl
         });
 
 
+        System.err.println("in bottom of init");
     }
 
 
@@ -627,49 +629,22 @@ public class ConcurentController extends StaticFunctions implements Initializabl
 
                 long time = System.nanoTime() - start;
                 double t = time / 1e9d;
-                System.out.printf("Each process took an average of %f s  in thread of %s %n", t, endofFileName);
-
+                String format = String.format("Each process took an average of %f s  in thread of %s %n",
+                        t, endofFileName);
+                System.out.printf(format);
             }
-
         }
 
         writerw.close();
         concurentFinished[threadNumber - 1] = true;
         long time = System.nanoTime() - start;
         double t = time / 1e9d;
-        System.err.printf("took time %f s in thread of %s %n", t, endofFileName);
+        String format = String.format("took time %f s in thread of %s %n", t, endofFileName);
+        System.err.printf(format);
 
-//
-//        ArrayList<ArrayList<String>> colsData = Mapping.LatLong.getColsData(
-//                pathDirToSave + File.separator + childFileName, ","
-//                , 0, 1, 2, 3, 4, 5);
-//
-//        javafx.application.Platform.runLater(() -> {
-//
-//
-//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//            alert.setTitle("success");
-//            alert.setHeaderText("valid stations data saved in your path");
-//            alert.show();
-//            alert.setOnHiding(event -> {
-//                Stage primaryStage = new StageOverride();
-//                Parent root = null;
-//                try {
-//                    root = FXMLLoader.load(ConcurentController.this.getClass().getResource("/com/amin/ui/main/features/AllStationsOfCountryInOneDay/allstationsstatistic.fxml"));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                root.setStyle("-fx-padding: 30 30 30 30 ");
-//
-//                SceneJson sceneJson = new SceneJson<>(root);
-//                sceneJson.setJson(colsData);
-//                primaryStage.setScene(sceneJson);
-//
-//                primaryStage.setResizable(false);
-//                primaryStage.show();
-//            });
-//        });
-
+        Platform.runLater(() -> {
+            Dialog.SnackBar.showSnack(rootNode, format, 5000);
+        });
     }
 
 
