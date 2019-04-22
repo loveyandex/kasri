@@ -17,12 +17,10 @@ public class MathTerminology {
         double m = +1.0D / 0.0;
         double[] var3 = vals;
         int var4 = vals.length;
-
         for (int var5 = 0; var5 < var4; ++var5) {
             double v = var3[var5];
             m = Math.min(v, m);
         }
-
         return m;
     }
 
@@ -30,31 +28,26 @@ public class MathTerminology {
         double m = -1.0D / 0.0;
         double[] var3 = vals;
         int var4 = vals.length;
-
         for (int var5 = 0; var5 < var4; ++var5) {
             double v = var3[var5];
             m = Math.max(v, m);
         }
-
         return m;
     }
 
     public static double max(ArrayList<Double> doubles) {
         double m = -1.0D / 0.0;
         int var4 = doubles.size();
-
         for (int var5 = 0; var5 < var4; ++var5) {
             double v = doubles.get(var5);
             m = Math.max(v, m);
         }
-
         return m;
     }
 
     public static double min(ArrayList<Double> doubles) {
         double m = 1.0D / 0.0;
         int var4 = doubles.size();
-
         for (int var5 = 0; var5 < var4; ++var5) {
             double v = doubles.get(var5);
             m = Math.min(v, m);
@@ -68,7 +61,6 @@ public class MathTerminology {
                 return true;
         }
         return false;
-
     }
     public static boolean HaveAMines(double[] doubles) {
         for (Double aDouble : doubles) {
@@ -76,7 +68,6 @@ public class MathTerminology {
                 return true;
         }
         return false;
-
     }
 
     public static void main(String[] args) {
@@ -87,8 +78,6 @@ public class MathTerminology {
             add(334.4);
         }});
         System.out.println(max);
-
     }
-
 
 }
