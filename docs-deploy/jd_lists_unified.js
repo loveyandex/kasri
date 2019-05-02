@@ -890,7 +890,7 @@ var DEVELOP_RESOURCES = [
         "title":"Support Library Revision History",
         "summary":"This page provides details about the Support Library package releases.",
         "url":"topic/libraries/support-library/revisions.html",
-        "image":"assets/images/styles/disclosure_up.png",
+     
         "category":"libraries",
         "type":"develop",
         "keywords": [],

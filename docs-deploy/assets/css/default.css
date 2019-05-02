@@ -554,7 +554,7 @@ a.back-link {
     .training-nav-top .start-course-link:after,
     .go-link:after {
       content: '';
-      background: transparent url(../images/styles/disclosure_right.png) no-repeat scroll 50% 50%;
+      background: transparent  no-repeat scroll 50% 50%;
       width: 10px;
       height: 10px;
       display: inline-block;
@@ -657,7 +657,7 @@ a.back-link {
     float:left;
     font-size:18px;
     font-weight:bold;
-    background: transparent url(../images/styles/disclosure_right.png) no-repeat scroll 50% 50%;
+    background: transparent  no-repeat scroll 50% 50%;
     width: 10px;
     height: 32px;
   }
@@ -1035,7 +1035,7 @@ scroll top left;
   color: #333333; }
   .landing-page-link:after {
     content: '';
-    background: transparent url(../images/styles/disclosure_right.png) no-repeat scroll 50% 50%;
+    background: transparent  no-repeat scroll 50% 50%;
     width: 10px;
     height: 10px;
     display: inline-block;
@@ -1223,7 +1223,7 @@ color-stop(50%, #acbc00), color-stop(50%, #bdde00), color-stop(100%, #bdde00));
   margin: 0px 0;
   border: solid 1px #EBEBEB;
   -webkit-appearance: none;
-  background: white url('../images/arrows-up-down.png') right center no-repeat;
+  background: white  right center no-repeat;
   height: 30px;
   color: #222;
   line-height: normal;
@@ -1551,7 +1551,7 @@ ul ul {
     border: solid 1px #ebebeb;
     border-top-color: #ddd;
     -webkit-appearance: none;
-    background: #f3f3f3 url(../images/arrows-up-down.png) right center no-repeat;
+    background: #f3f3f3 right center no-repeat;
     height: 30px;
     color: #222;
     line-height: normal;
@@ -1895,7 +1895,7 @@ a:visited {
   appearance:none;
   -moz-appearance:none;
   -webkit-appearance: none;
-  background: transparent url(../images/arrows-up-down.png) 23px 5px no-repeat;
+  background: transparent url(../images/) 23px 5px no-repeat;
   color: #222;
   /* remove the lines below after xp testing
      height: 19px;
@@ -2444,7 +2444,6 @@ div.design-announce p {
 }
 .expandable:before {
   content: '';
-  background-image: url(../images/styles/disclosure_down.png);
   background-repeat:no-repeat;
   background-position: -12px -9px;
   width: 20px;
@@ -2454,8 +2453,7 @@ div.design-announce p {
   top: 0;
   left: 0; }
 }
-.expandable.expanded:before {
-  background-image: url(../images/styles/disclosure_up.png);
+
 }
 
 /* notice box for cross links between Design/Develop docs */
@@ -6778,7 +6776,7 @@ body.studio .dac-header-crumbs {
 
 .dac-header-crumbs-item:before {
   content: '';
-  background: transparent url(../images/styles/disclosure_right.png) no-repeat scroll 50% 50%;
+  background: transparent  no-repeat scroll 50% 50%;
   width: 10px;
   height: 10px;
   display: inline-block;
@@ -7505,7 +7503,7 @@ body.studio .dac-header-crumbs {
 }
 
 .dac-reference-nav-toggle::before {
-  background: transparent url(../images/styles/disclosure_up.png) no-repeat center center;
+  background: transparent no-repeat center center;
   content: '';
   display: block;
   height: 19px;
@@ -7582,7 +7580,7 @@ body.studio .dac-header-crumbs {
 }
 
 #nav .nav-section-header:after {
-  background: transparent url(../images/styles/disclosure_down.png) no-repeat scroll 50% 50%;
+  background: transparent no-repeat scroll 50% 50%;
   content: '';
   height: 34px;
   display: block;
@@ -7618,7 +7616,7 @@ body.studio .dac-header-crumbs {
 
 #nav li.expanded > .nav-section-header:after {
   content: '';
-  background: transparent url(../images/styles/disclosure_up.png) no-repeat scroll 50% 50%;
+  background: transparent  no-repeat scroll 50% 50%;
   width: 34px;
   height: 34px;
 }
@@ -9146,13 +9144,11 @@ $spritesheet: width height image $spritesheet-sprites;
 */
 .dac-sprite, .dac-modal-header-close:before, .paging-links .prev-page-link:before, .paging-links .next-page-link:before, .paging-links .next-class-link:before, .paging-links .start-class-link:after, .Video-button--picture-in-picture, .Video-button--close, a.video-shadowbox-button.white::after, #tb li:before,
 #qv li:before {
-  background-image: url(/assets/images/sprite.png);
   display: inline-block;
   vertical-align: middle; }
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx), (min-resolution: 144px) {
     .dac-sprite, .dac-modal-header-close:before, .paging-links .prev-page-link:before, .paging-links .next-page-link:before, .paging-links .next-class-link:before, .paging-links .start-class-link:after, .Video-button--picture-in-picture, .Video-button--close, a.video-shadowbox-button.white::after, #tb li:before,
     #qv li:before {
-      background-image: url(/assets/images/sprite@2x.png);
       background-size: 36px 883px; } }
 
 .dac-sprite.dac-auto-chevron, .dac-auto-chevron.dac-modal-header-close:before, .paging-links .dac-auto-chevron.prev-page-link:before, .paging-links .dac-auto-chevron.next-page-link:before, .paging-links .dac-auto-chevron.next-class-link:before, .paging-links .dac-auto-chevron.start-class-link:after {

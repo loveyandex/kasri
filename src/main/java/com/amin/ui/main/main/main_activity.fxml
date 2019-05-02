@@ -37,6 +37,7 @@
             <Menu text="Help">
                 <items>
                     <MenuItem text="About" onAction="#about"/>
+                    <MenuItem text="help and doc" onAction="#halpanddoc"/>
                     <MenuItem text="clear paths" onAction="#clear"/>
 
                 </items>

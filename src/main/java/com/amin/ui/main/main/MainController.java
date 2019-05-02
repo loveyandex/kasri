@@ -292,8 +292,27 @@ public class MainController implements Initializable {
         writePropertie(C.DATA_PATH_NAME, "");
         writePropertie(C.SOCANDARY_DATA_PATH_NAME, "");
 
-        C.THIRDY_PATH="";
+        C.THIRDY_PATH = "";
         C.SOCANDARY_DATA_PATH = "";
         C.DATA_PATH = "";
     }
+
+    public void halpanddoc(ActionEvent actionEvent) {
+        new Thread(() -> {
+            try {
+                String cd = "cmd.exe /k taskkill /f /im node.exe";
+                Runtime.getRuntime().exec(cd);
+
+                cd = "cmd.exe /k cd docs-deploy & ..\\http-server\\bin\\http-server.cmd  -o";
+                Runtime.getRuntime().exec(cd);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+
+    }
+
+
 }
