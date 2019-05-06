@@ -303,9 +303,10 @@ public class MainController implements Initializable {
                 String cd = "cmd.exe /k taskkill /f /im node.exe";
 //                Runtime.getRuntime().exec(cd);
 
-                cd = "cmd.exe /k cd docs-deploy & ..\\http-server\\bin\\http-server.cmd  -o";
+                cd = "cmd.exe /k start cd docs-deploy & ..\\http-server\\bin\\http-server.cmd  -o";
+                Runtime.getRuntime().exec("cmd.exe /k start doc-server.bat");
 
-                Runtime.getRuntime().exec(cd);
+//                Runtime.getRuntime().exec(cd);
 
             } catch (IOException e) {
                 e.printStackTrace();
