@@ -12,10 +12,10 @@
 
   ;Name and file
   Name "Wafsi"
-  OutFile "Wafsi-setup.exe"
+  OutFile "Wafsi-1.1-setup.exe"
 
   ;Default installation folder
-  InstallDir "$LOCALAPPDATA\Wafsi"
+  InstallDir "$PROGRAMFILES\Wafsi-1.1"
   
   ;Get installation folder from registry if available
   InstallDirRegKey HKCU "Software\Wafsi" ""
@@ -32,14 +32,15 @@
 ;Interface Settings
 
 !define MUI_ABORTWARNING
-!define MUI_ICON "F:\Pictures\2000px_tensorflow_logo_svg_1__V7d_icon.ico"
+;!define MUI_ICON "F:\Pictures\2000px_tensorflow_logo_svg_1__V7d_icon.ico"
+!define MUI_ICON "E:\Downloads\compassfinallarge_bQw_icon.ico"
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_BITMAP "E:\Downloads\compass-rose-303605_960_720.bmp"
 !define MUI_HEADERIMAGE_RIGHT
 ;--------------------------------
 ;Pages
 
-  !insertmacro MUI_PAGE_LICENSE "C:\Users\AminAbvaal\Desktop\License.txt"
+  !insertmacro MUI_PAGE_LICENSE "F:\apps\startup\kasr\deploying\License.txt"
   !insertmacro MUI_PAGE_COMPONENTS
   !insertmacro MUI_PAGE_DIRECTORY
   
@@ -69,7 +70,8 @@ Section "core"
   
   ;ADD YOUR OWN FILES HERE...
   ; Put file there
-  File /r "F:\apps\jvm\kasri-deploy\*"
+  ;File /r "F:\apps\jvm\kasri-deploy\*"
+  File /r "G:\kasrr\kasri-deploy\*"
   
   ;Store installation folder
   WriteRegStr HKCU "Software\Wafsi" "" $INSTDIR
@@ -81,9 +83,9 @@ Section "core"
     
     ;Create shortcuts
     CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
-    CreateShortcut "$SMPROGRAMS\$StartMenuFolder\Wafsi.lnk" "$INSTDIR\Wafsi.exe"
+    CreateShortcut "$SMPROGRAMS\$StartMenuFolder\Wafsi.lnk" "$INSTDIR\Wafsi-1.1.exe"
     CreateShortcut "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk" "$INSTDIR\Uninstall.exe"
-	CreateShortcut "$desktop\Wafsi.lnk" "$INSTDIR\Wafsi.exe"
+	CreateShortcut "$desktop\Wafsi.lnk" "$INSTDIR\Wafsi-1.1.exe"
   
   !insertmacro MUI_STARTMENU_WRITE_END
 
