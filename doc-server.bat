@@ -1,2 +1,4 @@
 cd docs-deploy
-..\http-server\bin\http-server.cmd  -o
+start http://localhost:8080
+..\http-server\bin\http-server.cmd  -p 8080
+
