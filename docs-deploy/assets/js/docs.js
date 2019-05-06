@@ -1104,7 +1104,7 @@ function toggleInherited(linkObj, expand) {
   if ((expand == null && a.hasClass("closed")) || expand) {
     list.style.display = "none";
     summary.style.display = "block";
-    trigger.src = toRoot + "assets/images/styles/disclosure_up.png";
+    trigger.src = toRoot ;
     a.removeClass("closed");
     a.addClass("opened");
   } else if ((expand == null && a.hasClass("opened")) || (expand == false)) {

@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -28,6 +29,17 @@ public class Alert implements Initializable {
 
 
     public void exit(ActionEvent actionEvent) {
+
+        new Thread(() -> {
+            try {
+                String cd = "cmd.exe /k taskkill /f /im node.exe";
+                Runtime.getRuntime().exec(cd);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
         Platform.exit();
     }
 
