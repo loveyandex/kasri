@@ -198,8 +198,6 @@
                     <JFXTextField alignment="BASELINE_LEFT"
                                   fx:id="height"
                                   promptText="height"
-
-                                  style="-fx-background-color: white"
                                   minWidth="300"
                     >
                         <font>

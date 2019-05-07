@@ -212,7 +212,6 @@
                                   fx:id="height"
                                   promptText="height"
                                   minWidth="300"
-                                  style="-fx-background-color: white"
                     >
                         <font>
                             <Font size="9.0"/>

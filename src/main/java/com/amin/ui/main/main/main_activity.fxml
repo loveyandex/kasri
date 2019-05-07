@@ -51,7 +51,6 @@
             <HBox alignment="CENTER">
                 <JFXButton fx:id="ondayoneheight" contentDisplay="TOP"
                            mnemonicParsing="false"
-                           onAction="#onday"
                            prefHeight="100.0"
                            prefWidth="160.0"
                            styleClass="toolbar-button"

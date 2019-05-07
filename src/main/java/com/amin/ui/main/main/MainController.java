@@ -68,6 +68,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ondayoneheight.setOnAction(this::abdout);
 
         new Thread(() -> {
             DatabaseHandler.getInstance();
@@ -152,11 +153,9 @@ public class MainController implements Initializable {
 
 
     public void onday(ActionEvent actionEvent) {
-        try {
-            abdout(actionEvent);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //            abdout(actionEvent);
+        isloadingvbox.setVisible(true);
+
     }
 
 
@@ -264,10 +263,15 @@ public class MainController implements Initializable {
         dialog.show(stackpane);
 
     }
-    public void abdout(ActionEvent actionEvent) throws IOException {
+    public void abdout(ActionEvent actionEvent)  {
         Stage stage = new StageOverride();
         stage.setResizable(true);
-        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/someday/day/somedays.fxml"));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/someday/day/somedays.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Scene scene = new SceneJson<>(root);
         stage.setScene(scene);
         stage.initOwner(rootme.getScene().getWindow());
