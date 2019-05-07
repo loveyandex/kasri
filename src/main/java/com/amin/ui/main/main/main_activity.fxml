@@ -55,7 +55,7 @@
                            prefHeight="100.0"
                            prefWidth="160.0"
                            styleClass="toolbar-button"
-                           text="on day in height" textAlignment="CENTER">
+                           text="on day(SomeDays) in height" textAlignment="CENTER">
                     <graphic>
                         <ImageView>
                             <image>
@@ -274,6 +274,20 @@
                             </HBox>
                             <HBox>
                                 <Label style="-fx-text-fill: #0295f7">(Double) ESC</Label>
+                            </HBox>
+                        </HBox>
+
+                        <HBox>
+                            <HBox>
+                                <Label layoutX="200" style="-fx-text-fill: #b3b3b3;">Run Help</Label>
+                                <HBox.margin>
+                                    <Insets>
+                                        <right>10</right>
+                                    </Insets>
+                                </HBox.margin>
+                            </HBox>
+                            <HBox>
+                                <Label style="-fx-text-fill: #0295f7">Ctrl H</Label>
                             </HBox>
                         </HBox>
 

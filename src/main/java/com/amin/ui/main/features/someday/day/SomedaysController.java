@@ -1,20 +1,15 @@
-package com.amin.ui.mappless;
+package com.amin.ui.main.features.someday.day;
 
+import com.amin.analysis.Mapping;
+import com.amin.config.C;
+import com.amin.jsons.*;
 import com.amin.jsons.Date;
-import com.amin.jsons.Features;
-import com.amin.jsons.FormInfo;
-import com.amin.jsons.UnitConvertor;
-import com.amin.knnann.KNN;
-import com.amin.pojos.LatLon;
-import com.amin.ui.SceneJson;
+import com.amin.scripting.Functions;
 import com.amin.ui.dialogs.Dialog;
-import com.amin.ui.dialogs.SnackBar;
-import com.amin.ui.scripts.ScriptAPP;
-import com.google.gson.Gson;
 import com.jfoenix.controls.*;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -27,14 +22,17 @@ import net.time4j.calendar.PersianCalendar;
 import net.time4j.ui.javafx.CalendarPicker;
 import org.controlsfx.control.RangeSlider;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.*;
 
 /**
  * is created by aMIN on 6/1/2018 at 05:50
  */
-public class KNNController implements Initializable {
+public class SomedaysController implements Initializable {
 
     public RangeSlider yearsSlider;
     public JFXSlider lowYearjfxslider;
@@ -42,38 +40,34 @@ public class KNNController implements Initializable {
     public HBox topOfgobtn;
     public JFXComboBox featuresCombo;
     public JFXComboBox unitsCombo;
-
     public GridPane rootNode;
-
-
     public JFXButton cancelBtn;
     public JFXButton Gobtn;
-
     public TextField height;
     public VBox vvv;
     public JFXComboBox monthCombo;
     public JFXComboBox dayofMonthCombo;
     public JFXCheckBox z00;
     public JFXTabPane jfxtab;
-    public FormInfo formInfo;
+    public SomeDays formInfo;
+    public JFXTextField plusdays;
+    public JFXTextField minusDays;
     @FXML
     CalendarPicker<PersianCalendar> persianCalendarCalendarPicker;
+    private ArrayList<IOException> ioExceptions = new ArrayList<>();
+    @FXML
+    private JFXComboBox<Label> stationsCombo;
+    @FXML
+    private JFXComboBox<Label> countriesCombo;
+    private Map<String, String> stationNumTOCities;
+
     @FXML
     private RangeSlider hSlider;
-    private LatLon latLon;
-    private double max_radius_kml = 100;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Platform.runLater(() -> {
-            ArrayList jsons = (ArrayList) ((SceneJson) vvv.getScene()).getJson();
-            latLon = ((LatLon) jsons.get(0));
-            max_radius_kml = ((double) jsons.get(1));
-            System.err.println(new Gson().toJson(jsons));
-        });
-
-        formInfo = new FormInfo();
+        formInfo = new SomeDays();
 
         String[] featursName = {"PRES", "HGHT", "TEMP", "DWPT", "RELH", "MIXR", "DRCT", Features.SKNT.getName(), "THTA", "THTE", "THTV"};
         Arrays.sort(featursName);
@@ -206,7 +200,7 @@ public class KNNController implements Initializable {
 
 
         monthCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
-            formInfo.setDate(null);
+            formInfo.setFromDate(null);
             dayofMonthCombo.getItems().clear();
             int[] days = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
             for (int i = 1; i <= 31; i++) {
@@ -221,7 +215,7 @@ public class KNNController implements Initializable {
         dayofMonthCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
 
-                formInfo.setDate(null);
+                formInfo.setFromDate(null);
                 persianCalendarCalendarPicker = CalendarPicker.persianWithSystemDefaults();
                 String text = ((Label) monthCombo.getValue()).getText();
                 Integer intmonth = persianMapMonth.get(text);
@@ -237,7 +231,7 @@ public class KNNController implements Initializable {
                 PersianCalendar persianCalendar = persianCalendarCalendarPicker.valueProperty().getValue();
                 PlainDate plainDate = persianCalendar.transform(PlainDate.class);
                 System.out.println(String.format("%s-%s-%s", plainDate.getDayOfMonth(), plainDate.getMonth(), plainDate.getYear()));
-                formInfo.setDate(new Date(plainDate.getMonth(), plainDate.getDayOfMonth(), plainDate.getYear()));
+                formInfo.setFromDate(new Date(plainDate.getMonth(), plainDate.getDayOfMonth(), plainDate.getYear()));
             }
 
             if (isReadyToFire(formInfo))
@@ -245,6 +239,89 @@ public class KNNController implements Initializable {
 
         });
 
+
+        try {
+            ArrayList<String> countriesName = Mapping.getFileLines(C.COUNTRIES_CONFIG_PATH);
+            countriesName.forEach(countryName -> countriesCombo.getItems().add(new Label(countryName)));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        countriesCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
+            stationsCombo.getItems().clear();
+            try {
+                formInfo.setStationNumber(null);
+                formInfo.setCountry(newValue.getText());
+
+                String dirpath = C.STATES_PATH;
+                String fileName = newValue.getText() + ".conf";
+
+                File dir = new File(dirpath);
+                dir.mkdirs();
+                File fileTosave = new File(dir, fileName);
+                if (!fileTosave.exists())
+                    Mapping.createCSVFILEFORStations(dirpath, fileName);
+
+                stationNumTOCities = Mapping.
+                        MapStationNumTOCities(C.STATES_PATH + "/" + newValue.getText() + ".conf.csv");
+
+                final Collection<String> values = stationNumTOCities.values();
+                List<String> lisst = new ArrayList<>(values);
+                Collections.sort(lisst);
+
+                for (int i = 0; i < lisst.size(); i++) {
+                    System.out.println((lisst.get(i)));
+                }
+
+                final Set<String> statinss = stationNumTOCities.keySet();
+                List<String> list = new ArrayList<String>(statinss);
+
+                final ArrayList<String> asli = new ArrayList<>();
+                for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
+                    if (!station.getValue().equals("&"))
+                        asli.add(station.getKey());
+                }
+                Collections.sort(asli);
+                for (int i = 0; i < asli.size(); i++) {
+                    stationsCombo.getItems().add(new Label(asli.get(i)));
+                }
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (isReadyToFire(formInfo))
+                Gobtn.setDisable(false);
+            else
+                Gobtn.setDisable(true);
+
+
+        });
+
+//        stationsCombo.setPromptText("select station");
+        stationsCombo.setMinWidth(200);
+        countriesCombo.setMinWidth(200);
+
+        stationsCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
+
+            if (newValue != null) {
+                for (Map.Entry<String, String> station : stationNumTOCities.entrySet()) {
+                    if (station.getKey().equals(newValue.getText())) {
+                        formInfo.setStationNumber(station.getValue());
+                        System.out.println(station.getValue());
+
+                    }
+
+                }
+                formInfo.setStationName(newValue.getText());
+
+                if (isReadyToFire(formInfo))
+                    Gobtn.setDisable(false);
+            }
+        });
+
+        GridPane.setHalignment(stationsCombo, HPos.CENTER);
 
         cancelBtn.pressedProperty().addListener(observable -> {
         });
@@ -268,23 +345,8 @@ public class KNNController implements Initializable {
             if (formInfo.getHighYear().intValue() < formInfo.getLowerYear().intValue())
                 Dialog.SnackBar.showSnack(rootNode, "high year is lower than low year");
             else {
-                try {
 
-                    final double nearst = KNN.nearst(300, latLon, (stationnumber, country) -> {
-
-                        final String function = String.format("onday %s  %d  %d  %s  %s  %s %d  %d %s", stationnumber, formInfo.getDate().Month, formInfo.getDate().Day, formInfo.getFeaureName(), formInfo.getFeatureUnit(), formInfo.getHeight(), formInfo.getLowerYear().intValue(), formInfo.getHighYear().intValue(), country);
-                        final double v = ScriptAPP.scripting2(function);
-
-                        return v;
-                    });
-                    if (nearst == -3.0E15d)
-                        SnackBar.showSnack(vvv,"Data not found for this day", 4323);
-                    else
-                        SnackBar.showSnack(vvv, String.format("%.4f %s", nearst, formInfo.getFeatureUnit()), 4323);
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                Functions.getInstance().someDays(formInfo);
             }
 
 
@@ -296,6 +358,23 @@ public class KNNController implements Initializable {
                 formInfo.setHeight(null);
             else
                 formInfo.setHeight(newValue);
+            if (isReadyToFire(formInfo))
+                Gobtn.setDisable(false);
+        });
+
+        minusDays.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals(""))
+                formInfo.setMinusDay(0);
+            else
+                formInfo.setMinusDay(-Integer.parseInt(newValue));
+            if (isReadyToFire(formInfo))
+                Gobtn.setDisable(false);
+        });
+        plusdays.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals(""))
+                formInfo.setPlusDay(0);
+            else
+                formInfo.setPlusDay(Integer.parseInt(newValue));
             if (isReadyToFire(formInfo))
                 Gobtn.setDisable(false);
         });
@@ -313,8 +392,8 @@ public class KNNController implements Initializable {
 
     }
 
-    private boolean isReadyToFire(FormInfo formInfo) {
-        if (formInfo.getFeatureUnit() == null || formInfo.getFeaureName() == null || formInfo.getLowerYear() == null || formInfo.getHighYear() == null || formInfo.getDate() == null || formInfo.getHeight() == null) {
+    private boolean isReadyToFire(SomeDays formInfo) {
+        if (formInfo.getFeatureUnit() == null || formInfo.getFeaureName() == null || formInfo.getLowerYear() == null || formInfo.getHighYear() == null || formInfo.getFromDate() == null || formInfo.getStationNumber() == null || formInfo.getCountry() == null || formInfo.getHeight() == null) {
             Gobtn.setDisable(true);
             return false;
         } else

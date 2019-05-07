@@ -38,6 +38,8 @@ import static com.amin.config.C.*;
 
 /**
  * is created by aMIN on 5/30/2018 at 21:54
+ *
+ *
  */
 public class MainController implements Initializable {
     public JFXButton ondayoneheight;
@@ -79,10 +81,11 @@ public class MainController implements Initializable {
             dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM);
             dialog.show(stackpane);
             dialog.close();
-
         });
 
-        Tooltip tooltip1 = new Tooltip("on day one height");
+        Tooltip tooltip1 = new Tooltip(ondayoneheight.getText());
+        tooltip1.setStyle("-fx-show-duration: 0.01s ;");
+
         ondayoneheight.setTooltip(tooltip1);
 
 
@@ -99,6 +102,8 @@ public class MainController implements Initializable {
                 } catch (IOException e) {
                     Dialog.createExceptionDialog(e);
                 }
+            } else if (event.getCode() == KeyCode.H && event.isControlDown()) {
+                halpanddoc(null);
             }
         });
 
@@ -148,10 +153,8 @@ public class MainController implements Initializable {
 
     public void onday(ActionEvent actionEvent) {
         try {
-            dayFeature(actionEvent);
+            abdout(actionEvent);
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
             e.printStackTrace();
         }
     }
@@ -260,6 +263,16 @@ public class MainController implements Initializable {
         );
         dialog.show(stackpane);
 
+    }
+    public void abdout(ActionEvent actionEvent) throws IOException {
+        Stage stage = new StageOverride();
+        stage.setResizable(true);
+        Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/someday/day/somedays.fxml"));
+        Scene scene = new SceneJson<>(root);
+        stage.setScene(scene);
+        stage.initOwner(rootme.getScene().getWindow());
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
 
     public void onMapless(ActionEvent actionEvent) throws IOException {

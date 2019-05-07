@@ -14,17 +14,20 @@
     -fx-primary: rgba(247, 247, 247, 0.8);
     -fx-primary: #000000;
     -fx-primary: #354044;
+    -fx-primary: #3e4144;
 
 
     /*-fx-secondary : rgb(255, 255, 255);*/
     -fx-secondary: rgb(182, 217, 164);
     -fx-secondary: #5cb3d6;
+    -fx-secondary: #91bf4f;
 
 
     -fx-primarytext: #ffffff;
     -fx-primarytext: #0590ae;
     -fx-primarytext: #319b21;
     -fx-primarytext: #76cfff;
+    -fx-primarytext: #91bf4f;
 
 
 
