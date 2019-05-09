@@ -45,7 +45,7 @@
         </menus>
     </MenuBar>
     <children>
-        <VBox>
+        <VBox fx:id="otherroot">
 
 
             <HBox alignment="CENTER">
@@ -175,12 +175,12 @@
                         </heading>
                         <body>
                             <VBox>
-                                <Label style="-fx-text-fill: #65673b">Weather Analysis &amp; Flight Simulation
+                                <Label style="-fx-text-fill: #939555">Weather Analysis &amp; Flight Simulation
                                     internationally
                                 </Label>
                                 <HBox>
-                                    <Label style="-fx-text-fill: #5a4420;-fx-font-size: 24px;">Developing by :</Label>
-                                    <Label style="-fx-text-fill: #6c6f3f">Jubin Barte</Label>
+                                    <Label style="-fx-text-fill: #88692e;-fx-font-size: 24px;">Developing by : </Label>
+                                    <Label style="-fx-text-fill: #9a9e5b;-fx-font-size: 24px" text="${' Jubin Barte'}"></Label>
                                 </HBox>
                                 <Label style="-fx-text-fill: #6c6f3f">Version 1.1</Label>
                             </VBox>
@@ -212,7 +212,7 @@
                                 </HBox.margin>
                             </HBox>
                             <HBox>
-                                <Label style="-fx-text-fill: #0295f7; -fx-font-size: 18;">Ctrl D</Label>
+                                <Label style="-fx-font-size: 18;">Ctrl D</Label>
                             </HBox>
 
                         </HBox>
@@ -227,7 +227,7 @@
                                 </HBox.margin>
                             </HBox>
                             <HBox>
-                                <Label style="-fx-text-fill: #0295f7; -fx-font-size: 18;">Ctrl M</Label>
+                                <Label style="-fx-font-size: 18;">Ctrl M</Label>
                             </HBox>
 
                         </HBox>
@@ -243,7 +243,7 @@
                                 </HBox.margin>
                             </HBox>
                             <HBox>
-                                <Label style="-fx-text-fill: #0295f7; -fx-font-size: 18;">Ctrl S</Label>
+                                <Label style=" -fx-font-size: 18;">Ctrl S</Label>
                             </HBox>
 
                         </HBox>
@@ -258,7 +258,7 @@
                                 </HBox.margin>
                             </HBox>
                             <HBox>
-                                <Label style="-fx-text-fill: #0295f7">Ctrl L</Label>
+                                <Label style="">Ctrl L</Label>
                             </HBox>
                         </HBox>
 
@@ -272,7 +272,7 @@
                                 </HBox.margin>
                             </HBox>
                             <HBox>
-                                <Label style="-fx-text-fill: #0295f7">(Double) ESC</Label>
+                                <Label style="">(Double) ESC</Label>
                             </HBox>
                         </HBox>
 
@@ -286,7 +286,7 @@
                                 </HBox.margin>
                             </HBox>
                             <HBox>
-                                <Label style="-fx-text-fill: #0295f7">Ctrl H</Label>
+                                <Label style="">Ctrl H</Label>
                             </HBox>
                         </HBox>
 
@@ -299,7 +299,7 @@
 
                 <VBox.margin>
                     <Insets>
-                        <top>100</top>
+                        <top>80</top>
                     </Insets>
                 </VBox.margin>
 

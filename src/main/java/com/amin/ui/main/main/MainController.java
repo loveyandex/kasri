@@ -7,7 +7,6 @@ import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.map.LatLongMainApp;
-import com.amin.ui.scripts.ScriptAPP;
 import com.amin.ui.scripts.Scripting;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
@@ -22,6 +21,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -30,16 +30,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static com.amin.config.C.*;
+import static com.amin.config.C.writePropertie;
 
 /**
  * is created by aMIN on 5/30/2018 at 21:54
- *
- *
  */
 public class MainController implements Initializable {
     public JFXButton ondayoneheight;
@@ -55,6 +52,7 @@ public class MainController implements Initializable {
     public JFXButton acceptButton;
     public VBox isloadingvbox;
     public JFXButton earth;
+    public VBox otherroot;
     @FXML
     private VBox rootme;
     @FXML
@@ -79,9 +77,14 @@ public class MainController implements Initializable {
         StageOverride.shiftToEnterEvent(ondayoneheight, ondayallheights, allstninoneday, wholeconcurrent, scriptbtn, mapbtn, maplessbtn);
 
         Platform.runLater(() -> {
+            otherroot.getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                System.out.println(event.getCode());
+            });
             dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM);
             dialog.show(stackpane);
             dialog.close();
+
+
         });
 
         Tooltip tooltip1 = new Tooltip(ondayoneheight.getText());
@@ -263,7 +266,8 @@ public class MainController implements Initializable {
         dialog.show(stackpane);
 
     }
-    public void abdout(ActionEvent actionEvent)  {
+
+    public void abdout(ActionEvent actionEvent) {
         Stage stage = new StageOverride();
         stage.setResizable(true);
         Parent root = null;
