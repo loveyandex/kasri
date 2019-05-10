@@ -1,5 +1,9 @@
 package com.amin.getdata;
 
+import com.amin.analysis.Mapping;
+import com.amin.config.C;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -10,6 +14,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class Starter extends javafx.application.Application implements EventHandler<KeyEvent> {
 
@@ -45,46 +52,66 @@ public class Starter extends javafx.application.Application implements EventHand
         rootNode.setVgap(5);
         rootNode.setAlignment(Pos.CENTER);
 
-        Scene myScene = new Scene(rootNode, 400, 300);
+        Scene myScene = new Scene(rootNode, 500, 400);
         Label label = new Label("absolute root path for saving :");
         label.setAlignment(Pos.CENTER);
         rootNode.add(label, 0, 0, 2, 1);
 
-        TextField firstValue = new TextField("G:/Program Files/AMinAbvall/haji");
+        JFXTextField firstValue = new JFXTextField(C.DATA_PATH);
         firstValue.setAlignment(Pos.CENTER);
         rootNode.add(firstValue, 1, 1, 2, 1);
 
 
         Label country = new Label("country:");
         country.setAlignment(Pos.CENTER);
-        rootNode.add(country, 0, 2, 2, 1);
+        rootNode.add(country, 0, 4, 3, 1);
 
 //        TextField countryvalue = new TextField( "israel;turkey;u_arab_emirates;saudi_arabia;qatar;oman;yemen;pakistan;bahrain;azerbaijan;afghanistan;armenia");
-        TextField countryvalue = new TextField("israel;turkey");
-        countryvalue.setAlignment(Pos.CENTER);
-        rootNode.add(countryvalue, 1, 3, 2, 1);
 
-        Label regionl = new Label("region:");
-        regionl.setAlignment(Pos.CENTER);
-        rootNode.add(regionl, 0, 4, 2, 1);
 
-        TextField region = new TextField("");
+        JFXComboBox<Label> countriesCombo = new JFXComboBox<>();
+
+        try {
+            ArrayList<String> countriesName = Mapping.getFileLines(C.COUNTRIES_CONFIG_PATH);
+            countriesName.forEach(countryName -> countriesCombo.getItems().add(new Label(countryName)));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        JFXTextField countryvalue = new JFXTextField("israel;turkey");
+        countryvalue.setVisible(false);
+
+
+
+
+        rootNode.add(countriesCombo, 1, 5, 2, 1);
+//
+//        rootNode.add(regionl, 0, 4, 2, 1);
+
         ComboBox<String> comboBoxrigion = new ComboBox<>();
-        region.setAlignment(Pos.CENTER);
-        rootNode.add(region, 1, 5, 2, 1);
 
 
-        Button aButton = new Button("start getting Data");
-        rootNode.add(aButton, 1, 6);
+        Button aButton = new Button("Start Getting Data");
+        aButton.setDisable(true);
+        rootNode.add(aButton, 1, 9);
         GridPane.setHalignment(aButton, HPos.CENTER);
+
+
+        countriesCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
+            countryvalue.setText(newValue.getText());
+            aButton.setDisable(false);
+            System.out.println(newValue.getText());
+
+        });
 
         ProgressIndicator pbar = new ProgressIndicator(ProgressIndicator.INDETERMINATE_PROGRESS);
         pbar.setVisible(false);
-        rootNode.add(pbar, 1, 7);
+        rootNode.add(pbar, 1, 11);
 
         aButton.setOnAction(e -> {
             ABSOLUTE_ROOT_PATH = firstValue.getText();
-            COUNTRIES = countryvalue.getText().toLowerCase().split(";");
+//            COUNTRIES = countryvalue.getText().toLowerCase().split(";");
+            COUNTRIES = new String[]{countryvalue.getText()};
+
             System.out.println(COUNTRIES.length + ">>>>>>>>>");
             pbar.setVisible(true);
             System.out.println(ABSOLUTE_ROOT_PATH);
@@ -96,6 +123,9 @@ public class Starter extends javafx.application.Application implements EventHand
             if (event.getCode() == KeyCode.ESCAPE)
                 myStage.close();
         });
+
+
+        myScene.getStylesheets().add("/dark-theme.css");
         myStage.show();
     }
 
