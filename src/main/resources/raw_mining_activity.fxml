@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <VBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.amin.ui.RawMiningActivity">
     <VBox fx:id="vbox2">
@@ -30,6 +31,10 @@
             </HBox>
 
             <ProgressBar fx:id="progress"  prefWidth="Infinity" visible="false"></ProgressBar>
+
+            <JFXTextArea fx:id="showtext">
+
+            </JFXTextArea>
 
         </children>
 

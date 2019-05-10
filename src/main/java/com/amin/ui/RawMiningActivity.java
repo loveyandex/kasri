@@ -5,7 +5,9 @@ import com.amin.analysis.SecondMining;
 import com.amin.analysis.oldmapping.OldMapping;
 import com.amin.config.C;
 import com.amin.getdata.Methods;
+import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -37,6 +39,7 @@ public class RawMiningActivity extends Application {
     public ProgressBar progress;
     public Button chooseDir2;
     public Button allinon;
+    public JFXTextArea showtext;
     private Desktop desktop = Desktop.getDesktop();
 
     @Override
@@ -99,6 +102,7 @@ public class RawMiningActivity extends Application {
     }
 
     public void rawMining() {
+        System.err.println(C.SOCANDARY_DATA_PATH);
         final DirectoryChooser directoryChooser =
                 new DirectoryChooser();
         final File kasriDate =
@@ -109,9 +113,6 @@ public class RawMiningActivity extends Application {
                 File[] countries = kasriDate.listFiles();
                 for (File country : countries) {
                     System.out.println(country.getAbsolutePath());
-                    int a = Character.getNumericValue(country.getName().charAt(0));
-
-
                     File[] yerarFiles = country.listFiles();
                     for (File yearFile : yerarFiles) {
                         if (yearFile.isDirectory()) {
@@ -119,7 +120,7 @@ public class RawMiningActivity extends Application {
                             for (File month : months) {
 
                                 String rootpathDirToSave = C.SOCANDARY_DATA_PATH + File.separator + country.getName() + File.separator + yearFile.getName() + File.separator + month.getName();
-                                System.out.println(rootpathDirToSave);
+//                         ;
                                 if (month.isDirectory()) {
                                     File[] stations = month.listFiles();
                                     for (File station :
@@ -147,6 +148,7 @@ public class RawMiningActivity extends Application {
                     System.out.println("threads " + Thread.getAllStackTraces().keySet().size());
                     System.out.println("threads2 " + Thread.activeCount());
 
+                    Platform.runLater(() -> showtext.setText("\n" + country.getName()));
 
                 }
 
@@ -204,6 +206,8 @@ public class RawMiningActivity extends Application {
                             }
                         }
                     }
+                    Platform.runLater(() -> showtext.setText("\n" + country.getName()));
+
                 }
                 progress.setVisible(false);
 
