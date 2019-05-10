@@ -29,7 +29,6 @@ public class MainActivity extends Application {
     private void closeAlertDialog(Stage primaryStage) throws IOException {
         Stage stage = new StageOverride();
         stage.initStyle(StageStyle.UTILITY);
-        System.err.println("undecorated");
         stage.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/alert.fxml"));
         Scene scene = new SceneJson<>(root);

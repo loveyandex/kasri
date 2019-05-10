@@ -338,4 +338,23 @@ public class MainController implements Initializable {
     }
 
 
+
+
+    public void dataFormatiing(ActionEvent actionEvent) throws IOException {
+        Stage stage = new StageOverride();
+        stage.setResizable(true);
+        Parent root = FXMLLoader.load(getClass().getResource(C.RAW_FMXL_PATH));
+        System.out.println("amin");
+        System.out.println(C.DATA_PATH + " DATA_PATH");
+        System.out.println(C.SOCANDARY_DATA_PATH + " Secondary");
+        System.out.println(C.THIRDY_PATH + " Third");
+
+        Scene scene = new Scene(root, 1000, 500);
+
+        stage.setTitle("");
+        stage.setScene(scene);
+        stage.show();
+        System.out.println("myth " + Thread.activeCount());
+
+    }
 }

@@ -18,6 +18,7 @@
             <Menu text="File" styleClass="gg">
                 <items>
                     <MenuItem onAction="#getDataFromInternet" text="get rawdata from net"/>
+                    <MenuItem onAction="#dataFormatiing" text="Data Formatting "/>
                     <SeparatorMenuItem/>
                     <MenuItem onAction="#exit" text="Exit"/>
                 </items>
