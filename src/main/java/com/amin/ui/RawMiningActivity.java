@@ -54,8 +54,11 @@ public class RawMiningActivity extends Application {
 
         Scene scene = new Scene(root, 1000, 500);
 
+        scene.getStylesheets().add("/dark-theme.css");
+
         primaryStage.setTitle("");
         primaryStage.setScene(scene);
+
         primaryStage.show();
         System.out.println("myth " + Thread.activeCount());
 

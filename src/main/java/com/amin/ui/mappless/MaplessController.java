@@ -18,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -41,6 +42,7 @@ public class MaplessController implements Initializable {
     public JFXButton ANNbtn;
     public Hyperlink radiusLink;
     public Hyperlink hyperlinkCountryName;
+    public Label cityLable;
 
     @FXML
     private JFXTextField longitude;
@@ -180,7 +182,7 @@ public class MaplessController implements Initializable {
                     primaryStage.setScene(sd);
                     sd.getStylesheets().add("/dark-theme.css");
                     primaryStage.initOwner(root.getScene().getWindow());
-                    primaryStage.initStyle(StageStyle.UNDECORATED);
+                    primaryStage.initStyle(StageStyle.UTILITY);
                     primaryStage.show();
                 }
             }.start(new StageOverride());

@@ -141,6 +141,8 @@ public class MainController implements Initializable {
         stage.setResizable(true);
         Parent root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/day/day.fxml"));
         Scene scene = new SceneJson<>(root, 750, 600);
+
+
         stage.setScene(scene);
         stage.initOwner(rootme.getScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -349,7 +351,8 @@ public class MainController implements Initializable {
         System.out.println(C.SOCANDARY_DATA_PATH + " Secondary");
         System.out.println(C.THIRDY_PATH + " Third");
 
-        Scene scene = new Scene(root, 1000, 500);
+        Scene scene = new Scene(root, 800, 500);
+        scene.getStylesheets().add("/dark-theme.css");
 
         stage.setTitle("");
         stage.setScene(scene);
