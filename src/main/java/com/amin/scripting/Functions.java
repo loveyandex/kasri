@@ -62,6 +62,7 @@ public class Functions {
             e.printStackTrace();
         }
     }
+
     public void someDays(SomeDays someDays) {
         try {
             someDaysOneHeightOneStations(someDays);
@@ -617,7 +618,7 @@ public class Functions {
                 while (true) {
                     if (dayIndexer > someDays.getPlusDay())
                         break;
-                   LocalDate myDate = myDate0.plus(dayIndexer, ChronoUnit.DAYS);
+                    LocalDate myDate = myDate0.plus(dayIndexer, ChronoUnit.DAYS);
                     final Month month = myDate.getMonth();
                     final String monthDisplayName = month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
                     final int monthValue = month.getValue();
@@ -638,7 +639,7 @@ public class Functions {
                     ArrayList<ArrayList<Double>> heightAndFeature;
                     try {
                         final String title = featureName;
-                        final String seriesName = Z + "_" +monthDisplayName+fromdayOfMonth+"_"+ yearIndexer;
+                        final String seriesName = Z + "_" + monthDisplayName + fromdayOfMonth + "_" + yearIndexer;
                         heightAndFeature = Charting.returnCOlCol2Data(title
                                 , seriesName,
                                 rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
@@ -686,7 +687,7 @@ public class Functions {
 
 
             Charting charting = new Charting(1000, 33000, 1000,
-                    maxMin[1] , ((int) maxMin[0]) + 1, ((int) ytickUnit), "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
+                    maxMin[1], ((int) maxMin[0]) + 1, ((int) ytickUnit), "geopotHeight(m)", featureName + "(" + unit + ")", Charting.LINE_CHART);
             final XYChart<Number, Number> sc = charting.getSc();
             for (int rr = 0; rr < all.size(); rr++) {
                 sc.setTitle(titles.get(rr));
@@ -704,7 +705,7 @@ public class Functions {
 
 
             System.err.println(new Gson().toJson(yearsdata));
-            Charting charting2 = new Charting(((int) MathTerminology.min(yearsdata)) - 1, toYear+1, 1,
+            Charting charting2 = new Charting(((int) MathTerminology.min(yearsdata)) - 1, toYear + 1, 1,
                     ((int) maxMin[1]), ((int) maxMin[0]) + 1, ((int) ytickUnit), "years", featureName + "(" + unit + ")", Charting.LINE_CHART);
             charting2.interpolateChart("interpolate years for " + featureName + " in " + height + " m",
                     "interpolate", knotslist, yearsofFeature, "avg line val is on ", unit);

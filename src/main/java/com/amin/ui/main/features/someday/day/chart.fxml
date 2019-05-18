@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?language JavaScript?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:id="rootme" fx:controller="com.amin.ui.main.features.day.ChartController" xmlns="http://javafx.com/javafx/2.2">
+
+    <MenuBar fx:id="menuBar" focusTraversable="true">
+        <menus>
+            <Menu text="File">
+                <items>
+                    <MenuItem text=""/>
+                    <MenuItem text=""/>
+                </items>
+            </Menu>
+            <Menu text="data analysis">
+                <items>
+                    <MenuItem text="statistical models " onAction="#statisticalModels"/>
+                </items>
+            </Menu>
+            <Menu text="style">
+                <items>
+                    <MenuItem text="default style" onAction="#styling"/>
+                    <MenuItem text="white style" onAction="#whiteStyle"/>
+                    <MenuItem text="remove all style" onAction="#removestyling"/>
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
+
+
+</VBox>

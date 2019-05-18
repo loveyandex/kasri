@@ -7,7 +7,6 @@ import com.amin.ui.SceneJson;
 import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.map.LatLongMainApp;
-import com.amin.ui.scripts.ScriptAPP;
 import com.amin.ui.scripts.Scripting;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
@@ -22,6 +21,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -30,11 +30,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static com.amin.config.C.*;
+import static com.amin.config.C.writePropertie;
 
 /**
  * is created by aMIN on 5/30/2018 at 21:54
@@ -53,6 +52,7 @@ public class MainController implements Initializable {
     public JFXButton acceptButton;
     public VBox isloadingvbox;
     public JFXButton earth;
+    public VBox otherroot;
     @FXML
     private VBox rootme;
     @FXML
@@ -66,6 +66,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ondayoneheight.setOnAction(this::abdout);
 
         new Thread(() -> {
             DatabaseHandler.getInstance();
@@ -76,13 +77,19 @@ public class MainController implements Initializable {
         StageOverride.shiftToEnterEvent(ondayoneheight, ondayallheights, allstninoneday, wholeconcurrent, scriptbtn, mapbtn, maplessbtn);
 
         Platform.runLater(() -> {
+            otherroot.getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                System.out.println(event.getCode());
+            });
             dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM);
             dialog.show(stackpane);
             dialog.close();
 
+
         });
 
-        Tooltip tooltip1 = new Tooltip("on day one height");
+        Tooltip tooltip1 = new Tooltip(ondayoneheight.getText());
+        tooltip1.setStyle("-fx-show-duration: 0.01s ;");
+
         ondayoneheight.setTooltip(tooltip1);
 
 
@@ -99,6 +106,8 @@ public class MainController implements Initializable {
                 } catch (IOException e) {
                     Dialog.createExceptionDialog(e);
                 }
+            } else if (event.getCode() == KeyCode.H && event.isControlDown()) {
+                halpanddoc(null);
             }
         });
 
@@ -147,13 +156,9 @@ public class MainController implements Initializable {
 
 
     public void onday(ActionEvent actionEvent) {
-        try {
-            dayFeature(actionEvent);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        //            abdout(actionEvent);
+        isloadingvbox.setVisible(true);
+
     }
 
 
@@ -260,6 +265,22 @@ public class MainController implements Initializable {
         );
         dialog.show(stackpane);
 
+    }
+
+    public void abdout(ActionEvent actionEvent) {
+        Stage stage = new StageOverride();
+        stage.setResizable(true);
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/com/amin/ui/main/features/someday/day/somedays.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new SceneJson<>(root);
+        stage.setScene(scene);
+        stage.initOwner(rootme.getScene().getWindow());
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
 
     public void onMapless(ActionEvent actionEvent) throws IOException {

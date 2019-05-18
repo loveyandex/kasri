@@ -3,15 +3,15 @@
 <?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.RangeSlider?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vvv"
       stylesheets="/dark-theme.css"
       xmlns="http://javafx.com/javafx/8.0.121"
-      fx:controller="com.amin.ui.main.features.day.FormDayController">
+      fx:controller="com.amin.ui.main.features.someday.day.SomedaysController">
 
 
     <JFXTabPane fx:id="jfxtab" style="-fx-alignment: center">
@@ -19,13 +19,13 @@
             <graphic>
                 <ImageView>
                     <image>
-                        <Image  requestedWidth="30" requestedHeight="30"  url="/drawable/setting_icon.png"/>
+                        <Image requestedWidth="30" requestedHeight="30" url="/drawable/setting_icon.png"/>
                     </image>
                 </ImageView>
             </graphic>
-            <GridPane fx:id="rootNode" alignment="TOP_CENTER" prefHeight="2500.0" prefWidth="600.0"
+            <GridPane fx:id="rootNode" alignment="TOP_CENTER" prefHeight="500.0" prefWidth="400.0"
                       style="-fx-padding: 40px 0px 0px 0px">
-                <Label  styleClass="lb" focusTraversable="true"
+                <Label styleClass="lb" focusTraversable="true"
                        text="choose a feature"
                        GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 
@@ -39,7 +39,7 @@
                     </GridPane.margin>
                 </JFXComboBox>
 
-                <Label   focusTraversable="true"
+                <Label focusTraversable="true"
                        text="choose month"
                        GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
@@ -49,7 +49,7 @@
 
                 </JFXComboBox>
 
-                <Label  styleClass="lb" text="choose a day of month"
+                <Label styleClass="lb" text="choose a day of month"
                        GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                 <JFXComboBox fx:id="dayofMonthCombo" minWidth="200"
                              GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -60,39 +60,28 @@
                     </GridPane.margin>
                 </JFXComboBox>
 
-                <Label  styleClass="lb" text="choose a country"
+
+                <Label styleClass="lb" text="how many days ago"
                        GridPane.columnIndex="0" GridPane.rowIndex="5"/>
 
-                <JFXComboBox id="fancytext" fx:id="countriesCombo" minWidth="200"
-                             GridPane.columnIndex="1" GridPane.rowIndex="5">
-                    <GridPane.margin>
-                        <Insets>
-                            <bottom>30</bottom>
-                        </Insets>
-                    </GridPane.margin>
-                </JFXComboBox>
+                <JFXTextField fx:id="minusDays" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5"></JFXTextField>
 
-                <Label  styleClass="lb" text="choose a station"
+                <Label styleClass="lb" text="how many days later"
                        GridPane.columnIndex="0" GridPane.rowIndex="7"/>
 
-                <JFXComboBox id="fancytext" fx:id="stationsCombo" minWidth="200"
-                             GridPane.columnIndex="1" GridPane.rowIndex="7">
+                <JFXTextField fx:id="plusdays" text="0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                     <GridPane.margin>
                         <Insets>
                             <bottom>30</bottom>
                         </Insets>
                     </GridPane.margin>
+                </JFXTextField>
 
-                </JFXComboBox>
 
-                <Label  styleClass="lb" text="change unit(SI &amp; NonSI)"
+                <Label styleClass="lb" text="choose a country"
+                       GridPane.columnIndex="0" GridPane.rowIndex="9"/>
 
-                       GridPane.columnIndex="0" GridPane.rowIndex="9">
-
-                </Label>
-
-                <JFXComboBox fx:id="unitsCombo"
-                             minWidth="200"
+                <JFXComboBox id="fancytext" fx:id="countriesCombo" minWidth="200"
                              GridPane.columnIndex="1" GridPane.rowIndex="9">
                     <GridPane.margin>
                         <Insets>
@@ -101,8 +90,37 @@
                     </GridPane.margin>
                 </JFXComboBox>
 
+                <Label styleClass="lb" text="choose a station"
+                       GridPane.columnIndex="0" GridPane.rowIndex="11"/>
 
-                <HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="12">
+                <JFXComboBox id="fancytext" fx:id="stationsCombo" minWidth="200"
+                             GridPane.columnIndex="1" GridPane.rowIndex="11">
+                    <GridPane.margin>
+                        <Insets>
+                            <bottom>30</bottom>
+                        </Insets>
+                    </GridPane.margin>
+
+                </JFXComboBox>
+
+                <Label styleClass="lb" text="change unit(SI &amp; NonSI)"
+
+                       GridPane.columnIndex="0" GridPane.rowIndex="13">
+
+                </Label>
+
+                <JFXComboBox fx:id="unitsCombo"
+                             minWidth="200"
+                             GridPane.columnIndex="1" GridPane.rowIndex="13">
+                    <GridPane.margin>
+                        <Insets>
+                            <bottom>30</bottom>
+                        </Insets>
+                    </GridPane.margin>
+                </JFXComboBox>
+
+
+                <HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="17">
 
                     <JFXButton fx:id="cancelBtn" styleClass="button" stylesheets="/buttons.css" text="Cancel"
                                translateX="50">
@@ -118,14 +136,14 @@
             <graphic>
                 <ImageView>
                     <image>
-                        <Image  requestedWidth="30" requestedHeight="30"  url="/drawable/setting_icon.png"/>
+                        <Image requestedWidth="30" requestedHeight="30" url="/drawable/setting_icon.png"/>
                     </image>
                 </ImageView>
             </graphic>
             <VBox fx:id="rootNodetab2" alignment="TOP_CENTER"
                   style="-fx-padding: 40px 0px 0px 0px">
                 <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
-                    <Label  styleClass="lb" text="time zones: " minWidth="100"
+                    <Label styleClass="lb" text="time zones: " minWidth="100"
                            style="-fx-padding: 0px 30px 0px 0px;"/>
                     <JFXCheckBox fx:id="z00" checkedColor="#948413"
                                  selected="true" disable="true" contentDisplay="CENTER"
@@ -148,7 +166,7 @@
                 <!--/>-->
                 <!--</HBox>-->
                 <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
-                    <Label  styleClass="lb" text="from year: " minWidth="100"
+                    <Label styleClass="lb" text="from year: " minWidth="100"
                            style="-fx-padding: 0px 40px 0px 0px;"/>
                     <JFXSlider fx:id="lowYearjfxslider"
                                minWidth="300" showTickMarks="true"
@@ -159,7 +177,7 @@
                                max="2018"/>
                 </HBox>
                 <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
-                    <Label  styleClass="lb" text="to year: "
+                    <Label styleClass="lb" text="to year: "
                            minWidth="100"
                            style="-fx-padding: 0px 30px 0px 0px;"
                     />
@@ -173,7 +191,7 @@
                 </HBox>
 
                 <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
-                    <Label  styleClass="lb" text="height(m)"
+                    <Label styleClass="lb" text="height(m)"
                            minWidth="100"
                            style="-fx-padding: 0px 40px 0px 0px"/>
 

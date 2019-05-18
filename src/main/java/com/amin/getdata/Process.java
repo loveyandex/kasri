@@ -14,6 +14,8 @@ public class Process implements Runnable {
     public static String baseUrl = "http://weather.uwyo.edu/cgi-bin/sounding?";
 
     public static void getData(String pathDirToSave, String stationsPath, String year, String mounth) {
+        System.out.println(pathDirToSave);
+
         String text = "";
         Elements elements = null;
         Stack<String> urls = new Stack<>();
