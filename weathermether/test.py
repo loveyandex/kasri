@@ -14,5 +14,5 @@ server.retrieve({
     'dataset'   : "era15",
     'type'      : "an",
     'class'     : "er",
-    'target'    : "era15_1986-08-01to1986-08-31_12.grib"
+    'target'    : "Loera15_1986-08-01to1986-08-31_12.grib"
 })
