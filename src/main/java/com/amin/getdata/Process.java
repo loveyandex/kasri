@@ -201,7 +201,9 @@ public class Process implements Runnable {
     }
 
     public static void start() {
-        Stack<String> years = getYears();
+//        Stack<String> years = getYears();
+        Stack<String> years = Starter.years;
+
         for (int k = 0; k < Starter.COUNTRIES.length; k++) {
 
             try {
