@@ -6,6 +6,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.*;
+import java.net.SocketTimeoutException;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -62,13 +63,14 @@ public class Process implements Runnable {
                 outputStreamWriter.flush();
                 outputStreamWriter.close();
 
+            } catch (SocketTimeoutException ee) {
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 Methods.writeFallenUrls(url11);
                 System.out.println("king error");
                 continue;
             }
-
             System.out.println("end of line while");
             text = "";
         }

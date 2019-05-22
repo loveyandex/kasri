@@ -30,11 +30,13 @@ public final class DatabaseHandler {
     private static DatabaseHandler handler = null;
 
     private static final String DB_URL = "jdbc:derby:dbderby;create=true";
+    private static final String DB_URL2 = "jdbc:derby:dbderby2;create=true";
     private static Connection conn = null;
     private static Statement stmt = null;
 
     static {
-        createConnection();
+//        createConnection();
+        createConnection(DB_URL2);
         inflateDB();
     }
 
@@ -85,6 +87,19 @@ public final class DatabaseHandler {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
             System.out.println("after class forname");
             conn = DriverManager.getConnection(DB_URL);
+            System.out.println("after db_url connection");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Cant load database", "Database Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+    }
+    private static void createConnection(String dburl) {
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
+            System.out.println("after class forname");
+            conn = DriverManager.getConnection(dburl);
             System.out.println("after db_url connection");
         }
         catch (Exception e) {
