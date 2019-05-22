@@ -4,6 +4,7 @@ import com.amin.analysis.Mapping;
 import com.amin.config.C;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -17,6 +18,8 @@ import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Stack;
+import java.util.stream.IntStream;
 
 public class Starter extends javafx.application.Application implements EventHandler<KeyEvent> {
 
@@ -24,6 +27,7 @@ public class Starter extends javafx.application.Application implements EventHand
     public static String[] COUNTRIES;
     public static boolean terminateThread = false;
     Thread startProcess = new Thread(new Process());
+    public static Stack<String> years = new Stack<>();
 
     public static void main(String[] args) {
         launch(args);
@@ -66,7 +70,36 @@ public class Starter extends javafx.application.Application implements EventHand
         country.setAlignment(Pos.CENTER);
         rootNode.add(country, 0, 4, 3, 1);
 
-//        TextField countryvalue = new TextField( "israel;turkey;u_arab_emirates;saudi_arabia;qatar;oman;yemen;pakistan;bahrain;azerbaijan;afghanistan;armenia");
+        JFXTextField fromyear = new JFXTextField("1973");
+        JFXTextField toyear = new JFXTextField("2018");
+
+        IntStream.range(Integer.parseInt(fromyear.getText()), Integer.parseInt(toyear.getText())).forEach(value -> years.push(String.valueOf(value)));
+
+        class A<T> {
+            /**
+             * This method needs to be provided by an implementation of
+             * {@code ChangeListener}. It is called if the value of an
+             * {@link ObservableValue} changes.
+             * <p>
+             * In general is is considered bad practice to modify the observed value in
+             * this method.
+             *
+             * @param observable
+             *            The {@code ObservableValue} which value changed
+             * @param oldValue
+             *            The old value
+             * @param newValue
+             *            The new value
+             */
+            void changed(ObservableValue<? extends T> observable, T oldValue, T newValue) {
+                years.clear();
+                IntStream.range(Integer.parseInt(fromyear.getText()), Integer.parseInt(toyear.getText())).forEach(value -> years.push(String.valueOf(value)));
+            }
+
+        }
+        fromyear.textProperty().addListener(new A<>()::changed);
+        toyear.textProperty().addListener(new A<>()::changed);
+
 
 
         JFXComboBox<Label> countriesCombo = new JFXComboBox<>();
@@ -81,18 +114,16 @@ public class Starter extends javafx.application.Application implements EventHand
         countryvalue.setVisible(false);
 
 
-
-
         rootNode.add(countriesCombo, 1, 5, 2, 1);
-//
-//        rootNode.add(regionl, 0, 4, 2, 1);
 
-        ComboBox<String> comboBoxrigion = new ComboBox<>();
+
+        rootNode.add(fromyear,1,7);
+        rootNode.add(toyear,1,9);
 
 
         Button aButton = new Button("Start Getting Data");
         aButton.setDisable(true);
-        rootNode.add(aButton, 1, 9);
+        rootNode.add(aButton, 1, 11);
         GridPane.setHalignment(aButton, HPos.CENTER);
 
 
@@ -105,7 +136,7 @@ public class Starter extends javafx.application.Application implements EventHand
 
         ProgressIndicator pbar = new ProgressIndicator(ProgressIndicator.INDETERMINATE_PROGRESS);
         pbar.setVisible(false);
-        rootNode.add(pbar, 1, 11);
+        rootNode.add(pbar, 1, 13);
 
         aButton.setOnAction(e -> {
             ABSOLUTE_ROOT_PATH = firstValue.getText();

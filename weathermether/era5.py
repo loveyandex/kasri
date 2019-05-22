@@ -16,5 +16,5 @@ server.retrieve({
     "grid": "0.25/0.25",
     "area": "75/-20/10/60",
     "format": "netcdf",
-    "target": "test.nc"
+    "target": "teskkkt.nc"
  })

@@ -6,6 +6,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.*;
+import java.net.SocketTimeoutException;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -62,13 +63,16 @@ public class Process implements Runnable {
                 outputStreamWriter.flush();
                 outputStreamWriter.close();
 
+            } catch (SocketTimeoutException ee) {
+
+            } catch (org.jsoup.UncheckedIOException ee) {
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 Methods.writeFallenUrls(url11);
                 System.out.println("king error");
                 continue;
             }
-
             System.out.println("end of line while");
             text = "";
         }
@@ -201,7 +205,9 @@ public class Process implements Runnable {
     }
 
     public static void start() {
-        Stack<String> years = getYears();
+//        Stack<String> years = getYears();
+        Stack<String> years = Starter.years;
+
         for (int k = 0; k < Starter.COUNTRIES.length; k++) {
 
             try {
