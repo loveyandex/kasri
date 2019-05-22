@@ -65,6 +65,8 @@ public class Process implements Runnable {
 
             } catch (SocketTimeoutException ee) {
 
+            } catch (org.jsoup.UncheckedIOException ee) {
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 Methods.writeFallenUrls(url11);
