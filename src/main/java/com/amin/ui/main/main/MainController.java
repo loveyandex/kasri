@@ -329,6 +329,7 @@ public class MainController implements Initializable {
                 cd = "cmd.exe /k start cd docs-deploy & ..\\http-server\\bin\\http-server.cmd  -o";
                 Runtime.getRuntime().exec("cmd.exe /k start doc-server.bat");
 
+
 //                Runtime.getRuntime().exec(cd);
 
             } catch (IOException e) {

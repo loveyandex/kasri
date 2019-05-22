@@ -12,10 +12,10 @@
 
   ;Name and file
   Name "Wafsi"
-  OutFile "Wafsi-1.1-setup.exe"
+  OutFile "Wafsi-1.2-setup.exe"
 
   ;Default installation folder
-  InstallDir "$PROGRAMFILES\Wafsi-1.1"
+  InstallDir "$PROGRAMFILES\Wafsi-1.2"
   
   ;Get installation folder from registry if available
   InstallDirRegKey HKCU "Software\Wafsi" ""
@@ -71,7 +71,7 @@ Section "core"
   ;ADD YOUR OWN FILES HERE...
   ; Put file there
   ;File /r "F:\apps\jvm\kasri-deploy\*"
-  File /r "G:\kasrr\kasri-deploy\*"
+  File /r "\*"
   
   ;Store installation folder
   WriteRegStr HKCU "Software\Wafsi" "" $INSTDIR
@@ -83,9 +83,9 @@ Section "core"
     
     ;Create shortcuts
     CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
-    CreateShortcut "$SMPROGRAMS\$StartMenuFolder\Wafsi.lnk" "$INSTDIR\Wafsi-1.1.exe"
+    CreateShortcut "$SMPROGRAMS\$StartMenuFolder\Wafsi.lnk" "$INSTDIR\Wafsi-1.2.exe"
     CreateShortcut "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk" "$INSTDIR\Uninstall.exe"
-	CreateShortcut "$desktop\Wafsi.lnk" "$INSTDIR\Wafsi-1.1.exe"
+	CreateShortcut "$desktop\Wafsi.lnk" "$INSTDIR\Wafsi-1.2.exe"
   
   !insertmacro MUI_STARTMENU_WRITE_END
 

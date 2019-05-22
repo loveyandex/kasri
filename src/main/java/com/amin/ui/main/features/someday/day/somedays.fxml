@@ -23,7 +23,7 @@
                     </image>
                 </ImageView>
             </graphic>
-            <GridPane fx:id="rootNode" alignment="TOP_CENTER" prefHeight="500.0" prefWidth="400.0"
+            <GridPane fx:id="rootNode" alignment="TOP_CENTER" prefHeight="450.0" prefWidth="400.0"
                       style="-fx-padding: 40px 0px 0px 0px">
                 <Label styleClass="lb" focusTraversable="true"
                        text="choose a feature"
@@ -120,7 +120,7 @@
                 </JFXComboBox>
 
 
-                <HBox style="-fx-padding: 40px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="17">
+                <HBox style="-fx-padding: 20px 0 0px 0" GridPane.columnIndex="0" GridPane.rowIndex="17">
 
                     <JFXButton fx:id="cancelBtn" styleClass="button" stylesheets="/buttons.css" text="Cancel"
                                translateX="50">
@@ -141,7 +141,7 @@
                 </ImageView>
             </graphic>
             <VBox fx:id="rootNodetab2" alignment="TOP_CENTER"
-                  style="-fx-padding: 40px 0px 0px 0px">
+                  style="-fx-padding: 20px 0px 0px 0px">
                 <HBox alignment="TOP_CENTER" minWidth="300" style="-fx-padding: 20px 0px 0px 0px">
                     <Label styleClass="lb" text="time zones: " minWidth="100"
                            style="-fx-padding: 0px 30px 0px 0px;"/>

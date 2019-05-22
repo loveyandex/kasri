@@ -176,14 +176,13 @@
                         </heading>
                         <body>
                             <VBox>
-                                <Label style="-fx-text-fill: #939555">Weather Analysis &amp; Flight Simulation
-                                    internationally
+                                <Label style="-fx-text-fill: #939555">Historical Weather Analysis And Forecasting
                                 </Label>
                                 <HBox>
                                     <Label style="-fx-text-fill: #88692e;-fx-font-size: 24px;">Developing by : </Label>
                                     <Label style="-fx-text-fill: #9a9e5b;-fx-font-size: 24px" text="${' Jubin Barte'}"></Label>
                                 </HBox>
-                                <Label style="-fx-text-fill: #6c6f3f">Version 1.1</Label>
+                                <Label style="-fx-text-fill: #6c6f3f">Version 1.2</Label>
                             </VBox>
 
                         </body>
@@ -312,7 +311,7 @@
         <VBox fx:id="isloadingvbox" alignment="BOTTOM_CENTER">
             <ImageView>
                 <image>
-                    <Image url="/drawable/dark-loading.gif"/>
+                    <Image url="/drawable/spiner-green.gif"/>
                 </image>
             </ImageView>
             <Label style="-fx-font-size: 14px;">is loading database...please wait to get ready</Label>
