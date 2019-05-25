@@ -35,8 +35,8 @@ public final class DatabaseHandler {
     private static Statement stmt = null;
 
     static {
-//        createConnection();
-        createConnection(DB_URL2);
+        createConnection();
+//        createConnection(DB_URL2);
         inflateDB();
     }
 

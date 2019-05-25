@@ -24,6 +24,8 @@ import java.util.stream.IntStream;
 public class Starter extends javafx.application.Application implements EventHandler<KeyEvent> {
 
     public static String ABSOLUTE_ROOT_PATH;
+    public static Label updating = new Label("");
+    ;
     public static String[] COUNTRIES;
     public static boolean terminateThread = false;
     Thread startProcess = new Thread(new Process());
@@ -101,7 +103,6 @@ public class Starter extends javafx.application.Application implements EventHand
         toyear.textProperty().addListener(new A<>()::changed);
 
 
-
         JFXComboBox<Label> countriesCombo = new JFXComboBox<>();
 
         try {
@@ -117,8 +118,8 @@ public class Starter extends javafx.application.Application implements EventHand
         rootNode.add(countriesCombo, 1, 5, 2, 1);
 
 
-        rootNode.add(fromyear,1,7);
-        rootNode.add(toyear,1,9);
+        rootNode.add(fromyear, 1, 7);
+        rootNode.add(toyear, 1, 9);
 
 
         Button aButton = new Button("Start Getting Data");
@@ -137,6 +138,9 @@ public class Starter extends javafx.application.Application implements EventHand
         ProgressIndicator pbar = new ProgressIndicator(ProgressIndicator.INDETERMINATE_PROGRESS);
         pbar.setVisible(false);
         rootNode.add(pbar, 1, 13);
+
+
+        rootNode.add(updating, 1, 15);
 
         aButton.setOnAction(e -> {
             ABSOLUTE_ROOT_PATH = firstValue.getText();
