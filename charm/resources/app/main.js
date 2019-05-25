@@ -13,7 +13,8 @@ function createWindow () {
   });
 
   // win.loadURL(`file://${__dirname}/dist/index.html`)
-  win.loadURL(`https://earth.nullschool.net`)
+  // win.loadURL(`https://earth.nullschool.net`)
+  win.loadURL(`https://earth.nullschool.net/#2018/10/26/1030Z/wind/surface/level/orthographic`)
 
 
   //// uncomment below to open the DevTools.

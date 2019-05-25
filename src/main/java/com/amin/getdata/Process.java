@@ -1,6 +1,7 @@
 package com.amin.getdata;
 
 import com.amin.ui.dialogs.Dialog;
+import javafx.application.Platform;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -220,7 +221,10 @@ public class Process implements Runnable {
             for (int i = 0; i < years.size(); i++) {
                 for (int j = 1; j <= 12; j++) {
                     if (!Starter.terminateThread) {
-                        System.out.println("year is > " + years.get(i) + " month: > " + j + "  is started dowing");
+                        String x = "year is  " + years.get(i) + " month: " + j + "  is started downing stations";
+                        System.out.println(x);
+                        Platform.runLater(() -> Starter.updating.setText(x));
+
                         Process.getData(Starter.ABSOLUTE_ROOT_PATH + "/" + Starter.COUNTRIES[k] + "/year_" + years.get(i) + "/month_" + String.valueOf(j),
                                 "config/stations/" + Starter.COUNTRIES[k] + "-stations.conf", years.get(i), String.valueOf(j));
                         try {

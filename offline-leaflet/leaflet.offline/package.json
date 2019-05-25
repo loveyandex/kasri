@@ -1,5 +1,5 @@
 {
-  "name": "leaflet.offline",
+  "name": "jubinleaflet",
   "version": "1.0.4",
   "description": "Offline tilelayer for leaflet",
   "main": "dist/bundle.js",
