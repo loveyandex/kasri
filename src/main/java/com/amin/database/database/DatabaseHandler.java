@@ -30,13 +30,13 @@ public final class DatabaseHandler {
     private static DatabaseHandler handler = null;
 
     private static final String DB_URL = "jdbc:derby:dbderby;create=true";
-    private static final String DB_URL2 = "jdbc:derby:dbderby2;create=true";
+    private static final String DB_URL2 = "jdbc:derby:dbderby3;create=true";
     private static Connection conn = null;
     private static Statement stmt = null;
 
     static {
-        createConnection();
-//        createConnection(DB_URL2);
+//        createConnection();
+        createConnection(DB_URL2);
         inflateDB();
     }
 

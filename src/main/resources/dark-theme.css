@@ -502,3 +502,7 @@
     -fx-background-color : derive(-fx-primary, 50%);
 
 }
+.list-view {
+    -fx-selection-bar:green ;
+    -fx-selection-bar-non-focused: green ;
+}
