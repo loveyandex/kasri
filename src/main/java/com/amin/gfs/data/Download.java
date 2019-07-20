@@ -46,10 +46,10 @@ public class Download {
         for (Element element : elementsByAttributeValue) {
             String name = element.attr("name");
             if (name.contains("lev_")) {
-                System.out.println(element.attr("name").replaceAll("_", " ").replaceFirst("lev", ""));
+                System.out.println(element.attr("name"));
                 levels.add(name);
             } else if (name.contains("var_")) {
-                System.err.println(element.attr("name").replaceAll("_", " ").replaceFirst("var", ""));
+                System.err.println(element.attr("name"));
                 vars.add(name);
 
             }
@@ -67,11 +67,12 @@ public class Download {
         String hour = "18";
         String dir = "&dir=%2Fgfs."+year+month+day+"%2F"+hour;
 
-        String levv = "";
-        for (int i = 0; i < ((int) (Math.random() * 4)); i++) {
+        String levv = "&all_lev=on";
+         levv = "";
+        for (int i = 0; i < ((int) (15)); i++) {
             levv+="&"+levels.get(i)+"=on";
         }
-        String varr = "";
+        String varr = "&var_TMP=on";
         for (int i = 0; i < ((int) (Math.random() * 4)); i++) {
             varr+="&"+vars.get(i)+"=on";
         }
@@ -83,11 +84,11 @@ public class Download {
 
 
         String spec = path0_18z + levv + varr + others + others+dir;
-
+        System.out.println(spec);
         URL website = new URL(spec);
 
         ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-        FileOutputStream fos = new FileOutputStream("kini.f000");
+        FileOutputStream fos = new FileOutputStream("gfkini.f000");
         fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
     }
 }
