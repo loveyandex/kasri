@@ -35,6 +35,7 @@ public class Download {
     }
 
     public static void main(String[] args) throws IOException {
+        //F:\apps\startup\grib2json\src\bin\grib2jso.cmd -n -d  -o ./sd.json god.f000
 
         Element body = Jsoup.connect("https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_1p00.pl?dir=%2Fgfs.20190727%2F00").get().body();
 
