@@ -17,3 +17,4 @@ samples-data/*
 /nodejs
 /earth/node_modules
 /http-server/node_modules
+*.log
