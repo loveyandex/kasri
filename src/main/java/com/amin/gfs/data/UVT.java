@@ -15,54 +15,59 @@ import java.util.Date;
  */
 
 public class UVT {
-    public static void main(String[] args) throws IOException {
-        Date datew = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-        final Calendar calendar = Calendar.getInstance();
-        calendar.setTime(datew);
-        calendar.add(Calendar.DAY_OF_YEAR, -2);
-        Date date1 = calendar.getTime();
-        String date = formatter.format(date1);
+    public static void main(String[] args) throws IOException, InterruptedException {
+        boolean nextday = true;
+        while (nextday) {
+
+            Date datew = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+            final Calendar calendar = Calendar.getInstance();
+            calendar.setTime(datew);
+            calendar.add(Calendar.DAY_OF_YEAR, -1);
+            Date date1 = calendar.getTime();
+            String date = formatter.format(date1);
 
 
-        String[] clocks = {"00", "06", "12", "18"};
+            String[] clocks = {"00", "06", "12", "18"};
 
-        for (int i = 0; i < clocks.length; i++) {
-            String clock = clocks[i];
+            for (int i = 0; i < clocks.length; i++) {
+                String clock = clocks[i];
 
-            String time = clock;
+                String time = clock;
 
-            String uv = "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_1p00.pl?file=gfs.t" + time + "z.pgrb2.1p00.f000&lev_planetary_boundary_layer=on&var_UGRD=on&var_VGRD=on&leftlon=0&rightlon=360&toplat=90&bottomlat=-90&dir=%2Fgfs."
-                    + date
-                    + "%2F" + time;
-            String temp = "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_1p00.pl?file=gfs.t" + time + "z.pgrb2.1p00.f000&lev_surface=on&var_TMP=on&leftlon=0&rightlon=360&toplat=90&bottomlat=-90&dir=%2Fgfs."
-                    + date
-                    + "%2F" + time;
-
-
-            System.out.println(uv);
-            URL website = new URL(uv);
-            String dt=date+"_"+time;
+                String uv = "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_1p00.pl?file=gfs.t" + time + "z.pgrb2.1p00.f000&lev_planetary_boundary_layer=on&var_UGRD=on&var_VGRD=on&leftlon=0&rightlon=360&toplat=90&bottomlat=-90&dir=%2Fgfs."
+                        + date
+                        + "%2F" + time;
+                String temp = "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_1p00.pl?file=gfs.t" + time + "z.pgrb2.1p00.f000&lev_surface=on&var_TMP=on&leftlon=0&rightlon=360&toplat=90&bottomlat=-90&dir=%2Fgfs."
+                        + date
+                        + "%2F" + time;
 
 
-
-            ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-            FileOutputStream fos = new FileOutputStream("nws-data/uv_" + dt + ".f000");
-            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-
-            System.out.println("writted uv" + time);
+                System.out.println(uv);
+                URL website = new URL(uv);
+                String dt = date + "_" + time;
 
 
-            System.out.println(temp);
-            URL website2 = new URL(temp);
+                ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+                FileOutputStream fos = new FileOutputStream("nws-data/uv_" + dt + ".f000");
+                fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 
-            ReadableByteChannel rbce = Channels.newChannel(website2.openStream());
-            FileOutputStream fos2 = new FileOutputStream("nws-data/temp_" + dt + ".f000");
-            fos2.getChannel().transferFrom(rbce, 0, Long.MAX_VALUE);
+                System.out.println("writted uv" + time);
 
-            System.out.println("written temp" + time);
 
+                System.out.println(temp);
+                URL website2 = new URL(temp);
+
+                ReadableByteChannel rbce = Channels.newChannel(website2.openStream());
+                FileOutputStream fos2 = new FileOutputStream("nws-data/temp_" + dt + ".f000");
+                fos2.getChannel().transferFrom(rbce, 0, Long.MAX_VALUE);
+
+                System.out.println("written temp" + time);
+
+            }
+            Thread.sleep(24 * 60 * 60 * 1000);
         }
+
 
     }
 }
