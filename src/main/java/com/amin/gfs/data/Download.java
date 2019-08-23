@@ -35,8 +35,9 @@ public class Download {
     }
 
     public static void main(String[] args) throws IOException {
+        //F:\apps\startup\grib2json\src\bin\grib2jso.cmd -n -d  -o ./sd.json god.f000
 
-        Element body = Jsoup.connect("https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_1p00.pl?dir=%2Fgfs.20190715%2F00").get().body();
+        Element body = Jsoup.connect("https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_1p00.pl?dir=%2Fgfs.20190727%2F00").get().body();
 
         Elements elementsByAttributeValue = body.getElementsByAttributeValue("type", "checkbox");
 
@@ -61,9 +62,9 @@ public class Download {
         String path0_18z = "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_1p00.pl?file=gfs.t18z.pgrb2.1p00.f000";
         String path0_12z = "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_1p00.pl?file=gfs.t12z.pgrb2.1p00.f000";
 
-        String year = "2019";
+        String year = "2018";
         String month = "07";
-        String day = "14";
+        String day = "27";
         String hour = "18";
         String dir = "&dir=%2Fgfs."+year+month+day+"%2F"+hour;
 
@@ -88,7 +89,7 @@ public class Download {
         URL website = new URL(spec);
 
         ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-        FileOutputStream fos = new FileOutputStream("gfkini.f000");
+        FileOutputStream fos = new FileOutputStream("d.f000");
         fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
     }
 }

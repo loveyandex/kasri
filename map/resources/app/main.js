@@ -14,7 +14,7 @@ function createWindow () {
 
   // win.loadURL(`file://${__dirname}/dist/index.html`)
   // win.loadURL(`https://earth.nullschool.net`)
-  win.loadURL(`http://localhost:5050/`)
+  win.loadURL(`http://tv.aut.ac.ir/tv3`)
 
 
   //// uncomment below to open the DevTools.
