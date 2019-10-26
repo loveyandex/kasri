@@ -66,18 +66,16 @@ public final class DatabaseHandler {
                 String tableName = entry.getAttribute("name");
                 String query = entry.getAttribute("query");
                 if (!loadedTables.contains(tableName.toLowerCase())) {
-                    tableData.add( query);
+                    tableData.add(query);
                 }
             }
             if (tableData.isEmpty()) {
                 System.out.println("Tables are already loaded");
-            }
-            else {
+            } else {
                 System.out.println("Inflating new tables.");
                 createTables(tableData);
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             LOGGER.log(Level.ERROR, "{}", ex);
         }
     }
@@ -88,21 +86,20 @@ public final class DatabaseHandler {
             System.out.println("after class forname");
             conn = DriverManager.getConnection(DB_URL);
             System.out.println("after db_url connection");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Cant load database", "Database Error", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
     }
+
     private static void createConnection(String dburl) {
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
             System.out.println("after class forname");
             conn = DriverManager.getConnection(dburl);
             System.out.println("after db_url connection");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Cant load database", "Database Error", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
@@ -124,8 +121,6 @@ public final class DatabaseHandler {
     }
 
 
-
-
     public static ResultSet execQuery(String query) {
         ResultSet result;
         try {
@@ -145,19 +140,17 @@ public final class DatabaseHandler {
             stmt = conn.createStatement();
             stmt.execute(qu);
             return true;
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error:" + ex.getMessage(), "Error Occured", JOptionPane.ERROR_MESSAGE);
             System.out.println("Exception at execQuery:dataHandler" + ex.getLocalizedMessage());
             return false;
-        }
-        finally {
+        } finally {
         }
     }
 
 
     public static void main(String[] args) throws Exception {
-        final Station station = new Station().setStationNumber("23232").setCountry("godconute").setCityName("ko").setLatLong(new LatLon(23.23, -83.23*Math.random()));
+        final Station station = new Station().setStationNumber("23232").setCountry("godconute").setCityName("ko").setLatLong(new LatLon(23.23, -83.23 * Math.random()));
 //        DatabaseHandler.getInstance().insertStations(station);
 
         final ObservableList<PieChart.Data> getstations = DatabaseHandler.getInstance().getstations();
@@ -176,8 +169,7 @@ public final class DatabaseHandler {
                 int count = rs.getInt(1);
                 data.add(new PieChart.Data("Total stations (" + count + ")", count));
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return data;
@@ -190,7 +182,7 @@ public final class DatabaseHandler {
 
         preparedStatement.setString(1, station.getStationNumber());
         preparedStatement.setString(2, station.getCountry());
-        preparedStatement.setString(3,station.getCityName());
+        preparedStatement.setString(3, station.getCityName());
         preparedStatement.setString(4, String.valueOf(station.getLatLong().getLat()));
         preparedStatement.setString(5, String.valueOf(station.getLatLong().getLogn()));
         preparedStatement.executeUpdate();

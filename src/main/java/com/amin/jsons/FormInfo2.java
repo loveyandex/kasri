@@ -8,8 +8,10 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class FormInfo {
-    private Date Date;
+public class FormInfo2 {
+    private int month;
+    private int day;
+    private int year;
     private String feaureName;
     private String StationNumber;
     private String StationName;
@@ -19,11 +21,13 @@ public class FormInfo {
     private Number highYear;
     private String featureUnit;
 
-    public FormInfo() {
+    public FormInfo2() {
     }
 
-    public FormInfo(com.amin.jsons.Date date, String feaureName, String stationNumber, String stationName, String country, String height, Number lowerYear, Number highYear, String featureUnit) {
-        this.Date = date;
+    public FormInfo2(int month, int day, int year, String feaureName, String stationNumber, String stationName, String country, String height, Number lowerYear, Number highYear, String featureUnit) {
+        this.month=month;
+        this.year=year;
+        this.day = day;
         this.feaureName = feaureName;
         StationNumber = stationNumber;
         StationName = stationName;

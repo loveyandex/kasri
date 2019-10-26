@@ -43,7 +43,7 @@ public class Charting {
         xAxis.setTickLabelFormatter(new StringConverter<Number>() {
             @Override
             public String toString(Number object) {
-                return object.intValue()+"";
+                return object.intValue() + "";
             }
 
             @Override
@@ -54,7 +54,7 @@ public class Charting {
         yAxis.setTickLabelFormatter(new StringConverter<Number>() {
             @Override
             public String toString(Number object) {
-                return  String.format("%.2f",object.doubleValue());
+                return String.format("%.2f", object.doubleValue());
             }
 
             @Override
@@ -62,7 +62,6 @@ public class Charting {
                 return null;
             }
         });
-
 
 
         xAxis.setLabel(Xlabel);
@@ -144,7 +143,6 @@ public class Charting {
     }
 
 
-
     public ArrayList<ArrayList<Double>> addSeriesToChartSimple(String title, String seriesName, String dayfilePath, int col1, int col2
             , String featurename, String unitname) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         ArrayList<ArrayList<Double>> arrayListArrayList = new ArrayList<>();
@@ -160,7 +158,8 @@ public class Charting {
                 double v0 = Double.parseDouble(col1Col2.get(j).get(0));
                 double v1 = Double.parseDouble(col1Col2.get(j).get(1));
                 Double invokeDouble = ((Double) method.invoke(this, v1));
-                doubleArrayList.add(v0);;
+                doubleArrayList.add(v0);
+                ;
                 doubleArrayList.add(invokeDouble);
 
                 series1.getData().add(new XYChart.Data(v0, ((double) invokeDouble)));
@@ -172,26 +171,31 @@ public class Charting {
     }
 
 
-
-
-
-  static   public ArrayList<ArrayList<Double>> returnCOlCol2Data(String title, String seriesName, String dayfilePath, int col1, int col2
+    static public ArrayList<ArrayList<Double>> returnCOlCol2Data(String title, String seriesName, String dayfilePath, int col1, int col2
             , String featurename, String unitname) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+
+        if (dayfilePath.contains("1990")) {
+            System.out.println();
+        }
+
         ArrayList<ArrayList<Double>> arrayListArrayList = new ArrayList<>();
         int cti = convertTogether(featurename, unitname);
         Method method;
         method = Charting.class.getMethod("conv" + cti, double.class);
         ArrayList<ArrayList<String>> col1Col2 = OldMapping.getCol1Col2(dayfilePath, col1, col2);
-        for (int j = 2; j < col1Col2.size() - 1; j++) {
+        for (int j = 2; j < col1Col2.size(); j++) {
             if (!col1Col2.get(j).get(0).equals("NULL") && !col1Col2.get(j).get(1).equals("NULL")) {
                 ArrayList<Double> doubleArrayList = new ArrayList<>(2);
-                double v0 = Double.parseDouble(col1Col2.get(j).get(0));
-                double v1 = Double.parseDouble(col1Col2.get(j).get(1));
-                Double invokeDouble = ((Double) method.invoke(new Charting(),v1));
-                doubleArrayList.add(v0);
-                doubleArrayList.add(invokeDouble);
-                arrayListArrayList.add(doubleArrayList);
-
+                try {
+                    double v0 = Double.parseDouble(col1Col2.get(j).get(0));
+                    double v1 = Double.parseDouble(col1Col2.get(j).get(1));
+                    Double invokeDouble = ((Double) method.invoke(new Charting(), v1));
+                    doubleArrayList.add(v0);
+                    doubleArrayList.add(invokeDouble);
+                    arrayListArrayList.add(doubleArrayList);
+                } catch (java.lang.NumberFormatException e) {
+                    System.err.println(e);
+                }
             }
         }
         return arrayListArrayList;
@@ -240,7 +244,7 @@ public class Charting {
     }
 
 
-  static   public int convertTogether(String featurename, String unitname) {
+    static public int convertTogether(String featurename, String unitname) {
         if (featurename.equals(Features.PRES.getName())) {
 
             if (unitname.equals("hPa")) {
@@ -288,7 +292,9 @@ public class Charting {
             }
 
         } else if (featurename.equals(Features.TEMP.getName()) || featurename.equals(Features.DWPT.getName())) {
-            if (unitname.equals(UnitConvertor.TEMP.units.getCelsius().toString())) {
+            String anObject = UnitConvertor.TEMP.units.getCelsius().toString();
+            System.out.println("vahel:" + anObject);
+            if (unitname.equals(anObject)) {
                 return 18;
 
             } else if (unitname.equals(UnitConvertor.TEMP.units.getKelvin().toString())) {
@@ -510,7 +516,6 @@ public class Charting {
             series.getData().add(new XYChart.Data(years.get(i), knots.get(i)));
             avgseries.getData().add(new XYChart.Data(years.get(i), avgknots));
         }
-
 
 
         sc.getData().addAll(series, avgseries);

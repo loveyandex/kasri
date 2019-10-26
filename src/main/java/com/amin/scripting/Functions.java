@@ -12,6 +12,7 @@ import com.amin.ui.StageOverride;
 import com.amin.ui.dialogs.Dialog;
 import com.amin.ui.main.features.day.FormDayController;
 import com.amin.ui.main.main.Charting;
+import com.amin.ui.web.OndayResponseEntity;
 import com.google.gson.Gson;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -32,7 +33,9 @@ import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Vector;
+import java.util.stream.Stream;
 
 import static com.amin.ui.main.features.allheight.AntiHeightDayController.getFeatures;
 
@@ -569,6 +572,174 @@ public class Functions {
         return null;
     }
 
+
+    public ArrayList<OndayResponseEntity> Api_onDayOneHeightOneStation(FormInfo formInfo) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        ArrayList<OndayResponseEntity> ondayResponseEntities = new ArrayList<>();
+        ArrayList<OndayResponseEntity> removableondayResponseEntities = new ArrayList<>();
+        if (!AllfeatureAndYear.isEmpty()) AllfeatureAndYear.clear();
+        int fromYear = formInfo.getLowerYear().intValue();
+        int toYear = formInfo.getHighYear().intValue();
+        String featureName = formInfo.getFeaureName();
+        int featureIndexCSV = getfeatureIndex(featureName).getLevelCode() - 1;
+        String unit = formInfo.getFeatureUnit();
+
+        int numDay = formInfo.getDate().Day;
+        String dayOfMonth = (numDay < 10 ? "0" : "") + numDay;
+        int monthInt = formInfo.getDate().Month;
+        Month month = Month.of(monthInt);
+        String monthDisp = month.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+
+        String country = formInfo.getCountry();
+        String stationNumber = formInfo.getStationNumber();
+        String height = formInfo.getHeight();
+
+
+        ArrayList<Double> knotslist = new ArrayList<>();
+        ArrayList<Integer> yearsofFeature = new ArrayList<>();
+
+        String[] z = {"00Z", "12Z"};
+        ArrayList<ArrayList<ArrayList<Double>>> all = new ArrayList<>();
+        ArrayList<String> titles = new ArrayList<String>();
+        ArrayList<String> seriecsnAMES = new ArrayList<String>();
+        ArrayList<Double> yearsdata = new ArrayList<>();
+
+        for (int id = 0; id < 2; id++) {
+
+            String Z = z[id];
+            for (int i = fromYear; i <= toYear; i++) {
+                ArrayList<Object> featureAndYear = new ArrayList<>();
+                String rootDir = C.THIRDY_PATH + File.separator + country + File.separator + "year_" + i + File.separator + "month_" + monthInt + File.separator + stationNumber;
+                String fileName = Z + "_" + dayOfMonth + "_" + monthDisp + "_" + i + ".csv";
+                ArrayList<ArrayList<Double>> heightAndFeature;
+                try {
+                    final String title = featureName;
+                    final String seriesName = Z + "_" + i;
+                    heightAndFeature = Charting.returnCOlCol2Data(title
+                            , seriesName,
+                            rootDir + File.separator + fileName, 1, featureIndexCSV, featureName, unit);
+
+                    seriecsnAMES.add(seriesName);
+                    titles.add(title);
+                    yearsdata.add((double) i);
+                    all.add(heightAndFeature);
+
+                    Double intrapolatedKnot = intrapolateFeature(height, heightAndFeature);
+
+                    if (intrapolatedKnot != null) {
+                        knotslist.add(intrapolatedKnot);
+                        featureAndYear.add(((Double) intrapolatedKnot));
+                        featureAndYear.add(i);
+                        featureAndYear.add(unit);
+                        yearsofFeature.add(i);
+
+                        int finalI = i;
+
+                        Optional<OndayResponseEntity> first = ondayResponseEntities.stream()
+                                .filter(ondayResponseEntity1 ->
+                                        ondayResponseEntity1.getName().equals(String.valueOf(finalI)))
+                                .findFirst();
+
+                        if (first.isPresent()) {
+                            System.out.println(i + Z);
+                            first.get().setValue2(intrapolatedKnot);
+                            if (first.get().getValue1() == -10000)
+                                first.get().setValue1(intrapolatedKnot);
+                        } else {
+                            OndayResponseEntity ondayResponseEntity = new OndayResponseEntity();
+                            ondayResponseEntity
+                                    .setName(String.valueOf(i))
+                                    .setUnit(unit)
+                                    .setValue1(intrapolatedKnot)
+                            ;
+                            ondayResponseEntities.add(ondayResponseEntity);
+                            System.out.println(i + Z);
+                        }
+
+
+                        AllfeatureAndYear.add(featureAndYear);
+                    } else {
+                        int finalI = i;
+
+                        Optional<OndayResponseEntity> first = ondayResponseEntities.stream()
+                                .filter(ondayResponseEntity1 ->
+                                        ondayResponseEntity1.getName().equals(String.valueOf(finalI)))
+                                .findFirst();
+
+                        if (!first.isPresent()) {
+                            OndayResponseEntity ondayResponseEntity = new OndayResponseEntity();
+                            ondayResponseEntity
+                                    .setName(String.valueOf(i))
+                                    .setUnit(unit)
+                                    .setValue1(-10000)
+                            ;
+                            ondayResponseEntities.add(ondayResponseEntity);
+                        }
+
+                        System.out.println(i + "==" + Z + "==" + rootDir + "//" + fileName);
+                    }
+
+
+                } catch (IOException e) {
+                    int finalI1 = i;
+                    Stream<OndayResponseEntity> ondayResponseEntityStream = ondayResponseEntities.stream()
+                            .filter(ondayResponseEntity -> ondayResponseEntity.getName().equals(String.valueOf(finalI1)));
+                    Optional<OndayResponseEntity> first = ondayResponseEntityStream.findFirst();
+                    if (first.isPresent()) {
+                        if (first.get().getValue1() == -10000 && first.get().getValue2() == 9000) {
+                            ondayResponseEntities.remove(first.get());
+                        }
+                    }else {
+                        if (Z.equals(z[0])) {
+                            OndayResponseEntity ondayResponseEntity = new OndayResponseEntity();
+                            ondayResponseEntity
+                                    .setName(String.valueOf(i))
+                                    .setUnit(unit)
+                                    .setValue1(-10000)
+                            ;
+                            ondayResponseEntities.add(ondayResponseEntity);
+                        }else {
+                            OndayResponseEntity ondayResponseEntity = new OndayResponseEntity();
+                            ondayResponseEntity
+                                    .setName(String.valueOf(i))
+                                    .setUnit(unit)
+                            ;
+                            ondayResponseEntities.add(ondayResponseEntity);
+                        }
+                    }
+
+                    ioExceptions.add(e);
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        ondayResponseEntities.stream()
+                .filter(ondayResponseEntity ->
+                        ondayResponseEntity.getValue2() == 9000 && ondayResponseEntity.getValue1() != -10000)
+                .forEach(ondayResponseEntity -> {
+                    ondayResponseEntity.setValue2(ondayResponseEntity.getValue1());
+                });
+
+        ondayResponseEntities.stream()
+                .filter(ondayResponseEntity ->
+                        ondayResponseEntity.getValue2() == 9000 && ondayResponseEntity.getValue1() == -10000)
+                .forEach(ondayResponseEntity -> {
+                    removableondayResponseEntities.add(ondayResponseEntity);
+                });
+
+        for (OndayResponseEntity removableondayResponseEntity : removableondayResponseEntities) {
+            ondayResponseEntities.remove(removableondayResponseEntity);
+        }
+
+
+        return (ondayResponseEntities);
+
+    }
 
     public void someDaysOneHeightOneStations(SomeDays someDays) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         if (!AllfeatureAndYear.isEmpty()) AllfeatureAndYear.clear();

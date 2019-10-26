@@ -51,7 +51,7 @@
                    prefWidth="90.0" styleClass="login-button" text="ANN"/>
 
         <FontAwesomeIconView glyphName="ADJUST" layoutX="200.0" layoutY="79.0" size="25"/>
-        <Label fx:id="cityLable"  layoutX="175.0" layoutY="90.0" >king in the north</Label>
+        <Label fx:id="cityLable"  layoutX="175.0" layoutY="90.0" >Mapless Configuration</Label>
         <FontAwesomeIconView glyphName="USER" layoutX="64.0" layoutY="149.0" size="25"/>
         <FontAwesomeIconView glyphName="KEY" layoutX="64.0" layoutY="224.0" size="25"/>
 

@@ -24,12 +24,13 @@ public class Download {
 
     OkHttpClient client = new OkHttpClient();
 
-    String run(String url) throws IOException {
+    public String run(String url) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
+            System.out.println(response.header("status"));
             return response.body().string();
         }
     }
@@ -66,25 +67,25 @@ public class Download {
         String month = "07";
         String day = "27";
         String hour = "18";
-        String dir = "&dir=%2Fgfs."+year+month+day+"%2F"+hour;
+        String dir = "&dir=%2Fgfs." + year + month + day + "%2F" + hour;
 
         String levv = "&all_lev=on";
-         levv = "";
+        levv = "";
         for (int i = 0; i < ((int) (15)); i++) {
-            levv+="&"+levels.get(i)+"=on";
+            levv += "&" + levels.get(i) + "=on";
         }
         String varr = "&var_TMP=on";
         for (int i = 0; i < ((int) (Math.random() * 4)); i++) {
-            varr+="&"+vars.get(i)+"=on";
+            varr += "&" + vars.get(i) + "=on";
         }
 
-        System.out.println("levv "+levv);
-        System.out.println("varss "+varr);
+        System.out.println("levv " + levv);
+        System.out.println("varss " + varr);
 
         String others = "&leftlon=0&rightlon=360&toplat=90&bottomlat=-90";
 
 
-        String spec = path0_18z + levv + varr + others + others+dir;
+        String spec = path0_18z + levv + varr + others + others + dir;
         System.out.println(spec);
         URL website = new URL(spec);
 
