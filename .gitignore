@@ -12,3 +12,4 @@ samples-data/*
 /earth/node_modules
 /http-server/node_modules
 *.log
+/nodejs/node_modules

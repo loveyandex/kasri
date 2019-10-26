@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://shafiqmustapa.my/test.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Simple Leaflet Map with Heatmap </title>
+    
+    <link rel="stylesheet" href="./Simple Leaflet Map with Heatmap_files/leaflet.css">
+</head>
+<body class="">
+    <div id="map" style="width: 600px; height: 400px; position: relative;" class="leaflet-container leaflet-fade-anim" tabindex="0"><div class="leaflet-map-pane" style="transform: translate3d(-185px, 105px, 0px);"><div class="leaflet-tile-pane"><div class="leaflet-layer"><div class="leaflet-tile-container leaflet-zoom-animated" style=""></div><div class="leaflet-tile-container leaflet-zoom-animated" style=""><img class="leaflet-tile leaflet-tile-loaded" src="./Simple Leaflet Map with Heatmap_files/7.png" style="height: 256px; width: 256px; left: 291px; top: -139px;"><img class="leaflet-tile leaflet-tile-loaded" src="./Simple Leaflet Map with Heatmap_files/8.png" style="height: 256px; width: 256px; left: 291px; top: 117px;"><img class="leaflet-tile leaflet-tile-loaded" src="./Simple Leaflet Map with Heatmap_files/7(1).png" style="height: 256px; width: 256px; left: 35px; top: -139px;"><img class="leaflet-tile leaflet-tile-loaded" src="./Simple Leaflet Map with Heatmap_files/7(2).png" style="height: 256px; width: 256px; left: 547px; top: -139px;"><img class="leaflet-tile leaflet-tile-loaded" src="./Simple Leaflet Map with Heatmap_files/8(1).png" style="height: 256px; width: 256px; left: 35px; top: 117px;"><img class="leaflet-tile leaflet-tile-loaded" src="./Simple Leaflet Map with Heatmap_files/8(2).png" style="height: 256px; width: 256px; left: 547px; top: 117px;"></div></div></div><div class="leaflet-objects-pane"><div class="leaflet-shadow-pane"></div><div class="leaflet-overlay-pane"><canvas class="leaflet-heatmap-layer leaflet-layer leaflet-zoom-animated" width="600" height="400" style="transform-origin: 50% 50%; transform: translate3d(185px, -105px, 0px);"></canvas></div><div class="leaflet-marker-pane"></div><div class="leaflet-popup-pane"></div></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="http://shafiqmustapa.my/test.html#" title="Zoom in">+</a><a class="leaflet-control-zoom-out" href="http://shafiqmustapa.my/test.html#" title="Zoom out">-</a></div></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="http://leafletjs.com/" title="A JS library for interactive maps">Leaflet</a> | © <a href="http://openstreetmap.org/">OpenStreetMap</a> Contributors</div></div></div></div>
+
+    <script src="./Simple Leaflet Map with Heatmap_files/leaflet.js.download"></script>
+    
+    <script src="./Simple Leaflet Map with Heatmap_files/leaflet-heat.js.download"></script>
+	<script src="./Simple Leaflet Map with Heatmap_files/quakepoint2.js.download"></script>
+    <script>
+
+        var map = L.map('map').setView([4.385230,107.932221], 5);
+        mapLink = 
+            '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+        L.tileLayer(
+            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; ' + mapLink + ' Contributors',
+            maxZoom: 18,
+        }).addTo(map);
+        
+        var heat = L.heatLayer(quakepoints,{
+            radius: 20,
+            blur: 15, 
+            maxZoom: 17,
+            /*
+            gradient: {
+                0: "green",
+              0.25: "rgb(77,245,0)", 
+              0.55: "rgb(242,247,4)", 
+              0.85: "rgb(252,177,0)", 
+              1: "rgb(255,0,0)"
+            }*/
+        }).addTo(map);
+				
+    </script>
+
+
+</body></html>
