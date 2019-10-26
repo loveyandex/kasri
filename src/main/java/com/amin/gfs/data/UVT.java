@@ -23,7 +23,7 @@ public class UVT {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
             final Calendar calendar = Calendar.getInstance();
             calendar.setTime(datew);
-            calendar.add(Calendar.DAY_OF_YEAR, -1);
+            calendar.add(Calendar.DAY_OF_YEAR, -3);
             Date date1 = calendar.getTime();
             String date = formatter.format(date1);
 
