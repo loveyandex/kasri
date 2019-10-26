@@ -58,6 +58,7 @@ public class UVT {
                 System.out.println(temp);
                 URL website2 = new URL(temp);
 
+
                 ReadableByteChannel rbce = Channels.newChannel(website2.openStream());
                 FileOutputStream fos2 = new FileOutputStream("nws-data/temp_" + dt + ".f000");
                 fos2.getChannel().transferFrom(rbce, 0, Long.MAX_VALUE);
