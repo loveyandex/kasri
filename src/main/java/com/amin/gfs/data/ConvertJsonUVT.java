@@ -13,6 +13,9 @@ public class ConvertJsonUVT {
     public static void main(String[] args) throws IOException {
 
 
+
+
+
         File file = new File("nws-data/");
         for (File listFile : file.listFiles()) {
             String outo = "nws-json/" + listFile.getName() + ".json";
