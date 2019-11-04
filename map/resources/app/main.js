@@ -13,10 +13,9 @@ function createWindow () {
   });
 
   // win.loadURL(`file://${__dirname}/dist/index.html`)
-  // win.loadURL(`https://earth.nullschool.net`)
-  win.loadURL(`http://tv.aut.ac.ir/tv3`)
+   //win.loadURL(`https://earth.nullschool.net`)
 
-
+ win.loadURL('http://localhost:30011')
   //// uncomment below to open the DevTools.
   // win.webContents.openDevTools()
 
